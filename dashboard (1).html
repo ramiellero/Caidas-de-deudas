@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debt Maturity Profile — IRSA &amp; Cresud</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #EAECEF;
+      color: #0F172A;
+      font-feature-settings: 'tnum';
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Navigation ── */
+    .nav {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .nav-logo {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #94A3B8;
+      margin-right: 24px;
+      padding-right: 24px;
+      border-right: 1px solid #E2E8F0;
+    }
+    .nav-tab {
+      padding: 14px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      color: #94A3B8;
+      transition: color 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .nav-tab:hover { color: #334155; }
+    .nav-tab.active[data-co="irsa"]   { color: #1D4B6E; border-bottom-color: #1D4B6E; }
+    .nav-tab.active[data-co="cresud"] { color: #1A3D2A; border-bottom-color: #1A3D2A; }
+
+    /* ── Section visibility ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── Slide header ── */
+    .slide-header {
+      display: flex;
+      align-items: center;
+      padding: 11px 32px;
+      position: relative;
+    }
+    .logo-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      padding: 4px 11px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: #fff;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .header-ir {
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-left: 12px;
+    }
+    .header-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .header-date {
+      margin-left: auto;
+      font-size: 10.5px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Content wrapper ── */
+    .content {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 28px 32px 40px;
+    }
+
+    /* ── Two-column grid ── */
+    .grid-2 {
+      display: grid;
+      gap: 44px;
+    }
+    .grid-40-60 { grid-template-columns: 2fr 3fr; }
+    .grid-35-65 { grid-template-columns: 2.1fr 3.9fr; }
+
+    /* ── Section label (slide-style) ── */
+    .section-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    .usd-note {
+      font-size: 10.5px;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      color: #64748B;
+      margin-left: 8px;
+    }
+
+    /* ── KPI box ── */
+    .kpi-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 16px;
+      margin-bottom: 20px;
+    }
+    .kpi-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+    .kpi-value {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── Emission table (IRSA left panel) ── */
+    .emission-wrap {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+    }
+    .emission-header {
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-align: center;
+      background: #1D4B6E;
+    }
+    .emission-table { width: 100%; border-collapse: collapse; }
+    .emission-table tr td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #EFF2F5;
+      font-size: 12.5px;
+      vertical-align: middle;
+    }
+    .emission-table tr td:first-child {
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #64748B;
+      background: #F8FAFC;
+      width: 48%;
+    }
+    .emission-table tr td:last-child {
+      font-weight: 600;
+      color: #0F172A;
+      text-align: center;
+    }
+    .emission-table tr.total-row td {
+      background: #1D4B6E !important;
+      color: #fff !important;
+      font-size: 15px !important;
+      font-weight: 700 !important;
+      padding: 13px 14px !important;
+      border-bottom: none !important;
+    }
+    .emission-table tr.total-row td:first-child {
+      letter-spacing: 0.09em;
+    }
+
+    /* ── IRSA info tables (right panel top) ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .info-table { width: 100%; border-collapse: collapse; }
+    .info-table thead th {
+      padding: 8px 12px;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #fff;
+      text-align: left;
+      background: #1D4B6E;
+    }
+    .info-table tbody td {
+      padding: 7px 12px;
+      font-size: 12.5px;
+      border-bottom: 1px solid #EFF2F5;
+    }
+    .info-table tbody td:first-child { color: #334155; font-weight: 400; }
+    .info-table tbody td:last-child  { color: #0F172A;  font-weight: 700; text-align: right; }
+
+    /* ── Cresud callout boxes ── */
+    .callout-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .callout {
+      border: 2px dashed #E8960C;
+      background: rgba(232,150,12,0.035);
+      padding: 10px 12px;
+    }
+    .callout-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #1A3D2A;
+      margin-bottom: 6px;
+    }
+    .callout-row-item {
+      font-size: 10.5px;
+      color: #334155;
+      line-height: 1.65;
+    }
+    .callout-row-item b { font-weight: 600; }
+
+    /* ── Chart containers ── */
+    .chart-wrap { position: relative; width: 100%; }
+    .chart-note {
+      font-size: 9.5px;
+      color: #94A3B8;
+      margin-top: 5px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 11px 32px;
+      font-size: 9.5px;
+      color: #94A3B8;
+      background: #fff;
+      border-top: 1px solid #E2E8F0;
+      letter-spacing: 0.02em;
+      line-height: 1.5;
+    }
+
+    /* ── View toggle ── */
+    .view-toggle {
+      display: flex;
+      gap: 2px;
+      background: #E2E8F0;
+      border-radius: 4px;
+      padding: 3px;
+      width: fit-content;
+      margin-bottom: 16px;
+    }
+    .toggle-btn {
+      padding: 5px 14px;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      background: transparent;
+      color: #94A3B8;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .toggle-btn.active-irsa   { background: #1D4B6E; color: #fff; }
+    .toggle-btn.active-cresud { background: #1A3D2A; color: #fff; }
+
+    /* ── Maturity detail table ── */
+    .mat-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+    }
+    .mat-table thead th {
+      padding: 8px 14px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #fff;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .mat-table thead th.r { text-align: right; }
+    .mat-table tbody td {
+      padding: 7px 14px;
+      font-size: 12px;
+      color: #334155;
+      border-bottom: 1px solid #EFF2F5;
+      white-space: nowrap;
+    }
+    .mat-table tbody tr:hover td { background: #F8FAFC; }
+    .mat-table tbody td.num {
+      text-align: right;
+      font-weight: 600;
+      color: #0F172A;
+      font-variant-numeric: tabular-nums;
+    }
+    .mat-table tbody td.fy {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #94A3B8;
+      text-transform: uppercase;
+    }
+    .mat-table tfoot td {
+      padding: 9px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      border-top: 2px solid #E2E8F0;
+    }
+    .mat-table tfoot td.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Currency pie section ── */
+    .currency-section {
+      margin-top: 28px;
+    }
+    .currency-row {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-top: 12px;
+    }
+    .currency-pie-wrap {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      flex-shrink: 0;
+    }
+    .currency-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .currency-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+    }
+    .currency-legend-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .currency-legend-name { color: #334155; }
+    .currency-legend-pct  { font-weight: 700; color: #0F172A; margin-left: 6px; font-variant-numeric: tabular-nums; }
+    .currency-legend-val  { font-size: 10.5px; color: #94A3B8; margin-left: 4px; }
+
+    /* ── Timeline ─────────────────────────────────────────── */
+    .tl-section { margin-top: 30px; }
+    .tl-scroll { overflow-x: auto; padding-bottom: 4px; }
+    .tl-container {
+      position: relative;
+      height: 280px;
+    }
+    .tl-line {
+      position: absolute;
+      top: 50%;
+      left: 0; right: 0;
+      height: 2px;
+      background: #CBD5E1;
+      transform: translateY(-50%);
+      z-index: 0;
+    }
+    .tl-ev {
+      position: absolute;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      z-index: 1;
+    }
+    .tl-above {
+      flex-direction: column;
+      bottom: 50%;
+    }
+    .tl-below {
+      flex-direction: column;
+      top: 50%;
+    }
+    .tl-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tl-above .tl-dot { margin-bottom: -5px; }
+    .tl-below .tl-dot { margin-top:   -5px; }
+    .tl-stem {
+      width: 2px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+    .tl-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      padding: 6px 7px;
+      text-align: center;
+      width: 90px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+    }
+    .tl-ev-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: #0F172A;
+      white-space: nowrap;
+    }
+    .tl-ev-date {
+      font-size: 9.5px;
+      color: #64748B;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+    .tl-ev-amt {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0F172A;
+      margin-top: 5px;
+      font-variant-numeric: tabular-nums;
+    }
+    .tl-ev-rate {
+      font-size: 9.5px;
+      color: #64748B;
+      margin-top: 1px;
+    }
+    .tl-type-badge {
+      margin-top: 4px;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #fff;
+      padding: 2px 5px;
+      display: inline-block;
+      border-radius: 2px;
+    }
+    .tl-legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .tl-legend span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      color: #64748B;
+    }
+    .tl-legend-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* ── Interest timeline events ── */
+    .tl-ev.tl-int .tl-card {
+      background: #EFF6FF;
+      border-color: #BFDBFE;
+      width: 80px;
+      box-shadow: none;
+    }
+    .tl-ev.tl-int .tl-ev-name  { font-size: 10px; }
+    .tl-ev.tl-int .tl-ev-amt   { font-size: 10.5px; margin-top: 3px; }
+    .tl-ev.tl-int .tl-ev-rate  { font-size: 8.5px; }
+    .tl-ev.tl-int .tl-type-badge { font-size: 7px; padding: 1px 4px; margin-top: 3px; }
+    .tl-ev.tl-int .tl-stem     { height: 22px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr !important; }
+      .header-title { display: none; }
+      .content { padding: 20px 16px 32px; }
+      .slide-header { padding: 10px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════ NAV ═══════ -->
+<nav class="nav">
+  <span class="nav-logo">Debt Profile</span>
+  <div class="nav-tab active" data-co="irsa"   onclick="switchTab('irsa')">IRSA</div>
+  <div class="nav-tab"        data-co="cresud" onclick="switchTab('cresud')">Cresud</div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════
+     IRSA
+══════════════════════════════════════════════════════ -->
+<div id="page-irsa" class="page active">
+
+  <header class="slide-header" style="background:#1D4B6E;">
+    <div class="logo-box">IRSA</div>
+    <span class="header-title">Perfil de Vencimientos de Deuda</span>
+    <span class="header-date">IIQ FY2026</span>
+  </header>
+
+  <!-- ── IRSA Maturity Wall ── -->
+  <div class="content">
+    <div class="section-label" style="color:#1D4B6E; border-bottom:2px solid #1D4B6E;">
+      Perfil de Vencimientos — Capital
+      <span class="usd-note">(USD Millones)</span>
+    </div>
+    <div class="view-toggle">
+      <button class="toggle-btn active-irsa" onclick="setIrsaMatView('fy',this)">Año Fiscal</button>
+      <button class="toggle-btn"             onclick="setIrsaMatView('cal',this)">Año Calendario</button>
+    </div>
+    <div class="chart-wrap" style="height:320px;">
+      <canvas id="irsaMatChart"></canvas>
+    </div>
+    <p class="chart-note">USD MM — Principal únicamente. Año fiscal: Julio–Junio.</p>
+
+    <!-- IRSA Timeline -->
+    <div class="tl-section">
+      <div class="section-label" style="color:#1D4B6E; border-bottom:2px solid #1D4B6E;">
+        Línea de Tiempo — Cashflows
+        <span class="usd-note">(USD Millones)</span>
+      </div>
+      <div id="irsa-tl-toggle" class="view-toggle" style="margin-top:8px; margin-bottom:4px;">
+        <button class="toggle-btn active-irsa" onclick="setIrsaTlView('cap',this)">Solo Capital</button>
+        <button class="toggle-btn"             onclick="setIrsaTlView('full',this)">+ Intereses</button>
+      </div>
+
+      <!-- ── Capital-only timeline ── -->
+      <div id="irsa-tl-cap">
+      <div class="tl-scroll">
+        <div class="tl-container" style="min-width:1020px;">
+          <div class="tl-line"></div>
+
+          <!-- 5% → ON XX | Jun 2026 | HD | arriba -->
+          <div class="tl-ev tl-above" style="left:5%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XX</div>
+              <div class="tl-ev-date">Jun 2026</div>
+              <div class="tl-ev-amt">USD 21,7M</div>
+              <div class="tl-ev-rate">6,00%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+          </div>
+
+          <!-- 15% → ON XIV | Jun 2026 | HD | abajo -->
+          <div class="tl-ev tl-below" style="left:15%">
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XIV</div>
+              <div class="tl-ev-date">Jun 2026</div>
+              <div class="tl-ev-amt">USD 18,1M</div>
+              <div class="tl-ev-rate">8,75%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+          </div>
+
+          <!-- 25% → ON XVIII | Feb 2027 | HD Sin MULC | arriba -->
+          <div class="tl-ev tl-above" style="left:25%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XVIII</div>
+              <div class="tl-ev-date">Feb 2027</div>
+              <div class="tl-ev-amt">USD 21,8M</div>
+              <div class="tl-ev-rate">7,00%</div>
+              <div class="tl-type-badge" style="background:#5B8DB8">HD s/MULC</div>
+            </div>
+            <div class="tl-stem" style="background:#5B8DB8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#5B8DB8;"></div>
+          </div>
+
+          <!-- 35% → ON XIV | Jun 2027 | HD Sin MULC | abajo -->
+          <div class="tl-ev tl-below" style="left:35%">
+            <div class="tl-dot"  style="background:#5B8DB8;"></div>
+            <div class="tl-stem" style="background:#5B8DB8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XIV</div>
+              <div class="tl-ev-date">Jun 2027</div>
+              <div class="tl-ev-amt">USD 18,1M</div>
+              <div class="tl-ev-rate">8,75%</div>
+              <div class="tl-type-badge" style="background:#5B8DB8">HD s/MULC</div>
+            </div>
+          </div>
+
+          <!-- 45% → ON XXII | Oct 2027 | HD | arriba -->
+          <div class="tl-ev tl-above" style="left:45%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXII</div>
+              <div class="tl-ev-date">Oct 2027</div>
+              <div class="tl-ev-amt">USD 15,8M</div>
+              <div class="tl-ev-rate">5,75%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+          </div>
+
+          <!-- 55% → ON XIV | Jun 2028 | HD | abajo -->
+          <div class="tl-ev tl-below" style="left:55%">
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XIV</div>
+              <div class="tl-ev-date">Jun 2028</div>
+              <div class="tl-ev-amt">USD 31,0M</div>
+              <div class="tl-ev-rate">8,75%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+          </div>
+
+          <!-- 65% → ON XXIII | Oct 2029 | HD Sin MULC | arriba -->
+          <div class="tl-ev tl-above" style="left:65%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIII</div>
+              <div class="tl-ev-date">Oct 2029</div>
+              <div class="tl-ev-amt">USD 51,5M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#5B8DB8">HD s/MULC</div>
+            </div>
+            <div class="tl-stem" style="background:#5B8DB8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#5B8DB8;"></div>
+          </div>
+
+          <!-- 75% → ON XXIV | Mar 2033 | HD | abajo -->
+          <div class="tl-ev tl-below" style="left:75%">
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2033</div>
+              <div class="tl-ev-amt">USD 156,3M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+          </div>
+
+          <!-- 85% → ON XXIV | Mar 2034 | HD | arriba -->
+          <div class="tl-ev tl-above" style="left:85%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2034</div>
+              <div class="tl-ev-amt">USD 156,3M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+          </div>
+
+          <!-- 95% → ON XXIV | Mar 2035 | HD | abajo -->
+          <div class="tl-ev tl-below" style="left:95%">
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2035</div>
+              <div class="tl-ev-amt">USD 161,1M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      </div><!-- /irsa-tl-cap -->
+
+      <!-- ── Capital + Intereses timeline (36 eventos, evenly spaced) ── -->
+      <div id="irsa-tl-full" style="display:none;">
+      <div class="tl-scroll">
+        <div class="tl-container" style="min-width:3500px;">
+          <div class="tl-line"></div>
+
+          <!-- i=0  5.0% | ON XXIV | Mar 2026 | Intereses $19.2M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:5.0%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2026</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=1  7.6% | ON XX | Jun 2026 | Capital $21.7M | abajo -->
+          <div class="tl-ev tl-below" style="left:7.6%">
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XX</div>
+              <div class="tl-ev-date">Jun 2026</div>
+              <div class="tl-ev-amt">USD 21,7M</div>
+              <div class="tl-ev-rate">6,00%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+          </div>
+
+          <!-- i=2  10.1% | ON XIV | Jun 2026 | Capital $18.1M | arriba -->
+          <div class="tl-ev tl-above" style="left:10.1%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XIV</div>
+              <div class="tl-ev-date">Jun 2026</div>
+              <div class="tl-ev-amt">USD 18,1M</div>
+              <div class="tl-ev-rate">8,75%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+          </div>
+
+          <!-- i=3  12.7% | XXII + XXIII | Jul 2026 | Intereses $2.3M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:12.7%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">XXII+XXIII</div>
+              <div class="tl-ev-date">Jul 2026</div>
+              <div class="tl-ev-amt">USD 2,3M</div>
+              <div class="tl-ev-rate">5,75/7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=4  15.3% | ON XVIII | Ago 2026 | Intereses $0.7M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:15.3%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XVIII</div>
+              <div class="tl-ev-date">Ago 2026</div>
+              <div class="tl-ev-amt">USD 0,7M</div>
+              <div class="tl-ev-rate">7,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=5  17.9% | ON XXIV | Sep 2026 | Intereses $19.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:17.9%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Sep 2026</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=6  20.4% | ON XIV | Dic 2026 | Intereses $2.1M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:20.4%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XIV</div>
+              <div class="tl-ev-date">Dic 2026</div>
+              <div class="tl-ev-amt">USD 2,1M</div>
+              <div class="tl-ev-rate">8,75%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=7  23.0% | XXII + XXIII | Ene 2027 | Intereses $2.3M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:23.0%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">XXII+XXIII</div>
+              <div class="tl-ev-date">Ene 2027</div>
+              <div class="tl-ev-amt">USD 2,3M</div>
+              <div class="tl-ev-rate">5,75/7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=8  25.6% | ON XVIII | Feb 2027 | Capital $21.8M | arriba -->
+          <div class="tl-ev tl-above" style="left:25.6%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XVIII</div>
+              <div class="tl-ev-date">Feb 2027</div>
+              <div class="tl-ev-amt">USD 21,8M</div>
+              <div class="tl-ev-rate">7,00%</div>
+              <div class="tl-type-badge" style="background:#5B8DB8">HD s/MULC</div>
+            </div>
+            <div class="tl-stem" style="background:#5B8DB8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#5B8DB8;"></div>
+          </div>
+
+          <!-- i=9  28.1% | ON XXIV | Mar 2027 | Intereses $19.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:28.1%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2027</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=10  30.7% | ON XIV | Jun 2027 | Capital $18.1M | arriba -->
+          <div class="tl-ev tl-above" style="left:30.7%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XIV</div>
+              <div class="tl-ev-date">Jun 2027</div>
+              <div class="tl-ev-amt">USD 18,1M</div>
+              <div class="tl-ev-rate">8,75%</div>
+              <div class="tl-type-badge" style="background:#5B8DB8">HD s/MULC</div>
+            </div>
+            <div class="tl-stem" style="background:#5B8DB8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#5B8DB8;"></div>
+          </div>
+
+          <!-- i=11  33.3% | XXII + XXIII | Jul 2027 | Intereses $2.3M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:33.3%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">XXII+XXIII</div>
+              <div class="tl-ev-date">Jul 2027</div>
+              <div class="tl-ev-amt">USD 2,3M</div>
+              <div class="tl-ev-rate">5,75/7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=12  35.9% | ON XXIV | Sep 2027 | Intereses $19.2M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:35.9%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Sep 2027</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=13  38.4% | ON XXII | Oct 2027 | Capital $15.8M | abajo -->
+          <div class="tl-ev tl-below" style="left:38.4%">
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXII</div>
+              <div class="tl-ev-date">Oct 2027</div>
+              <div class="tl-ev-amt">USD 15,8M</div>
+              <div class="tl-ev-rate">5,75%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+          </div>
+
+          <!-- i=14  41.0% | ON XIV | Dic 2027 | Intereses $1.4M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:41.0%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XIV</div>
+              <div class="tl-ev-date">Dic 2027</div>
+              <div class="tl-ev-amt">USD 1,4M</div>
+              <div class="tl-ev-rate">8,75%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=15  43.6% | ON XXIII | Ene 2028 | Intereses $1.9M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:43.6%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIII</div>
+              <div class="tl-ev-date">Ene 2028</div>
+              <div class="tl-ev-amt">USD 1,9M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=16  46.1% | ON XXIV | Mar 2028 | Intereses $19.2M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:46.1%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2028</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=17  48.7% | ON XIV | Jun 2028 | Capital $31.0M | abajo -->
+          <div class="tl-ev tl-below" style="left:48.7%">
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XIV</div>
+              <div class="tl-ev-date">Jun 2028</div>
+              <div class="tl-ev-amt">USD 31,0M</div>
+              <div class="tl-ev-rate">8,75%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+          </div>
+
+          <!-- i=18  51.3% | ON XXIII | Jul 2028 | Intereses $1.9M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:51.3%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIII</div>
+              <div class="tl-ev-date">Jul 2028</div>
+              <div class="tl-ev-amt">USD 1,9M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=19  53.9% | ON XXIV | Sep 2028 | Intereses $19.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:53.9%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Sep 2028</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=20  56.4% | ON XXIII | Ene 2029 | Intereses $1.9M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:56.4%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIII</div>
+              <div class="tl-ev-date">Ene 2029</div>
+              <div class="tl-ev-amt">USD 1,9M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=21  59.0% | ON XXIV | Mar 2029 | Intereses $19.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:59.0%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2029</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=22  61.6% | ON XXIII | Jul 2029 | Intereses $1.9M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:61.6%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIII</div>
+              <div class="tl-ev-date">Jul 2029</div>
+              <div class="tl-ev-amt">USD 1,9M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=23  64.1% | ON XXIV | Sep 2029 | Intereses $19.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:64.1%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Sep 2029</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=24  66.7% | ON XXIII | Oct 2029 | Capital $51.5M | arriba -->
+          <div class="tl-ev tl-above" style="left:66.7%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIII</div>
+              <div class="tl-ev-date">Oct 2029</div>
+              <div class="tl-ev-amt">USD 51,5M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#5B8DB8">HD s/MULC</div>
+            </div>
+            <div class="tl-stem" style="background:#5B8DB8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#5B8DB8;"></div>
+          </div>
+
+          <!-- i=25  69.3% | ON XXIV | Mar 2030 | Intereses $19.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:69.3%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2030</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=26  71.9% | ON XXIV | Sep 2030 | Intereses $19.2M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:71.9%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Sep 2030</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=27  74.4% | ON XXIV | Mar 2031 | Intereses $19.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:74.4%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2031</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=28  77.0% | ON XXIV | Sep 2031 | Intereses $19.2M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:77.0%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Sep 2031</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=29  79.6% | ON XXIV | Mar 2032 | Intereses $19.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:79.6%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2032</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=30  82.1% | ON XXIV | Sep 2032 | Intereses $19.2M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:82.1%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Sep 2032</div>
+              <div class="tl-ev-amt">USD 19,2M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=31  84.7% | ON XXIV | Mar 2033 | Capital $156.3M | abajo -->
+          <div class="tl-ev tl-below" style="left:84.7%">
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2033</div>
+              <div class="tl-ev-amt">USD 156,3M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+          </div>
+
+          <!-- i=32  87.3% | ON XXIV | Sep 2033 | Intereses $12.7M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:87.3%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Sep 2033</div>
+              <div class="tl-ev-amt">USD 12,7M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=33  89.9% | ON XXIV | Mar 2034 | Capital $156.3M | abajo -->
+          <div class="tl-ev tl-below" style="left:89.9%">
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2034</div>
+              <div class="tl-ev-amt">USD 156,3M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+          </div>
+
+          <!-- i=34  92.4% | ON XXIV | Sep 2034 | Intereses $6.4M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:92.4%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Sep 2034</div>
+              <div class="tl-ev-amt">USD 6,4M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=35  95.0% | ON XXIV | Mar 2035 | Capital $161.1M | abajo -->
+          <div class="tl-ev tl-below" style="left:95.0%">
+            <div class="tl-dot"  style="background:#1D4B6E;"></div>
+            <div class="tl-stem" style="background:#1D4B6E;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XXIV</div>
+              <div class="tl-ev-date">Mar 2035</div>
+              <div class="tl-ev-amt">USD 161,1M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#1D4B6E">HD</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      </div><!-- /irsa-tl-full -->
+
+      <div class="tl-legend">
+        <span><span class="tl-legend-dot" style="background:#1D4B6E;"></span> Hard Dollar (HD)</span>
+        <span><span class="tl-legend-dot" style="background:#5B8DB8;"></span> HD Sin MULC</span>
+        <span id="irsa-tl-int-legend" style="display:none;"><span class="tl-legend-dot" style="background:#7AAFC8;"></span> Intereses</span>
+      </div>
+    </div>
+
+    <!-- IRSA currency breakdown -->
+    <div class="currency-section">
+      <div class="section-label" style="color:#1D4B6E; border-bottom:2px solid #1D4B6E;">
+        Composición por Moneda <span class="usd-note">en % del capital total</span>
+      </div>
+      <div class="currency-row">
+        <div class="currency-pie-wrap">
+          <canvas id="irsaPieChart"></canvas>
+        </div>
+        <div class="currency-legend">
+          <div class="currency-legend-item">
+            <div class="currency-legend-dot" style="background:#1D4B6E;"></div>
+            <span class="currency-legend-name">Hard Dollar (HD)</span>
+            <span class="currency-legend-pct">86,0%</span>
+            <span class="currency-legend-val">USD 560M</span>
+          </div>
+          <div class="currency-legend-item">
+            <div class="currency-legend-dot" style="background:#5B8DB8;"></div>
+            <span class="currency-legend-name">HD Sin MULC</span>
+            <span class="currency-legend-pct">14,0%</span>
+            <span class="currency-legend-val">USD 91M</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IRSA maturity detail table -->
+    <table class="mat-table">
+      <thead style="background:#1D4B6E;">
+        <tr>
+          <th>Instrumento</th>
+          <th>Tipo</th>
+          <th class="r">Cupón</th>
+          <th>Vencimiento</th>
+          <th class="r">Capital (USD M)</th>
+          <th>Año Fiscal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>ON XX</td><td>Bono HD</td><td class="num">6,00%</td><td>10 Jun 2026</td><td class="num">21,7</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>ON XIV</td><td>Bono HD</td><td class="num">8,75%</td><td>22 Jun 2026</td><td class="num">18,1</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>ON XVIII</td><td>Bono HD</td><td class="num">7,00%</td><td>28 Feb 2027</td><td class="num">21,8</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON XIV</td><td>Bono HD</td><td class="num">8,75%</td><td>22 Jun 2027</td><td class="num">18,1</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON XXII</td><td>Bono HD</td><td class="num">5,75%</td><td>23 Oct 2027</td><td class="num">15,8</td><td class="fy">FY 28</td></tr>
+        <tr><td>ON XIV</td><td>Bono HD</td><td class="num">8,75%</td><td>22 Jun 2028</td><td class="num">31,0</td><td class="fy">FY 28</td></tr>
+        <tr><td>ON XXIII</td><td>Bono HD</td><td class="num">7,25%</td><td>23 Oct 2029</td><td class="num">51,5</td><td class="fy">FY 30</td></tr>
+        <tr><td>ON XXIV</td><td>Bono HD</td><td class="num">8,00%</td><td>31 Mar 2033</td><td class="num">156,3</td><td class="fy">FY 33</td></tr>
+        <tr><td>ON XXIV</td><td>Bono HD</td><td class="num">8,00%</td><td>31 Mar 2034</td><td class="num">156,3</td><td class="fy">FY 34</td></tr>
+        <tr><td>ON XXIV</td><td>Bono HD</td><td class="num">8,00%</td><td>31 Mar 2035</td><td class="num">161,1</td><td class="fy">FY 35</td></tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" style="color:#1D4B6E;">Total Deuda Vigente</td>
+          <td class="num" style="color:#1D4B6E;">651,6</td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <footer class="footer">
+    Fuente: IRSA Propiedades Comerciales S.A. — Relaciones con Inversores.
+    Datos al 31 de diciembre de 2025. Cifras en USD millones salvo indicación contraria. Año fiscal finaliza el 30 de junio.
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     CRESUD
+══════════════════════════════════════════════════════ -->
+<div id="page-cresud" class="page">
+
+  <header class="slide-header" style="background:#1A3D2A;">
+    <div class="logo-box" style="border-color:rgba(255,255,255,0.55);">CRESUD</div>
+    <span class="header-title">Perfil de Vencimientos de Deuda</span>
+    <span class="header-date">IIQ FY2026</span>
+  </header>
+
+  <!-- ── Cresud Maturity Wall ── -->
+  <div class="content">
+    <div class="section-label" style="color:#1A3D2A; border-bottom:2px solid #1A3D2A;">
+      Perfil de Vencimientos — Capital
+      <span class="usd-note">(USD Millones)</span>
+    </div>
+    <div class="view-toggle">
+      <button class="toggle-btn active-cresud" onclick="setCresudMatView('fy',this)">Año Fiscal</button>
+      <button class="toggle-btn"               onclick="setCresudMatView('cal',this)">Año Calendario</button>
+    </div>
+    <div class="chart-wrap" style="height:300px;">
+      <canvas id="cresudMatChart"></canvas>
+    </div>
+    <p class="chart-note">USD MM — Principal únicamente. Año fiscal: Julio–Junio.</p>
+
+    <!-- Cresud Timeline -->
+    <div class="tl-section">
+      <div class="section-label" style="color:#1A3D2A; border-bottom:2px solid #1A3D2A;">
+        Línea de Tiempo — Vencimientos de Capital
+        <span class="usd-note">(USD Millones)</span>
+      </div>
+      <div class="tl-scroll">
+        <div class="tl-container" style="min-width:1200px;">
+          <div class="tl-line"></div>
+
+          <!-- 3.8% → Ciudad | Mar 2026 | HD Bancaria | arriba -->
+          <div class="tl-ev tl-above" style="left:3.8%">
+            <div class="tl-card">
+              <div class="tl-ev-name">Prefi</div>
+              <div class="tl-ev-date">Mar 2026</div>
+              <div class="tl-ev-amt">USD 16,0M</div>
+              <div class="tl-ev-rate">4,00%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">Prefi</div>
+            </div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+          </div>
+
+          <!-- 11.5% → Ciudad | Abr 2026 | HD Bancaria | abajo -->
+          <div class="tl-ev tl-below" style="left:11.5%">
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">Prefi</div>
+              <div class="tl-ev-date">Abr 2026</div>
+              <div class="tl-ev-amt">USD 8,0M</div>
+              <div class="tl-ev-rate">5,00%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">Prefi</div>
+            </div>
+          </div>
+
+          <!-- 19.2% → ON XLII | May 2026 | DL | arriba -->
+          <div class="tl-ev tl-above" style="left:19.2%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLII</div>
+              <div class="tl-ev-date">May 2026</div>
+              <div class="tl-ev-amt">USD 10,2M</div>
+              <div class="tl-ev-rate">0,00%</div>
+              <div class="tl-type-badge" style="background:#6BBF8A;color:#0F172A;">DL</div>
+            </div>
+            <div class="tl-stem" style="background:#6BBF8A;opacity:0.6;"></div>
+            <div class="tl-dot"  style="background:#6BBF8A;"></div>
+          </div>
+
+          <!-- 26.9% → ON XL | Jun 2026 | DL | abajo -->
+          <div class="tl-ev tl-below" style="left:26.9%">
+            <div class="tl-dot"  style="background:#6BBF8A;"></div>
+            <div class="tl-stem" style="background:#6BBF8A;opacity:0.6;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XL</div>
+              <div class="tl-ev-date">Jun 2026</div>
+              <div class="tl-ev-amt">USD 12,6M</div>
+              <div class="tl-ev-rate">0,00%</div>
+              <div class="tl-type-badge" style="background:#6BBF8A;color:#0F172A;">DL</div>
+            </div>
+          </div>
+
+          <!-- 34.6% → ON XLV | Ago 2026 | HD Sin MULC | arriba -->
+          <div class="tl-ev tl-above" style="left:34.6%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLV</div>
+              <div class="tl-ev-date">Ago 2026</div>
+              <div class="tl-ev-amt">USD 10,7M</div>
+              <div class="tl-ev-rate">6,00%</div>
+              <div class="tl-type-badge" style="background:#4A8C60">HD s/MULC</div>
+            </div>
+            <div class="tl-stem" style="background:#4A8C60;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#4A8C60;"></div>
+          </div>
+
+          <!-- 42.3% → ON XL | Dic 2026 | DL | abajo -->
+          <div class="tl-ev tl-below" style="left:42.3%">
+            <div class="tl-dot"  style="background:#6BBF8A;"></div>
+            <div class="tl-stem" style="background:#6BBF8A;opacity:0.6;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XL</div>
+              <div class="tl-ev-date">Dic 2026</div>
+              <div class="tl-ev-amt">USD 13,0M</div>
+              <div class="tl-ev-rate">0,00%</div>
+              <div class="tl-type-badge" style="background:#6BBF8A;color:#0F172A;">DL</div>
+            </div>
+          </div>
+
+          <!-- 50% → ON XLIV | Ene 2027 | HD Sin MULC | arriba -->
+          <div class="tl-ev tl-above" style="left:50%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLIV</div>
+              <div class="tl-ev-date">Ene 2027</div>
+              <div class="tl-ev-amt">USD 40,4M</div>
+              <div class="tl-ev-rate">6,00%</div>
+              <div class="tl-type-badge" style="background:#4A8C60">HD s/MULC</div>
+            </div>
+            <div class="tl-stem" style="background:#4A8C60;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#4A8C60;"></div>
+          </div>
+
+          <!-- 57.7% → ON LI | Ene 2027 | HD | abajo -->
+          <div class="tl-ev tl-below" style="left:57.7%">
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON LI</div>
+              <div class="tl-ev-date">Ene 2027</div>
+              <div class="tl-ev-amt">USD 46,8M</div>
+              <div class="tl-ev-rate">5,75%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">HD</div>
+            </div>
+          </div>
+
+          <!-- 65.4% → ON XLVI | Jul 2027 | DL | arriba -->
+          <div class="tl-ev tl-above" style="left:65.4%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVI</div>
+              <div class="tl-ev-date">Jul 2027</div>
+              <div class="tl-ev-amt">USD 23,8M</div>
+              <div class="tl-ev-rate">1,50%</div>
+              <div class="tl-type-badge" style="background:#6BBF8A;color:#0F172A;">DL</div>
+            </div>
+            <div class="tl-stem" style="background:#6BBF8A;opacity:0.6;"></div>
+            <div class="tl-dot"  style="background:#6BBF8A;"></div>
+          </div>
+
+          <!-- 73.1% → ON XLIX | Sep 2027 | HD | abajo -->
+          <div class="tl-ev tl-below" style="left:73.1%">
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLIX</div>
+              <div class="tl-ev-date">Sep 2027</div>
+              <div class="tl-ev-amt">USD 31,3M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">HD</div>
+            </div>
+          </div>
+
+          <!-- 80.8% → ON XLVIII | Jul 2028 | HD | arriba -->
+          <div class="tl-ev tl-above" style="left:80.8%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVIII</div>
+              <div class="tl-ev-date">Jul 2028</div>
+              <div class="tl-ev-amt">USD 43,7M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">HD</div>
+            </div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+          </div>
+
+          <!-- 88.5% → ON XLVII | Nov 2028 | HD | abajo -->
+          <div class="tl-ev tl-below" style="left:88.5%">
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVII</div>
+              <div class="tl-ev-date">Nov 2028</div>
+              <div class="tl-ev-amt">USD 64,4M</div>
+              <div class="tl-ev-rate">7,00%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">HD</div>
+            </div>
+          </div>
+
+          <!-- 96.2% → ON L | Mar 2029 | HD | arriba -->
+          <div class="tl-ev tl-above" style="left:96.2%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON L</div>
+              <div class="tl-ev-date">Mar 2029</div>
+              <div class="tl-ev-amt">USD 70,4M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">HD</div>
+            </div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="tl-legend">
+        <span><span class="tl-legend-dot" style="background:#1A3D2A;"></span> Hard Dollar (HD)</span>
+        <span><span class="tl-legend-dot" style="background:#4A8C60;"></span> HD Sin MULC</span>
+        <span><span class="tl-legend-dot" style="background:#6BBF8A;"></span> Dollar-Linked (DL)</span>
+      </div>
+    </div>
+
+    <!-- Cresud currency breakdown -->
+    <div class="currency-section">
+      <div class="section-label" style="color:#1A3D2A; border-bottom:2px solid #1A3D2A;">
+        Composición por Moneda <span class="usd-note">en % del capital total</span>
+      </div>
+      <div class="currency-row">
+        <div class="currency-pie-wrap">
+          <canvas id="cresudPieChart"></canvas>
+        </div>
+        <div class="currency-legend">
+          <div class="currency-legend-item">
+            <div class="currency-legend-dot" style="background:#1A3D2A;"></div>
+            <span class="currency-legend-name">Hard Dollar (HD)</span>
+            <span class="currency-legend-pct">71,7%</span>
+            <span class="currency-legend-val">USD 281M</span>
+          </div>
+          <div class="currency-legend-item">
+            <div class="currency-legend-dot" style="background:#4A8C60;"></div>
+            <span class="currency-legend-name">HD Sin MULC</span>
+            <span class="currency-legend-pct">13,1%</span>
+            <span class="currency-legend-val">USD 51M</span>
+          </div>
+          <div class="currency-legend-item">
+            <div class="currency-legend-dot" style="background:#6BBF8A;"></div>
+            <span class="currency-legend-name">Dollar-Linked (DL)</span>
+            <span class="currency-legend-pct">15,2%</span>
+            <span class="currency-legend-val">USD 60M</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cresud maturity detail table -->
+    <table class="mat-table">
+      <thead style="background:#1A3D2A;">
+        <tr>
+          <th>Instrumento</th>
+          <th>Tipo</th>
+          <th class="r">Cupón</th>
+          <th>Vencimiento</th>
+          <th class="r">Capital (USD M)</th>
+          <th>Año Fiscal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Ciudad Bancaria</td><td>Bancaria</td><td class="num">4,00%</td><td>30 Mar 2026</td><td class="num">16,0</td><td class="fy">IIIQ FY26</td></tr>
+        <tr><td>Ciudad Bancaria</td><td>Bancaria</td><td class="num">5,00%</td><td>29 Abr 2026</td><td class="num">8,0</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>ON XLII</td><td>Bono DL</td><td class="num">0,00%</td><td>4 May 2026</td><td class="num">10,2</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>ON XL</td><td>Bono DL</td><td class="num">0,00%</td><td>21 Jun 2026</td><td class="num">12,6</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>ON XLV</td><td>Bono HD</td><td class="num">6,00%</td><td>22 Ago 2026</td><td class="num">10,7</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON XL</td><td>Bono DL</td><td class="num">0,00%</td><td>21 Dic 2026</td><td class="num">13,0</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON XLIV</td><td>Bono HD</td><td class="num">6,00%</td><td>17 Ene 2027</td><td class="num">40,4</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON LI</td><td>Bono HD</td><td class="num">5,75%</td><td>20 Ene 2027</td><td class="num">46,8</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON XLVI</td><td>Bono DL</td><td class="num">1,50%</td><td>18 Jul 2027</td><td class="num">23,8</td><td class="fy">FY 28</td></tr>
+        <tr><td>ON XLIX</td><td>Bono HD</td><td class="num">7,25%</td><td>2 Sep 2027</td><td class="num">31,3</td><td class="fy">FY 28</td></tr>
+        <tr><td>ON XLVIII</td><td>Bono HD</td><td class="num">8,00%</td><td>11 Jul 2028</td><td class="num">43,7</td><td class="fy">FY 29</td></tr>
+        <tr><td>ON XLVII</td><td>Bono HD</td><td class="num">7,00%</td><td>15 Nov 2028</td><td class="num">64,4</td><td class="fy">FY 29</td></tr>
+        <tr><td>ON L</td><td>Bono HD</td><td class="num">7,25%</td><td>10 Mar 2029</td><td class="num">70,4</td><td class="fy">FY 29</td></tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" style="color:#1A3D2A;">Total Deuda Vigente</td>
+          <td class="num" style="color:#1A3D2A;">391,3</td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <footer class="footer">
+    Source: Cresud S.A.C.I.F. y A. Data as of IIQ FY2026 (December 31, 2025).
+    All figures in USD millions unless otherwise noted. Fiscal year ends June 30.
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+// ── IRSA Timeline toggle (Capital / Capital + Intereses) ──────────────────────
+function setIrsaTlView(mode, btn) {
+  document.querySelectorAll('#irsa-tl-toggle .toggle-btn')
+    .forEach(b => b.classList.remove('active-irsa'));
+  btn.classList.add('active-irsa');
+  document.getElementById('irsa-tl-cap').style.display  = mode === 'cap'  ? '' : 'none';
+  document.getElementById('irsa-tl-full').style.display = mode === 'full' ? '' : 'none';
+  document.getElementById('irsa-tl-int-legend').style.display = mode === 'full' ? '' : 'none';
+}
+
+// ── Tab switch ────────────────────────────────────────────────────────────────
+function switchTab(co) {
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.nav-tab[data-co="${co}"]`).classList.add('active');
+  document.getElementById(`page-${co}`).classList.add('active');
+}
+
+// ── Chart.js global defaults ──────────────────────────────────────────────────
+Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+Chart.defaults.color = '#94A3B8';
+
+// ── Shared tooltip style ──────────────────────────────────────────────────────
+const TOOLTIP = {
+  backgroundColor: '#ffffff',
+  titleColor: '#0F172A',
+  bodyColor: '#64748B',
+  borderColor: '#E2E8F0',
+  borderWidth: 1,
+  titleFont: { size: 12, weight: '600' },
+  bodyFont: { size: 11 },
+  padding: 10,
+  cornerRadius: 3,
+};
+
+// ── Custom bar-chart tooltip (detalle de ONs) ─────────────────────────────────
+let _ttEl = null;
+function _getTooltipEl() {
+  if (!_ttEl) {
+    _ttEl = document.createElement('div');
+    Object.assign(_ttEl.style, {
+      position: 'fixed', zIndex: '9999', pointerEvents: 'none',
+      background: '#fff', border: '1px solid #E2E8F0', borderRadius: '4px',
+      boxShadow: '0 4px 14px rgba(0,0,0,0.10)', padding: '10px 13px',
+      fontFamily: "'Inter', system-ui, sans-serif", fontSize: '11px', color: '#0F172A',
+      minWidth: '200px', opacity: '0', transition: 'opacity 0.12s',
+    });
+    document.body.appendChild(_ttEl);
+  }
+  return _ttEl;
+}
+
+function makeExternalTooltip(getDetail, accent) {
+  return function({ chart, tooltip }) {
+    const el = _getTooltipEl();
+    if (tooltip.opacity === 0) { el.style.opacity = '0'; return; }
+    if (!tooltip.dataPoints || !tooltip.dataPoints.length) return;
+
+    const idx   = tooltip.dataPoints[0].dataIndex;
+    const label = tooltip.dataPoints[0].label;
+    const items = (getDetail()[idx]) || [];
+
+    let rows = items.map(it => `
+      <div style="display:flex;justify-content:space-between;gap:14px;margin-bottom:5px;align-items:baseline;">
+        <div>
+          <span style="font-weight:600;font-size:11.5px;">${it.name}</span>
+          <span style="color:#94A3B8;font-size:10px;margin-left:3px;">${it.date}</span>
+        </div>
+        <div style="text-align:right;white-space:nowrap;">
+          <span style="font-weight:700;font-size:11.5px;">$${it.amt.toFixed(1)}M</span>
+          <span style="color:#94A3B8;font-size:10px;margin-left:3px;">${it.rate}</span>
+        </div>
+      </div>`).join('');
+
+    if (items.length > 1) {
+      const tot = items.reduce((s, it) => s + it.amt, 0);
+      rows += `<div style="border-top:1px solid #E2E8F0;margin-top:5px;padding-top:5px;display:flex;justify-content:space-between;">
+        <span style="font-size:10.5px;font-weight:600;color:#64748B;">Total</span>
+        <span style="font-weight:700;font-size:12px;">$${tot.toFixed(1)}M</span>
+      </div>`;
+    }
+
+    el.innerHTML = `<div style="font-weight:700;font-size:12px;color:${accent};border-bottom:1px solid #E2E8F0;padding-bottom:6px;margin-bottom:7px;">${label}</div>${rows}`;
+    el.style.opacity = '1';
+
+    const r = chart.canvas.getBoundingClientRect();
+    let x = r.left + tooltip.caretX + 14;
+    let y = r.top  + tooltip.caretY;
+
+    requestAnimationFrame(() => {
+      const w = el.offsetWidth, h = el.offsetHeight;
+      if (x + w > window.innerWidth  - 8) x = r.left + tooltip.caretX - w - 14;
+      if (y + h > window.innerHeight - 8) y = window.innerHeight - h - 8;
+      if (y < 8) y = 8;
+      el.style.left = x + 'px';
+      el.style.top  = y + 'px';
+    });
+  };
+}
+
+
+/* ════════════════════════════════════════════════════════
+   IRSA — Maturity Profile (FY vs Calendar)
+════════════════════════════════════════════════════════ */
+// Capital maturities from IRSA.csv (Monto USD, al 11-mar-2026)
+// Excluidos por ya vencidos: Cohen/Bancaria (Ene-30-26)
+// IVQ26: ON XX Jun-10 (21.7) + ON XIV Jun-22 (18.1) = 39.8
+// FY27:  ON XVIII Feb-28 (21.8) + ON XIV Jun-22 (18.1) = 39.9
+// FY28:  ON XXII Oct-23 (15.8) + ON XIV Jun-22 (31.0) = 46.8
+// FY30:  ON XXIII Oct-23 (51.5)
+// XXIV:  Mar-31-33 (156.3) / Mar-31-34 (156.3) / Mar-31-35 (161.1)
+const IRSA_MAT = {
+  fy: {
+    //                 IVQ26  FY27   FY28   FY29  FY30   FY31  FY32   FY33    FY34    FY35
+    labels: ['IVQ 26','FY 27','FY 28','FY 29','FY 30','FY 31','FY 32','FY 33','FY 34','FY 35'],
+    otras:  [  39.8,   39.9,   46.8,    0,    51.5,    0,     0,      0,      0,      0   ],
+    xxiv:   [   0,      0,      0,      0,     0,      0,     0,    156.3,  156.3, 161.1  ],
+    totals: [  39.8,   39.9,   46.8,    0,    51.5,    0,     0,    156.3,  156.3, 161.1  ],
+  },
+  cal: {
+    //          2026    2027    2028    2029   2030  2031  2032   2033    2034    2035
+    labels: ['2026','2027','2028','2029','2030','2031','2032','2033','2034','2035'],
+    otras:  [  39.8,  55.7,  31.0,  51.5,   0,    0,    0,     0,     0,     0  ],
+    xxiv:   [   0,     0,     0,     0,     0,    0,    0,   156.3, 156.3, 161.1  ],
+    totals: [  39.8,  55.7,  31.0,  51.5,   0,    0,    0,   156.3, 156.3, 161.1  ],
+  },
+};
+
+// Detalle de ONs por barra — IRSA
+const IRSA_DETAIL = {
+  fy: [
+    // IVQ 26
+    [{ name: 'ON XX',    amt: 21.7, rate: '6,00%', date: '10 Jun 2026' },
+     { name: 'ON XIV',   amt: 18.1, rate: '8,75%', date: '22 Jun 2026' }],
+    // FY 27
+    [{ name: 'ON XVIII', amt: 21.8, rate: '7,00%', date: '28 Feb 2027' },
+     { name: 'ON XIV',   amt: 18.1, rate: '8,75%', date: '22 Jun 2027' }],
+    // FY 28
+    [{ name: 'ON XXII',  amt: 15.8, rate: '5,75%', date: '23 Oct 2027' },
+     { name: 'ON XIV',   amt: 31.0, rate: '8,75%', date: '22 Jun 2028' }],
+    // FY 29 — sin vencimientos
+    [],
+    // FY 30
+    [{ name: 'ON XXIII', amt: 51.5, rate: '7,25%', date: '23 Oct 2029' }],
+    // FY 31 — sin vencimientos
+    [],
+    // FY 32 — sin vencimientos
+    [],
+    // FY 33
+    [{ name: 'ON XXIV',  amt: 156.3, rate: '8,00%', date: '31 Mar 2033' }],
+    // FY 34
+    [{ name: 'ON XXIV',  amt: 156.3, rate: '8,00%', date: '31 Mar 2034' }],
+    // FY 35
+    [{ name: 'ON XXIV',  amt: 161.1, rate: '8,00%', date: '31 Mar 2035' }],
+  ],
+  cal: [
+    // 2026
+    [{ name: 'ON XX',    amt: 21.7, rate: '6,00%', date: '10 Jun 2026' },
+     { name: 'ON XIV',   amt: 18.1, rate: '8,75%', date: '22 Jun 2026' }],
+    // 2027
+    [{ name: 'ON XVIII', amt: 21.8, rate: '7,00%', date: '28 Feb 2027' },
+     { name: 'ON XIV',   amt: 18.1, rate: '8,75%', date: '22 Jun 2027' },
+     { name: 'ON XXII',  amt: 15.8, rate: '5,75%', date: '23 Oct 2027' }],
+    // 2028
+    [{ name: 'ON XIV',   amt: 31.0, rate: '8,75%', date: '22 Jun 2028' }],
+    // 2029
+    [{ name: 'ON XXIII', amt: 51.5, rate: '7,25%', date: '23 Oct 2029' }],
+    // 2030 — sin vencimientos
+    [],
+    // 2031 — sin vencimientos
+    [],
+    // 2032 — sin vencimientos
+    [],
+    // 2033
+    [{ name: 'ON XXIV',  amt: 156.3, rate: '8,00%', date: '31 Mar 2033' }],
+    // 2034
+    [{ name: 'ON XXIV',  amt: 156.3, rate: '8,00%', date: '31 Mar 2034' }],
+    // 2035
+    [{ name: 'ON XXIV',  amt: 161.1, rate: '8,00%', date: '31 Mar 2035' }],
+  ],
+};
+
+let irsaMatMode = 'fy';
+
+const irsaMatPlugin = {
+  id: 'irsaMatAnnot',
+  afterDraw(chart) {
+    const ctx  = chart.ctx;
+    const data = IRSA_MAT[irsaMatMode];
+    const m0   = chart.getDatasetMeta(0); // otras
+    const m1   = chart.getDatasetMeta(1); // xxiv
+    if (!m0.data.length) return;
+    data.totals.forEach((val, i) => {
+      if (val === 0) return;
+      const bar = data.xxiv[i] > 0 ? m1.data[i] : m0.data[i];
+      if (!bar) return;
+      ctx.save();
+      ctx.font = 'bold 10.5px Inter, sans-serif';
+      ctx.fillStyle = '#1D4B6E';
+      ctx.textAlign = 'center';
+      ctx.fillText(val.toFixed(1), bar.x, bar.y - 6);
+      ctx.restore();
+    });
+  },
+};
+
+const irsaMatChart = new Chart(document.getElementById('irsaMatChart'), {
+  type: 'bar',
+  plugins: [irsaMatPlugin],
+  data: {
+    labels: IRSA_MAT.fy.labels,
+    datasets: [
+      { label: 'ONs',        data: [...IRSA_MAT.fy.otras], backgroundColor: '#5B8DB8', stack: 'a', borderRadius: 0, borderSkipped: false },
+      { label: 'ONs', data: [...IRSA_MAT.fy.xxiv], backgroundColor: '#5B8DB8', stack: 'a', borderRadius: 0, borderSkipped: false },
+    ],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: false,
+    plugins: {
+      legend: { position: 'bottom', labels: { boxWidth: 11, boxHeight: 11, font: { size: 11, weight: '500' }, color: '#64748B', padding: 16, filter: (item, data) => data.datasets.findIndex(d => d.label === item.text) === item.datasetIndex } },
+      tooltip: { enabled: false, external: makeExternalTooltip(() => IRSA_DETAIL[irsaMatMode], '#1D4B6E') },
+    },
+    scales: {
+      x: { stacked: true, grid: { display: false }, border: { color: '#CBD5E1' }, ticks: { font: { size: 11, weight: '600' }, color: '#64748B', padding: 4 } },
+      y: { stacked: true, display: false, max: 210 },
+    },
+    layout: { padding: { top: 24, right: 20, left: 0, bottom: 0 } },
+  },
+});
+
+function setIrsaMatView(mode, btn) {
+  if (irsaMatMode === mode) return;
+  irsaMatMode = mode;
+  btn.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active-irsa'));
+  btn.classList.add('active-irsa');
+  const d = IRSA_MAT[mode];
+  irsaMatChart.data.labels = d.labels;
+  irsaMatChart.data.datasets[0].data = [...d.otras];
+  irsaMatChart.data.datasets[1].data = [...d.xxiv];
+  const mx = Math.max(...d.totals);
+  irsaMatChart.options.scales.y.max = Math.ceil(mx * 1.28 / 10) * 10;
+  irsaMatChart.update();
+}
+
+
+/* ════════════════════════════════════════════════════════
+   CRESUD — Maturity Profile (FY vs Calendar)
+════════════════════════════════════════════════════════ */
+// Capital maturities from Cresud.csv (Monto USD, al 11-mar-2026)
+// Excluidos por ya vencidos: ON XXXVIII (Mar-03-26) e ICBC (Feb-01-26)
+// Banking IIIQ26: Ciudad Mar-30 (16.0)
+// Banking IVQ26:  Ciudad Abr-29 (8.0)
+// FY26 bonds: XLII May-4 (10.2) + XL Jun-21 (12.6) = 22.8
+// FY27 bonds: XLV Ago-22 (10.7) + XL Dic-21 (13.0) + XLIV Ene-17 (40.4) + LI Ene-20 (46.8) = 110.9
+// FY28 bonds: XLVI Jul-18 (23.8) + XLIX Sep-2 (31.3) = 55.1
+// FY29 bonds: XLVIII Jul-11 (43.7) + XLVII Nov-15 (64.4) + L Mar-10 (70.4) = 178.5
+const CRESUD_MAT = {
+  fy: {
+    //                   IIIQ26   IVQ26   FY27     FY28    FY29
+    labels:  ['IIIQ 26','IVQ 26','FY 27','FY 28','FY 29'],
+    banking: [  16.0,    8.0,     0,      0,      0    ],
+    bonds:   [   0,     22.8,   110.9,  55.1,  178.5   ],
+    totals:  [  16.0,   30.8,   110.9,  55.1,  178.5   ],
+  },
+  cal: {
+    //         Ciudad+XLII+XL-Jun+XLV+XL-Dic  XLIV+LI+XLVI+XLIX  XLVIII+XLVII   L
+    labels:  ['2026','2027','2028','2029'],
+    banking: [  24.0,   0,    0,     0  ],
+    bonds:   [  46.5, 142.3, 108.1, 70.4],
+    totals:  [  70.5, 142.3, 108.1, 70.4],
+  },
+};
+
+// Detalle de ONs por barra — Cresud
+const CRESUD_DETAIL = {
+  fy: [
+    // IIIQ 26
+    [{ name: 'Prefi (Ciudad)', amt: 16.0, rate: '4,00%', date: '30 Mar 2026' }],
+    // IVQ 26
+    [{ name: 'Prefi (Ciudad)', amt:  8.0, rate: '5,00%', date: '29 Abr 2026' },
+     { name: 'ON XLII',       amt: 10.2, rate: '0,00%', date: '4 May 2026'  },
+     { name: 'ON XL',         amt: 12.6, rate: '0,00%', date: '21 Jun 2026' }],
+    // FY 27
+    [{ name: 'ON XLV',  amt: 10.7, rate: '6,00%', date: '22 Ago 2026' },
+     { name: 'ON XL',   amt: 13.0, rate: '0,00%', date: '21 Dic 2026' },
+     { name: 'ON XLIV', amt: 40.4, rate: '6,00%', date: '17 Ene 2027' },
+     { name: 'ON LI',   amt: 46.8, rate: '5,75%', date: '20 Ene 2027' }],
+    // FY 28
+    [{ name: 'ON XLVI', amt: 23.8, rate: '1,50%', date: '18 Jul 2027' },
+     { name: 'ON XLIX', amt: 31.3, rate: '7,25%', date: '2 Sep 2027'  }],
+    // FY 29
+    [{ name: 'ON XLVIII', amt: 43.7, rate: '8,00%', date: '11 Jul 2028' },
+     { name: 'ON XLVII',  amt: 64.4, rate: '7,00%', date: '15 Nov 2028' },
+     { name: 'ON L',      amt: 70.4, rate: '7,25%', date: '10 Mar 2029' }],
+  ],
+  cal: [
+    // 2026
+    [{ name: 'Prefi (Ciudad)', amt: 16.0, rate: '4,00%', date: '30 Mar 2026' },
+     { name: 'Prefi (Ciudad)', amt:  8.0, rate: '5,00%', date: '29 Abr 2026' },
+     { name: 'ON XLII',       amt: 10.2, rate: '0,00%', date: '4 May 2026'  },
+     { name: 'ON XL',         amt: 12.6, rate: '0,00%', date: '21 Jun 2026' },
+     { name: 'ON XLV',        amt: 10.7, rate: '6,00%', date: '22 Ago 2026' },
+     { name: 'ON XL',         amt: 13.0, rate: '0,00%', date: '21 Dic 2026' }],
+    // 2027
+    [{ name: 'ON XLIV', amt: 40.4, rate: '6,00%', date: '17 Ene 2027' },
+     { name: 'ON LI',   amt: 46.8, rate: '5,75%', date: '20 Ene 2027' },
+     { name: 'ON XLVI', amt: 23.8, rate: '1,50%', date: '18 Jul 2027' },
+     { name: 'ON XLIX', amt: 31.3, rate: '7,25%', date: '2 Sep 2027'  }],
+    // 2028
+    [{ name: 'ON XLVIII', amt: 43.7, rate: '8,00%', date: '11 Jul 2028' },
+     { name: 'ON XLVII',  amt: 64.4, rate: '7,00%', date: '15 Nov 2028' }],
+    // 2029
+    [{ name: 'ON L', amt: 70.4, rate: '7,25%', date: '10 Mar 2029' }],
+  ],
+};
+
+let cresudMatMode = 'fy';
+
+const cresudMatPlugin = {
+  id: 'cresudMatAnnot',
+  afterDraw(chart) {
+    const ctx  = chart.ctx;
+    const data = CRESUD_MAT[cresudMatMode];
+    const m0   = chart.getDatasetMeta(0); // banking
+    const m1   = chart.getDatasetMeta(1); // bonds
+    if (!m0.data.length) return;
+    data.totals.forEach((val, i) => {
+      if (val === 0) return;
+      const bar = data.bonds[i] > 0 ? m1.data[i] : m0.data[i];
+      if (!bar) return;
+      ctx.save();
+      ctx.font = 'bold 10.5px Inter, sans-serif';
+      ctx.fillStyle = '#1A3D2A';
+      ctx.textAlign = 'center';
+      ctx.fillText(val.toFixed(1), bar.x, bar.y - 6);
+      ctx.restore();
+    });
+  },
+};
+
+const cresudMatChartObj = new Chart(document.getElementById('cresudMatChart'), {
+  type: 'bar',
+  plugins: [cresudMatPlugin],
+  data: {
+    labels: CRESUD_MAT.fy.labels,
+    datasets: [
+      { label: 'Deuda Bancaria', data: [...CRESUD_MAT.fy.banking], backgroundColor: '#4A8C60', stack: 'a', borderRadius: 0, borderSkipped: false },
+      { label: 'ONs',            data: [...CRESUD_MAT.fy.bonds],   backgroundColor: '#1A3D2A', stack: 'a', borderRadius: 0, borderSkipped: false },
+    ],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: false,
+    plugins: {
+      legend: { position: 'bottom', labels: { boxWidth: 11, boxHeight: 11, font: { size: 11, weight: '500' }, color: '#64748B', padding: 16 } },
+      tooltip: { enabled: false, external: makeExternalTooltip(() => CRESUD_DETAIL[cresudMatMode], '#1A3D2A') },
+    },
+    scales: {
+      x: { stacked: true, grid: { display: false }, border: { color: '#CBD5E1' }, ticks: { font: { size: 11, weight: '600' }, color: '#64748B', padding: 4 } },
+      y: { stacked: true, display: false, max: 230 },
+    },
+    layout: { padding: { top: 24, right: 20, left: 0, bottom: 0 } },
+  },
+});
+
+function setCresudMatView(mode, btn) {
+  if (cresudMatMode === mode) return;
+  cresudMatMode = mode;
+  btn.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active-cresud'));
+  btn.classList.add('active-cresud');
+  const d = CRESUD_MAT[mode];
+  cresudMatChartObj.data.labels = d.labels;
+  cresudMatChartObj.data.datasets[0].data = [...d.banking];
+  cresudMatChartObj.data.datasets[1].data = [...d.bonds];
+  const mx = Math.max(...d.totals);
+  cresudMatChartObj.options.scales.y.max = Math.ceil(mx * 1.28 / 10) * 10;
+  cresudMatChartObj.update();
+}
+
+
+/* ════════════════════════════════════════════════════════
+   IRSA — Currency Breakdown Pie
+   HD: 560.2M (86.0%) | HD Sin MULC: 91.4M (14.0%)
+════════════════════════════════════════════════════════ */
+new Chart(document.getElementById('irsaPieChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Hard Dollar (HD)', 'HD Sin MULC'],
+    datasets: [{
+      data: [560.2, 91.4],
+      backgroundColor: ['#1D4B6E', '#5B8DB8'],
+      borderWidth: 2,
+      borderColor: '#ffffff',
+    }],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: false,
+    cutout: '62%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { ...TOOLTIP, callbacks: {
+        label: c => ` ${c.label}: ${c.parsed.toFixed(1)}M (${(c.parsed / 651.6 * 100).toFixed(1)}%)`,
+      }},
+    },
+  },
+});
+
+
+/* ════════════════════════════════════════════════════════
+   CRESUD — Currency Breakdown Pie
+   HD: 280.6M (71.7%) | HD Sin MULC: 51.1M (13.1%) | DL: 59.6M (15.2%)
+════════════════════════════════════════════════════════ */
+new Chart(document.getElementById('cresudPieChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Hard Dollar (HD)', 'HD Sin MULC', 'Dollar-Linked (DL)'],
+    datasets: [{
+      data: [280.6, 51.1, 59.6],
+      backgroundColor: ['#1A3D2A', '#4A8C60', '#6BBF8A'],
+      borderWidth: 2,
+      borderColor: '#ffffff',
+    }],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: false,
+    cutout: '62%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { ...TOOLTIP, callbacks: {
+        label: c => ` ${c.label}: ${c.parsed.toFixed(1)}M (${(c.parsed / 391.3 * 100).toFixed(1)}%)`,
+      }},
+    },
+  },
+});
+
+
+</script>
+</body>
+</html>
