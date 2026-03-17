@@ -107,6 +107,8 @@
       font-weight: 500;
       color: rgba(255,255,255,0.45);
       letter-spacing: 0.06em;
+      text-align: right;
+      line-height: 1.5;
     }
 
     /* ── Content wrapper ── */
@@ -540,7 +542,7 @@
   <header class="slide-header" style="background:#1D4B6E;">
     <div class="logo-box">IRSA</div>
     <span class="header-title">Perfil de Vencimientos de Deuda</span>
-    <span class="header-date">IIQ FY2026</span>
+    <span class="header-date">IIQ FY2026<br><span class="header-today"></span></span>
   </header>
 
   <!-- ── IRSA Maturity Wall ── -->
@@ -557,6 +559,19 @@
       <canvas id="irsaMatChart"></canvas>
     </div>
     <p class="chart-note">USD MM — Principal únicamente. Año fiscal: Julio–Junio.</p>
+
+    <!-- IRSA KPIs -->
+    <div style="display:flex; gap:16px; margin:20px 0 6px;">
+      <div class="kpi-box" style="flex:1; background:#fff; border:1px solid #E2E8F0; border-left:3px solid #1D4B6E;">
+        <span class="kpi-label" style="color:#64748B;">Tasa Prom. Pond. <span style="font-size:10px; font-weight:500; text-transform:none; letter-spacing:0;">(USD)</span></span>
+        <span class="kpi-value" style="color:#1D4B6E;">7,86%</span>
+      </div>
+      <div class="kpi-box" style="flex:1; background:#fff; border:1px solid #E2E8F0; border-left:3px solid #1D4B6E;">
+        <span class="kpi-label" style="color:#64748B;">Vida Prom. Pond. <span style="font-size:10px; font-weight:500; text-transform:none; letter-spacing:0;">(USD)</span></span>
+        <span class="kpi-value" style="color:#1D4B6E;">6,4 años</span>
+      </div>
+    </div>
+    <p class="chart-note" style="margin-bottom:24px;">Calculado sobre deuda USD vigente al 17/03/2026. Excluye ARS (Cohen vencido). Base: irsa_deuda.</p>
 
     <!-- IRSA Timeline -->
     <div class="tl-section">
@@ -1269,7 +1284,7 @@
   <header class="slide-header" style="background:#1A3D2A;">
     <div class="logo-box" style="border-color:rgba(255,255,255,0.55);">CRESUD</div>
     <span class="header-title">Perfil de Vencimientos de Deuda</span>
-    <span class="header-date">IIQ FY2026</span>
+    <span class="header-date">IIQ FY2026<br><span class="header-today"></span></span>
   </header>
 
   <!-- ── Cresud Maturity Wall ── -->
@@ -1287,12 +1302,32 @@
     </div>
     <p class="chart-note">USD MM — Principal únicamente. Año fiscal: Julio–Junio.</p>
 
+    <!-- Cresud KPIs -->
+    <div style="display:flex; gap:16px; margin:20px 0 6px;">
+      <div class="kpi-box" style="flex:1; background:#fff; border:1px solid #E2E8F0; border-left:3px solid #1A3D2A;">
+        <span class="kpi-label" style="color:#64748B;">Tasa Prom. Pond. <span style="font-size:10px; font-weight:500; text-transform:none; letter-spacing:0;">(USD)</span></span>
+        <span class="kpi-value" style="color:#1A3D2A;">5,76%</span>
+      </div>
+      <div class="kpi-box" style="flex:1; background:#fff; border:1px solid #E2E8F0; border-left:3px solid #1A3D2A;">
+        <span class="kpi-label" style="color:#64748B;">Vida Prom. Pond. <span style="font-size:10px; font-weight:500; text-transform:none; letter-spacing:0;">(USD)</span></span>
+        <span class="kpi-value" style="color:#1A3D2A;">1,7 años</span>
+      </div>
+    </div>
+    <p class="chart-note" style="margin-bottom:24px;">Calculado sobre deuda USD vigente al 17/03/2026. Excluye ARS (ICBC vencido). Base: cresud_deuda.</p>
+
     <!-- Cresud Timeline -->
     <div class="tl-section">
       <div class="section-label" style="color:#1A3D2A; border-bottom:2px solid #1A3D2A;">
-        Línea de Tiempo — Vencimientos de Capital
+        Línea de Tiempo — Cashflows
         <span class="usd-note">(USD Millones)</span>
       </div>
+      <div id="cresud-tl-toggle" class="view-toggle" style="margin-top:8px; margin-bottom:4px;">
+        <button class="toggle-btn active-cresud" onclick="setCresudTlView('cap',this)">Solo Capital</button>
+        <button class="toggle-btn"               onclick="setCresudTlView('full',this)">+ Intereses</button>
+      </div>
+
+      <!-- ── Capital-only timeline ── -->
+      <div id="cresud-tl-cap">
       <div class="tl-scroll">
         <div class="tl-container" style="min-width:1200px;">
           <div class="tl-line"></div>
@@ -1468,10 +1503,569 @@
 
         </div>
       </div>
+      </div><!-- /cresud-tl-cap -->
+
+      <!-- ── Capital + Intereses timeline (42 eventos) ── -->
+      <div id="cresud-tl-full" style="display:none;">
+      <div class="tl-scroll">
+        <div class="tl-container" style="min-width:4200px;">
+          <div class="tl-line"></div>
+
+          <!-- i=0  4.0% | BBVA | Mar 2026 | Capital $16.0M | arriba -->
+          <div class="tl-ev tl-above" style="left:4.0%">
+            <div class="tl-card">
+              <div class="tl-ev-name">BBVA</div>
+              <div class="tl-ev-date">Mar 2026</div>
+              <div class="tl-ev-amt">USD 16,0M</div>
+              <div class="tl-ev-rate">4,00%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">Prefi</div>
+            </div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+          </div>
+
+          <!-- i=1  6.2% | ON XLV | Abr 2026 | Intereses $0.3M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:6.2%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLV</div>
+              <div class="tl-ev-date">Abr 2026</div>
+              <div class="tl-ev-amt">USD 0,3M</div>
+              <div class="tl-ev-rate">6,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=2  8.5% | Ciudad | Abr 2026 | Capital $8.0M | arriba -->
+          <div class="tl-ev tl-above" style="left:8.5%">
+            <div class="tl-card">
+              <div class="tl-ev-name">Ciudad</div>
+              <div class="tl-ev-date">Abr 2026</div>
+              <div class="tl-ev-amt">USD 8,0M</div>
+              <div class="tl-ev-rate">5,00%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">Prefi</div>
+            </div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+          </div>
+
+          <!-- i=3  10.7% | ON XLII | May 2026 | Capital $10.2M | abajo -->
+          <div class="tl-ev tl-below" style="left:10.7%">
+            <div class="tl-dot"  style="background:#6BBF8A;"></div>
+            <div class="tl-stem" style="background:#6BBF8A;opacity:0.6;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLII</div>
+              <div class="tl-ev-date">May 2026</div>
+              <div class="tl-ev-amt">USD 10,2M</div>
+              <div class="tl-ev-rate">0,00%</div>
+              <div class="tl-type-badge" style="background:#6BBF8A;color:#0F172A;">DL</div>
+            </div>
+          </div>
+
+          <!-- i=4  13.0% | ON XLVII | May 2026 | Intereses $2.2M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:13.0%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVII</div>
+              <div class="tl-ev-date">May 2026</div>
+              <div class="tl-ev-amt">USD 2,2M</div>
+              <div class="tl-ev-rate">7,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=5  15.2% | ON XL | Jun 2026 | Capital $12.6M | abajo -->
+          <div class="tl-ev tl-below" style="left:15.2%">
+            <div class="tl-dot"  style="background:#6BBF8A;"></div>
+            <div class="tl-stem" style="background:#6BBF8A;opacity:0.6;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XL</div>
+              <div class="tl-ev-date">Jun 2026</div>
+              <div class="tl-ev-amt">USD 12,6M</div>
+              <div class="tl-ev-rate">0,00%</div>
+              <div class="tl-type-badge" style="background:#6BBF8A;color:#0F172A;">DL</div>
+            </div>
+          </div>
+
+          <!-- i=6  17.5% | ON XLVIII | Jul 2026 | Intereses $1.7M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:17.5%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVIII</div>
+              <div class="tl-ev-date">Jul 2026</div>
+              <div class="tl-ev-amt">USD 1,7M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=7  19.7% | ON XLIV | Jul 2026 | Intereses $1.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:19.7%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLIV</div>
+              <div class="tl-ev-date">Jul 2026</div>
+              <div class="tl-ev-amt">USD 1,2M</div>
+              <div class="tl-ev-rate">6,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=8  21.9% | ON XLVI | Jul 2026 | Intereses $0.2M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:21.9%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVI</div>
+              <div class="tl-ev-date">Jul 2026</div>
+              <div class="tl-ev-amt">USD 0,2M</div>
+              <div class="tl-ev-rate">1,50%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=9  24.2% | ON LI | Jul 2026 | Intereses $1.3M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:24.2%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON LI</div>
+              <div class="tl-ev-date">Jul 2026</div>
+              <div class="tl-ev-amt">USD 1,3M</div>
+              <div class="tl-ev-rate">5,75%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=10  26.4% | ON XLV | Ago 2026 | Capital $10.2M | arriba -->
+          <div class="tl-ev tl-above" style="left:26.4%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLV</div>
+              <div class="tl-ev-date">Ago 2026</div>
+              <div class="tl-ev-amt">USD 10,2M</div>
+              <div class="tl-ev-rate">6,00%</div>
+              <div class="tl-type-badge" style="background:#4A8C60">HD s/MULC</div>
+            </div>
+            <div class="tl-stem" style="background:#4A8C60;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#4A8C60;"></div>
+          </div>
+
+          <!-- i=11  28.6% | ON XLV | Ago 2026 | Intereses $0.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:28.6%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLV</div>
+              <div class="tl-ev-date">Ago 2026</div>
+              <div class="tl-ev-amt">USD 0,2M</div>
+              <div class="tl-ev-rate">6,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=12  30.9% | ON XLIX | Sep 2026 | Intereses $1.1M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:30.9%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLIX</div>
+              <div class="tl-ev-date">Sep 2026</div>
+              <div class="tl-ev-amt">USD 1,1M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=13  33.1% | ON L | Sep 2026 | Intereses $3.8M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:33.1%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON L</div>
+              <div class="tl-ev-date">Sep 2026</div>
+              <div class="tl-ev-amt">USD 3,8M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=14  35.4% | ON XLVII | Nov 2026 | Intereses $2.3M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:35.4%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVII</div>
+              <div class="tl-ev-date">Nov 2026</div>
+              <div class="tl-ev-amt">USD 2,3M</div>
+              <div class="tl-ev-rate">7,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=15  37.6% | ON XL | Dic 2026 | Capital $13.0M | abajo -->
+          <div class="tl-ev tl-below" style="left:37.6%">
+            <div class="tl-dot"  style="background:#6BBF8A;"></div>
+            <div class="tl-stem" style="background:#6BBF8A;opacity:0.6;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XL</div>
+              <div class="tl-ev-date">Dic 2026</div>
+              <div class="tl-ev-amt">USD 13,0M</div>
+              <div class="tl-ev-rate">0,00%</div>
+              <div class="tl-type-badge" style="background:#6BBF8A;color:#0F172A;">DL</div>
+            </div>
+          </div>
+
+          <!-- i=16  39.8% | ON XLVIII | Ene 2027 | Intereses $1.8M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:39.8%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVIII</div>
+              <div class="tl-ev-date">Ene 2027</div>
+              <div class="tl-ev-amt">USD 1,8M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=17  42.1% | ON XLIV | Ene 2027 | Capital $39.8M | abajo -->
+          <div class="tl-ev tl-below" style="left:42.1%">
+            <div class="tl-dot"  style="background:#4A8C60;"></div>
+            <div class="tl-stem" style="background:#4A8C60;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLIV</div>
+              <div class="tl-ev-date">Ene 2027</div>
+              <div class="tl-ev-amt">USD 39,8M</div>
+              <div class="tl-ev-rate">6,00%</div>
+              <div class="tl-type-badge" style="background:#4A8C60">HD s/MULC</div>
+            </div>
+          </div>
+
+          <!-- i=18  44.3% | ON XLIV | Ene 2027 | Intereses $1.2M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:44.3%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLIV</div>
+              <div class="tl-ev-date">Ene 2027</div>
+              <div class="tl-ev-amt">USD 1,2M</div>
+              <div class="tl-ev-rate">6,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=19  46.6% | ON XLVI | Ene 2027 | Intereses $0.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:46.6%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVI</div>
+              <div class="tl-ev-date">Ene 2027</div>
+              <div class="tl-ev-amt">USD 0,2M</div>
+              <div class="tl-ev-rate">1,50%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=20  48.8% | ON LI | Ene 2027 | Capital $46.8M | arriba -->
+          <div class="tl-ev tl-above" style="left:48.8%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON LI</div>
+              <div class="tl-ev-date">Ene 2027</div>
+              <div class="tl-ev-amt">USD 46,8M</div>
+              <div class="tl-ev-rate">5,75%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">HD</div>
+            </div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+          </div>
+
+          <!-- i=21  51.0% | ON LI | Ene 2027 | Intereses $1.4M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:51.0%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON LI</div>
+              <div class="tl-ev-date">Ene 2027</div>
+              <div class="tl-ev-amt">USD 1,4M</div>
+              <div class="tl-ev-rate">5,75%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=22  53.3% | ON XLIX | Mar 2027 | Intereses $1.1M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:53.3%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLIX</div>
+              <div class="tl-ev-date">Mar 2027</div>
+              <div class="tl-ev-amt">USD 1,1M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=23  55.5% | ON L | Mar 2027 | Intereses $2.5M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:55.5%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON L</div>
+              <div class="tl-ev-date">Mar 2027</div>
+              <div class="tl-ev-amt">USD 2,5M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=24  57.8% | ON XLVII | May 2027 | Intereses $2.2M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:57.8%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVII</div>
+              <div class="tl-ev-date">May 2027</div>
+              <div class="tl-ev-amt">USD 2,2M</div>
+              <div class="tl-ev-rate">7,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=25  60.0% | ON XLVIII | Jul 2027 | Intereses $1.7M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:60.0%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVIII</div>
+              <div class="tl-ev-date">Jul 2027</div>
+              <div class="tl-ev-amt">USD 1,7M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=26  62.2% | ON XLVI | Jul 2027 | Capital $28.6M | arriba -->
+          <div class="tl-ev tl-above" style="left:62.2%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVI</div>
+              <div class="tl-ev-date">Jul 2027</div>
+              <div class="tl-ev-amt">USD 28,6M</div>
+              <div class="tl-ev-rate">1,50%</div>
+              <div class="tl-type-badge" style="background:#6BBF8A;color:#0F172A;">DL</div>
+            </div>
+            <div class="tl-stem" style="background:#6BBF8A;opacity:0.6;"></div>
+            <div class="tl-dot"  style="background:#6BBF8A;"></div>
+          </div>
+
+          <!-- i=27  64.5% | ON XLVI | Jul 2027 | Intereses $0.2M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:64.5%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVI</div>
+              <div class="tl-ev-date">Jul 2027</div>
+              <div class="tl-ev-amt">USD 0,2M</div>
+              <div class="tl-ev-rate">1,50%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=28  66.7% | ON XLIX | Sep 2027 | Capital $31.3M | arriba -->
+          <div class="tl-ev tl-above" style="left:66.7%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLIX</div>
+              <div class="tl-ev-date">Sep 2027</div>
+              <div class="tl-ev-amt">USD 31,3M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">HD</div>
+            </div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+          </div>
+
+          <!-- i=29  69.0% | ON XLIX | Sep 2027 | Intereses $1.1M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:69.0%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLIX</div>
+              <div class="tl-ev-date">Sep 2027</div>
+              <div class="tl-ev-amt">USD 1,1M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=30  71.2% | ON L | Sep 2027 | Intereses $2.6M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:71.2%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON L</div>
+              <div class="tl-ev-date">Sep 2027</div>
+              <div class="tl-ev-amt">USD 2,6M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=31  73.4% | ON XLVII | Nov 2027 | Intereses $2.3M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:73.4%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVII</div>
+              <div class="tl-ev-date">Nov 2027</div>
+              <div class="tl-ev-amt">USD 2,3M</div>
+              <div class="tl-ev-rate">7,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=32  75.7% | ON XLVIII | Ene 2028 | Intereses $1.8M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:75.7%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVIII</div>
+              <div class="tl-ev-date">Ene 2028</div>
+              <div class="tl-ev-amt">USD 1,8M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=33  77.9% | ON L | Mar 2028 | Intereses $2.5M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:77.9%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON L</div>
+              <div class="tl-ev-date">Mar 2028</div>
+              <div class="tl-ev-amt">USD 2,5M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=34  80.2% | ON XLVII | May 2028 | Intereses $2.2M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:80.2%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVII</div>
+              <div class="tl-ev-date">May 2028</div>
+              <div class="tl-ev-amt">USD 2,2M</div>
+              <div class="tl-ev-rate">7,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=35  82.4% | ON XLVIII | Jul 2028 | Capital $43.7M | abajo -->
+          <div class="tl-ev tl-below" style="left:82.4%">
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVIII</div>
+              <div class="tl-ev-date">Jul 2028</div>
+              <div class="tl-ev-amt">USD 43,7M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">HD</div>
+            </div>
+          </div>
+
+          <!-- i=36  84.6% | ON XLVIII | Jul 2028 | Intereses $1.7M | arriba -->
+          <div class="tl-ev tl-above tl-int" style="left:84.6%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVIII</div>
+              <div class="tl-ev-date">Jul 2028</div>
+              <div class="tl-ev-amt">USD 1,7M</div>
+              <div class="tl-ev-rate">8,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+          </div>
+
+          <!-- i=37  86.9% | ON L | Sep 2028 | Intereses $2.6M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:86.9%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON L</div>
+              <div class="tl-ev-date">Sep 2028</div>
+              <div class="tl-ev-amt">USD 2,6M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=38  89.1% | ON XLVII | Nov 2028 | Capital $64.4M | arriba -->
+          <div class="tl-ev tl-above" style="left:89.1%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVII</div>
+              <div class="tl-ev-date">Nov 2028</div>
+              <div class="tl-ev-amt">USD 64,4M</div>
+              <div class="tl-ev-rate">7,00%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">HD</div>
+            </div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+          </div>
+
+          <!-- i=39  91.4% | ON XLVII | Nov 2028 | Intereses $2.3M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:91.4%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON XLVII</div>
+              <div class="tl-ev-date">Nov 2028</div>
+              <div class="tl-ev-amt">USD 2,3M</div>
+              <div class="tl-ev-rate">7,00%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+          <!-- i=40  93.6% | ON L | Mar 2029 | Capital $70.4M | arriba -->
+          <div class="tl-ev tl-above" style="left:93.6%">
+            <div class="tl-card">
+              <div class="tl-ev-name">ON L</div>
+              <div class="tl-ev-date">Mar 2029</div>
+              <div class="tl-ev-amt">USD 70,4M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#1A3D2A">HD</div>
+            </div>
+            <div class="tl-stem" style="background:#1A3D2A;opacity:0.4;"></div>
+            <div class="tl-dot"  style="background:#1A3D2A;"></div>
+          </div>
+
+          <!-- i=41  95.8% | ON L | Mar 2029 | Intereses $2.5M | abajo -->
+          <div class="tl-ev tl-below tl-int" style="left:95.8%">
+            <div class="tl-dot"  style="background:#7AAFC8;"></div>
+            <div class="tl-stem" style="background:#7AAFC8;opacity:0.5;"></div>
+            <div class="tl-card">
+              <div class="tl-ev-name">ON L</div>
+              <div class="tl-ev-date">Mar 2029</div>
+              <div class="tl-ev-amt">USD 2,5M</div>
+              <div class="tl-ev-rate">7,25%</div>
+              <div class="tl-type-badge" style="background:#7AAFC8">Intereses</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      </div><!-- /cresud-tl-full -->
+
       <div class="tl-legend">
         <span><span class="tl-legend-dot" style="background:#1A3D2A;"></span> Hard Dollar (HD)</span>
         <span><span class="tl-legend-dot" style="background:#4A8C60;"></span> HD Sin MULC</span>
         <span><span class="tl-legend-dot" style="background:#6BBF8A;"></span> Dollar-Linked (DL)</span>
+        <span id="cresud-tl-int-legend" style="display:none;"><span class="tl-legend-dot" style="background:#7AAFC8;"></span> Intereses</span>
       </div>
     </div>
 
@@ -1565,6 +2159,16 @@ function setIrsaTlView(mode, btn) {
   document.getElementById('irsa-tl-cap').style.display  = mode === 'cap'  ? '' : 'none';
   document.getElementById('irsa-tl-full').style.display = mode === 'full' ? '' : 'none';
   document.getElementById('irsa-tl-int-legend').style.display = mode === 'full' ? '' : 'none';
+}
+
+// ── Cresud Timeline toggle (Capital / Capital + Intereses) ───────────────────
+function setCresudTlView(mode, btn) {
+  document.querySelectorAll('#cresud-tl-toggle .toggle-btn')
+    .forEach(b => b.classList.remove('active-cresud'));
+  btn.classList.add('active-cresud');
+  document.getElementById('cresud-tl-cap').style.display  = mode === 'cap'  ? '' : 'none';
+  document.getElementById('cresud-tl-full').style.display = mode === 'full' ? '' : 'none';
+  document.getElementById('cresud-tl-int-legend').style.display = mode === 'full' ? '' : 'none';
 }
 
 // ── Tab switch ────────────────────────────────────────────────────────────────
@@ -2000,6 +2604,15 @@ new Chart(document.getElementById('cresudPieChart'), {
 });
 
 
+// Fecha dinámica en el header
+(function() {
+  const now = new Date();
+  const day   = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year  = now.getFullYear();
+  const formatted = `${day}/${month}/${year}`;
+  document.querySelectorAll('.header-today').forEach(el => el.textContent = formatted);
+})();
 </script>
 </body>
 </html>
