@@ -684,80 +684,6 @@
 
 
 <!-- ══════════════════════════════════════════════════════
-     MODAL: AGREGAR ON
-══════════════════════════════════════════════════════ -->
-<div class="modal-overlay" id="onModal" onclick="if(event.target===this)closeOnModal()">
-  <div class="modal-box">
-    <div class="modal-title">Agregar ON</div>
-
-    <div class="modal-row">
-      <div class="modal-field" style="flex:0 0 48%;">
-        <label class="modal-label">Empresa</label>
-        <select class="modal-input" id="onEmpresa" onchange="_updateOnMonedaOptions();_updateOnDlBtns()">
-          <option value="irsa">IRSA</option>
-          <option value="cresud">Cresud</option>
-        </select>
-      </div>
-      <div class="modal-field" style="flex:1;">
-        <label class="modal-label">Clase / Nombre ON</label>
-        <input class="modal-input" type="text" id="onClase" placeholder="Ej: XXV, LI">
-      </div>
-    </div>
-
-    <div class="modal-row">
-      <div class="modal-field" style="flex:0 0 140px;">
-        <label class="modal-label">Moneda</label>
-        <select class="modal-input" id="onMoneda">
-          <option value="HD">HD (Hard Dollar)</option>
-          <option value="HD s/MULC">HD s/MULC</option>
-          <option value="DL" id="onMonedaDlOption">DL (Dólar Linked)</option>
-        </select>
-      </div>
-      <div class="modal-field">
-        <label class="modal-label">Monto Emitido (USD)</label>
-        <input class="modal-input" type="number" id="onMonto" placeholder="100000000" min="1" step="1">
-      </div>
-      <div class="modal-field" style="flex:0 0 110px;">
-        <label class="modal-label">Tasa anual (%)</label>
-        <input class="modal-input" type="number" id="onTasa" placeholder="8.00" min="0" step="0.01">
-      </div>
-    </div>
-
-    <div class="modal-row">
-      <div class="modal-field">
-        <label class="modal-label">Fecha de Emisión</label>
-        <input class="modal-input" type="date" id="onFechaEmision">
-      </div>
-      <div class="modal-field">
-        <label class="modal-label">Fecha de Vencimiento</label>
-        <input class="modal-input" type="date" id="onFechaVto">
-      </div>
-      <div class="modal-field" style="flex:0 0 160px;">
-        <label class="modal-label">Frecuencia de cupón</label>
-        <select class="modal-input" id="onFreq">
-          <option value="2">Semi-anual</option>
-          <option value="4">Trimestral</option>
-          <option value="1">Anual</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="modal-actions">
-      <button class="modal-btn" style="background:#1D4B6E;color:#fff;" onclick="submitOn()">Agregar</button>
-      <button class="modal-btn modal-btn-dl" id="onDlCapBtn" disabled onclick="downloadOnCapCsv()">⬇ CSV Capital</button>
-      <button class="modal-btn modal-btn-dl" id="onDlFullBtn" disabled onclick="downloadOnFullCsv()">⬇ CSV Completo</button>
-      <button class="modal-btn modal-btn-cancel" onclick="closeOnModal()">Cerrar</button>
-    </div>
-
-    <div class="modal-extra-list" id="onExtraList" style="display:none;">
-      <div class="modal-extra-title">ONs agregadas en sesión</div>
-      <div id="onExtraItems"></div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════
      IRSA
 ══════════════════════════════════════════════════════ -->
 <div id="page-irsa" class="page active">
@@ -862,7 +788,6 @@
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
       <span class="section-label" style="color:#1D4B6E; border-bottom:none; margin-bottom:0; padding-bottom:0;">Detalle de Instrumentos</span>
       <div style="display:flex; gap:8px;">
-        <button class="desc-add-btn" onclick="openOnModal('irsa')">+ Agregar ON</button>
         <button class="desc-add-btn" onclick="openDescModal('irsa')">+ Agregar Descubierto</button>
       </div>
     </div>
@@ -1018,7 +943,6 @@
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
       <span class="section-label" style="color:#1A3D2A; border-bottom:none; margin-bottom:0; padding-bottom:0;">Detalle de Instrumentos</span>
       <div style="display:flex; gap:8px;">
-        <button class="desc-add-btn" onclick="openOnModal('cresud')">+ Agregar ON</button>
         <button class="desc-add-btn" onclick="openDescModal('cresud')">+ Agregar Descubierto</button>
       </div>
     </div>
@@ -1076,10 +1000,7 @@ let _irsaCapRows = [], _irsaFullRows = [];
 let _cresudCapRows = [], _cresudFullRows = [];
 let _cresudOnMoneda = {};
 let _irsaExtraRows = [], _cresudExtraRows = [];
-let _irsaExtraOnCapRows = [], _irsaExtraOnFullRows = [];
-let _cresudExtraOnCapRows = [], _cresudExtraOnFullRows = [];
 let _irsaCapCsvText = '', _cresudCapCsvText = '';
-let _irsaFullCsvText = '', _cresudFullCsvText = '';
 let _irsaPieChart, _cresudPieChart;
 let _irsaPieTotal = 651.6, _cresudPieTotal = 391.3;
 
@@ -1208,7 +1129,6 @@ async function initIrsaTimeline() {
     _irsaCapRows = _parseIrsaCsv(capText);
     _irsaCapCsvText = capText;
     _irsaFullRows = _parseIrsaCsv(fullText);
-    _irsaFullCsvText = fullText;
     _renderIrsaCapTimeline([..._irsaCapRows, ..._irsaExtraRows]);
     _renderIrsaFullTimeline(_irsaFullRows);
   } catch(e) {
@@ -1347,7 +1267,6 @@ async function initCresudTimeline() {
     _cresudCapRows = capRows;
     _cresudCapCsvText = capText;
     _cresudFullRows = fullRows;
-    _cresudFullCsvText = fullText;
     // Build ON → Moneda lookup for badge classification in cap timeline
     fullRows.forEach(r => { _cresudOnMoneda[r['Clase']] = r['Moneda']; });
     _renderCresudCapTimeline([..._cresudCapRows, ..._cresudExtraRows], _cresudOnMoneda);
@@ -2007,20 +1926,6 @@ function _updateIrsaTable(allCapRows) {
     tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${r['Tasa'] || '—'}</td><td>${dateStr}</td><td class="num">${montoDisp}</td><td class="fy">${fyLbl}</td>`;
     tbody.appendChild(tr);
   });
-  _irsaExtraOnCapRows.forEach(r => {
-    if (_parseDMY(r['Fecha Fin']) <= today) return;
-    const d       = _parseDMY(r['Fecha Fin']);
-    const dateStr = `${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`;
-    const rawAmt  = parseFloat(r['Monto USD']) || 0;
-    const fyYear  = parseInt(r['FY'].replace('FY', ''));
-    const curFY   = today.getMonth() >= 6 ? today.getFullYear() + 1 : today.getFullYear();
-    const fyLbl   = fyYear === curFY ? `IVQ FY${String(fyYear).slice(-2)}` : `FY ${String(fyYear).slice(-2)}`;
-    const tr = document.createElement('tr');
-    tr.className = 'extra-row';
-    tr.style.background = '#EFF6FF';
-    tr.innerHTML = `<td>${r['Concepto']}</td><td>ON (nueva)</td><td class="num">${r['Tasa'] || '—'}</td><td>${dateStr}</td><td class="num">${(rawAmt/1e6).toFixed(1)}</td><td class="fy">${fyLbl}</td>`;
-    tbody.appendChild(tr);
-  });
   const active = allCapRows.filter(rr => rr['Moneda'] === 'USD' && _parseDMY(rr['Fecha Fin']) > today);
   const total  = active.reduce((s, rr) => s + parseFloat(rr['Monto USD']) / 1e6, 0);
   const footTd = table.querySelector('tfoot td.num');
@@ -2048,21 +1953,6 @@ function _updateCresudTable(allCapRows) {
     tr.className = 'extra-row';
     tr.style.background = '#F0FFF4';
     tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${tasaDisp}</td><td>${dateStr}</td><td class="num">${montoDisp}</td><td class="fy">${fyLbl}</td>`;
-    tbody.appendChild(tr);
-  });
-  _cresudExtraOnCapRows.forEach(r => {
-    if (_parseDMY(r['Fecha Fin']) <= today) return;
-    const d       = _parseDMY(r['Fecha Fin']);
-    const dateStr = `${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`;
-    const rawAmt  = parseFloat(r['Monto USD']) || 0;
-    const fyYear  = parseInt(r['FY'].replace('FY', ''));
-    const curFY   = today.getMonth() >= 6 ? today.getFullYear() + 1 : today.getFullYear();
-    const fyLbl   = fyYear === curFY ? `IVQ FY${String(fyYear).slice(-2)}` : `FY ${String(fyYear).slice(-2)}`;
-    const tasaDisp = r['Tasa'] ? r['Tasa'].replace('.', ',') : '0,00%';
-    const tr = document.createElement('tr');
-    tr.className = 'extra-row';
-    tr.style.background = '#F0FFF4';
-    tr.innerHTML = `<td>${r['Concepto']}</td><td>ON (nueva)</td><td class="num">${tasaDisp}</td><td>${dateStr}</td><td class="num">${(rawAmt/1e6).toFixed(1)}</td><td class="fy">${fyLbl}</td>`;
     tbody.appendChild(tr);
   });
   const active = allCapRows.filter(rr => rr['Moneda'] === 'USD' && _parseDMY(rr['Fecha Fin']) > today);
@@ -2114,8 +2004,8 @@ function _updateCresudKpis(allCapRows) {
 
 function _rebuildIrsa() {
   if (!irsaMatChart || !_irsaCapRows.length) return;
-  const allCap  = [..._irsaCapRows, ..._irsaExtraRows, ..._irsaExtraOnCapRows];
-  const allFull = [..._irsaFullRows, ..._irsaExtraOnFullRows];
+  const allCap  = [..._irsaCapRows, ..._irsaExtraRows];
+  const allFull = [..._irsaFullRows];
   irsaMatData  = _buildIrsaMatData(allCap);
   _applyIrsaMatData(irsaMatData[irsaMatMode]);
   _renderIrsaCapTimeline(allCap);
@@ -2127,8 +2017,8 @@ function _rebuildIrsa() {
 
 function _rebuildCresud() {
   if (!cresudMatChartObj || !_cresudCapRows.length) return;
-  const allCap  = [..._cresudCapRows, ..._cresudExtraRows, ..._cresudExtraOnCapRows];
-  const allFull = [..._cresudFullRows, ..._cresudExtraOnFullRows];
+  const allCap  = [..._cresudCapRows, ..._cresudExtraRows];
+  const allFull = [..._cresudFullRows];
   // Rebuild ON→Moneda lookup from all full rows (base CSV + new ONs)
   _cresudOnMoneda = {};
   allFull.forEach(r => { if (r['Clase']) _cresudOnMoneda[r['Clase']] = r['Moneda']; });
@@ -2319,300 +2209,6 @@ function downloadDescCsv() {
   document.body.appendChild(a); a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-}
-
-// ── Agregar ON: helpers ───────────────────────────────────────────────────────
-function _addMonths(date, months) {
-  const d = new Date(date);
-  d.setMonth(d.getMonth() + months);
-  return d;
-}
-
-function _fmtEuro(n) {
-  const parts = n.toFixed(2).split('.');
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  return parts[0] + ',' + parts[1];
-}
-
-function _triggerDownload(content, filename) {
-  const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href = url; a.download = filename;
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-// ── Agregar ON: row builders ─────────────────────────────────────────────────
-function _buildIrsaOnCapRow(clase, fi, ff, monto, tasa, monedaTipo) {
-  const ffDate  = _parseInputDate(ff);
-  const fy      = _computeFY(ffDate);
-  const tc      = monedaTipo === 'HD s/MULC' ? '0,95' : '1,00';
-  const tcNum   = monedaTipo === 'HD s/MULC' ? 0.95 : 1.0;
-  const montoNum = Math.round(parseFloat(monto));
-  const montoUsd = Math.round(montoNum * tcNum);
-  const tasaStr = parseFloat(tasa).toFixed(2).replace('.', ',') + '%';
-  return {
-    'AÑO': String(ffDate.getFullYear()), 'FY': fy, 'Detalle': 'HD',
-    'Período': _computePeriodo(ffDate),
-    'Compañía': '3000 - IRSA Inversiones y Repr', 'Sociedad': '3000 - IRSA Inversiones y Repr',
-    'Concepto': clase, 'Concepto 2': 'Mdo de capitales',
-    'Fecha Inicio': _inputToFmt(fi), 'Fecha Fin': _inputToFmt(ff),
-    'Tasa': tasaStr, 'Moneda': 'USD',
-    'Monto MO': String(montoNum), 'Monto USD': String(montoUsd), 'TC': tc,
-  };
-}
-
-function _buildIrsaOnFullRows(clase, fi, ff, monto, tasa, monedaTipo, freq) {
-  const fiDate   = _parseInputDate(fi);
-  const ffDate   = _parseInputDate(ff);
-  const rate     = parseFloat(tasa) / 100;
-  const amount   = parseFloat(monto);
-  const monedaStr = monedaTipo === 'HD s/MULC' ? 'USD MEP - ARGENTINA S/MULC' : 'USD Int';
-  const tasaStr  = parseFloat(tasa).toFixed(2).replace('.', ',') + '%';
-  const monthsPerPmt = 12 / freq;
-  const coupon   = amount * rate / freq;
-  const rows = [];
-  let pStart = new Date(fiDate);
-  let pEnd   = _addMonths(fiDate, monthsPerPmt);
-  while (pStart < ffDate) {
-    const isLast  = pEnd >= ffDate;
-    const fd      = isLast ? new Date(ffDate) : new Date(pEnd);
-    const fy      = _computeFY(fd);
-    const concepto = isLast ? 'Intereses + Capital' : 'Intereses';
-    rows.push({
-      'AÑO': String(fd.getFullYear()), 'FY': fy, 'Detalle': 'HD',
-      'Compañía': '3000 - IRSA Inversiones y Repr', 'Sociedad': '3000 - IRSA Inversiones y Repr',
-      'ON': clase, 'Concepto': concepto,
-      'Fecha Inicio': _inputToFmt(_dateToInput(pStart)),
-      'Fecha Fin': _inputToFmt(_dateToInput(fd)),
-      'Tasa': tasaStr, 'Moneda': monedaStr,
-      'Monto Emitido': _fmtEuro(amount), 'Outstanding': _fmtEuro(amount),
-      'Intereses': _fmtEuro(coupon),
-      'Amortización': isLast ? _fmtEuro(amount) : _fmtEuro(0),
-      'Capital': isLast ? _fmtEuro(amount) : _fmtEuro(0),
-    });
-    if (isLast) break;
-    pStart = new Date(pEnd);
-    pEnd   = _addMonths(pEnd, monthsPerPmt);
-  }
-  return rows;
-}
-
-function _buildCresudOnCapRow(clase, fi, ff, monto, tasa, monedaTipo) {
-  const ffDate   = _parseInputDate(ff);
-  const fy       = _computeFY(ffDate);
-  const monedaRow = monedaTipo === 'DL' ? 'DL' : 'HD';
-  const tasaStr  = parseFloat(tasa).toFixed(2) + '%';
-  const montoNum = Math.round(parseFloat(monto));
-  return {
-    'AÑO': String(ffDate.getFullYear()), 'FY': fy, 'MONEDA': monedaRow,
-    'Periodo': _computePeriodo(ffDate),
-    'Compañía': '5000 - Cresud', 'Sociedad': '5000 - Cresud SACIF y A',
-    'Concepto': clase, 'Concepto 2': 'Mdo de capitales',
-    'Fecha Inicio': _inputToFmt(fi), 'Fecha Fin': _inputToFmt(ff),
-    'Tasa': tasaStr, 'Moneda': 'USD',
-    'Monto Webcast': String(montoNum), 'Monto USD': String(montoNum),
-  };
-}
-
-function _buildCresudOnFullRows(clase, fi, ff, monto, tasa, monedaTipo, freq) {
-  const fiDate   = _parseInputDate(fi);
-  const ffDate   = _parseInputDate(ff);
-  const rate     = parseFloat(tasa) / 100;
-  const amount   = parseFloat(monto);
-  const monedaStr = monedaTipo === 'DL' ? 'Dólar Linked'
-                  : monedaTipo === 'HD s/MULC' ? 'USD S/MULC'
-                  : 'USD Hard Dollar';
-  const tasaStr  = parseFloat(tasa).toFixed(2) + '%';
-  const monthsPerPmt = 12 / freq;
-  const coupon   = amount * rate / freq;
-  const rows = [];
-  let pStart = new Date(fiDate);
-  let pEnd   = _addMonths(fiDate, monthsPerPmt);
-  while (pStart < ffDate) {
-    const isLast  = pEnd >= ffDate;
-    const fd      = isLast ? new Date(ffDate) : new Date(pEnd);
-    const fy      = _computeFY(fd);
-    const concepto2 = isLast ? 'Intereses + Capital' : 'Intereses';
-    rows.push({
-      'AÑO': String(fd.getFullYear()), 'FY': fy,
-      'Compañía': '5000 - Cresud', 'Sociedad': '5000 - Cresud SACIF y A',
-      'Clase': clase, 'Concepto 2': concepto2,
-      'Fecha Inicio': _inputToFmt(_dateToInput(pStart)),
-      'Fecha Fin': _inputToFmt(_dateToInput(fd)),
-      'Tasa': tasaStr, 'Moneda': monedaStr,
-      'Monto Emitido': amount.toFixed(2), 'Outstanding': amount.toFixed(2),
-      'Intereses': coupon.toFixed(2),
-      'Amortización': isLast ? amount.toFixed(2) : '0.00',
-      'Capital': isLast ? amount.toFixed(2) : '0.00',
-    });
-    if (isLast) break;
-    pStart = new Date(pEnd);
-    pEnd   = _addMonths(pEnd, monthsPerPmt);
-  }
-  return rows;
-}
-
-// ── Agregar ON: modal logic ──────────────────────────────────────────────────
-function _updateOnMonedaOptions() {
-  const empresa   = document.getElementById('onEmpresa').value;
-  const dlOption  = document.getElementById('onMonedaDlOption');
-  if (dlOption) dlOption.style.display = empresa === 'cresud' ? '' : 'none';
-  if (empresa === 'irsa' && document.getElementById('onMoneda').value === 'DL') {
-    document.getElementById('onMoneda').value = 'HD';
-  }
-}
-
-function _renderOnList() {
-  const container = document.getElementById('onExtraItems');
-  const listEl    = document.getElementById('onExtraList');
-  const allOns = [
-    ..._irsaExtraOnCapRows.map((r, i)   => ({ empresa: 'irsa',   idx: i, r })),
-    ..._cresudExtraOnCapRows.map((r, i) => ({ empresa: 'cresud', idx: i, r })),
-  ];
-  if (!allOns.length) { listEl.style.display = 'none'; return; }
-  listEl.style.display = '';
-  container.innerHTML = allOns.map(({ empresa, idx, r }) => {
-    const accent = empresa === 'irsa' ? '#1D4B6E' : '#1A3D2A';
-    const monto  = (parseFloat(r['Monto USD'] || r['Monto Webcast'] || 0) / 1e6).toFixed(0);
-    const label  = `[${empresa.toUpperCase()}] ON ${r['Concepto']} — Vto. ${r['Fecha Fin']} — USD ${monto}M @ ${r['Tasa']}`;
-    return `<div class="modal-extra-item">
-      <span style="color:${accent}; font-size:11.5px;">${label}</span>
-      <button class="modal-extra-remove" onclick="removeOn('${empresa}',${idx})">✕</button>
-    </div>`;
-  }).join('');
-}
-
-function _updateOnDlBtns() {
-  const empresa  = document.getElementById('onEmpresa').value;
-  const capRows  = empresa === 'irsa' ? _irsaExtraOnCapRows : _cresudExtraOnCapRows;
-  const hasOns   = capRows.length > 0;
-  const capBtn   = document.getElementById('onDlCapBtn');
-  const fullBtn  = document.getElementById('onDlFullBtn');
-  if (capBtn)  capBtn.disabled  = !hasOns;
-  if (fullBtn) fullBtn.disabled = !hasOns;
-}
-
-function openOnModal(empresa) {
-  if (!empresa) {
-    const activePage = document.querySelector('.page.active');
-    empresa = (activePage && activePage.id === 'page-cresud') ? 'cresud' : 'irsa';
-  }
-  document.getElementById('onEmpresa').value = empresa;
-  _updateOnMonedaOptions();
-  document.getElementById('onClase').value = '';
-  document.getElementById('onMoneda').value = 'HD';
-  document.getElementById('onMonto').value = '';
-  document.getElementById('onTasa').value  = '';
-  document.getElementById('onFechaEmision').value = _dateToInput(new Date());
-  document.getElementById('onFechaVto').value = '';
-  document.getElementById('onFreq').value = '2';
-  _renderOnList();
-  _updateOnDlBtns();
-  document.getElementById('onModal').classList.add('open');
-}
-
-function closeOnModal() {
-  document.getElementById('onModal').classList.remove('open');
-}
-
-function submitOn() {
-  const empresa = document.getElementById('onEmpresa').value;
-  const clase   = document.getElementById('onClase').value.trim().toUpperCase();
-  const moneda  = document.getElementById('onMoneda').value;
-  const monto   = document.getElementById('onMonto').value;
-  const tasa    = document.getElementById('onTasa').value;
-  const fi      = document.getElementById('onFechaEmision').value;
-  const ff      = document.getElementById('onFechaVto').value;
-  const freq    = parseInt(document.getElementById('onFreq').value, 10);
-
-  if (!clase)                { alert('Ingresá el nombre/clase de la ON (ej: XXV).'); return; }
-  if (!monto || +monto <= 0) { alert('Ingresá un monto válido mayor a 0.'); return; }
-  if (tasa === '' || isNaN(+tasa) || +tasa < 0) { alert('Ingresá una tasa válida.'); return; }
-  if (!fi || !ff)            { alert('Ingresá ambas fechas.'); return; }
-
-  const today  = new Date(); today.setHours(0, 0, 0, 0);
-  const fiDate = _parseInputDate(fi);
-  const ffDate = _parseInputDate(ff);
-  if (ffDate <= today)  { alert('La fecha de vencimiento debe ser futura.'); return; }
-  if (ffDate <= fiDate) { alert('La fecha de vencimiento debe ser posterior a la de emisión.'); return; }
-
-  if (empresa === 'irsa') {
-    _irsaExtraOnCapRows.push(_buildIrsaOnCapRow(clase, fi, ff, monto, tasa, moneda));
-    _irsaExtraOnFullRows.push(..._buildIrsaOnFullRows(clase, fi, ff, monto, tasa, moneda, freq));
-    _rebuildIrsa();
-  } else {
-    _cresudExtraOnCapRows.push(_buildCresudOnCapRow(clase, fi, ff, monto, tasa, moneda));
-    _cresudExtraOnFullRows.push(..._buildCresudOnFullRows(clase, fi, ff, monto, tasa, moneda, freq));
-    _rebuildCresud();
-  }
-
-  document.getElementById('onClase').value = '';
-  document.getElementById('onMonto').value = '';
-  document.getElementById('onTasa').value  = '';
-  document.getElementById('onFechaVto').value = '';
-  _renderOnList();
-  _updateOnDlBtns();
-}
-
-function removeOn(empresa, idx) {
-  if (empresa === 'irsa') {
-    const clase = _irsaExtraOnCapRows[idx]?.['Concepto'];
-    _irsaExtraOnCapRows.splice(idx, 1);
-    if (clase) _irsaExtraOnFullRows = _irsaExtraOnFullRows.filter(r => r['ON'] !== clase);
-    _rebuildIrsa();
-  } else {
-    const clase = _cresudExtraOnCapRows[idx]?.['Concepto'];
-    _cresudExtraOnCapRows.splice(idx, 1);
-    if (clase) _cresudExtraOnFullRows = _cresudExtraOnFullRows.filter(r => r['Clase'] !== clase);
-    _rebuildCresud();
-  }
-  _renderOnList();
-  _updateOnDlBtns();
-}
-
-function downloadOnCapCsv() {
-  const empresa   = document.getElementById('onEmpresa').value;
-  const isIrsa    = empresa === 'irsa';
-  const extraRows = isIrsa ? _irsaExtraOnCapRows : _cresudExtraOnCapRows;
-  const csvText   = isIrsa ? _irsaCapCsvText : _cresudCapCsvText;
-  const filename  = isIrsa ? 'irsa_deuda.csv' : 'cresud_deuda.csv';
-  if (!extraRows.length) { alert('No hay ONs agregadas para esta empresa.'); return; }
-  if (!csvText)          { alert('El CSV original aún no se ha cargado. Esperá un momento.'); return; }
-  const newLines = extraRows.map(r => isIrsa
-    ? [r['AÑO'], r['FY'], r['Detalle'], r['Período'], r['Compañía'], r['Sociedad'],
-       r['Concepto'], r['Concepto 2'], r['Fecha Inicio'], r['Fecha Fin'],
-       '"' + r['Tasa'] + '"', r['Moneda'], r['Monto MO'], r['Monto USD'], '"' + r['TC'] + '"'].join(',')
-    : [r['AÑO'], r['FY'], r['MONEDA'], r['Periodo'], r['Compañía'], r['Sociedad'],
-       r['Concepto'], r['Concepto 2'], r['Fecha Inicio'], r['Fecha Fin'],
-       r['Tasa'], r['Moneda'], r['Monto Webcast'], r['Monto USD']].join(',')
-  );
-  _triggerDownload(csvText.trimEnd() + '\n' + newLines.join('\n') + '\n', filename);
-}
-
-function downloadOnFullCsv() {
-  const empresa   = document.getElementById('onEmpresa').value;
-  const isIrsa    = empresa === 'irsa';
-  const extraRows = isIrsa ? _irsaExtraOnFullRows : _cresudExtraOnFullRows;
-  const csvText   = isIrsa ? _irsaFullCsvText : _cresudFullCsvText;
-  const filename  = isIrsa ? 'irsa_deuda_total.csv' : 'cresud_completo.csv';
-  if (!extraRows.length) { alert('No hay ONs agregadas para esta empresa.'); return; }
-  if (!csvText)          { alert('El CSV original aún no se ha cargado. Esperá un momento.'); return; }
-  const newLines = extraRows.map(r => isIrsa
-    ? [r['AÑO'], r['FY'], r['Detalle'], r['Compañía'], r['Sociedad'],
-       r['ON'], r['Concepto'], r['Fecha Inicio'], r['Fecha Fin'],
-       '"' + r['Tasa'] + '"', r['Moneda'],
-       '"' + r['Monto Emitido'] + '"', '"' + r['Outstanding'] + '"',
-       '"' + r['Intereses'] + '"', '"' + r['Amortización'] + '"', '"' + r['Capital'] + '"'].join(',')
-    : [r['AÑO'], r['FY'], r['Compañía'], r['Sociedad'],
-       r['Clase'], r['Concepto 2'], r['Fecha Inicio'], r['Fecha Fin'],
-       r['Tasa'], r['Moneda'],
-       r['Monto Emitido'], r['Outstanding'],
-       r['Intereses'], r['Amortización'], r['Capital']].join(',')
-  );
-  _triggerDownload(csvText.trimEnd() + '\n' + newLines.join('\n') + '\n', filename);
 }
 
 // Fecha dinámica en el header
