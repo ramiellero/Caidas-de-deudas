@@ -121,6 +121,33 @@ Schedule completo de Cresud con todos los flujos. Columnas: `AÑO, FY, Compañí
 - Fecha dinámica en el header: IIFE al final del `<script>` popula todos los `.header-today` con la fecha actual en formato `dd/mm/yyyy` usando `new Date()`
 - No hay frameworks JS — vanilla JS puro
 
+### Columna Call Option (tabla de detalle)
+
+Columna interactiva añadida en ambas tablas (`#irsa-mat-table`, `#cresud-mat-table`) entre **Vencimiento** y **Capital (USD M)**. Muestra si el bono es actualmente ejercible y permite ver el detalle al hacer click.
+
+**UI por fila**:
+- 🟢 Botón verde `"Callable"` — hoy ≥ call date
+- 🔴 Botón rojo `"Not Callable now"` — existe call option pero todavía no ejercible
+- Filas con `Tipo = "Bancaria"` → celda vacía (sin botón)
+- ONs sin call option (e.g. ON XLII) → celda vacía
+
+**Lógica**:
+- `callData` — objeto con los datos de call de cada instrumento; dos tipos:
+  - `type: "schedule"` (ON XIV, ON XXIV): callable si `today >= start`; el popover muestra tabla escalonada de precios por tramo
+  - Sin type (resto): callable si `today >= callDate`; el popover muestra Call Date + Price
+  - `null` (ON XLII): sin call option
+- `_callIsCallable(key)` — retorna `true/false/null`; `null` = no tiene call
+- `_callCurrentPrice(key)` — recorre los steps del schedule para encontrar el precio vigente
+- `_callPopoverHtml(key)` — genera el HTML del popover (simple o tabla de schedule)
+- `_callCellHtml(instrText)` — genera el HTML del botón para una fila
+- `initCallColumns()` — inyecta la `<td>` en cada `tr` de `tbody` (excepto `.extra-row`); se posiciona antes del índice 4 (Capital); excluye filas con `Tipo = "Bancaria"`; se llama una sola vez al cargar la página
+- `toggleCallPopover(btn, key)` — muestra/oculta el popover fijo; lo mide off-screen antes de posicionarlo para evitar desborde de viewport; click fuera lo cierra
+- `_callPopoverBtn` — referencia al botón activo (para toggle)
+
+**CSS**: `.call-btn`, `.call-btn.callable` (`#16a34a`), `.call-btn.not-callable` (`#dc2626`), `.call-popover` (fijo, fondo `#111`), `.call-sched-table`
+
+**Integración con extra-rows**: `_updateIrsaTable` y `_updateCresudTable` incluyen un `<td></td>` vacío en la posición de Call Option al generar filas de descubiertos, para mantener la alineación de columnas.
+
 ### Agregar Descubierto (modal en sesión)
 Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria durante la sesión, sin editar CSVs manualmente. Los datos **no persisten** al refrescar; el flujo previsto es: agregar → descargar CSV actualizado → reemplazar el archivo y hacer commit.
 

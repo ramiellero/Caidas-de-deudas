@@ -360,6 +360,50 @@
       font-variant-numeric: tabular-nums;
     }
 
+    /* ── Call Option column ── */
+    .call-btn {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      padding: 3px 9px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .call-btn:hover { opacity: 0.8; }
+    .call-btn.callable     { background: #16a34a; color: #fff; }
+    .call-btn.not-callable { background: #dc2626; color: #fff; }
+    .call-btn.no-call      { background: #94A3B8; color: #fff; cursor: default; }
+    .call-popover {
+      position: fixed;
+      z-index: 9999;
+      background: #111;
+      color: #fff;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 11.5px;
+      line-height: 1.65;
+      min-width: 175px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      display: none;
+      pointer-events: none;
+    }
+    .call-popover.visible { display: block; pointer-events: auto; }
+    .call-popover-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94A3B8;
+      margin-bottom: 6px;
+    }
+    .call-sched-table { width: 100%; border-collapse: collapse; }
+    .call-sched-table td { padding: 2px 0; font-size: 11px; white-space: nowrap; }
+    .call-sched-table td:last-child { text-align: right; font-weight: 600; padding-left: 12px; }
+
     /* ── Currency pie section ── */
     .currency-section {
       margin-top: 28px;
@@ -798,6 +842,7 @@
           <th>Tipo</th>
           <th class="r">Cupón</th>
           <th>Vencimiento</th>
+          <th>Call Option</th>
           <th class="r">Capital (USD M)</th>
           <th>Año Fiscal</th>
         </tr>
@@ -816,7 +861,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="4" style="color:#1D4B6E;">Total Deuda Vigente</td>
+          <td colspan="5" style="color:#1D4B6E;">Total Deuda Vigente</td>
           <td class="num" style="color:#1D4B6E;">651,6</td>
           <td></td>
         </tr>
@@ -953,6 +998,7 @@
           <th>Tipo</th>
           <th class="r">Cupón</th>
           <th>Vencimiento</th>
+          <th>Call Option</th>
           <th class="r">Capital (USD M)</th>
           <th>Año Fiscal</th>
         </tr>
@@ -974,7 +1020,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="4" style="color:#1A3D2A;">Total Deuda Vigente</td>
+          <td colspan="5" style="color:#1A3D2A;">Total Deuda Vigente</td>
           <td class="num" style="color:#1A3D2A;">391,3</td>
           <td></td>
         </tr>
@@ -1923,7 +1969,7 @@ function _updateIrsaTable(allCapRows) {
     const tr = document.createElement('tr');
     tr.className = 'extra-row';
     tr.style.background = '#EFF6FF';
-    tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${r['Tasa'] || '—'}</td><td>${dateStr}</td><td class="num">${montoDisp}</td><td class="fy">${fyLbl}</td>`;
+    tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${r['Tasa'] || '—'}</td><td>${dateStr}</td><td></td><td class="num">${montoDisp}</td><td class="fy">${fyLbl}</td>`;
     tbody.appendChild(tr);
   });
   const active = allCapRows.filter(rr => rr['Moneda'] === 'USD' && _parseDMY(rr['Fecha Fin']) > today);
@@ -1952,7 +1998,7 @@ function _updateCresudTable(allCapRows) {
     const tr = document.createElement('tr');
     tr.className = 'extra-row';
     tr.style.background = '#F0FFF4';
-    tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${tasaDisp}</td><td>${dateStr}</td><td class="num">${montoDisp}</td><td class="fy">${fyLbl}</td>`;
+    tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${tasaDisp}</td><td>${dateStr}</td><td></td><td class="num">${montoDisp}</td><td class="fy">${fyLbl}</td>`;
     tbody.appendChild(tr);
   });
   const active = allCapRows.filter(rr => rr['Moneda'] === 'USD' && _parseDMY(rr['Fecha Fin']) > today);
@@ -2211,6 +2257,156 @@ function downloadDescCsv() {
   URL.revokeObjectURL(url);
 }
 
+// ── Call Option ───────────────────────────────────────────────────────────────
+
+const callData = {
+  "ON XIV": {
+    type: "schedule",
+    start: "2025-06-22",
+    steps: [
+      { from: "2025-06-22", price: "104.375%" },
+      { from: "2026-06-22", price: "102.1875%" },
+      { from: "2027-01-01", price: "100%" }
+    ]
+  },
+  "ON XVIII": { callDate: "2026-08-28", price: "101%" },
+  "ON XX":    { callDate: "2025-12-10", price: "101%" },
+  "ON XXII":  { callDate: "2027-04-23", price: "101%" },
+  "ON XXIII": { callDate: "2028-10-23", price: "100%" },
+  "ON XXIV": {
+    type: "schedule",
+    start: "2029-03-31",
+    steps: [
+      { from: "2029-03-31", price: "104%" },
+      { from: "2030-03-31", price: "102%" },
+      { from: "2031-03-31", price: "101%" },
+      { from: "2032-03-31", price: "100%" }
+    ]
+  },
+  "ON XL":     { callDate: "2026-06-21", price: "101%" },
+  "ON XLII":   null,
+  "ON XLIV":   { callDate: "2026-07-17", price: "101%" },
+  "ON XLV":    { callDate: "2026-02-22", price: "101%" },
+  "ON XLVI":   { callDate: "2027-04-18", price: "101%" },
+  "ON XLVII":  { callDate: "2027-11-15", price: "100%" },
+  "ON XLVIII": { callDate: "2027-07-11", price: "100%" },
+  "ON XLIX":   { callDate: "2026-09-02", price: "100%" },
+  "ON L":      { callDate: "2027-06-10", price: "100%" },
+  "ON LI":     { callDate: "2026-10-20", price: "100%" }
+};
+
+function _callIsCallable(key) {
+  const d = callData[key];
+  if (!d) return null;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  if (d.type === 'schedule') return today >= new Date(d.start);
+  if (d.callDate)            return today >= new Date(d.callDate);
+  return null;
+}
+
+function _callCurrentPrice(key) {
+  const d = callData[key];
+  if (!d) return null;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  if (d.type === 'schedule') {
+    let price = d.steps[0].price;
+    for (const step of d.steps) {
+      if (today >= new Date(step.from)) price = step.price;
+    }
+    return price;
+  }
+  return d.price || null;
+}
+
+function _callFmtDate(iso) {
+  const [y, m, day] = iso.split('-');
+  return `${day}/${m}/${y}`;
+}
+
+function _callPopoverHtml(key) {
+  const d = callData[key];
+  if (!d) return '';
+  if (d.type === 'schedule') {
+    let rows = '';
+    for (let i = 0; i < d.steps.length; i++) {
+      const s = d.steps[i];
+      const label = i === d.steps.length - 1
+        ? `${s.from.slice(0, 4)}+`
+        : `From ${_callFmtDate(s.from)}`;
+      rows += `<tr><td>${label}</td><td>${s.price}</td></tr>`;
+    }
+    return `<div class="call-popover-title">Call Schedule</div><table class="call-sched-table">${rows}</table>`;
+  }
+  return `<div class="call-popover-title">Call Option</div>`
+       + `<div>Call Date: <strong>${_callFmtDate(d.callDate)}</strong></div>`
+       + `<div>Price: <strong>${d.price}</strong></div>`;
+}
+
+function _callCellHtml(instrText) {
+  const key = instrText.trim();
+  const callable = _callIsCallable(key);
+  if (callable === null) {
+    return `<span class="call-btn no-call">No Call</span>`;
+  }
+  const cls   = callable ? 'callable' : 'not-callable';
+  const label = callable ? 'Callable' : 'Not Callable now';
+  const safeKey = key.replace(/'/g, "\\'");
+  return `<button class="call-btn ${cls}" onclick="toggleCallPopover(this,'${safeKey}')">${label}</button>`;
+}
+
+function initCallColumns() {
+  document.querySelectorAll('.mat-table tbody tr:not(.extra-row)').forEach(tr => {
+    const instrTd = tr.querySelector('td');
+    if (!instrTd) return;
+    const tds  = tr.querySelectorAll('td');
+    const tipo = tds[1] ? tds[1].textContent.trim() : '';
+    const cell = document.createElement('td');
+    if (tipo !== 'Bancaria') {
+      cell.innerHTML = _callCellHtml(instrTd.textContent.trim());
+    }
+    // Insert before Capital column (index 4)
+    const insertBefore = tds[4];
+    if (insertBefore) tr.insertBefore(cell, insertBefore);
+    else tr.appendChild(cell);
+  });
+}
+
+// Popover
+let _callPopoverBtn = null;
+
+function toggleCallPopover(btn, key) {
+  const popover = document.getElementById('call-popover');
+  if (_callPopoverBtn === btn && popover.classList.contains('visible')) {
+    popover.classList.remove('visible');
+    _callPopoverBtn = null;
+    return;
+  }
+  _callPopoverBtn = btn;
+  document.getElementById('call-popover-content').innerHTML = _callPopoverHtml(key);
+  // Measure off-screen then position
+  popover.style.left = '-9999px';
+  popover.style.top  = '-9999px';
+  popover.classList.add('visible');
+  const pw   = popover.offsetWidth;
+  const ph   = popover.offsetHeight;
+  const rect = btn.getBoundingClientRect();
+  let left = rect.left;
+  let top  = rect.bottom + 6;
+  if (left + pw > window.innerWidth  - 8) left = window.innerWidth  - pw - 8;
+  if (top  + ph > window.innerHeight - 8) top  = rect.top - ph - 6;
+  popover.style.left = Math.max(8, left) + 'px';
+  popover.style.top  = Math.max(8, top)  + 'px';
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.classList.contains('call-btn')) {
+    const popover = document.getElementById('call-popover');
+    if (popover) { popover.classList.remove('visible'); _callPopoverBtn = null; }
+  }
+});
+
+initCallColumns();
+
 // Fecha dinámica en el header
 (function() {
   const now = new Date();
@@ -2221,5 +2417,10 @@ function downloadDescCsv() {
   document.querySelectorAll('.header-today').forEach(el => el.textContent = formatted);
 })();
 </script>
+
+<div id="call-popover" class="call-popover">
+  <div id="call-popover-content"></div>
+</div>
+
 </body>
 </html>
