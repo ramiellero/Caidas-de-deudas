@@ -240,6 +240,31 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 | Timeline Cresud (capital + intereses) | `cresud_completo.csv` + `cresud_deuda.csv` (banking) — dinámico |
 | Tabla detalle de vencimientos | Base hardcodeada en HTML; filas de descubiertos se insertan dinámicamente en sesión |
 
+## Diseño responsive (mobile + desktop)
+
+El dashboard **debe verse bien tanto en desktop como en mobile** (celulares y tablets). Los jefes del equipo lo consultan desde el celular.
+
+### Breakpoints
+- **≤ 900px (tablet)**: grids colapsan a 1 columna; tablas con scroll horizontal; padding reducido
+- **≤ 600px (phone)**: layout completamente simplificado — nav condensado, fuentes y padding reducidos, charts más bajos, KPI boxes apilados verticalmente, pie chart apilado, modal en columna
+
+### Reglas CSS clave
+- `.mat-table`: `display: block; overflow-x: auto; -webkit-overflow-scrolling: touch` — permite scroll horizontal en tablas largas sin cambiar el HTML
+- `.kpi-row`: clase en el contenedor `div` de los KPI boxes (IRSA y Cresud) — aplica `flex-direction: column` en mobile. **Importante**: el div tiene `style="display:flex"` inline, por lo que la clase es necesaria para poder sobrescribir `flex-direction` via media query (no se puede hacer solo con clase si el inline style lo pisa)
+- `.chart-wrap`: forzado a `height: 200px !important` en mobile para no ocupar demasiado espacio vertical
+- `.currency-row`: pasa de horizontal a `flex-direction: column` en mobile, apilando el pie chart arriba y la leyenda abajo
+- `.grid-2`, `.grid-40-60`, `.grid-35-65`: colapsan a `1fr` en tablet via `grid-template-columns: 1fr !important`
+
+### Elementos ocultos en mobile
+- `.header-title` (≤ 900px): texto largo del header
+- `.nav-logo` (≤ 600px): logo en la barra de navegación
+- `.header-ir` (≤ 600px): texto "Investor Relations" del header
+
+### Lo que NO debe cambiar en mobile
+- Las timelines de cashflows se mantienen horizontales con scroll (no se rediseñan para mobile)
+- Los Chart.js bars siguen siendo responsivos (Chart.js lo maneja solo con `maintainAspectRatio: false`)
+- Los popovers de Call Option se posicionan con `position: fixed` — funcionan en mobile pero pueden no ser ideales en pantallas muy chicas
+
 ## Notas importantes
 - El dashboard se sirve vía HTTP (GitHub Pages), por lo que `fetch()` funciona para leer los CSVs
 - Los CSV de los maturity walls son la fuente de verdad — editarlos es suficiente para actualizar esos charts
