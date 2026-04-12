@@ -157,6 +157,9 @@
       font-weight: 700;
       letter-spacing: -0.02em;
     }
+    .kpi-box-sm .kpi-label { font-size: 11px; }
+    .kpi-box-sm .kpi-value { font-size: 15px; letter-spacing: -0.01em; }
+    .kpi-box-sm { padding: 10px 14px; }
 
     /* ── Emission table (IRSA left panel) ── */
     .emission-wrap {
@@ -792,6 +795,18 @@
     @media (max-width: 600px) {
       .sgr-pill { padding: 5px 12px; font-size: 11px; }
       .sgr-chart-card { padding: 14px; }
+      /* Pill separator: hide on mobile (wrap makes it appear mid-row) */
+      .sgr-pill-sep { display: none; }
+      /* Selector: menos padding */
+      .sgr-selector { padding: 14px 0 12px; margin-bottom: 16px; gap: 6px; }
+      /* KPI foto row: grid 2 columnas en lugar de apilar 6 en fila */
+      .sgr-foto-kpi-row { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; margin-bottom: 16px !important; }
+      .sgr-foto-kpi-row .kpi-box { flex: none !important; width: auto; }
+      /* Chart heights internas (inline height:260px) */
+      .sgr-chart-inner { height: 180px !important; }
+      /* Donuts: apilar canvas arriba, leyenda abajo */
+      .sgr-donut-wrap { flex-direction: column !important; height: auto !important; gap: 14px !important; padding: 8px 0 !important; }
+      .sgr-donut-canvas-wrap { width: 140px !important; height: 140px !important; }
     }
   </style>
 </head>
@@ -1213,35 +1228,31 @@
     <!-- ── Individual SGR view ── -->
     <div id="sgr-individual">
 
-      <!-- KPI row -->
-      <div class="kpi-row" style="display:flex; gap:12px; margin-bottom:28px;">
-        <div class="kpi-box sgr-kpi" style="flex:1;">
-          <div>
-            <div class="kpi-label" id="sgr-kpi-garantias-lbl">Garantías</div>
-            <div style="font-size:10.5px;color:#64748B;margin-top:2px;">vigentes · MM ARS</div>
-          </div>
-          <div class="kpi-value" id="sgr-kpi-garantias">—</div>
+      <!-- Foto SGR KPI row -->
+      <div class="kpi-row sgr-foto-kpi-row" style="display:flex; gap:12px; margin-bottom:28px;">
+        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
+          <div><div class="kpi-label">Aporte</div><div style="font-size:10px;color:#64748B;margin-top:1px;">ARS MM</div></div>
+          <div class="kpi-value" id="sgr-foto-aporte">—</div>
         </div>
-        <div class="kpi-box sgr-kpi" style="flex:1;">
-          <div>
-            <div class="kpi-label">FDR</div>
-            <div style="font-size:10.5px;color:#64748B;margin-top:2px;">fondo de riesgo · MM ARS</div>
-          </div>
-          <div class="kpi-value" id="sgr-kpi-fdr">—</div>
+        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
+          <div><div class="kpi-label">Posición</div><div style="font-size:10px;color:#64748B;margin-top:1px;">ARS MM</div></div>
+          <div class="kpi-value" id="sgr-foto-posicion">—</div>
         </div>
-        <div class="kpi-box sgr-kpi" style="flex:1;">
-          <div>
-            <div class="kpi-label">Apalancamiento</div>
-            <div style="font-size:10.5px;color:#64748B;margin-top:2px;">Garantías / FDR</div>
-          </div>
-          <div class="kpi-value" id="sgr-kpi-apalancamiento">—</div>
+        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
+          <div class="kpi-label">Weight</div>
+          <div class="kpi-value" id="sgr-foto-weight">—</div>
         </div>
-        <div class="kpi-box sgr-kpi" style="flex:1;">
-          <div>
-            <div class="kpi-label">Mora</div>
-            <div style="font-size:10.5px;color:#64748B;margin-top:2px;">cartera · dic-25</div>
-          </div>
-          <div class="kpi-value" id="sgr-kpi-mora">—</div>
+        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
+          <div><div class="kpi-label">P&amp;L</div><div style="font-size:10px;color:#64748B;margin-top:1px;">ARS MM</div></div>
+          <div class="kpi-value" id="sgr-foto-pnl">—</div>
+        </div>
+        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
+          <div class="kpi-label">Mora</div>
+          <div class="kpi-value" id="sgr-foto-mora">—</div>
+        </div>
+        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
+          <div class="kpi-label">TIR</div>
+          <div class="kpi-value" id="sgr-foto-tir">—</div>
         </div>
       </div>
 
@@ -1251,20 +1262,20 @@
         <!-- Top-left: Mora vs Mercado -->
         <div class="sgr-chart-card">
           <div class="sgr-chart-title">Mora vs. Mercado SGR</div>
-          <div style="height:260px;"><canvas id="sgr-mora-chart"></canvas></div>
+          <div class="sgr-chart-inner" style="height:260px;"><canvas id="sgr-mora-chart"></canvas></div>
         </div>
 
         <!-- Top-right: Stock de Garantías -->
         <div class="sgr-chart-card">
           <div class="sgr-chart-title">Stock de Garantías <span style="font-size:10.5px;color:#94A3B8;font-weight:500;text-transform:none;letter-spacing:0;">· MM ARS</span></div>
-          <div style="height:260px;"><canvas id="sgr-garantias-chart"></canvas></div>
+          <div class="sgr-chart-inner" style="height:260px;"><canvas id="sgr-garantias-chart"></canvas></div>
         </div>
 
         <!-- Bottom-left: Mora por Antigüedad -->
         <div class="sgr-chart-card">
           <div class="sgr-chart-title">Mora por Antigüedad</div>
-          <div style="display:flex;align-items:center;justify-content:center;gap:24px;height:260px;">
-            <div style="width:190px;height:190px;flex-shrink:0;"><canvas id="sgr-antiguedad-chart"></canvas></div>
+          <div class="sgr-donut-wrap" style="display:flex;align-items:center;justify-content:center;gap:24px;height:260px;">
+            <div class="sgr-donut-canvas-wrap" style="width:190px;height:190px;flex-shrink:0;"><canvas id="sgr-antiguedad-chart"></canvas></div>
             <div class="sgr-legend" id="sgr-antiguedad-legend"></div>
           </div>
         </div>
@@ -1272,8 +1283,8 @@
         <!-- Bottom-right: Garantías por Sector -->
         <div class="sgr-chart-card">
           <div class="sgr-chart-title">Garantías por Sector</div>
-          <div style="display:flex;align-items:center;justify-content:center;gap:24px;height:260px;">
-            <div style="width:190px;height:190px;flex-shrink:0;"><canvas id="sgr-sector-chart"></canvas></div>
+          <div class="sgr-donut-wrap" style="display:flex;align-items:center;justify-content:center;gap:24px;height:260px;">
+            <div class="sgr-donut-canvas-wrap" style="width:190px;height:190px;flex-shrink:0;"><canvas id="sgr-sector-chart"></canvas></div>
             <div class="sgr-legend" id="sgr-sector-legend"></div>
           </div>
         </div>
@@ -1287,7 +1298,7 @@
       <!-- Mora del Mercado trend — full width -->
       <div class="sgr-chart-card" style="margin-bottom:20px;">
         <div class="sgr-chart-title">Mora del Mercado SGR <span style="font-size:10.5px;color:#94A3B8;font-weight:500;text-transform:none;letter-spacing:0;">· evolución mensual</span></div>
-        <div style="height:220px;"><canvas id="sgr-mkt-mora-chart"></canvas></div>
+        <div class="sgr-chart-inner" style="height:220px;"><canvas id="sgr-mkt-mora-chart"></canvas></div>
       </div>
 
       <div class="sgr-mkt-grid">
@@ -1295,7 +1306,7 @@
         <!-- Mora por Plazo -->
         <div class="sgr-chart-card">
           <div class="sgr-chart-title">Mora por Plazo de Garantía</div>
-          <div style="height:260px;"><canvas id="sgr-mkt-plazo-chart"></canvas></div>
+          <div class="sgr-chart-inner" style="height:260px;"><canvas id="sgr-mkt-plazo-chart"></canvas></div>
         </div>
 
         <!-- Ranking SGRs -->
@@ -2642,10 +2653,10 @@ function _callCellHtml(instrText) {
 // ══════════════════════════════════════════════════════════════════════════════
 
 const SGR_META = {
-  potenciar:  { label: 'Potenciar',      csvLabel: 'Potenciar',      totalLabel: 'POTENCIAR S.G.R.',       color: '#166534', bgLight: '#f0fdf4', borderLight: '#bbf7d0' },
-  garantizar: { label: 'Garantizar',     csvLabel: 'Garantizar',     totalLabel: 'GARANTIZAR S.G.R.',      color: '#1D4B6E', bgLight: '#eff6ff', borderLight: '#bfdbfe' },
-  integra:    { label: 'Integra',        csvLabel: 'Integra',        totalLabel: 'INTEGRA PYMES S.G.R.',   color: '#6D28D9', bgLight: '#f5f3ff', borderLight: '#ddd6fe' },
-  bind:       { label: 'Bind Garantías', csvLabel: 'Bind Garantias', totalLabel: 'GARANTIAS BIND S.G.R.', color: '#B45309', bgLight: '#fffbeb', borderLight: '#fde68a' },
+  potenciar:  { label: 'Potenciar',      csvLabel: 'Potenciar',      totalLabel: 'POTENCIAR S.G.R.',       fotoLabel: 'POTENCIAR',  color: '#166534', bgLight: '#f0fdf4', borderLight: '#bbf7d0' },
+  garantizar: { label: 'Garantizar',     csvLabel: 'Garantizar',     totalLabel: 'GARANTIZAR S.G.R.',      fotoLabel: 'GARANTIZAR', color: '#1D4B6E', bgLight: '#eff6ff', borderLight: '#bfdbfe' },
+  integra:    { label: 'Integra',        csvLabel: 'Integra',        totalLabel: 'INTEGRA PYMES S.G.R.',   fotoLabel: 'INTEGRA',    color: '#6D28D9', bgLight: '#f5f3ff', borderLight: '#ddd6fe' },
+  bind:       { label: 'Bind Garantías', csvLabel: 'Bind Garantias', totalLabel: 'GARANTIAS BIND S.G.R.', fotoLabel: 'BIND',       color: '#B45309', bgLight: '#fffbeb', borderLight: '#fde68a' },
 };
 
 const SGR_HEADER_BG = {
@@ -2664,6 +2675,7 @@ let _sgrMoraMercado    = [];   // [{fecha, mora}]
 let _sgrMoraEvolucion  = [];   // [{fecha, potenciar, garantizar, integra, bind, promedio}]
 let _sgrPlazoMercado   = [];   // [{plazo, mora}]
 let _sgrTotalSgr       = [];   // [{sgr, mora}]
+let _sgrFotoData       = {};   // { 'POTENCIAR': {aporte, posicion, weight, pnl, mora, tir}, ... }
 let _sgrActiveSgr      = 'potenciar';
 
 // Chart instances
@@ -2698,7 +2710,7 @@ function _sgrDestroy(inst) {
 
 async function initSgrSection() {
   try {
-    const [garantiasTxt, antiguedadTxt, sectorTxt, moraMktTxt, plazoTxt, totalTxt, moraEvolTxt] = await Promise.all([
+    const [garantiasTxt, antiguedadTxt, sectorTxt, moraMktTxt, plazoTxt, totalTxt, moraEvolTxt, fotoTxt] = await Promise.all([
       fetch('garantia_sgr.csv').then(r => r.text()),
       fetch('mora_antiguedad.csv').then(r => r.text()),
       fetch('garantias_sector_sgr.csv').then(r => r.text()),
@@ -2706,6 +2718,7 @@ async function initSgrSection() {
       fetch('plazo_mora_mercado.csv').then(r => r.text()),
       fetch('Total_sgr.csv').then(r => r.text()),
       fetch('mora_sobre_garantias.csv').then(r => r.text()),
+      fetch('foto_sgr.csv').then(r => r.text()),
     ]);
 
     // garantia_sgr.csv
@@ -2757,6 +2770,20 @@ async function initSgrSection() {
 
     // Total_sgr.csv
     _sgrTotalSgr = _sgrParseCsv(totalTxt).map(r => ({ sgr: r['SGR'], mora: parseFloat(r['Mora']) }));
+
+    // foto_sgr.csv
+    _sgrParseCsv(fotoTxt).forEach(r => {
+      const key = r['SGR'];
+      if (!key || key === 'Total') return;
+      _sgrFotoData[key] = {
+        aporte:   parseFloat(r['Aporte']),
+        posicion: parseFloat(r['Posicion']),
+        weight:   parseFloat(r['Weight']),
+        pnl:      parseFloat(r['P&L']),
+        mora:     parseFloat(r['Mora']),
+        tir:      parseFloat(r['TIR']),
+      };
+    });
 
     // Pre-render default view (will render on hidden page — fine for Chart.js)
     selectSgr(_sgrActiveSgr);
@@ -2822,20 +2849,16 @@ function _sgrRenderIndividual(sgr) {
   });
   document.querySelectorAll('.sgr-kpi .kpi-label').forEach(el => el.style.color = meta.color);
 
-  // KPIs — latest entry from garantia_sgr
-  const gRows = _sgrGarantiasData[meta.csvLabel] || [];
-  if (gRows.length) {
-    const last = gRows[gRows.length - 1];
-    const fmt = v => v.toLocaleString('es-AR', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
-    document.getElementById('sgr-kpi-garantias').textContent     = fmt(last.garantias);
-    document.getElementById('sgr-kpi-fdr').textContent            = fmt(last.fdr);
-    document.getElementById('sgr-kpi-apalancamiento').textContent = last.apalancamiento;
-  }
-
-  // Mora from Total_sgr
-  const totalEntry = _sgrTotalSgr.find(r => r.sgr === meta.totalLabel);
-  document.getElementById('sgr-kpi-mora').textContent = totalEntry
-    ? (totalEntry.mora * 100).toFixed(1) + '%' : '—';
+  // Foto SGR KPIs
+  const fotoRow = _sgrFotoData[meta.fotoLabel];
+  const fmtN = v => Math.round(Math.abs(v)).toLocaleString('es-AR');
+  const fmtSign = v => (v >= 0 ? '+' : '−') + fmtN(v);
+  document.getElementById('sgr-foto-aporte').textContent   = fotoRow ? fmtN(fotoRow.aporte)                    : '—';
+  document.getElementById('sgr-foto-posicion').textContent = fotoRow ? fmtN(fotoRow.posicion)                   : '—';
+  document.getElementById('sgr-foto-weight').textContent   = fotoRow ? (fotoRow.weight * 100).toFixed(1) + '%'  : '—';
+  document.getElementById('sgr-foto-pnl').textContent      = fotoRow ? fmtSign(fotoRow.pnl)                     : '—';
+  document.getElementById('sgr-foto-mora').textContent     = fotoRow ? (fotoRow.mora * 100).toFixed(1) + '%'    : '—';
+  document.getElementById('sgr-foto-tir').textContent      = fotoRow ? (fotoRow.tir * 100).toFixed(1) + '%'     : '—';
 
   _sgrRenderMoraChart(meta);
   _sgrRenderGarantiasChart(meta);
