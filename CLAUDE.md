@@ -13,6 +13,7 @@ cresud_completo.csv      # Schedule completo Cresud: capital + intereses por per
 garantia_sgr.csv         # Stock de garantías históricas por SGR (Garantías, FDR, Apalancamiento)
 mora_antiguedad.csv      # Distribución de mora por antigüedad por SGR
 garantias_sector_sgr.csv # Exposición por sector por SGR
+mora_sobre_garantias.csv # Mora/Garantías mensual por SGR (jun-25 → feb-26): POTENCIAR, GARANTIZAR, INTEGRA, BIND, Promedio
 mora_mercado.csv         # Mora mensual del mercado SGR (feb-25 → feb-26)
 plazo_mora_mercado.csv   # Mora por plazo de garantía del mercado
 Total_sgr.csv            # Ranking de 42 SGRs con mora (dic-25)
@@ -242,13 +243,13 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 
 **Vista individual** (Potenciar / Garantizar / Integra / Bind):
 - KPI row: Garantías vigentes, FDR, Apalancamiento (último mes disponible en `garantia_sgr.csv`), Mora (de `Total_sgr.csv`)
-- **Mora vs. Mercado**: línea del sistema SGR desde `mora_mercado.csv` + línea dashed horizontal con el valor de mora del vehículo seleccionado
+- **Mora/Garantías**: línea de evolución mensual de la SGR seleccionada (en su color) + línea dashed naranja del Promedio Mercado; fuente: `mora_sobre_garantias.csv`
 - **Stock de Garantías**: barras Garantías + FDR por mes, línea Apalancamiento en eje derecho; fuente: `garantia_sgr.csv`
 - **Mora por Antigüedad**: donut con distribución por tramos; fuente: `mora_antiguedad.csv`
 - **Garantías por Sector**: donut con exposición sectorial; fuente: `garantias_sector_sgr.csv` (filtra sectores con `Weight = 0`)
 
 **Vista Mercado**:
-- Tendencia de mora del sistema (línea, full width); fuente: `mora_mercado.csv`
+- Tendencia de mora: las 4 SGRs como líneas en sus colores + Promedio Mercado (naranja, 3px, dashed) — fuente: `mora_sobre_garantias.csv`
 - Mora por plazo de garantía (barras horizontales); fuente: `plazo_mora_mercado.csv`
 - Ranking de 42 SGRs por mora (barras horizontales, 20px/barra, scrolleable); vehículos IRSA resaltados en `#166534`; fuente: `Total_sgr.csv`
 
@@ -261,6 +262,7 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 - `_sgrAntiguedadData` — `{ csvLabel: [{plazo, mora}] }`
 - `_sgrSectorData`     — `{ csvLabel: [{sector, weight}] }` (sin sectores con weight=0)
 - `_sgrMoraMercado`    — `[{fecha, mora}]`
+- `_sgrMoraEvolucion`  — `[{fecha, potenciar, garantizar, integra, bind, promedio}]` — valores en % (e.g. 0.7 = 0.7%)
 - `_sgrPlazoMercado`   — `[{plazo, mora}]`
 - `_sgrTotalSgr`       — `[{sgr, mora}]`
 - `_sgrActiveSgr`      — key activa ('potenciar' | 'garantizar' | 'integra' | 'bind' | 'mercado')
@@ -314,10 +316,10 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 | Timeline Cresud (capital + intereses) | `cresud_completo.csv` + `cresud_deuda.csv` (banking) — dinámico |
 | Tabla detalle de vencimientos | Base hardcodeada en HTML; filas de descubiertos se insertan dinámicamente en sesión |
 | SGR — Stock de Garantías chart | `garantia_sgr.csv` — dinámico |
-| SGR — Mora vs. Mercado chart | `mora_mercado.csv` + `Total_sgr.csv` — dinámico |
+| SGR — Mora/Garantías chart (individual) | `mora_sobre_garantias.csv` — dinámico |
 | SGR — Mora por Antigüedad donut | `mora_antiguedad.csv` — dinámico |
 | SGR — Garantías por Sector donut | `garantias_sector_sgr.csv` — dinámico |
-| SGR — Mercado: tendencia mora | `mora_mercado.csv` — dinámico |
+| SGR — Mercado: tendencia mora (4 SGRs + Promedio) | `mora_sobre_garantias.csv` — dinámico |
 | SGR — Mercado: mora por plazo | `plazo_mora_mercado.csv` — dinámico |
 | SGR — Mercado: ranking SGRs | `Total_sgr.csv` — dinámico |
 

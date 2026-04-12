@@ -82,14 +82,6 @@
       text-transform: uppercase;
       flex-shrink: 0;
     }
-    .header-ir {
-      font-size: 10.5px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      margin-left: 12px;
-    }
     .header-title {
       position: absolute;
       left: 50%;
@@ -661,7 +653,6 @@
       /* Slide header */
       .slide-header { padding: 8px 12px; }
       .logo-box { font-size: 11px; padding: 3px 8px; letter-spacing: 0.15em; }
-      .header-ir { display: none; }
       .header-date { font-size: 9.5px; }
 
       /* Content */
@@ -1200,7 +1191,6 @@
   <!-- Slide header -->
   <div class="slide-header" id="sgr-header" style="background: linear-gradient(135deg, #166534 0%, #0f4023 100%);">
     <div class="logo-box">IRSA</div>
-    <span class="header-ir">Investor Relations</span>
     <span class="header-title" id="sgr-header-title">SGR · POTENCIAR</span>
     <div class="header-date">
       Al <span class="header-today"></span>
@@ -1218,6 +1208,7 @@
       <div class="sgr-pill-sep"></div>
       <button class="sgr-pill"        data-sgr="mercado"    onclick="selectSgr('mercado')">Mercado</button>
     </div>
+    <p style="font-size:10.5px;color:#94A3B8;margin:-16px 0 20px;letter-spacing:0.01em;">Fuente: Ministerio de Economía de la Nación</p>
 
     <!-- ── Individual SGR view ── -->
     <div id="sgr-individual">
@@ -2670,6 +2661,7 @@ let _sgrGarantiasData  = {};   // { csvLabel: [{fecha, garantias, fdr, apalancam
 let _sgrAntiguedadData = {};   // { csvLabel: [{plazo, mora}] }
 let _sgrSectorData     = {};   // { csvLabel: [{sector, weight}] }
 let _sgrMoraMercado    = [];   // [{fecha, mora}]
+let _sgrMoraEvolucion  = [];   // [{fecha, potenciar, garantizar, integra, bind, promedio}]
 let _sgrPlazoMercado   = [];   // [{plazo, mora}]
 let _sgrTotalSgr       = [];   // [{sgr, mora}]
 let _sgrActiveSgr      = 'potenciar';
@@ -2706,13 +2698,14 @@ function _sgrDestroy(inst) {
 
 async function initSgrSection() {
   try {
-    const [garantiasTxt, antiguedadTxt, sectorTxt, moraMktTxt, plazoTxt, totalTxt] = await Promise.all([
+    const [garantiasTxt, antiguedadTxt, sectorTxt, moraMktTxt, plazoTxt, totalTxt, moraEvolTxt] = await Promise.all([
       fetch('garantia_sgr.csv').then(r => r.text()),
       fetch('mora_antiguedad.csv').then(r => r.text()),
       fetch('garantias_sector_sgr.csv').then(r => r.text()),
       fetch('mora_mercado.csv').then(r => r.text()),
       fetch('plazo_mora_mercado.csv').then(r => r.text()),
       fetch('Total_sgr.csv').then(r => r.text()),
+      fetch('mora_sobre_garantias.csv').then(r => r.text()),
     ]);
 
     // garantia_sgr.csv
@@ -2747,6 +2740,17 @@ async function initSgrSection() {
 
     // mora_mercado.csv
     _sgrMoraMercado = _sgrParseCsv(moraMktTxt).map(r => ({ fecha: r['Fecha'], mora: parseFloat(r['Mora']) }));
+
+    // mora_sobre_garantias.csv
+    const _pctVal = s => parseFloat((s || '0').replace('%', ''));
+    _sgrMoraEvolucion = _sgrParseCsv(moraEvolTxt).map(r => ({
+      fecha:     r['Fecha'],
+      potenciar: _pctVal(r['POTENCIAR']),
+      garantizar:_pctVal(r['GARANTIZAR']),
+      integra:   _pctVal(r['INTEGRA']),
+      bind:      _pctVal(r['BIND']),
+      promedio:  _pctVal(r['Promedio']),
+    }));
 
     // plazo_mora_mercado.csv
     _sgrPlazoMercado = _sgrParseCsv(plazoTxt).map(r => ({ plazo: r['Plazo'], mora: parseFloat(r['Mora']) }));
@@ -2842,37 +2846,36 @@ function _sgrRenderIndividual(sgr) {
 function _sgrRenderMoraChart(meta) {
   _sgrMoraChartInst = _sgrDestroy(_sgrMoraChartInst);
   const ctx = document.getElementById('sgr-mora-chart');
-  if (!ctx || !_sgrMoraMercado.length) return;
+  if (!ctx || !_sgrMoraEvolucion.length) return;
 
-  const totalEntry = _sgrTotalSgr.find(r => r.sgr === meta.totalLabel);
-  const sgrMoraPct = totalEntry ? +(totalEntry.mora * 100).toFixed(2) : null;
+  const colMap = { potenciar: 'potenciar', garantizar: 'garantizar', integra: 'integra', bind: 'bind' };
+  const col = colMap[_sgrActiveSgr];
 
-  const labels      = _sgrMoraMercado.map(r => r.fecha);
-  const mercadoData = _sgrMoraMercado.map(r => +(r.mora * 100).toFixed(2));
+  const labels = _sgrMoraEvolucion.map(r => r.fecha);
 
-  const datasets = [{
-    label: 'Mora Mercado SGR',
-    data: mercadoData,
-    borderColor: '#94A3B8',
-    backgroundColor: 'transparent',
-    pointRadius: 3,
-    pointBackgroundColor: '#94A3B8',
-    tension: 0.3,
-    borderWidth: 2,
-  }];
-
-  if (sgrMoraPct !== null) {
-    datasets.push({
-      label: `Mora ${meta.label}`,
-      data: labels.map(() => sgrMoraPct),
+  const datasets = [
+    {
+      label: meta.label,
+      data: _sgrMoraEvolucion.map(r => r[col]),
       borderColor: meta.color,
       backgroundColor: 'transparent',
-      borderDash: [6, 4],
-      pointRadius: 0,
+      pointRadius: 3,
+      pointBackgroundColor: meta.color,
+      tension: 0.3,
       borderWidth: 2.5,
-      tension: 0,
-    });
-  }
+    },
+    {
+      label: 'Promedio Mercado',
+      data: _sgrMoraEvolucion.map(r => r.promedio),
+      borderColor: '#E8960C',
+      backgroundColor: 'transparent',
+      borderDash: [5, 3],
+      pointRadius: 3,
+      pointBackgroundColor: '#E8960C',
+      tension: 0.3,
+      borderWidth: 2.5,
+    },
+  ];
 
   _sgrMoraChartInst = new Chart(ctx, {
     type: 'line',
@@ -2881,7 +2884,7 @@ function _sgrRenderMoraChart(meta) {
       responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: true, position: 'bottom', labels: { boxWidth: 12, font: { size: 10 }, padding: 10 } },
-        tooltip: { ...TOOLTIP, callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(2)}%` } },
+        tooltip: { ...TOOLTIP, callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(1)}%` } },
       },
       scales: {
         x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 } } },
@@ -3024,29 +3027,48 @@ function _sgrRenderMercado() {
 function _sgrRenderMktMora() {
   _sgrMktMoraChartInst = _sgrDestroy(_sgrMktMoraChartInst);
   const ctx = document.getElementById('sgr-mkt-mora-chart');
-  if (!ctx || !_sgrMoraMercado.length) return;
+  if (!ctx || !_sgrMoraEvolucion.length) return;
+
+  const labels = _sgrMoraEvolucion.map(r => r.fecha);
+
+  const sgrLines = [
+    { key: 'potenciar',  label: 'Potenciar',     color: '#166534' },
+    { key: 'garantizar', label: 'Garantizar',     color: '#1D4B6E' },
+    { key: 'integra',    label: 'Integra',        color: '#6D28D9' },
+    { key: 'bind',       label: 'Bind Garantías', color: '#B45309' },
+  ];
+
+  const datasets = sgrLines.map(s => ({
+    label: s.label,
+    data: _sgrMoraEvolucion.map(r => r[s.key]),
+    borderColor: s.color,
+    backgroundColor: 'transparent',
+    pointRadius: 3,
+    pointBackgroundColor: s.color,
+    tension: 0.3,
+    borderWidth: 2,
+  }));
+
+  datasets.push({
+    label: 'Promedio Mercado',
+    data: _sgrMoraEvolucion.map(r => r.promedio),
+    borderColor: '#E8960C',
+    backgroundColor: 'transparent',
+    borderDash: [5, 3],
+    pointRadius: 4,
+    pointBackgroundColor: '#E8960C',
+    tension: 0.3,
+    borderWidth: 3,
+  });
 
   _sgrMktMoraChartInst = new Chart(ctx, {
     type: 'line',
-    data: {
-      labels: _sgrMoraMercado.map(r => r.fecha),
-      datasets: [{
-        label: 'Mora del Sistema SGR',
-        data: _sgrMoraMercado.map(r => +(r.mora * 100).toFixed(2)),
-        borderColor: '#374151',
-        backgroundColor: 'rgba(55,65,81,0.07)',
-        fill: true,
-        pointRadius: 4,
-        pointBackgroundColor: '#374151',
-        tension: 0.3,
-        borderWidth: 2.5,
-      }],
-    },
+    data: { labels, datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
-        legend: { display: false },
-        tooltip: { ...TOOLTIP, callbacks: { label: c => `Mora: ${c.parsed.y.toFixed(2)}%` } },
+        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, font: { size: 10 }, padding: 10 } },
+        tooltip: { ...TOOLTIP, callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(1)}%` } },
       },
       scales: {
         x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 } } },
