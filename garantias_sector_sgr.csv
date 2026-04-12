@@ -1,0 +1,25 @@
+SGR,Sectores,Weight
+Potenciar,Agro,0.56
+Potenciar,Industria,0.17
+Potenciar,Comercio,0.13
+Potenciar,Servicios,0.13
+Potenciar,Construccion,0.01
+Potenciar,Mineria,0.0
+Garantizar,Comercio,0.32
+Garantizar,Servicios,0.27
+Garantizar,Industria,0.21
+Garantizar,Agropecuario,0.16
+Garantizar,Construccion,0.04
+Garantizar,Mineria,0.0
+Integra,Industria,0.58
+Integra,Comercio,0.22
+Integra,Agropecuario,0.09
+Integra,Servicios,0.08
+Integra,Construccion,0.04
+Integra,Mineria,0.0
+Bind Garantias,Comercio,0.35
+Bind Garantias,Industria,0.33
+Bind Garantias,Servicios,0.17
+Bind Garantias,Agropecuario,0.11
+Bind Garantias,Construccion,0.04
+Bind Garantias,Mineria,0.01

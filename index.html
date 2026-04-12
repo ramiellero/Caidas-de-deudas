@@ -711,6 +711,97 @@
       /* Footer */
       .footer { font-size: 9.5px; padding: 12px 14px; }
     }
+
+    /* ── SGR Section ── */
+    .nav-sep { width: 1px; height: 20px; background: #E2E8F0; margin: 0 8px; display: inline-block; align-self: center; }
+    .nav-tab.active[data-co="sgr"] { color: #166534; border-bottom-color: #166534; }
+
+    .sgr-selector {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 20px 0 16px;
+      border-bottom: 1px solid #E2E8F0;
+      margin-bottom: 28px;
+    }
+    .sgr-pill {
+      padding: 7px 18px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 20px;
+      border: 1.5px solid #E2E8F0;
+      background: #fff;
+      color: #64748B;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .sgr-pill:hover { border-color: #94A3B8; color: #334155; }
+    .sgr-pill.active { background: #166534; border-color: #166534; color: #fff; }
+    .sgr-pill-sep { width: 1px; height: 24px; background: #E2E8F0; margin: 0 4px; }
+
+    .sgr-chart-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .sgr-chart-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .sgr-chart-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #334155;
+      margin-bottom: 14px;
+    }
+    .sgr-kpi {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 4px solid #166534 !important;
+      margin-bottom: 0 !important;
+    }
+    .sgr-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      font-size: 12px;
+      min-width: 130px;
+    }
+    .sgr-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #334155;
+    }
+    .sgr-legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .sgr-mkt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .sgr-rank-wrap {
+      overflow-y: auto;
+    }
+
+    @media (max-width: 900px) {
+      .sgr-chart-grid { grid-template-columns: 1fr; }
+      .sgr-mkt-grid   { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .sgr-pill { padding: 5px 12px; font-size: 11px; }
+      .sgr-chart-card { padding: 14px; }
+    }
   </style>
 </head>
 <body>
@@ -720,6 +811,8 @@
   <span class="nav-logo">Debt Profile</span>
   <div class="nav-tab active" data-co="irsa"   onclick="switchTab('irsa')">IRSA</div>
   <div class="nav-tab"        data-co="cresud" onclick="switchTab('cresud')">Cresud</div>
+  <span class="nav-sep"></span>
+  <div class="nav-tab"        data-co="sgr"    onclick="switchTab('sgr')">SGR</div>
 </nav>
 
 
@@ -1097,6 +1190,140 @@
     All figures in USD millions unless otherwise noted. Fiscal year ends June 30.
   </footer>
 </div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE: SGR
+══════════════════════════════════════════════════════ -->
+<div id="page-sgr" class="page">
+
+  <!-- Slide header -->
+  <div class="slide-header" id="sgr-header" style="background: linear-gradient(135deg, #166534 0%, #0f4023 100%);">
+    <div class="logo-box">IRSA</div>
+    <span class="header-ir">Investor Relations</span>
+    <span class="header-title" id="sgr-header-title">SGR · POTENCIAR</span>
+    <div class="header-date">
+      Al <span class="header-today"></span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- SGR Selector -->
+    <div class="sgr-selector">
+      <button class="sgr-pill active" data-sgr="potenciar"  onclick="selectSgr('potenciar')">Potenciar</button>
+      <button class="sgr-pill"        data-sgr="garantizar" onclick="selectSgr('garantizar')">Garantizar</button>
+      <button class="sgr-pill"        data-sgr="integra"    onclick="selectSgr('integra')">Integra</button>
+      <button class="sgr-pill"        data-sgr="bind"       onclick="selectSgr('bind')">Bind Garantías</button>
+      <div class="sgr-pill-sep"></div>
+      <button class="sgr-pill"        data-sgr="mercado"    onclick="selectSgr('mercado')">Mercado</button>
+    </div>
+
+    <!-- ── Individual SGR view ── -->
+    <div id="sgr-individual">
+
+      <!-- KPI row -->
+      <div class="kpi-row" style="display:flex; gap:12px; margin-bottom:28px;">
+        <div class="kpi-box sgr-kpi" style="flex:1;">
+          <div>
+            <div class="kpi-label" id="sgr-kpi-garantias-lbl">Garantías</div>
+            <div style="font-size:10.5px;color:#64748B;margin-top:2px;">vigentes · MM ARS</div>
+          </div>
+          <div class="kpi-value" id="sgr-kpi-garantias">—</div>
+        </div>
+        <div class="kpi-box sgr-kpi" style="flex:1;">
+          <div>
+            <div class="kpi-label">FDR</div>
+            <div style="font-size:10.5px;color:#64748B;margin-top:2px;">fondo de riesgo · MM ARS</div>
+          </div>
+          <div class="kpi-value" id="sgr-kpi-fdr">—</div>
+        </div>
+        <div class="kpi-box sgr-kpi" style="flex:1;">
+          <div>
+            <div class="kpi-label">Apalancamiento</div>
+            <div style="font-size:10.5px;color:#64748B;margin-top:2px;">Garantías / FDR</div>
+          </div>
+          <div class="kpi-value" id="sgr-kpi-apalancamiento">—</div>
+        </div>
+        <div class="kpi-box sgr-kpi" style="flex:1;">
+          <div>
+            <div class="kpi-label">Mora</div>
+            <div style="font-size:10.5px;color:#64748B;margin-top:2px;">cartera · dic-25</div>
+          </div>
+          <div class="kpi-value" id="sgr-kpi-mora">—</div>
+        </div>
+      </div>
+
+      <!-- 2×2 Chart grid -->
+      <div class="sgr-chart-grid">
+
+        <!-- Top-left: Mora vs Mercado -->
+        <div class="sgr-chart-card">
+          <div class="sgr-chart-title">Mora vs. Mercado SGR</div>
+          <div style="height:260px;"><canvas id="sgr-mora-chart"></canvas></div>
+        </div>
+
+        <!-- Top-right: Stock de Garantías -->
+        <div class="sgr-chart-card">
+          <div class="sgr-chart-title">Stock de Garantías <span style="font-size:10.5px;color:#94A3B8;font-weight:500;text-transform:none;letter-spacing:0;">· MM ARS</span></div>
+          <div style="height:260px;"><canvas id="sgr-garantias-chart"></canvas></div>
+        </div>
+
+        <!-- Bottom-left: Mora por Antigüedad -->
+        <div class="sgr-chart-card">
+          <div class="sgr-chart-title">Mora por Antigüedad</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:24px;height:260px;">
+            <div style="width:190px;height:190px;flex-shrink:0;"><canvas id="sgr-antiguedad-chart"></canvas></div>
+            <div class="sgr-legend" id="sgr-antiguedad-legend"></div>
+          </div>
+        </div>
+
+        <!-- Bottom-right: Garantías por Sector -->
+        <div class="sgr-chart-card">
+          <div class="sgr-chart-title">Garantías por Sector</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:24px;height:260px;">
+            <div style="width:190px;height:190px;flex-shrink:0;"><canvas id="sgr-sector-chart"></canvas></div>
+            <div class="sgr-legend" id="sgr-sector-legend"></div>
+          </div>
+        </div>
+
+      </div><!-- /sgr-chart-grid -->
+    </div><!-- /sgr-individual -->
+
+    <!-- ── Mercado view ── -->
+    <div id="sgr-mercado" style="display:none;">
+
+      <!-- Mora del Mercado trend — full width -->
+      <div class="sgr-chart-card" style="margin-bottom:20px;">
+        <div class="sgr-chart-title">Mora del Mercado SGR <span style="font-size:10.5px;color:#94A3B8;font-weight:500;text-transform:none;letter-spacing:0;">· evolución mensual</span></div>
+        <div style="height:220px;"><canvas id="sgr-mkt-mora-chart"></canvas></div>
+      </div>
+
+      <div class="sgr-mkt-grid">
+
+        <!-- Mora por Plazo -->
+        <div class="sgr-chart-card">
+          <div class="sgr-chart-title">Mora por Plazo de Garantía</div>
+          <div style="height:260px;"><canvas id="sgr-mkt-plazo-chart"></canvas></div>
+        </div>
+
+        <!-- Ranking SGRs -->
+        <div class="sgr-chart-card" style="display:flex;flex-direction:column;">
+          <div class="sgr-chart-title">
+            Ranking SGRs por Mora
+            <span style="font-size:10px;color:#94A3B8;font-weight:400;text-transform:none;letter-spacing:0;">· dic-25 &nbsp;·&nbsp; </span>
+            <span style="font-size:10px;color:#166534;font-weight:600;text-transform:none;letter-spacing:0;">■ cartera IRSA</span>
+          </div>
+          <div class="sgr-rank-wrap" style="flex:1;min-height:260px;">
+            <div id="sgr-rank-canvas-wrap"><canvas id="sgr-mkt-ranking-chart"></canvas></div>
+          </div>
+        </div>
+
+      </div><!-- /sgr-mkt-grid -->
+    </div><!-- /sgr-mercado -->
+
+  </div><!-- /content -->
+</div><!-- /page-sgr -->
 
 
 <!-- ══════════════════════════════════════════════════════
@@ -1848,6 +2075,7 @@ function setCresudMatView(mode, btn) {
 
 initCresudMatChart();
 initCresudTimeline();
+initSgrSection();
 
 
 /* ════════════════════════════════════════════════════════
@@ -2416,6 +2644,490 @@ function _callCellHtml(instrText) {
   const label = callable ? 'Callable' : 'Not Callable now';
   const safeKey = key.replace(/'/g, "\\'");
   return `<button class="call-btn ${cls}" onclick="toggleCallPopover(this,'${safeKey}')">${label}</button>`;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SGR — Inversiones en Sociedades de Garantía Recíproca
+// ══════════════════════════════════════════════════════════════════════════════
+
+const SGR_META = {
+  potenciar:  { label: 'Potenciar',      csvLabel: 'Potenciar',      totalLabel: 'POTENCIAR S.G.R.',       color: '#166534', bgLight: '#f0fdf4', borderLight: '#bbf7d0' },
+  garantizar: { label: 'Garantizar',     csvLabel: 'Garantizar',     totalLabel: 'GARANTIZAR S.G.R.',      color: '#1D4B6E', bgLight: '#eff6ff', borderLight: '#bfdbfe' },
+  integra:    { label: 'Integra',        csvLabel: 'Integra',        totalLabel: 'INTEGRA PYMES S.G.R.',   color: '#6D28D9', bgLight: '#f5f3ff', borderLight: '#ddd6fe' },
+  bind:       { label: 'Bind Garantías', csvLabel: 'Bind Garantias', totalLabel: 'GARANTIAS BIND S.G.R.', color: '#B45309', bgLight: '#fffbeb', borderLight: '#fde68a' },
+};
+
+const SGR_HEADER_BG = {
+  potenciar:  'linear-gradient(135deg, #166534 0%, #0f4023 100%)',
+  garantizar: 'linear-gradient(135deg, #1D4B6E 0%, #0f2840 100%)',
+  integra:    'linear-gradient(135deg, #5b21b6 0%, #3730a3 100%)',
+  bind:       'linear-gradient(135deg, #b45309 0%, #78350f 100%)',
+  mercado:    'linear-gradient(135deg, #374151 0%, #1f2937 100%)',
+};
+
+// Data stores
+let _sgrGarantiasData  = {};   // { csvLabel: [{fecha, garantias, fdr, apalancamiento, apalNum}] }
+let _sgrAntiguedadData = {};   // { csvLabel: [{plazo, mora}] }
+let _sgrSectorData     = {};   // { csvLabel: [{sector, weight}] }
+let _sgrMoraMercado    = [];   // [{fecha, mora}]
+let _sgrPlazoMercado   = [];   // [{plazo, mora}]
+let _sgrTotalSgr       = [];   // [{sgr, mora}]
+let _sgrActiveSgr      = 'potenciar';
+
+// Chart instances
+let _sgrMoraChartInst       = null;
+let _sgrGarantiasChartInst  = null;
+let _sgrAntiguedadChartInst = null;
+let _sgrSectorChartInst     = null;
+let _sgrMktMoraChartInst    = null;
+let _sgrMktPlazoChartInst   = null;
+let _sgrMktRankChartInst    = null;
+
+function _sgrParseCsv(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const headers = lines[0].split(',').map(h => h.trim());
+  return lines.slice(1).filter(l => l.trim()).map(line => {
+    const vals = line.split(',').map(v => v.trim());
+    const obj = {};
+    headers.forEach((h, i) => { obj[h] = vals[i] !== undefined ? vals[i] : ''; });
+    return obj;
+  });
+}
+
+function _sgrParseDMY(s) {
+  const p = s.split('/');
+  return new Date(+p[2], +p[1] - 1, +p[0]);
+}
+
+function _sgrDestroy(inst) {
+  if (inst) { try { inst.destroy(); } catch(e) {} }
+  return null;
+}
+
+async function initSgrSection() {
+  try {
+    const [garantiasTxt, antiguedadTxt, sectorTxt, moraMktTxt, plazoTxt, totalTxt] = await Promise.all([
+      fetch('garantia_sgr.csv').then(r => r.text()),
+      fetch('mora_antiguedad.csv').then(r => r.text()),
+      fetch('garantias_sector_sgr.csv').then(r => r.text()),
+      fetch('mora_mercado.csv').then(r => r.text()),
+      fetch('plazo_mora_mercado.csv').then(r => r.text()),
+      fetch('Total_sgr.csv').then(r => r.text()),
+    ]);
+
+    // garantia_sgr.csv
+    _sgrParseCsv(garantiasTxt).forEach(r => {
+      const key = r['SGR'];
+      if (!_sgrGarantiasData[key]) _sgrGarantiasData[key] = [];
+      _sgrGarantiasData[key].push({
+        fecha:    _sgrParseDMY(r['Fecha']),
+        garantias: parseFloat(r['Garantias']),
+        fdr:       parseFloat(r['FDR']),
+        apalancamiento: r['Apalancamiento'],
+        apalNum:        parseFloat(r['Apalancamiento'].replace('%', '')),
+      });
+    });
+    Object.values(_sgrGarantiasData).forEach(arr => arr.sort((a, b) => a.fecha - b.fecha));
+
+    // mora_antiguedad.csv
+    _sgrParseCsv(antiguedadTxt).forEach(r => {
+      const key = r['SGR'];
+      if (!_sgrAntiguedadData[key]) _sgrAntiguedadData[key] = [];
+      _sgrAntiguedadData[key].push({ plazo: r['Plazo'], mora: parseFloat(r['Mora_por_Antiguedad']) });
+    });
+
+    // garantias_sector_sgr.csv — skip rows with Weight 0
+    _sgrParseCsv(sectorTxt).forEach(r => {
+      const key = r['SGR'];
+      const w = parseFloat(r['Weight']);
+      if (w <= 0) return;
+      if (!_sgrSectorData[key]) _sgrSectorData[key] = [];
+      _sgrSectorData[key].push({ sector: r['Sectores'], weight: w });
+    });
+
+    // mora_mercado.csv
+    _sgrMoraMercado = _sgrParseCsv(moraMktTxt).map(r => ({ fecha: r['Fecha'], mora: parseFloat(r['Mora']) }));
+
+    // plazo_mora_mercado.csv
+    _sgrPlazoMercado = _sgrParseCsv(plazoTxt).map(r => ({ plazo: r['Plazo'], mora: parseFloat(r['Mora']) }));
+
+    // Total_sgr.csv
+    _sgrTotalSgr = _sgrParseCsv(totalTxt).map(r => ({ sgr: r['SGR'], mora: parseFloat(r['Mora']) }));
+
+    // Pre-render default view (will render on hidden page — fine for Chart.js)
+    selectSgr(_sgrActiveSgr);
+
+  } catch(e) {
+    console.error('[SGR] Load error:', e);
+  }
+}
+
+function selectSgr(sgr) {
+  _sgrActiveSgr = sgr;
+
+  // Update pills
+  document.querySelectorAll('.sgr-pill').forEach(p => p.classList.remove('active'));
+  const pill = document.querySelector(`.sgr-pill[data-sgr="${sgr}"]`);
+  if (pill) pill.classList.add('active');
+
+  // Update header
+  const hdr = document.getElementById('sgr-header');
+  if (hdr) hdr.style.background = SGR_HEADER_BG[sgr] || SGR_HEADER_BG.mercado;
+  const titleEl = document.getElementById('sgr-header-title');
+  if (titleEl) titleEl.textContent = sgr === 'mercado'
+    ? 'SGR · MERCADO'
+    : 'SGR · ' + (SGR_META[sgr]?.label || sgr).toUpperCase();
+
+  if (sgr === 'mercado') {
+    document.getElementById('sgr-individual').style.display = 'none';
+    document.getElementById('sgr-mercado').style.display    = '';
+    _sgrRenderMercado();
+  } else {
+    document.getElementById('sgr-mercado').style.display    = 'none';
+    document.getElementById('sgr-individual').style.display = '';
+    _sgrRenderIndividual(sgr);
+  }
+}
+
+// ── Color palettes (dark → light per SGR color) ───────────────────────────────
+const _SGR_PALETTES = {
+  '#166534': ['#14532d','#166534','#15803d','#16a34a','#22c55e','#4ade80','#86efac'],
+  '#1D4B6E': ['#0f2840','#1D4B6E','#1e40af','#2563eb','#3b82f6','#60a5fa','#93c5fd'],
+  '#6D28D9': ['#3730a3','#4f46e5','#6D28D9','#7c3aed','#8b5cf6','#a78bfa','#c4b5fd'],
+  '#B45309': ['#78350f','#92400e','#B45309','#d97706','#f59e0b','#fbbf24','#fde68a'],
+};
+function _sgrPalette(color, n) {
+  const base = _SGR_PALETTES[color] || ['#374151','#4b5563','#6b7280','#9ca3af','#d1d5db'];
+  return Array.from({ length: n }, (_, i) => base[i % base.length]);
+}
+
+function _sgrMonthLabel(d) {
+  const M = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return M[d.getMonth()] + '-' + String(d.getFullYear()).slice(2);
+}
+
+function _sgrRenderIndividual(sgr) {
+  const meta = SGR_META[sgr];
+  if (!meta) return;
+
+  // Update KPI box colors
+  document.querySelectorAll('.sgr-kpi').forEach(box => {
+    box.style.background      = meta.bgLight;
+    box.style.borderColor     = meta.borderLight;
+    box.style.borderLeftColor = meta.color;
+  });
+  document.querySelectorAll('.sgr-kpi .kpi-label').forEach(el => el.style.color = meta.color);
+
+  // KPIs — latest entry from garantia_sgr
+  const gRows = _sgrGarantiasData[meta.csvLabel] || [];
+  if (gRows.length) {
+    const last = gRows[gRows.length - 1];
+    const fmt = v => v.toLocaleString('es-AR', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+    document.getElementById('sgr-kpi-garantias').textContent     = fmt(last.garantias);
+    document.getElementById('sgr-kpi-fdr').textContent            = fmt(last.fdr);
+    document.getElementById('sgr-kpi-apalancamiento').textContent = last.apalancamiento;
+  }
+
+  // Mora from Total_sgr
+  const totalEntry = _sgrTotalSgr.find(r => r.sgr === meta.totalLabel);
+  document.getElementById('sgr-kpi-mora').textContent = totalEntry
+    ? (totalEntry.mora * 100).toFixed(1) + '%' : '—';
+
+  _sgrRenderMoraChart(meta);
+  _sgrRenderGarantiasChart(meta);
+  _sgrRenderAntiguedadChart(meta);
+  _sgrRenderSectorChart(meta);
+}
+
+function _sgrRenderMoraChart(meta) {
+  _sgrMoraChartInst = _sgrDestroy(_sgrMoraChartInst);
+  const ctx = document.getElementById('sgr-mora-chart');
+  if (!ctx || !_sgrMoraMercado.length) return;
+
+  const totalEntry = _sgrTotalSgr.find(r => r.sgr === meta.totalLabel);
+  const sgrMoraPct = totalEntry ? +(totalEntry.mora * 100).toFixed(2) : null;
+
+  const labels      = _sgrMoraMercado.map(r => r.fecha);
+  const mercadoData = _sgrMoraMercado.map(r => +(r.mora * 100).toFixed(2));
+
+  const datasets = [{
+    label: 'Mora Mercado SGR',
+    data: mercadoData,
+    borderColor: '#94A3B8',
+    backgroundColor: 'transparent',
+    pointRadius: 3,
+    pointBackgroundColor: '#94A3B8',
+    tension: 0.3,
+    borderWidth: 2,
+  }];
+
+  if (sgrMoraPct !== null) {
+    datasets.push({
+      label: `Mora ${meta.label}`,
+      data: labels.map(() => sgrMoraPct),
+      borderColor: meta.color,
+      backgroundColor: 'transparent',
+      borderDash: [6, 4],
+      pointRadius: 0,
+      borderWidth: 2.5,
+      tension: 0,
+    });
+  }
+
+  _sgrMoraChartInst = new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, font: { size: 10 }, padding: 10 } },
+        tooltip: { ...TOOLTIP, callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(2)}%` } },
+      },
+      scales: {
+        x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 } } },
+        y: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 }, callback: v => v.toFixed(1) + '%' }, beginAtZero: true },
+      },
+    },
+  });
+}
+
+function _sgrRenderGarantiasChart(meta) {
+  _sgrGarantiasChartInst = _sgrDestroy(_sgrGarantiasChartInst);
+  const ctx = document.getElementById('sgr-garantias-chart');
+  if (!ctx) return;
+  const rows = _sgrGarantiasData[meta.csvLabel] || [];
+  if (!rows.length) return;
+
+  const labels    = rows.map(r => _sgrMonthLabel(r.fecha));
+  const garantias = rows.map(r => r.garantias);
+  const fdr       = rows.map(r => r.fdr);
+  const apalNums  = rows.map(r => r.apalNum);
+
+  _sgrGarantiasChartInst = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Garantías', data: garantias, backgroundColor: meta.color,        borderRadius: 3, yAxisID: 'y',  order: 2 },
+        { label: 'FDR',       data: fdr,       backgroundColor: meta.color + '55', borderRadius: 3, yAxisID: 'y',  order: 2 },
+        {
+          label: 'Apalancamiento', data: apalNums, type: 'line',
+          borderColor: '#F59E0B', backgroundColor: 'transparent',
+          pointRadius: 4, pointBackgroundColor: '#F59E0B',
+          borderWidth: 2, tension: 0.3, yAxisID: 'y2', order: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, font: { size: 10 }, padding: 10 } },
+        tooltip: { ...TOOLTIP, callbacks: {
+          label: c => c.dataset.label === 'Apalancamiento'
+            ? `Apalancamiento: ${c.parsed.y}%`
+            : `${c.dataset.label}: ${c.parsed.y.toLocaleString('es-AR', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}`,
+        }},
+      },
+      scales: {
+        x:  { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 } } },
+        y:  { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 } }, position: 'left' },
+        y2: { position: 'right', grid: { drawOnChartArea: false }, ticks: { font: { size: 10 }, callback: v => v + '%' } },
+      },
+    },
+  });
+}
+
+function _sgrRenderAntiguedadChart(meta) {
+  _sgrAntiguedadChartInst = _sgrDestroy(_sgrAntiguedadChartInst);
+  const ctx      = document.getElementById('sgr-antiguedad-chart');
+  const legendEl = document.getElementById('sgr-antiguedad-legend');
+  if (!ctx) return;
+  const rows = _sgrAntiguedadData[meta.csvLabel] || [];
+  if (!rows.length) return;
+
+  const total  = rows.reduce((s, r) => s + r.mora, 0);
+  const pcts   = rows.map(r => total > 0 ? r.mora / total : 0);
+  const colors = _sgrPalette(meta.color, rows.length);
+
+  _sgrAntiguedadChartInst = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: rows.map(r => r.plazo),
+      datasets: [{ data: pcts, backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...TOOLTIP, callbacks: { label: c => `${c.label}: ${(c.parsed * 100).toFixed(0)}%` } },
+      },
+      cutout: '55%',
+    },
+  });
+
+  if (legendEl) {
+    legendEl.innerHTML = rows.map((r, i) =>
+      `<div class="sgr-legend-item">
+        <div class="sgr-legend-dot" style="background:${colors[i]};"></div>
+        <span>${r.plazo}</span>
+        <span style="margin-left:auto;font-weight:600;color:#0F172A;">${(pcts[i]*100).toFixed(0)}%</span>
+      </div>`
+    ).join('');
+  }
+}
+
+function _sgrRenderSectorChart(meta) {
+  _sgrSectorChartInst = _sgrDestroy(_sgrSectorChartInst);
+  const ctx      = document.getElementById('sgr-sector-chart');
+  const legendEl = document.getElementById('sgr-sector-legend');
+  if (!ctx) return;
+  const rows = _sgrSectorData[meta.csvLabel] || [];
+  if (!rows.length) return;
+
+  const colors = _sgrPalette(meta.color, rows.length);
+
+  _sgrSectorChartInst = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: rows.map(r => r.sector),
+      datasets: [{ data: rows.map(r => r.weight), backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...TOOLTIP, callbacks: { label: c => `${c.label}: ${(c.parsed * 100).toFixed(0)}%` } },
+      },
+      cutout: '55%',
+    },
+  });
+
+  if (legendEl) {
+    legendEl.innerHTML = rows.map((r, i) =>
+      `<div class="sgr-legend-item">
+        <div class="sgr-legend-dot" style="background:${colors[i]};"></div>
+        <span>${r.sector}</span>
+        <span style="margin-left:auto;font-weight:600;color:#0F172A;">${(r.weight * 100).toFixed(0)}%</span>
+      </div>`
+    ).join('');
+  }
+}
+
+// ── Mercado view ───────────────────────────────────────────────────────────────
+
+function _sgrRenderMercado() {
+  _sgrRenderMktMora();
+  _sgrRenderMktPlazo();
+  _sgrRenderMktRanking();
+}
+
+function _sgrRenderMktMora() {
+  _sgrMktMoraChartInst = _sgrDestroy(_sgrMktMoraChartInst);
+  const ctx = document.getElementById('sgr-mkt-mora-chart');
+  if (!ctx || !_sgrMoraMercado.length) return;
+
+  _sgrMktMoraChartInst = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: _sgrMoraMercado.map(r => r.fecha),
+      datasets: [{
+        label: 'Mora del Sistema SGR',
+        data: _sgrMoraMercado.map(r => +(r.mora * 100).toFixed(2)),
+        borderColor: '#374151',
+        backgroundColor: 'rgba(55,65,81,0.07)',
+        fill: true,
+        pointRadius: 4,
+        pointBackgroundColor: '#374151',
+        tension: 0.3,
+        borderWidth: 2.5,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...TOOLTIP, callbacks: { label: c => `Mora: ${c.parsed.y.toFixed(2)}%` } },
+      },
+      scales: {
+        x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 } } },
+        y: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 }, callback: v => v.toFixed(1) + '%' }, beginAtZero: true },
+      },
+    },
+  });
+}
+
+function _sgrRenderMktPlazo() {
+  _sgrMktPlazoChartInst = _sgrDestroy(_sgrMktPlazoChartInst);
+  const ctx = document.getElementById('sgr-mkt-plazo-chart');
+  if (!ctx || !_sgrPlazoMercado.length) return;
+
+  const grays = ['#1f2937','#374151','#4b5563','#6b7280','#9ca3af'];
+
+  _sgrMktPlazoChartInst = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: _sgrPlazoMercado.map(r => r.plazo),
+      datasets: [{
+        label: 'Mora (%)',
+        data: _sgrPlazoMercado.map(r => +(r.mora * 100).toFixed(1)),
+        backgroundColor: grays.slice(0, _sgrPlazoMercado.length),
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...TOOLTIP, callbacks: { label: c => `Mora: ${c.parsed.x.toFixed(1)}%` } },
+      },
+      scales: {
+        x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 }, callback: v => v + '%' }, beginAtZero: true },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } },
+      },
+    },
+  });
+}
+
+function _sgrRenderMktRanking() {
+  _sgrMktRankChartInst = _sgrDestroy(_sgrMktRankChartInst);
+  const ctx = document.getElementById('sgr-mkt-ranking-chart');
+  if (!ctx || !_sgrTotalSgr.length) return;
+
+  const sorted  = [..._sgrTotalSgr].sort((a, b) => b.mora - a.mora);
+  const ourSGRs = new Set(Object.values(SGR_META).map(m => m.totalLabel));
+
+  const labels = sorted.map(r =>
+    r.sgr.replace(/ S\.G\.R\.$/, '').replace(' PYMES', '').replace('GARANTIAS ', '').trim()
+  );
+  const data   = sorted.map(r => +(r.mora * 100).toFixed(2));
+  const colors = sorted.map(r => ourSGRs.has(r.sgr) ? '#166534' : '#CBD5E1');
+
+  // Height: ~20px per bar
+  const wrapEl = document.getElementById('sgr-rank-canvas-wrap');
+  if (wrapEl) wrapEl.style.height = Math.max(300, sorted.length * 20) + 'px';
+
+  _sgrMktRankChartInst = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ label: 'Mora (%)', data, backgroundColor: colors, borderRadius: 2 }],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...TOOLTIP, callbacks: {
+          label: c => `${sorted[c.dataIndex].sgr}: ${c.parsed.x.toFixed(2)}%`,
+        }},
+      },
+      scales: {
+        x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 9 }, callback: v => v + '%' }, beginAtZero: true },
+        y: { grid: { display: false }, ticks: { font: { size: 9 } } },
+      },
+    },
+  });
 }
 
 function initCallColumns() {

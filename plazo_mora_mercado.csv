@@ -1,0 +1,6 @@
+Plazo,Mora
+> 365 dias,0.13
+< 365 dias,0.18
+< 180 dias,0.27
+< 90 dias,0.3
+< 31 dias,0.13
