@@ -1,23 +1,32 @@
 # Dashboard — Perfil de Vencimientos de Deuda (IRSA & Cresud)
 
 ## Descripción del proyecto
-Dashboard web estático (single HTML file) que visualiza el perfil de vencimientos de deuda de **IRSA** y **Cresud**. Período de referencia: IIQ FY2026.
+Dashboard web estático (single HTML file) que visualiza el perfil de vencimientos de deuda de **IRSA** y **Cresud**, e inversiones en SGR (Sociedades de Garantía Recíproca). Período de referencia: IIQ FY2026.
 
 ## Estructura del proyecto
 ```
-index.html            # Toda la aplicación: HTML + CSS + JS en un único archivo
-irsa_deuda.csv        # Vencimientos de capital de IRSA (fuente principal de KPIs IRSA)
-irsa_deuda_total.csv  # Schedule completo IRSA: capital + intereses por período
-cresud_deuda.csv      # Vencimientos de capital de Cresud (fuente principal de KPIs Cresud)
-cresud_completo.csv   # Schedule completo Cresud: capital + intereses por período
-CLAUDE.md             # Este archivo
+index.html               # Toda la aplicación: HTML + CSS + JS en un único archivo
+irsa_deuda.csv           # Vencimientos de capital de IRSA (fuente principal de KPIs IRSA)
+irsa_deuda_total.csv     # Schedule completo IRSA: capital + intereses por período
+cresud_deuda.csv         # Vencimientos de capital de Cresud (fuente principal de KPIs Cresud)
+cresud_completo.csv      # Schedule completo Cresud: capital + intereses por período
+garantia_sgr.csv         # Stock de garantías históricas por SGR (Garantías, FDR, Apalancamiento)
+mora_antiguedad.csv      # Distribución de mora por antigüedad por SGR
+garantias_sector_sgr.csv # Exposición por sector por SGR
+mora_mercado.csv         # Mora mensual del mercado SGR (feb-25 → feb-26)
+plazo_mora_mercado.csv   # Mora por plazo de garantía del mercado
+Total_sgr.csv            # Ranking de 42 SGRs con mora (dic-25)
+foto_sgr.csv             # Snapshot de posición IRSA en cada SGR (no usado aún en dashboard)
+cartera_monedas.csv      # Composición por moneda por SGR (guardado, no usado aún)
+composicion_carteras.csv # Composición por tipo de activo por SGR (guardado, no usado aún)
+CLAUDE.md                # Este archivo
 ```
 
 ## Arquitectura del archivo `index.html`
 El archivo está organizado en tres bloques principales dentro de un único `.html`:
 
 1. **`<style>`** — CSS completo embebido (Inter font, grid layouts, tablas, charts, timeline, responsive)
-2. **`<body>`** — HTML con dos secciones (`#page-irsa` y `#page-cresud`) más la navegación
+2. **`<body>`** — HTML con tres secciones (`#page-irsa`, `#page-cresud`, `#page-sgr`) más la navegación
 3. **`<script>`** — Lógica JS: tab switching, Chart.js charts, renderizado de timelines
 
 ### Dependencias externas (CDN)
@@ -226,6 +235,71 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - **Actualizar timeline Cresud**: editar `cresud_deuda.csv` (capital, banking) o `cresud_completo.csv` (capital+intereses de ONs) y hacer commit
 - **No hay build step** — editar archivos y hacer commit directamente
 
+### SGR (color por vehículo: Potenciar `#166534`, Garantizar `#1D4B6E`, Integra `#6D28D9`, Bind `#B45309`)
+Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un separador visual (`<span class="nav-sep">`) entre las pestañas de Debt Profile (IRSA/Cresud) y SGR.
+
+**Selector de vehículo** (pills): Potenciar · Garantizar · Integra · Bind Garantías · Mercado. Cada opción cambia el header (color de fondo) y el contenido de forma dinámica.
+
+**Vista individual** (Potenciar / Garantizar / Integra / Bind):
+- KPI row: Garantías vigentes, FDR, Apalancamiento (último mes disponible en `garantia_sgr.csv`), Mora (de `Total_sgr.csv`)
+- **Mora vs. Mercado**: línea del sistema SGR desde `mora_mercado.csv` + línea dashed horizontal con el valor de mora del vehículo seleccionado
+- **Stock de Garantías**: barras Garantías + FDR por mes, línea Apalancamiento en eje derecho; fuente: `garantia_sgr.csv`
+- **Mora por Antigüedad**: donut con distribución por tramos; fuente: `mora_antiguedad.csv`
+- **Garantías por Sector**: donut con exposición sectorial; fuente: `garantias_sector_sgr.csv` (filtra sectores con `Weight = 0`)
+
+**Vista Mercado**:
+- Tendencia de mora del sistema (línea, full width); fuente: `mora_mercado.csv`
+- Mora por plazo de garantía (barras horizontales); fuente: `plazo_mora_mercado.csv`
+- Ranking de 42 SGRs por mora (barras horizontales, 20px/barra, scrolleable); vehículos IRSA resaltados en `#166534`; fuente: `Total_sgr.csv`
+
+**Colores dinámicos**: el header de la sección cambia de gradiente al seleccionar cada vehículo. Los KPI boxes (`.sgr-kpi`) actualizan `background`, `borderColor` y `borderLeftColor` vía JS al cambiar de SGR.
+
+**Paletas de color** (`_SGR_PALETTES`): array de 7 tonos (oscuro → claro) mapeado por color base de cada SGR; se usa para donut charts (antigüedad y sector).
+
+**Globals de estado**:
+- `_sgrGarantiasData`  — `{ csvLabel: [{fecha, garantias, fdr, apalancamiento, apalNum}] }` — ordenado por fecha
+- `_sgrAntiguedadData` — `{ csvLabel: [{plazo, mora}] }`
+- `_sgrSectorData`     — `{ csvLabel: [{sector, weight}] }` (sin sectores con weight=0)
+- `_sgrMoraMercado`    — `[{fecha, mora}]`
+- `_sgrPlazoMercado`   — `[{plazo, mora}]`
+- `_sgrTotalSgr`       — `[{sgr, mora}]`
+- `_sgrActiveSgr`      — key activa ('potenciar' | 'garantizar' | 'integra' | 'bind' | 'mercado')
+
+**Instancias de Chart.js**:
+- `_sgrMoraChartInst`, `_sgrGarantiasChartInst`, `_sgrAntiguedadChartInst`, `_sgrSectorChartInst`
+- `_sgrMktMoraChartInst`, `_sgrMktPlazoChartInst`, `_sgrMktRankChartInst`
+- Todas se destruyen y recrean al cambiar de vehículo via `_sgrDestroy(inst)`
+
+**Funciones principales**:
+- `initSgrSection()` — carga 6 CSVs en paralelo, parsea, llama `selectSgr(_sgrActiveSgr)` al terminar; se llama en init junto con los demás `initXxx()`
+- `selectSgr(sgr)` — actualiza pills, header, muestra/oculta `#sgr-individual` o `#sgr-mercado`; llama al render correspondiente
+- `_sgrRenderIndividual(sgr)` — actualiza KPIs y llama a los 4 renders de chart
+- `_sgrRenderMercado()` — llama a los 3 renders de charts de mercado
+- `_sgrParseCsv(text)` — parser CSV genérico (split por coma, sin soporte de comillas)
+- `_sgrParseDMY(s)` — parsea "31/7/2025" → Date
+- `_sgrMonthLabel(d)` — formatea Date → "jul-25"
+- `_sgrPalette(color, n)` — retorna n colores de la paleta del SGR
+
+**Mapeo de nombres por fuente** (definido en `SGR_META`):
+- `csvLabel`: clave usada en `garantia_sgr.csv`, `mora_antiguedad.csv`, `garantias_sector_sgr.csv` (e.g. "Bind Garantias")
+- `totalLabel`: clave usada en `Total_sgr.csv` (e.g. "GARANTIAS BIND S.G.R.")
+
+**CSS**:
+- `.sgr-selector`, `.sgr-pill`, `.sgr-pill.active`, `.sgr-pill-sep` — selector de vehículo
+- `.sgr-chart-grid` — grid 2×2 para los 4 charts individuales
+- `.sgr-chart-card` — card blanca con borde `#E2E8F0`
+- `.sgr-chart-title` — label de cada chart (11.5px, uppercase)
+- `.sgr-kpi` — variante del `.kpi-box` base; colores se actualizan vía JS
+- `.sgr-legend`, `.sgr-legend-item`, `.sgr-legend-dot` — leyenda custom de donuts
+- `.sgr-mkt-grid` — grid 2 columnas para la vista Mercado
+- `.sgr-rank-wrap` — contenedor scrolleable del ranking
+- `nav-sep` — separador visual entre Debt Profile y SGR en la nav
+
+**Datos no usados aún** (guardados en repo para uso futuro):
+- `foto_sgr.csv` — posición financiera (Aporte, Posición, P&L, TIR) por SGR
+- `cartera_monedas.csv` — split USD/ARS por SGR
+- `composicion_carteras.csv` — composición por tipo de activo por SGR
+
 ## Qué es dinámico vs hardcodeado
 
 | Componente | Fuente |
@@ -239,6 +313,13 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 | Timeline Cresud (capital) | `cresud_deuda.csv` — dinámico |
 | Timeline Cresud (capital + intereses) | `cresud_completo.csv` + `cresud_deuda.csv` (banking) — dinámico |
 | Tabla detalle de vencimientos | Base hardcodeada en HTML; filas de descubiertos se insertan dinámicamente en sesión |
+| SGR — Stock de Garantías chart | `garantia_sgr.csv` — dinámico |
+| SGR — Mora vs. Mercado chart | `mora_mercado.csv` + `Total_sgr.csv` — dinámico |
+| SGR — Mora por Antigüedad donut | `mora_antiguedad.csv` — dinámico |
+| SGR — Garantías por Sector donut | `garantias_sector_sgr.csv` — dinámico |
+| SGR — Mercado: tendencia mora | `mora_mercado.csv` — dinámico |
+| SGR — Mercado: mora por plazo | `plazo_mora_mercado.csv` — dinámico |
+| SGR — Mercado: ranking SGRs | `Total_sgr.csv` — dinámico |
 
 ## Diseño responsive (mobile + desktop)
 
