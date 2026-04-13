@@ -713,9 +713,10 @@
       /* Call option button */
       .call-btn { font-size: 9px; padding: 2px 6px; }
 
-      /* Fila "Detalle de Instrumentos" + botón: apilar en columna */
-      .detail-header { flex-direction: column !important; align-items: flex-start !important; gap: 6px !important; }
-      .detail-header .desc-add-btn { margin-left: 0; }
+      /* Fila "Detalle de Instrumentos" + botón: apilar en columna, botón full-width */
+      .detail-header { flex-direction: column !important; align-items: stretch !important; gap: 8px !important; }
+      .detail-header > div { width: 100%; }
+      .detail-header .desc-add-btn { width: 100%; margin-left: 0; text-align: center; }
 
       /* Timeline */
       .tl-section { margin-top: 20px; }
@@ -1164,8 +1165,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td>BBVA Bancaria</td><td>Bancaria</td><td class="num">3,75%</td><td>29 Jun 2026</td><td class="num">16,0</td><td class="num outstanding-td">16,0</td><td class="fy">IVQ FY26</td></tr>
         <tr><td>Ciudad Bancaria</td><td>Bancaria</td><td class="num">5,00%</td><td>29 Abr 2026</td><td class="num">8,0</td><td class="num outstanding-td">8,0</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>BBVA Bancaria</td><td>Bancaria</td><td class="num">3,75%</td><td>29 Jun 2026</td><td class="num">16,0</td><td class="num outstanding-td">16,0</td><td class="fy">IVQ FY26</td></tr>
         <tr><td>ON XLII</td><td>DL</td><td class="num">0,00%</td><td>4 May 2026</td><td class="num">10,2</td><td class="num outstanding-td">—</td><td class="fy">IVQ FY26</td></tr>
         <tr><td>ON XL</td><td>DL</td><td class="num">0,00%</td><td>21 Jun 2026</td><td class="num">12,6</td><td class="num outstanding-td">—</td><td class="fy">IVQ FY26</td></tr>
         <tr><td>ON XLV</td><td>CABLE S/MULC</td><td class="num">6,00%</td><td>22 Ago 2026</td><td class="num">10,7</td><td class="num outstanding-td">—</td><td class="fy">FY 27</td></tr>
