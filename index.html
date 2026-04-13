@@ -311,6 +311,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 24px;
+      table-layout: fixed;
     }
     .mat-table thead th {
       padding: 8px 14px;
@@ -320,8 +321,18 @@
       letter-spacing: 0.09em;
       color: #fff;
       text-align: left;
-      white-space: nowrap;
+      white-space: normal;
+      vertical-align: bottom;
     }
+    /* Ancho por columna (nth-child 5 = Call Option inyectado por JS) */
+    .mat-table thead th:nth-child(1) { width: 13%; }
+    .mat-table thead th:nth-child(2) { width: 12%; }
+    .mat-table thead th:nth-child(3) { width:  7%; }
+    .mat-table thead th:nth-child(4) { width: 13%; }
+    .mat-table thead th:nth-child(5) { width: 14%; }
+    .mat-table thead th:nth-child(6) { width: 14%; }
+    .mat-table thead th:nth-child(7) { width: 16%; }
+    .mat-table thead th:nth-child(8) { width:  8%; }
     .mat-table thead th.r { text-align: right; }
     .mat-table tbody td {
       padding: 7px 14px;
@@ -382,6 +393,7 @@
       font-size: 11.5px;
       line-height: 1.65;
       min-width: 175px;
+      max-width: min(320px, calc(100vw - 20px));
       box-shadow: 0 4px 16px rgba(0,0,0,0.4);
       display: none;
       pointer-events: none;
@@ -683,13 +695,27 @@
       .currency-legend { width: 100%; }
       .currency-legend-item { gap: 8px; }
 
-      /* Mat-table — ya scrolleable desde 900px */
-      .mat-table thead th { font-size: 9px; padding: 6px 7px; }
+      /* Mat-table — ya scrolleable desde 900px; volver a auto para que las
+         columnas ocultas no dejen huecos con table-layout:fixed */
+      .mat-table { table-layout: auto; }
+      .mat-table thead th { font-size: 9px; padding: 6px 7px; white-space: nowrap; vertical-align: middle; width: auto !important; }
       .mat-table tbody td { font-size: 11px; padding: 5px 7px; }
       .mat-table tfoot td { font-size: 11px; padding: 7px 7px; }
 
+      /* Ocultar columnas secundarias (Outstanding + Año Fiscal) en mobile */
+      .mat-table thead th:nth-child(7),
+      .mat-table thead th:nth-child(8),
+      .mat-table tbody td:nth-child(7),
+      .mat-table tbody td:nth-child(8),
+      .mat-table tfoot td:nth-child(3),
+      .mat-table tfoot td:nth-child(4) { display: none; }
+
       /* Call option button */
       .call-btn { font-size: 9px; padding: 2px 6px; }
+
+      /* Fila "Detalle de Instrumentos" + botón: apilar en columna */
+      .detail-header { flex-direction: column !important; align-items: flex-start !important; gap: 6px !important; }
+      .detail-header .desc-add-btn { margin-left: 0; }
 
       /* Timeline */
       .tl-section { margin-top: 20px; }
@@ -974,25 +1000,12 @@
         <div class="currency-pie-wrap">
           <canvas id="irsaPieChart"></canvas>
         </div>
-        <div class="currency-legend">
-          <div class="currency-legend-item">
-            <div class="currency-legend-dot" style="background:#1D4B6E;"></div>
-            <span class="currency-legend-name">Hard Dollar (HD)</span>
-            <span class="currency-legend-pct">—</span>
-            <span class="currency-legend-val">—</span>
-          </div>
-          <div class="currency-legend-item">
-            <div class="currency-legend-dot" style="background:#5B8DB8;"></div>
-            <span class="currency-legend-name">HD Sin MULC</span>
-            <span class="currency-legend-pct">—</span>
-            <span class="currency-legend-val">—</span>
-          </div>
-        </div>
+        <div class="currency-legend"></div>
       </div>
     </div>
 
     <!-- IRSA maturity detail table -->
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+    <div class="detail-header" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
       <span class="section-label" style="color:#1D4B6E; border-bottom:none; margin-bottom:0; padding-bottom:0;">Detalle de Instrumentos</span>
       <div style="display:flex; gap:8px;">
         <button class="desc-add-btn" onclick="openDescModal('irsa')">+ Agregar Descubierto</button>
@@ -1007,25 +1020,27 @@
           <th>Vencimiento</th>
           <th>Call Option</th>
           <th class="r">Capital (USD M)</th>
+          <th class="r">Outstanding (USD M)</th>
           <th>Año Fiscal</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>ON XX</td><td>Bono HD</td><td class="num">6,00%</td><td>10 Jun 2026</td><td class="num">21,7</td><td class="fy">IVQ FY26</td></tr>
-        <tr><td>ON XIV</td><td>Bono HD</td><td class="num">8,75%</td><td>22 Jun 2026</td><td class="num">18,1</td><td class="fy">IVQ FY26</td></tr>
-        <tr><td>ON XVIII</td><td>Bono HD</td><td class="num">7,00%</td><td>28 Feb 2027</td><td class="num">21,8</td><td class="fy">FY 27</td></tr>
-        <tr><td>ON XIV</td><td>Bono HD</td><td class="num">8,75%</td><td>22 Jun 2027</td><td class="num">18,1</td><td class="fy">FY 27</td></tr>
-        <tr><td>ON XXII</td><td>Bono HD</td><td class="num">5,75%</td><td>23 Oct 2027</td><td class="num">15,8</td><td class="fy">FY 28</td></tr>
-        <tr><td>ON XIV</td><td>Bono HD</td><td class="num">8,75%</td><td>22 Jun 2028</td><td class="num">31,0</td><td class="fy">FY 28</td></tr>
-        <tr><td>ON XXIII</td><td>Bono HD</td><td class="num">7,25%</td><td>23 Oct 2029</td><td class="num">51,5</td><td class="fy">FY 30</td></tr>
-        <tr><td>ON XXIV</td><td>Bono HD</td><td class="num">8,00%</td><td>31 Mar 2033</td><td class="num">156,3</td><td class="fy">FY 33</td></tr>
-        <tr><td>ON XXIV</td><td>Bono HD</td><td class="num">8,00%</td><td>31 Mar 2034</td><td class="num">156,3</td><td class="fy">FY 34</td></tr>
-        <tr><td>ON XXIV</td><td>Bono HD</td><td class="num">8,00%</td><td>31 Mar 2035</td><td class="num">161,1</td><td class="fy">FY 35</td></tr>
+        <tr><td>ON XX</td><td>MEP S/MULC</td><td class="num">6,00%</td><td>10 Jun 2026</td><td class="num">21,7</td><td class="num outstanding-td">—</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>ON XIV</td><td>Cable</td><td class="num">8,75%</td><td>22 Jun 2026</td><td class="num">18,1</td><td class="num outstanding-td">—</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>ON XVIII</td><td>MEP S/MULC</td><td class="num">7,00%</td><td>28 Feb 2027</td><td class="num">21,8</td><td class="num outstanding-td">—</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON XIV</td><td>Cable</td><td class="num">8,75%</td><td>22 Jun 2027</td><td class="num">18,1</td><td class="num outstanding-td">—</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON XXII</td><td>MEP</td><td class="num">5,75%</td><td>23 Oct 2027</td><td class="num">15,8</td><td class="num outstanding-td">—</td><td class="fy">FY 28</td></tr>
+        <tr><td>ON XIV</td><td>Cable</td><td class="num">8,75%</td><td>22 Jun 2028</td><td class="num">31,0</td><td class="num outstanding-td">—</td><td class="fy">FY 28</td></tr>
+        <tr><td>ON XXIII</td><td>MEP</td><td class="num">7,25%</td><td>23 Oct 2029</td><td class="num">51,5</td><td class="num outstanding-td">—</td><td class="fy">FY 30</td></tr>
+        <tr><td>ON XXIV</td><td>Cable</td><td class="num">8,00%</td><td>31 Mar 2033</td><td class="num">156,3</td><td class="num outstanding-td">—</td><td class="fy">FY 33</td></tr>
+        <tr><td>ON XXIV</td><td>Cable</td><td class="num">8,00%</td><td>31 Mar 2034</td><td class="num">156,3</td><td class="num outstanding-td">—</td><td class="fy">FY 34</td></tr>
+        <tr><td>ON XXIV</td><td>Cable</td><td class="num">8,00%</td><td>31 Mar 2035</td><td class="num">161,1</td><td class="num outstanding-td">—</td><td class="fy">FY 35</td></tr>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="5" style="color:#1D4B6E;">Total Deuda Vigente</td>
           <td class="num" style="color:#1D4B6E;">651,6</td>
+          <td></td>
           <td></td>
         </tr>
       </tfoot>
@@ -1124,31 +1139,12 @@
         <div class="currency-pie-wrap">
           <canvas id="cresudPieChart"></canvas>
         </div>
-        <div class="currency-legend">
-          <div class="currency-legend-item">
-            <div class="currency-legend-dot" style="background:#1A3D2A;"></div>
-            <span class="currency-legend-name">Hard Dollar (HD)</span>
-            <span class="currency-legend-pct">—</span>
-            <span class="currency-legend-val">—</span>
-          </div>
-          <div class="currency-legend-item">
-            <div class="currency-legend-dot" style="background:#4A8C60;"></div>
-            <span class="currency-legend-name">HD Sin MULC</span>
-            <span class="currency-legend-pct">—</span>
-            <span class="currency-legend-val">—</span>
-          </div>
-          <div class="currency-legend-item">
-            <div class="currency-legend-dot" style="background:#6BBF8A;"></div>
-            <span class="currency-legend-name">Dollar-Linked (DL)</span>
-            <span class="currency-legend-pct">—</span>
-            <span class="currency-legend-val">—</span>
-          </div>
-        </div>
+        <div class="currency-legend"></div>
       </div>
     </div>
 
     <!-- Cresud maturity detail table -->
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+    <div class="detail-header" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
       <span class="section-label" style="color:#1A3D2A; border-bottom:none; margin-bottom:0; padding-bottom:0;">Detalle de Instrumentos</span>
       <div style="display:flex; gap:8px;">
         <button class="desc-add-btn" onclick="openDescModal('cresud')">+ Agregar Descubierto</button>
@@ -1163,28 +1159,30 @@
           <th>Vencimiento</th>
           <th>Call Option</th>
           <th class="r">Capital (USD M)</th>
+          <th class="r">Outstanding (USD M)</th>
           <th>Año Fiscal</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Ciudad Bancaria</td><td>Bancaria</td><td class="num">4,00%</td><td>30 Mar 2026</td><td class="num">16,0</td><td class="fy">IIIQ FY26</td></tr>
-        <tr><td>Ciudad Bancaria</td><td>Bancaria</td><td class="num">5,00%</td><td>29 Abr 2026</td><td class="num">8,0</td><td class="fy">IVQ FY26</td></tr>
-        <tr><td>ON XLII</td><td>Bono DL</td><td class="num">0,00%</td><td>4 May 2026</td><td class="num">10,2</td><td class="fy">IVQ FY26</td></tr>
-        <tr><td>ON XL</td><td>Bono DL</td><td class="num">0,00%</td><td>21 Jun 2026</td><td class="num">12,6</td><td class="fy">IVQ FY26</td></tr>
-        <tr><td>ON XLV</td><td>Bono HD</td><td class="num">6,00%</td><td>22 Ago 2026</td><td class="num">10,7</td><td class="fy">FY 27</td></tr>
-        <tr><td>ON XL</td><td>Bono DL</td><td class="num">0,00%</td><td>21 Dic 2026</td><td class="num">13,0</td><td class="fy">FY 27</td></tr>
-        <tr><td>ON XLIV</td><td>Bono HD</td><td class="num">6,00%</td><td>17 Ene 2027</td><td class="num">40,4</td><td class="fy">FY 27</td></tr>
-        <tr><td>ON LI</td><td>Bono HD</td><td class="num">5,75%</td><td>20 Ene 2027</td><td class="num">46,8</td><td class="fy">FY 27</td></tr>
-        <tr><td>ON XLVI</td><td>Bono DL</td><td class="num">1,50%</td><td>18 Jul 2027</td><td class="num">23,8</td><td class="fy">FY 28</td></tr>
-        <tr><td>ON XLIX</td><td>Bono HD</td><td class="num">7,25%</td><td>2 Sep 2027</td><td class="num">31,3</td><td class="fy">FY 28</td></tr>
-        <tr><td>ON XLVIII</td><td>Bono HD</td><td class="num">8,00%</td><td>11 Jul 2028</td><td class="num">43,7</td><td class="fy">FY 29</td></tr>
-        <tr><td>ON XLVII</td><td>Bono HD</td><td class="num">7,00%</td><td>15 Nov 2028</td><td class="num">64,4</td><td class="fy">FY 29</td></tr>
-        <tr><td>ON L</td><td>Bono HD</td><td class="num">7,25%</td><td>10 Mar 2029</td><td class="num">70,4</td><td class="fy">FY 29</td></tr>
+        <tr><td>BBVA Bancaria</td><td>Bancaria</td><td class="num">3,75%</td><td>29 Jun 2026</td><td class="num">16,0</td><td class="num outstanding-td">16,0</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>Ciudad Bancaria</td><td>Bancaria</td><td class="num">5,00%</td><td>29 Abr 2026</td><td class="num">8,0</td><td class="num outstanding-td">8,0</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>ON XLII</td><td>DL</td><td class="num">0,00%</td><td>4 May 2026</td><td class="num">10,2</td><td class="num outstanding-td">—</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>ON XL</td><td>DL</td><td class="num">0,00%</td><td>21 Jun 2026</td><td class="num">12,6</td><td class="num outstanding-td">—</td><td class="fy">IVQ FY26</td></tr>
+        <tr><td>ON XLV</td><td>CABLE S/MULC</td><td class="num">6,00%</td><td>22 Ago 2026</td><td class="num">10,7</td><td class="num outstanding-td">—</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON XL</td><td>DL</td><td class="num">0,00%</td><td>21 Dic 2026</td><td class="num">13,0</td><td class="num outstanding-td">—</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON XLIV</td><td>MEP S/MULC</td><td class="num">6,00%</td><td>17 Ene 2027</td><td class="num">40,4</td><td class="num outstanding-td">—</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON LI</td><td>MEP</td><td class="num">5,75%</td><td>20 Ene 2027</td><td class="num">46,8</td><td class="num outstanding-td">—</td><td class="fy">FY 27</td></tr>
+        <tr><td>ON XLVI</td><td>DL</td><td class="num">1,50%</td><td>18 Jul 2027</td><td class="num">23,8</td><td class="num outstanding-td">—</td><td class="fy">FY 28</td></tr>
+        <tr><td>ON XLIX</td><td>MEP</td><td class="num">7,25%</td><td>2 Sep 2027</td><td class="num">31,3</td><td class="num outstanding-td">—</td><td class="fy">FY 28</td></tr>
+        <tr><td>ON XLVIII</td><td>MEP</td><td class="num">8,00%</td><td>11 Jul 2028</td><td class="num">43,7</td><td class="num outstanding-td">—</td><td class="fy">FY 29</td></tr>
+        <tr><td>ON XLVII</td><td>MEP</td><td class="num">7,00%</td><td>15 Nov 2028</td><td class="num">64,4</td><td class="num outstanding-td">—</td><td class="fy">FY 29</td></tr>
+        <tr><td>ON L</td><td>MEP</td><td class="num">7,25%</td><td>10 Mar 2029</td><td class="num">70,4</td><td class="num outstanding-td">—</td><td class="fy">FY 29</td></tr>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="5" style="color:#1A3D2A;">Total Deuda Vigente</td>
           <td class="num" style="color:#1A3D2A;">391,3</td>
+          <td></td>
           <td></td>
         </tr>
       </tfoot>
@@ -1251,7 +1249,7 @@
           <div class="kpi-value" id="sgr-foto-mora">—</div>
         </div>
         <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
-          <div class="kpi-label">TIR</div>
+          <div><div class="kpi-label">TIR</div><div style="font-size:10px;color:#64748B;margin-top:1px;">* sin benef. impos.</div></div>
           <div class="kpi-value" id="sgr-foto-tir">—</div>
         </div>
       </div>
@@ -1313,7 +1311,7 @@
         <div class="sgr-chart-card" style="display:flex;flex-direction:column;">
           <div class="sgr-chart-title">
             Ranking SGRs por Mora
-            <span style="font-size:10px;color:#94A3B8;font-weight:400;text-transform:none;letter-spacing:0;">· dic-25 &nbsp;·&nbsp; </span>
+            <span style="font-size:10px;color:#94A3B8;font-weight:400;text-transform:none;letter-spacing:0;">· feb-26 &nbsp;·&nbsp;</span>
             <span style="font-size:10px;color:#166534;font-weight:600;text-transform:none;letter-spacing:0;">■ cartera IRSA</span>
           </div>
           <div class="sgr-rank-wrap" style="flex:1;min-height:260px;">
@@ -1355,6 +1353,44 @@ function _parseNum(s) {
   return parseFloat(s.replace(/\./g, '').replace(',', '.')) || 0;
 }
 
+// Maps MONEDA/Moneda column values to display labels for timeline chips and pie charts
+// Short codes (from cap CSVs) pass through as-is; only verbose full-CSV codes are normalized
+function _tipoLabel(tipo) {
+  if (!tipo) return '';
+  const map = {
+    'USD Int':                    'Cable',
+    'USD Cable NY':               'Cable',
+    'USD Cable NY - S/MULC':      'Cable s/MULC',
+    'USD MEP - ARGENTINA':        'MEP',
+    'USD MEP - ARGENTINA S/MULC': 'MEP S/MULC',
+    'Dólar Linked':               'DL',
+  };
+  return map[tipo.trim()] || tipo.trim();
+}
+
+// Pie chart color palettes keyed by _tipoLabel output
+const IRSA_PIE_COLORS   = { 'Cable': '#1D4B6E', 'MEP': '#3A6E9B', 'MEP S/MULC': '#5B8DB8', 'Cable s/MULC': '#7AAFC8' };
+const CRESUD_PIE_COLORS = { 'Cable': '#1A3D2A', 'HD': '#1A3D2A', 'MEP': '#2D6B4A', 'MEP S/MULC': '#4A8C60', 'Cable s/MULC': '#5EA375', 'DL': '#6BBF8A' };
+
+function _pieColor(label, colorMap) { return colorMap[label] || '#94A3B8'; }
+
+// Computes dynamic pie buckets from the cap CSV rows, grouped by _tipoLabel
+function _computePieDataFromRows(rows) {
+  const today = new Date();
+  const active = rows.filter(r => r['Moneda'] === 'USD' && _parseDMY(r['Fecha Fin']) > today);
+  const buckets = {};
+  active.forEach(r => {
+    const label = r['Concepto 2'] === 'Bancaria' ? 'MEP' : _tipoLabel(r['MONEDA'] || '');
+    const amt   = parseFloat(r['Monto USD']) / 1e6;
+    if (!isNaN(amt) && amt > 0) buckets[label] = (buckets[label] || 0) + amt;
+  });
+  const entries = Object.entries(buckets).sort((a, b) => b[1] - a[1]);
+  const labels  = entries.map(e => e[0]);
+  const values  = entries.map(e => +e[1].toFixed(1));
+  const total   = +values.reduce((s, v) => s + v, 0).toFixed(1);
+  return { labels, values, total };
+}
+
 function _tlEvHtml(left, name, date, amt, rate, badge, color, opacity, isAbove, isInt, badgeTextColor) {
   const intCls = isInt ? ' tl-int' : '';
   const posCls = isAbove ? 'tl-above' : 'tl-below';
@@ -1386,10 +1422,9 @@ function _renderIrsaCapTimeline(rows) {
     const isBanking = r['Concepto 2'] === 'Bancaria';
     const name      = isBanking ? r['Concepto'] : 'ON ' + r['Concepto'];
     const monto     = parseFloat(r['Monto USD']) || 0;
-    const tc        = parseFloat((r['TC'] || '1,00').replace(',', '.'));
-    const isMulc    = !isBanking && tc < 0.99;
+    const isMulc    = !isBanking && !!(r['MONEDA'] && r['MONEDA'].includes('S/MULC'));
     const color     = isMulc ? '#5B8DB8' : '#1D4B6E';
-    const badge     = isBanking ? 'Desc.' : (isMulc ? 'HD s/MULC' : 'HD');
+    const badge     = isBanking ? 'Desc.' : _tipoLabel(r['MONEDA']);
     const opacity   = isMulc ? '0.5' : '0.4';
     html += _tlEvHtml(left, name, date, _fmtM(monto), r['Tasa'], badge, color, opacity, i % 2 === 0, false);
   });
@@ -1435,7 +1470,7 @@ function _renderIrsaFullTimeline(rows) {
       rate         = r['Tasa'];
       const isMulc = r['Moneda'].includes('S/MULC');
       color        = isMulc ? '#5B8DB8' : '#1D4B6E';
-      badge        = isMulc ? 'HD s/MULC' : 'HD';
+      badge        = _tipoLabel(r['Moneda']);
       opacity      = isMulc ? '0.5' : '0.4';
       isInt        = false;
     } else {
@@ -1487,17 +1522,17 @@ function setIrsaTlView(mode, btn) {
 
 // ── Cresud Timeline (dynamic from CSV) ───────────────────────────────────────
 function _cresudCapBadge(r, onMoneda) {
-  if (r['Concepto 2'] === 'Bancaria') return { badge: 'Prefi',     color: '#1A3D2A', opacity: '0.4' };
-  if (r['MONEDA']     === 'DL')       return { badge: 'DL',        color: '#6BBF8A', opacity: '0.6', textColor: '#0F172A' };
-  const m = onMoneda[r['Concepto']] || '';
-  if (m.includes('S/MULC'))           return { badge: 'HD s/MULC', color: '#4A8C60', opacity: '0.5' };
-  return                                     { badge: 'HD',        color: '#1A3D2A', opacity: '0.4' };
+  if (r['Concepto 2'] === 'Bancaria') return { badge: 'Prefi',                    color: '#1A3D2A', opacity: '0.4' };
+  if (r['MONEDA']     === 'DL')       return { badge: 'DL',                       color: '#6BBF8A', opacity: '0.6', textColor: '#0F172A' };
+  const isMulc = r['MONEDA'] && r['MONEDA'].includes('S/MULC');
+  if (isMulc)                         return { badge: _tipoLabel(r['MONEDA']),     color: '#4A8C60', opacity: '0.5' };
+  return                                     { badge: _tipoLabel(r['MONEDA']),     color: '#1A3D2A', opacity: '0.4' };
 }
 
 function _cresudFullBadge(moneda) {
-  if (!moneda || moneda.includes('Linked')) return { badge: 'DL',        color: '#6BBF8A', opacity: '0.6', textColor: '#0F172A' };
-  if (moneda.includes('S/MULC'))            return { badge: 'HD s/MULC', color: '#4A8C60', opacity: '0.5' };
-  return                                           { badge: 'HD',        color: '#1A3D2A', opacity: '0.4' };
+  if (!moneda || moneda.includes('Linked')) return { badge: 'DL',                  color: '#6BBF8A', opacity: '0.6', textColor: '#0F172A' };
+  if (moneda.includes('S/MULC'))            return { badge: _tipoLabel(moneda),    color: '#4A8C60', opacity: '0.5' };
+  return                                           { badge: _tipoLabel(moneda),    color: '#1A3D2A', opacity: '0.4' };
 }
 
 function _renderCresudCapTimeline(capRows, onMoneda) {
@@ -1887,6 +1922,7 @@ async function initIrsaMatChart() {
     });
     _updateIrsaKpis(_irsaCapRows);
     _updateIrsaPie(_irsaCapRows);
+    _applyOutstandingCol('irsa-mat-table', _computeOutstandingMap(_irsaCapRows));
   } catch (e) {
     console.error('IRSA mat chart: error cargando CSV', e);
   }
@@ -2062,6 +2098,7 @@ async function initCresudMatChart() {
       },
     });
     _updateCresudKpis(_cresudCapRows);
+    _applyOutstandingCol('cresud-mat-table', _computeOutstandingMap(_cresudCapRows));
   } catch (e) {
     console.error('Cresud mat chart: error cargando CSV', e);
   }
@@ -2088,10 +2125,10 @@ _irsaPieTotal = 0;
 _irsaPieChart = new Chart(document.getElementById('irsaPieChart'), {
   type: 'doughnut',
   data: {
-    labels: ['Hard Dollar (HD)', 'HD Sin MULC'],
+    labels: [],
     datasets: [{
-      data: [0, 0],
-      backgroundColor: ['#1D4B6E', '#5B8DB8'],
+      data: [],
+      backgroundColor: [],
       borderWidth: 2,
       borderColor: '#ffffff',
     }],
@@ -2119,10 +2156,10 @@ _cresudPieTotal = 0;
 _cresudPieChart = new Chart(document.getElementById('cresudPieChart'), {
   type: 'doughnut',
   data: {
-    labels: ['Hard Dollar (HD)', 'HD Sin MULC', 'Dollar-Linked (DL)'],
+    labels: [],
     datasets: [{
-      data: [0, 0, 0],
-      backgroundColor: ['#1A3D2A', '#4A8C60', '#6BBF8A'],
+      data: [],
+      backgroundColor: [],
       borderWidth: 2,
       borderColor: '#ffffff',
     }],
@@ -2193,54 +2230,99 @@ function _applyCresudMatData(d) {
 }
 
 // ── Pie data computation ──────────────────────────────────────────────────────
-function _computeIrsaPieData(allCapRows) {
-  const today = new Date();
-  const active = allCapRows.filter(r => r['Moneda'] === 'USD' && _parseDMY(r['Fecha Fin']) > today);
-  let hd = 0, mulc = 0;
-  active.forEach(r => {
-    const amt = parseFloat(r['Monto USD']) / 1e6;
-    const tc  = parseFloat((r['TC'] || '1,00').replace(',', '.'));
-    if (tc < 0.99) mulc += amt; else hd += amt;
-  });
-  return { hd: +hd.toFixed(1), mulc: +mulc.toFixed(1), total: +(hd + mulc).toFixed(1) };
-}
-
-function _computeCresudPieData(allCapRows) {
-  const today = new Date();
-  const active = allCapRows.filter(r => r['Moneda'] === 'USD' && _parseDMY(r['Fecha Fin']) > today);
-  let hd = 0, mulc = 0, dl = 0;
-  active.forEach(r => {
-    const amt = parseFloat(r['Monto USD']) / 1e6;
-    if (r['MONEDA'] === 'DL') { dl += amt; return; }
-    const onMon = _cresudOnMoneda[r['Concepto']] || '';
-    if (onMon.includes('S/MULC')) mulc += amt; else hd += amt;
-  });
-  return { hd: +hd.toFixed(1), mulc: +mulc.toFixed(1), dl: +dl.toFixed(1), total: +(hd + mulc + dl).toFixed(1) };
-}
-
 function _updateIrsaPie(allCapRows) {
   if (!_irsaPieChart) return;
-  const { hd, mulc, total } = _computeIrsaPieData(allCapRows);
+  const { labels, values, total } = _computePieDataFromRows(allCapRows);
   _irsaPieTotal = total;
-  _irsaPieChart.data.datasets[0].data = [hd, mulc];
+  _irsaPieChart.data.labels                        = labels;
+  _irsaPieChart.data.datasets[0].data              = values;
+  _irsaPieChart.data.datasets[0].backgroundColor   = labels.map(l => _pieColor(l, IRSA_PIE_COLORS));
   _irsaPieChart.update();
-  const items = document.querySelectorAll('#page-irsa .currency-legend .currency-legend-item');
   const pct = v => total > 0 ? (v / total * 100).toFixed(1).replace('.', ',') + '%' : '0,0%';
-  if (items[0]) { items[0].querySelector('.currency-legend-pct').textContent = pct(hd);   items[0].querySelector('.currency-legend-val').textContent = 'USD ' + hd.toFixed(0)   + 'M'; }
-  if (items[1]) { items[1].querySelector('.currency-legend-pct').textContent = pct(mulc); items[1].querySelector('.currency-legend-val').textContent = 'USD ' + mulc.toFixed(0) + 'M'; }
+  const container = document.querySelector('#page-irsa .currency-legend');
+  if (container) {
+    container.innerHTML = labels.map((l, i) =>
+      `<div class="currency-legend-item">` +
+        `<div class="currency-legend-dot" style="background:${_pieColor(l, IRSA_PIE_COLORS)};"></div>` +
+        `<span class="currency-legend-name">${l}</span>` +
+        `<span class="currency-legend-pct">${pct(values[i])}</span>` +
+        `<span class="currency-legend-val">USD ${values[i].toFixed(0)}M</span>` +
+      `</div>`
+    ).join('');
+  }
 }
 
 function _updateCresudPie(allCapRows) {
   if (!_cresudPieChart) return;
-  const { hd, mulc, dl, total } = _computeCresudPieData(allCapRows);
+  const { labels, values, total } = _computePieDataFromRows(allCapRows);
   _cresudPieTotal = total;
-  _cresudPieChart.data.datasets[0].data = [hd, mulc, dl];
+  _cresudPieChart.data.labels                       = labels;
+  _cresudPieChart.data.datasets[0].data             = values;
+  _cresudPieChart.data.datasets[0].backgroundColor  = labels.map(l => _pieColor(l, CRESUD_PIE_COLORS));
   _cresudPieChart.update();
-  const items = document.querySelectorAll('#page-cresud .currency-legend .currency-legend-item');
   const pct = v => total > 0 ? (v / total * 100).toFixed(1).replace('.', ',') + '%' : '0,0%';
-  if (items[0]) { items[0].querySelector('.currency-legend-pct').textContent = pct(hd);   items[0].querySelector('.currency-legend-val').textContent = 'USD ' + hd.toFixed(0)   + 'M'; }
-  if (items[1]) { items[1].querySelector('.currency-legend-pct').textContent = pct(mulc); items[1].querySelector('.currency-legend-val').textContent = 'USD ' + mulc.toFixed(0) + 'M'; }
-  if (items[2]) { items[2].querySelector('.currency-legend-pct').textContent = pct(dl);   items[2].querySelector('.currency-legend-val').textContent = 'USD ' + dl.toFixed(0)   + 'M'; }
+  const container = document.querySelector('#page-cresud .currency-legend');
+  if (container) {
+    container.innerHTML = labels.map((l, i) =>
+      `<div class="currency-legend-item">` +
+        `<div class="currency-legend-dot" style="background:${_pieColor(l, CRESUD_PIE_COLORS)};"></div>` +
+        `<span class="currency-legend-name">${l}</span>` +
+        `<span class="currency-legend-pct">${pct(values[i])}</span>` +
+        `<span class="currency-legend-val">USD ${values[i].toFixed(0)}M</span>` +
+      `</div>`
+    ).join('');
+  }
+}
+
+// ── Outstanding column ────────────────────────────────────────────────────────
+function _computeOutstandingMap(rows) {
+  const today = new Date();
+  // Group future USD rows by instrument
+  const byConcepto = {};
+  rows.forEach(r => {
+    if (r['Moneda'] !== 'USD') return;
+    const d = _parseDMY(r['Fecha Fin']);
+    if (d <= today) return;
+    const concepto = r['Concepto'];
+    const amt = parseFloat(r['Monto USD']) || 0;
+    if (amt <= 0) return;
+    if (!byConcepto[concepto]) byConcepto[concepto] = [];
+    byConcepto[concepto].push({ d, amt });
+  });
+  // For each instrument, sort ascending and compute reverse-cumulative outstanding
+  // outstanding_i = sum of capital from row i to last row (current + all future tranches)
+  const map = {};
+  Object.keys(byConcepto).forEach(concepto => {
+    const tranches = byConcepto[concepto].sort((a, b) => a.d - b.d);
+    let running = 0;
+    for (let i = tranches.length - 1; i >= 0; i--) {
+      running += tranches[i].amt;
+      const d = tranches[i].d;
+      const dateKey = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+      map[concepto + '|' + dateKey] = running;
+    }
+  });
+  return map;
+}
+
+function _applyOutstandingCol(tableId, map) {
+  const table = document.getElementById(tableId);
+  if (!table) return;
+  table.querySelectorAll('tbody tr:not(.extra-row)').forEach(tr => {
+    const tds = tr.querySelectorAll('td');
+    const instrText = tds[0] ? tds[0].textContent.trim() : '';
+    const tipo = tds[1] ? tds[1].textContent.trim() : '';
+    const outCell = tr.querySelector('.outstanding-td');
+    if (!outCell) return;
+    if (tipo === 'Bancaria') { outCell.textContent = tds[5] ? tds[5].textContent.trim() : '—'; return; }
+    const concepto = instrText.startsWith('ON ') ? instrText.slice(3) : instrText;
+    const dateText = tds[3] ? tds[3].textContent.trim() : '';
+    const dp = dateText.split(' ');
+    const mon = dp.length === 3 ? MESES.indexOf(dp[1]) : -1;
+    const dateKey = mon >= 0 ? dp[2] + '-' + String(mon+1).padStart(2,'0') + '-' + String(parseInt(dp[0])).padStart(2,'0') : '';
+    const val = map[concepto + '|' + dateKey];
+    outCell.textContent = val != null ? (val / 1e6).toFixed(1).replace('.', ',') : '—';
+  });
 }
 
 // ── Detail table update ───────────────────────────────────────────────────────
@@ -2255,7 +2337,7 @@ function _updateIrsaTable(allCapRows) {
     const d       = _parseDMY(r['Fecha Fin']);
     const dateStr = `${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`;
     const isArs   = r['Moneda'] === 'ARS';
-    const rawAmt  = parseFloat(isArs ? r['Monto MO'] : r['Monto USD']) || 0;
+    const rawAmt  = parseFloat(isArs ? r['Monto Webcast'] : r['Monto USD']) || 0;
     const montoDisp = isArs ? `<span style="color:#92400E;">ARS ${(rawAmt/1e6).toFixed(1)}M</span>` : (rawAmt/1e6).toFixed(1);
     const fyYear  = parseInt(r['FY'].replace('FY', ''));
     const curFY   = today.getMonth() >= 6 ? today.getFullYear() + 1 : today.getFullYear();
@@ -2263,7 +2345,7 @@ function _updateIrsaTable(allCapRows) {
     const tr = document.createElement('tr');
     tr.className = 'extra-row';
     tr.style.background = '#EFF6FF';
-    tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${r['Tasa'] || '—'}</td><td>${dateStr}</td><td></td><td class="num">${montoDisp}</td><td class="fy">${fyLbl}</td>`;
+    tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${r['Tasa'] || '—'}</td><td>${dateStr}</td><td></td><td class="num">${montoDisp}</td><td></td><td class="fy">${fyLbl}</td>`;
     tbody.appendChild(tr);
   });
   const active = allCapRows.filter(rr => rr['Moneda'] === 'USD' && _parseDMY(rr['Fecha Fin']) > today);
@@ -2292,7 +2374,7 @@ function _updateCresudTable(allCapRows) {
     const tr = document.createElement('tr');
     tr.className = 'extra-row';
     tr.style.background = '#F0FFF4';
-    tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${tasaDisp}</td><td>${dateStr}</td><td></td><td class="num">${montoDisp}</td><td class="fy">${fyLbl}</td>`;
+    tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${tasaDisp}</td><td>${dateStr}</td><td></td><td class="num">${montoDisp}</td><td></td><td class="fy">${fyLbl}</td>`;
     tbody.appendChild(tr);
   });
   const active = allCapRows.filter(rr => rr['Moneda'] === 'USD' && _parseDMY(rr['Fecha Fin']) > today);
@@ -2353,6 +2435,7 @@ function _rebuildIrsa() {
   _updateIrsaPie(allCap);
   _updateIrsaTable(allCap);
   _updateIrsaKpis(allCap);
+  _applyOutstandingCol('irsa-mat-table', _computeOutstandingMap(allCap));
 }
 
 function _rebuildCresud() {
@@ -2369,6 +2452,7 @@ function _rebuildCresud() {
   _updateCresudPie(allCap);
   _updateCresudTable(allCap);
   _updateCresudKpis(allCap);
+  _applyOutstandingCol('cresud-mat-table', _computeOutstandingMap(allCap));
 }
 
 // ── Row builders ─────────────────────────────────────────────────────────────
@@ -2376,16 +2460,16 @@ function _buildIrsaExtraRow(nombre, fechaIni, fechaFin, monto, tasa, moneda) {
   const fdDate   = _parseInputDate(fechaFin);
   const fy       = _computeFY(fdDate);
   const isUsd    = moneda === 'USD';
-  const tasaStr  = parseFloat(tasa).toFixed(2).replace('.', ',') + '%';
+  const tasaStr  = parseFloat(tasa).toFixed(2) + '%';
   const montoStr = String(Math.round(parseFloat(monto)));
   return {
-    'AÑO': String(fdDate.getFullYear()), 'FY': fy, 'Detalle': isUsd ? 'HD' : 'ARS',
-    'Período': _computePeriodo(fdDate),
+    'AÑO': String(fdDate.getFullYear()), 'FY': fy, 'MONEDA': isUsd ? 'HD' : 'ARS',
+    'Periodo': _computePeriodo(fdDate),
     'Compañía': '3000 - IRSA Inversiones y Repr', 'Sociedad': '3000 - IRSA Inversiones y Repr',
     'Concepto': nombre, 'Concepto 2': 'Bancaria',
     'Fecha Inicio': _inputToFmt(fechaIni), 'Fecha Fin': _inputToFmt(fechaFin),
     'Tasa': tasaStr, 'Moneda': moneda,
-    'Monto MO': montoStr, 'Monto USD': isUsd ? montoStr : '0', 'TC': '1,00',
+    'Monto Webcast': montoStr, 'Monto USD': isUsd ? montoStr : '0',
   };
 }
 
@@ -2527,11 +2611,11 @@ function downloadDescCsv() {
 
   const newLines = extraRows.map(r => {
     if (isIrsa) {
-      return [r['AÑO'], r['FY'], r['Detalle'], r['Período'],
+      return [r['AÑO'], r['FY'], r['MONEDA'], r['Periodo'],
               r['Compañía'], r['Sociedad'], r['Concepto'], r['Concepto 2'],
               r['Fecha Inicio'], r['Fecha Fin'],
-              '"' + r['Tasa'] + '"', r['Moneda'],
-              r['Monto MO'], r['Monto USD'], '"' + r['TC'] + '"'].join(',');
+              r['Tasa'], r['Moneda'],
+              r['Monto Webcast'], r['Monto USD']].join(',');
     } else {
       return [r['AÑO'], r['FY'], r['MONEDA'], r['Periodo'],
               r['Compañía'], r['Sociedad'], r['Concepto'], r['Concepto 2'],
@@ -2617,9 +2701,10 @@ function _callFmtDate(iso) {
   return `${day}/${m}/${y}`;
 }
 
-function _callPopoverHtml(key) {
+function _callPopoverHtml(key, outstanding) {
   const d = callData[key];
   if (!d) return '';
+  const outLine = `<div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid #444;">Outstanding: <strong>${outstanding || '—'} USD M</strong></div>`;
   if (d.type === 'schedule') {
     let rows = '';
     for (let i = 0; i < d.steps.length; i++) {
@@ -2629,9 +2714,10 @@ function _callPopoverHtml(key) {
         : `From ${_callFmtDate(s.from)}`;
       rows += `<tr><td>${label}</td><td>${s.price}</td></tr>`;
     }
-    return `<div class="call-popover-title">Call Schedule</div><table class="call-sched-table">${rows}</table>`;
+    return `<div class="call-popover-title">Call Schedule</div>${outLine}<table class="call-sched-table">${rows}</table>`;
   }
   return `<div class="call-popover-title">Call Option</div>`
+       + outLine
        + `<div>Call Date: <strong>${_callFmtDate(d.callDate)}</strong></div>`
        + `<div>Price: <strong>${d.price}</strong></div>`;
 }
@@ -3203,7 +3289,10 @@ function toggleCallPopover(btn, key) {
     return;
   }
   _callPopoverBtn = btn;
-  document.getElementById('call-popover-content').innerHTML = _callPopoverHtml(key);
+  // Read outstanding from td[6] of the same row (after call column insertion)
+  const rowTds = btn.closest('tr') ? btn.closest('tr').querySelectorAll('td') : [];
+  const outstanding = rowTds[6] ? rowTds[6].textContent.trim() : '—';
+  document.getElementById('call-popover-content').innerHTML = _callPopoverHtml(key, outstanding);
   // Measure off-screen then position
   popover.style.left = '-9999px';
   popover.style.top  = '-9999px';

@@ -16,8 +16,8 @@ garantias_sector_sgr.csv # Exposición por sector por SGR
 mora_sobre_garantias.csv # Mora/Garantías mensual por SGR (jun-25 → feb-26): POTENCIAR, GARANTIZAR, INTEGRA, BIND, Promedio
 mora_mercado.csv         # Mora mensual del mercado SGR (feb-25 → feb-26)
 plazo_mora_mercado.csv   # Mora por plazo de garantía del mercado
-Total_sgr.csv            # Ranking de 42 SGRs con mora (dic-25)
-foto_sgr.csv             # Snapshot de posición IRSA en cada SGR (no usado aún en dashboard)
+Total_sgr.csv            # Ranking de 42 SGRs con mora (feb-26)
+foto_sgr.csv             # Snapshot de posición IRSA en cada SGR (Aporte, Posicion, Weight, P&L, Mora, TIR)
 cartera_monedas.csv      # Composición por moneda por SGR (guardado, no usado aún)
 composicion_carteras.csv # Composición por tipo de activo por SGR (guardado, no usado aún)
 CLAUDE.md                # Este archivo
@@ -47,7 +47,7 @@ El archivo está organizado en tres bloques principales dentro de un único `.ht
   - Se recalculan al agregar/eliminar descubiertos (`_rebuildIrsa`).
   - IDs HTML: `#irsa-kpi-tasa`, `#irsa-kpi-vida`, `#irsa-kpi-note`.
 - Tabla detalle de vencimientos por instrumento
-- Pie chart de composición por moneda — calculado dinámicamente desde `irsa_deuda.csv`; se recalcula con descubiertos
+- Pie chart de composición por moneda — N buckets dinámicos agrupados por `_tipoLabel(MONEDA)`, calculados desde `irsa_deuda.csv`; se recalcula con descubiertos; leyenda regenerada dinámicamente
 - Timeline de cashflows con toggle **Solo Capital / + Intereses** (`setIrsaTlView`)
   - `#irsa-tl-cap`: timeline solo capital — generado dinámicamente desde `irsa_deuda.csv`
   - `#irsa-tl-full`: timeline capital + intereses — generado dinámicamente desde `irsa_deuda_total.csv`
@@ -68,11 +68,15 @@ El archivo está organizado en tres bloques principales dentro de un único `.ht
 ## Datos fuente (CSV)
 
 ### `irsa_deuda.csv`
-Vencimientos de capital de IRSA. Columnas: `AÑO, FY, Detalle, Período, Compañía, Sociedad, Concepto, Concepto 2, Fecha Inicio, Fecha Fin, Tasa, Moneda, Monto MO, Monto USD, TC`.
+Vencimientos de capital de IRSA. Columnas: `AÑO, FY, MONEDA, Periodo, Compañía, Sociedad, Concepto, Concepto 2, Fecha Inicio, Fecha Fin, Tasa, Moneda, Monto Webcast, Monto USD, Outstanding`.
 - Fuente del **maturity wall IRSA** y de la **timeline capital-only** (`#irsa-tl-cap`)
 - ONs cubiertas: XIV, XVIII, XX, XXII, XXIII, XXIV
 - Incluye un descubierto en ARS (Cohen, vencido 30/01/2026) — se filtra automáticamente
-- `Monto MO`: monto nominal en moneda original; `Monto USD`: equivalente USD ajustado por brecha (`Monto MO / TC`); `TC`: factor de conversión (1,00 = HD puro sin brecha; < 1 = HD s/MULC, refleja la brecha MEP/cable respecto al dólar oficial)
+- `MONEDA`: tipo explícito de liquidación del instrumento — valores: `"Cable"` (HD puro), `"MEP"` (HD MEP), `"MEP S/MULC"` (HD sin MULC), `"CABLE S/MULC"`, `"DL"` (dólar linked), `"ARS"`. Reemplaza la columna `Detalle` y la lógica anterior de `TC < 0.99`
+- `Monto Webcast`: monto nominal en moneda original (antes llamado `Monto MO`)
+- `Monto USD`: equivalente USD ajustado por brecha para instrumentos S/MULC
+- `Outstanding`: capital remanente del instrumento en moneda original (usado para calcular la columna Outstanding en la tabla de detalle)
+- `Tasa`: formato punto decimal ("8.75%") — igual que Cresud; reemplaza el formato anterior con coma ("8,75%")
 - Columna clave para nombre del ON en la timeline: `Concepto` (e.g. "XIV", "XXIV")
 
 ### `irsa_deuda_total.csv`
@@ -100,6 +104,8 @@ Schedule completo de Cresud con todos los flujos. Columnas: `AÑO, FY, Compañí
 ## Convenciones de código
 
 ### CSS
+- **`.mat-table thead th:nth-child(n)`**: anchos explícitos por columna (1=13%, 2=12%, 3=7%, 4=13%, 5=14%, 6=14%, 7=16%, 8=8%) para evitar que el layout de 8 columnas colapse en widths inconsistentes
+- **Call popover `max-width`**: `min(320px, calc(100vw - 20px))` — evita desborde en pantallas estrechas
 - Variables de color inline (`style="color:#1D4B6E"`) para colores de marca específicos por empresa
 - Clases utilitarias: `.grid-2`, `.grid-40-60`, `.grid-35-65` para layouts de dos columnas
 - Colores de texto base: `#0F172A` (títulos), `#334155` (body), `#64748B` (muted), `#94A3B8` (placeholder)
@@ -120,16 +126,51 @@ Schedule completo de Cresud con todos los flujos. Columnas: `AÑO, FY, Compañí
 - `setCresudMatView(mode, btn)` — ídem para Cresud; delega en `_applyCresudMatData(d)`
 - **Timelines IRSA y Cresud**: generadas dinámicamente desde CSV via `fetch()` al iniciar la página
   - `initIrsaTimeline()` — carga `irsa_deuda.csv` y `irsa_deuda_total.csv` en paralelo
-  - `_renderIrsaCapTimeline(rows)` — filtra USD + no vencidos; si `Concepto 2 === 'Bancaria'` → badge "Desc." (color HD `#1D4B6E`); si no → badge HD/HD s/MULC según `TC < 0.99`
-  - `_renderIrsaFullTimeline(rows)` — agrupa intereses con misma `Fecha Fin`; badge HD/HD s/MULC según `Moneda.includes('S/MULC')`
+  - `_renderIrsaCapTimeline(rows)` — filtra USD + no vencidos; si `Concepto 2 === 'Bancaria'` → badge "Desc." (color HD `#1D4B6E`); si no → badge via `_tipoLabel(r['MONEDA'])`
+  - `_renderIrsaFullTimeline(rows)` — agrupa intereses con misma `Fecha Fin`; badge via `_tipoLabel(r['Moneda'])`
   - `initCresudTimeline()` — carga `cresud_deuda.csv` y `cresud_completo.csv` en paralelo; construye lookup `Clase → Moneda` para badge del timeline capital; al terminar llama `_updateCresudKpis` + `_updateCresudPie` (único punto donde `_cresudOnMoneda` está garantizado)
   - `_renderCresudCapTimeline(capRows, onMoneda)` — fuente: `cresud_deuda.csv`; badge: "Prefi" si `Concepto 2='Bancaria'`, "DL" si `MONEDA='DL'`, "HD s/MULC" si el ON tiene `S/MULC` en el lookup, "HD" el resto
   - `_renderCresudFullTimeline(capRows, fullRows)` — ONs desde `cresud_completo.csv` + banking desde `cresud_deuda.csv`; badge según `Moneda` del CSV completo; `Concepto 2` puede ser `Capital`, `Intereses`, `Intereses + Capital`
   - Helpers compartidos: `MESES` (meses ES abreviados), `_fmtM(n)` (formato "19,2M"), `_parseNum(s)` (parsea "19.218.167,92" europeo), `_tlEvHtml(..., badgeTextColor?)` (HTML de un evento; param 11 opcional para texto oscuro en badge DL verde)
+- **`_tipoLabel(tipo)`** — normaliza el valor de la columna `MONEDA` / `Moneda` a una etiqueta corta de display. Usado en badges de timeline y leyendas de pie charts:
+  - `'USD Int'` / `'USD Cable NY'` → `'Cable'`
+  - `'USD Cable NY - S/MULC'` → `'Cable s/MULC'`
+  - `'USD MEP - ARGENTINA'` → `'MEP'`
+  - `'USD MEP - ARGENTINA S/MULC'` → `'MEP S/MULC'`
+  - `'Dólar Linked'` → `'DL'`
+  - Valores ya cortos del CSV de capital (`irsa_deuda.csv`, `cresud_deuda.csv`) — e.g. `'Cable'`, `'MEP S/MULC'` — se devuelven sin cambio (passthrough)
+- **`IRSA_PIE_COLORS`** — lookup `label → color` para el pie chart IRSA: `{ 'Cable': '#1D4B6E', 'MEP': '#3A6E9B', 'MEP S/MULC': '#5B8DB8', 'Cable s/MULC': '#7AAFC8' }`
+- **`CRESUD_PIE_COLORS`** — lookup análogo para Cresud: `{ 'Cable': '#1A3D2A', 'HD': '#1A3D2A', 'MEP': '#2D6B4A', 'MEP S/MULC': '#4A8C60', 'Cable s/MULC': '#5EA375', 'DL': '#6BBF8A' }`
+- **`_pieColor(label, colorMap)`** — helper que retorna el color del mapa o `'#94A3B8'` como fallback
 - `setIrsaTlView(mode, btn)` — toggle Solo Capital / + Intereses en timeline IRSA; controla `#irsa-tl-cap`, `#irsa-tl-full`, `#irsa-tl-int-legend`
 - `setCresudTlView(mode, btn)` — ídem para Cresud; controla `#cresud-tl-cap`, `#cresud-tl-full`, `#cresud-tl-int-legend`
 - Fecha dinámica en el header: IIFE al final del `<script>` popula todos los `.header-today` con la fecha actual en formato `dd/mm/yyyy` usando `new Date()`
 - No hay frameworks JS — vanilla JS puro
+
+### Columna Outstanding (tabla de detalle)
+
+Nueva columna **Outstanding (USD M)** añadida entre **Capital (USD M)** y **Año Fiscal** en ambas tablas (`#irsa-mat-table`, `#cresud-mat-table`).
+
+**Lógica**:
+- Para ONs con amortización parcial (e.g. ON XIV con 3 cuotas): muestra el outstanding reverse-cumulativo — suma del capital de la tranche actual más todas las futuras del mismo instrumento
+- Para filas bancarias: muestra el capital íntegro (outstanding = monto de la tranche)
+- Para ONs bullet (una sola tranche): outstanding = capital de esa tranche
+
+**Funciones**:
+- `_computeOutstandingMap(rows)` — agrupa filas USD vigentes por `Concepto`, las ordena por fecha y computa el acumulado reverso; retorna un mapa `"Concepto|YYYY-MM-DD" → outstanding`
+- `_applyOutstandingCol(tableId, map)` — recorre `tbody tr:not(.extra-row)` y rellena la celda `.outstanding-td` con el valor del mapa (o "—" si no hay match)
+- Se llama en `initIrsaMatChart()`, `initCresudMatChart()` y en cada `_rebuildIrsa()` / `_rebuildCresud()`
+
+**CSS**: `.outstanding-td` — clase en cada `<td>` de la columna
+
+**Extra-rows (descubiertos)**: incluyen una `<td></td>` vacía extra para mantener alineación de columnas
+
+### Columna Tipo (tabla de detalle)
+
+La segunda columna de ambas tablas ahora muestra el tipo de instrumento específico basado en la columna `MONEDA` del CSV, en lugar del texto genérico anterior ("Bono HD", "Bono DL"):
+- ONs IRSA: `"Cable"`, `"MEP"`, `"MEP S/MULC"`, `"CABLE S/MULC"`
+- ONs Cresud: `"MEP"`, `"MEP S/MULC"`, `"DL"`, `"CABLE S/MULC"`
+- Bancarias: `"Bancaria"` (sin cambio)
 
 ### Columna Call Option (tabla de detalle)
 
@@ -148,7 +189,7 @@ Columna interactiva añadida en ambas tablas (`#irsa-mat-table`, `#cresud-mat-ta
   - `null` (ON XLII): sin call option
 - `_callIsCallable(key)` — retorna `true/false/null`; `null` = no tiene call
 - `_callCurrentPrice(key)` — recorre los steps del schedule para encontrar el precio vigente
-- `_callPopoverHtml(key)` — genera el HTML del popover (simple o tabla de schedule)
+- `_callPopoverHtml(key, outstanding)` — genera el HTML del popover; muestra "Outstanding: X USD M" en la cabecera del popover; lee el outstanding desde `td[6]` de la fila del botón
 - `_callCellHtml(instrText)` — genera el HTML del botón para una fila
 - `initCallColumns()` — inyecta la `<td>` en cada `tr` de `tbody` (excepto `.extra-row`); se posiciona antes del índice 4 (Capital); excluye filas con `Tipo = "Bancaria"`; se llama una sola vez al cargar la página
 - `toggleCallPopover(btn, key)` — muestra/oculta el popover fijo; lo mide off-screen antes de posicionarlo para evitar desborde de viewport; click fuera lo cierra
@@ -179,16 +220,15 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - `_irsaPieTotal` / `_cresudPieTotal` — totales dinámicos usados en el callback de tooltip del pie
 
 **Funciones principales**:
-- `_buildIrsaExtraRow(nombre, fi, ff, monto, tasa, moneda)` — construye objeto compatible con `irsa_deuda.csv`; `TC='1,00'`, `Monto USD='0'` para ARS
-- `_buildCresudExtraRow(...)` — ídem para `cresud_deuda.csv`; sin campo `TC`
+- `_buildIrsaExtraRow(nombre, fi, ff, monto, tasa, moneda)` — construye objeto compatible con `irsa_deuda.csv`; usa `MONEDA: isUsd ? 'HD' : 'ARS'`, `Monto USD='0'` para ARS (reemplazó el campo `TC`)
+- `_buildCresudExtraRow(...)` — ídem para `cresud_deuda.csv`
 - `_rebuildIrsa()` / `_rebuildCresud()` — recalcula todo: maturity wall, timeline cap, pie chart, tabla, KPI boxes
 - `_applyIrsaMatData(d)` / `_applyCresudMatData(d)` — aplican datos pre-calculados al chart Chart.js; usados tanto por los toggles de vista como por el rebuild
-- `_updateIrsaPie(allCapRows)` / `_updateCresudPie(allCapRows)` — recomputan HD/MULC/DL y actualizan chart + leyenda HTML
+- `_updateIrsaPie(allCapRows)` / `_updateCresudPie(allCapRows)` — llaman a `_computePieDataFromRows`, actualizan `labels`, `data` y `backgroundColor` del chart dinámicamente, y regeneran el HTML de la leyenda (`.currency-legend`) completo
 - `_updateIrsaTable(allCapRows)` / `_updateCresudTable(allCapRows)` — insertan filas `.extra-row` antes del `<tfoot>` y recalculan el total (solo USD)
-- `_computeIrsaPieData(rows)` — clasifica filas por `TC < 0.99` → MULC vs HD
-- `_computeCresudPieData(rows)` — clasifica por `MONEDA='DL'` → DL; cruza `_cresudOnMoneda` para HD vs MULC
+- `_computePieDataFromRows(rows)` — función unificada que agrupa filas USD vigentes por `_tipoLabel(r['MONEDA'])`, ordena por valor descendente; retorna `{ labels, values, total }`. Reemplaza las funciones individuales `_computeIrsaPieData` y `_computeCresudPieData` que fueron eliminadas
 - `_computeKpis(rows, parseTasa)` — calcula tasa y vida promedio ponderadas (Σ monto×tasa / Σ monto y Σ monto×años / Σ monto) sobre filas USD vigentes; `parseTasa` es función para parsear el formato de tasa del CSV
-- `_updateIrsaKpis(allCapRows)` — actualiza `#irsa-kpi-tasa`, `#irsa-kpi-vida`, `#irsa-kpi-note`; usa parsing con coma decimal ("8,75%")
+- `_updateIrsaKpis(allCapRows)` — actualiza `#irsa-kpi-tasa`, `#irsa-kpi-vida`, `#irsa-kpi-note`; usa parsing con punto decimal ("8.75%") — mismo formato que Cresud desde el cambio de schema de `irsa_deuda.csv`
 - `_updateCresudKpis(allCapRows)` — ídem para Cresud; usa parsing con punto decimal ("6.00%")
 - `openDescModal(empresa?)` — abre modal; si se pasa `empresa` ('irsa'/'cresud') lo pre-selecciona, si no detecta el tab activo
 - `submitDescubierto()` — valida fechas y monto, construye fila, llama rebuild
@@ -198,7 +238,7 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 **Maturity wall IRSA — dataset 3**: se agregó un tercer dataset "Deuda Bancaria" (color `#4A7A9B`, índice 0) delante de "ONs" (otras, índice 1) y "ONs" (xxiv, índice 2). El plugin de anotación `irsaMatPlugin` usa `m0/m1/m2` y elige la barra más alta para el label de total.
 
 **Formato CSV de descarga**:
-- IRSA: `AÑO,FY,Detalle,Período,Compañía,Sociedad,Concepto,Concepto 2,Fecha Inicio,Fecha Fin,"Tasa",Moneda,Monto MO,Monto USD,"TC"`  — `Tasa` y `TC` entre comillas por coma decimal
+- IRSA: `AÑO,FY,MONEDA,Periodo,Compañía,Sociedad,Concepto,Concepto 2,Fecha Inicio,Fecha Fin,Tasa,Moneda,Monto Webcast,Monto USD,Outstanding` — tasa con punto decimal; sin `TC`; columna `Outstanding` al final
 - Cresud: `AÑO,FY,MONEDA,Periodo,Compañía,Sociedad,Concepto,Concepto 2,Fecha Inicio,Fecha Fin,Tasa,Moneda,Monto Webcast,Monto USD` — sin `TC`, tasa con punto decimal
 
 ### Lógica de filtrado CSV (maturity walls)
@@ -212,14 +252,14 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 ### Lógica de las timelines IRSA (dinámica)
 - **Auto-expiry**: filas con `Fecha Fin <= hoy` se excluyen automáticamente; la timeline se actualiza sola con el paso del tiempo
 - **Posicionamiento**: eventos distribuidos uniformemente de izq a der, `left = 5 + i × (90 / (n–1)) %`; alternancia arriba/abajo por índice par/impar
-- **Badge HD vs HD s/MULC** en `#irsa-tl-cap`: basado en `TC` de `irsa_deuda.csv` — `TC < 0.99` → HD s/MULC (`#5B8DB8`), si no → HD (`#1D4B6E`)
-- **Badge HD vs HD s/MULC** en `#irsa-tl-full`: basado en `Moneda` de `irsa_deuda_total.csv` — contiene `"S/MULC"` → HD s/MULC (`#5B8DB8`), si no → HD (`#1D4B6E`)
+- **Badges IRSA** en `#irsa-tl-cap`: texto via `_tipoLabel(r['MONEDA'])` (e.g. "Cable", "MEP S/MULC"); color: S/MULC → `#5B8DB8`, resto → `#1D4B6E`; reemplazó el texto hardcodeado "HD" / "HD s/MULC" y la lógica `TC < 0.99`
+- **Badges IRSA** en `#irsa-tl-full`: texto via `_tipoLabel(r['Moneda'])` desde `irsa_deuda_total.csv`; misma lógica de color
 - **Eventos de interés agrupados**: filas consecutivas de tipo `Intereses` con la misma `Fecha Fin` se muestran como un solo evento (e.g. XXII+XXIII en Jul 2026); se suman los montos y se concatenan las tasas ("5,75/7,25%")
 - **Eventos de capital**: filas `Intereses + Capital` siempre generan un evento individual (nunca se agrupan)
 - **Formato de montos**: `_fmtM(n)` → divide por 1e6, fija a 1 decimal, cambia punto decimal por coma (e.g. 19218167 → "19,2M")
 - **Parsing de montos CSV**: `_parseNum(s)` elimina puntos de miles y reemplaza coma decimal por punto (formato europeo "19.218.167,92") — solo para `irsa_deuda_total.csv`. Los montos en `cresud_completo.csv` son floats planos ("12609341.91") y se parsean con `parseFloat()` directamente
-- **Tasa en CSVs de Cresud**: formato punto decimal ("6.00%") a diferencia de IRSA ("6,00%"); se convierte con `.replace('.', ',')` antes de mostrar
-- **Badges Cresud**: tres tipos — HD (#1A3D2A), HD s/MULC (#4A8C60), DL (#6BBF8A con texto oscuro #0F172A para legibilidad), Prefi (#1A3D2A igual a HD)
+- **Tasa en CSVs de Cresud**: formato punto decimal ("6.00%") — igual que IRSA ahora (ambos usan punto desde el cambio de schema)
+- **Badges Cresud** (`_cresudCapBadge`, `_cresudFullBadge`): texto via `_tipoLabel()` para todos los tipos excepto "Prefi" (banking) y "DL"; colores: Prefi → `#1A3D2A`, DL → `#6BBF8A` (texto oscuro `#0F172A`), S/MULC → `#4A8C60`, resto → `#1A3D2A`
 - **Badge DL**: requiere `badgeTextColor = '#0F172A'` en `_tlEvHtml` porque el verde claro (#6BBF8A) no contrasta con texto blanco
 - **Full timeline Cresud**: fuente dual — `cresud_completo.csv` para ONs con schedule de intereses, `cresud_deuda.csv` para prefinanciaciones bancarias (BBVA, Ciudad) que no tienen cupones en el CSV completo; se mergean y reordenan por fecha
 - **Columna ON en Cresud**: en `cresud_completo.csv` es `Clase` (e.g. "XLIV"); en `cresud_deuda.csv` es `Concepto`
@@ -242,7 +282,13 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 **Selector de vehículo** (pills): Potenciar · Garantizar · Integra · Bind Garantías · Mercado. Cada opción cambia el header (color de fondo) y el contenido de forma dinámica.
 
 **Vista individual** (Potenciar / Garantizar / Integra / Bind):
-- KPI row: Garantías vigentes, FDR, Apalancamiento (último mes disponible en `garantia_sgr.csv`), Mora (de `Total_sgr.csv`)
+- **KPI row** (foto de posición): Aporte, Posición, Weight, P&L, Mora, TIR — fuente: `foto_sgr.csv`; se actualiza mensualmente reemplazando el CSV
+  - Aporte / Posición / P&L: número entero con separador de miles (`es-AR`); subtítulo "ARS MM" debajo del label
+  - Weight: porcentaje a 1 decimal (e.g. `87.0%`)
+  - P&L: con signo explícito `+` / `−`
+  - Mora / TIR: porcentaje a 1 decimal
+  - TIR: muestra subtítulo "* sin benef. impos." debajo del label (nota aclaratoria sobre el cálculo)
+  - CSS: usa `.kpi-box-sm` (label 11px, valor 15px, padding reducido) para caber en 6 columnas
 - **Mora/Garantías**: línea de evolución mensual de la SGR seleccionada (en su color) + línea dashed naranja del Promedio Mercado; fuente: `mora_sobre_garantias.csv`
 - **Stock de Garantías**: barras Garantías + FDR por mes, línea Apalancamiento en eje derecho; fuente: `garantia_sgr.csv`
 - **Mora por Antigüedad**: donut con distribución por tramos; fuente: `mora_antiguedad.csv`
@@ -251,7 +297,7 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 **Vista Mercado**:
 - Tendencia de mora: las 4 SGRs como líneas en sus colores + Promedio Mercado (naranja, 3px, dashed) — fuente: `mora_sobre_garantias.csv`
 - Mora por plazo de garantía (barras horizontales); fuente: `plazo_mora_mercado.csv`
-- Ranking de 42 SGRs por mora (barras horizontales, 20px/barra, scrolleable); vehículos IRSA resaltados en `#166534`; fuente: `Total_sgr.csv`
+- Ranking de 42 SGRs por mora (barras horizontales, 20px/barra, scrolleable); vehículos IRSA resaltados en `#166534`; fuente: `Total_sgr.csv`; label de fecha en el título hardcodeado en HTML ("feb-26")
 
 **Colores dinámicos**: el header de la sección cambia de gradiente al seleccionar cada vehículo. Los KPI boxes (`.sgr-kpi`) actualizan `background`, `borderColor` y `borderLeftColor` vía JS al cambiar de SGR.
 
@@ -265,6 +311,7 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 - `_sgrMoraEvolucion`  — `[{fecha, potenciar, garantizar, integra, bind, promedio}]` — valores en % (e.g. 0.7 = 0.7%)
 - `_sgrPlazoMercado`   — `[{plazo, mora}]`
 - `_sgrTotalSgr`       — `[{sgr, mora}]`
+- `_sgrFotoData`       — `{ 'POTENCIAR': {aporte, posicion, weight, pnl, mora, tir}, ... }` — keyed por nombre en mayúsculas del CSV
 - `_sgrActiveSgr`      — key activa ('potenciar' | 'garantizar' | 'integra' | 'bind' | 'mercado')
 
 **Instancias de Chart.js**:
@@ -273,7 +320,7 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 - Todas se destruyen y recrean al cambiar de vehículo via `_sgrDestroy(inst)`
 
 **Funciones principales**:
-- `initSgrSection()` — carga 6 CSVs en paralelo, parsea, llama `selectSgr(_sgrActiveSgr)` al terminar; se llama en init junto con los demás `initXxx()`
+- `initSgrSection()` — carga 7 CSVs en paralelo (incluye `foto_sgr.csv`), parsea, llama `selectSgr(_sgrActiveSgr)` al terminar; se llama en init junto con los demás `initXxx()`
 - `selectSgr(sgr)` — actualiza pills, header, muestra/oculta `#sgr-individual` o `#sgr-mercado`; llama al render correspondiente
 - `_sgrRenderIndividual(sgr)` — actualiza KPIs y llama a los 4 renders de chart
 - `_sgrRenderMercado()` — llama a los 3 renders de charts de mercado
@@ -285,6 +332,7 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 **Mapeo de nombres por fuente** (definido en `SGR_META`):
 - `csvLabel`: clave usada en `garantia_sgr.csv`, `mora_antiguedad.csv`, `garantias_sector_sgr.csv` (e.g. "Bind Garantias")
 - `totalLabel`: clave usada en `Total_sgr.csv` (e.g. "GARANTIAS BIND S.G.R.")
+- `fotoLabel`: clave usada en `foto_sgr.csv` — mayúsculas sin sufijo (e.g. "BIND")
 
 **CSS**:
 - `.sgr-selector`, `.sgr-pill`, `.sgr-pill.active`, `.sgr-pill-sep` — selector de vehículo
@@ -292,13 +340,13 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 - `.sgr-chart-card` — card blanca con borde `#E2E8F0`
 - `.sgr-chart-title` — label de cada chart (11.5px, uppercase)
 - `.sgr-kpi` — variante del `.kpi-box` base; colores se actualizan vía JS
+- `.kpi-box-sm` — modificador para la fila foto: label 11px, valor 15px, padding 10px 14px; permite caber 6 tarjetas en una fila
 - `.sgr-legend`, `.sgr-legend-item`, `.sgr-legend-dot` — leyenda custom de donuts
 - `.sgr-mkt-grid` — grid 2 columnas para la vista Mercado
 - `.sgr-rank-wrap` — contenedor scrolleable del ranking
 - `nav-sep` — separador visual entre Debt Profile y SGR en la nav
 
 **Datos no usados aún** (guardados en repo para uso futuro):
-- `foto_sgr.csv` — posición financiera (Aporte, Posición, P&L, TIR) por SGR
 - `cartera_monedas.csv` — split USD/ARS por SGR
 - `composicion_carteras.csv` — composición por tipo de activo por SGR
 
@@ -322,6 +370,7 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 | SGR — Mercado: tendencia mora (4 SGRs + Promedio) | `mora_sobre_garantias.csv` — dinámico |
 | SGR — Mercado: mora por plazo | `plazo_mora_mercado.csv` — dinámico |
 | SGR — Mercado: ranking SGRs | `Total_sgr.csv` — dinámico |
+| SGR — KPI foto (Aporte, Posición, Weight, P&L, Mora, TIR) | `foto_sgr.csv` — dinámico |
 
 ## Diseño responsive (mobile + desktop)
 
@@ -342,6 +391,7 @@ El dashboard **debe verse bien tanto en desktop como en mobile** (celulares y ta
 - `.header-title` (≤ 900px): texto largo del header
 - `.nav-logo` (≤ 600px): logo en la barra de navegación
 - `.header-ir` (≤ 600px): texto "Investor Relations" del header
+- Columnas **Outstanding** (col 7) y **Año Fiscal** (col 8) de `.mat-table` (≤ 600px): ocultadas con `display: none` via `nth-child(7/8)` en `thead th`, `tbody td` y `tfoot td`
 
 ### Lo que NO debe cambiar en mobile
 - Las timelines de cashflows se mantienen horizontales con scroll (no se rediseñan para mobile)
@@ -351,7 +401,8 @@ El dashboard **debe verse bien tanto en desktop como en mobile** (celulares y ta
 ## Notas importantes
 - El dashboard se sirve vía HTTP (GitHub Pages), por lo que `fetch()` funciona para leer los CSVs
 - Los CSV de los maturity walls son la fuente de verdad — editarlos es suficiente para actualizar esos charts
-- **Criterio de valuación de montos**: los CSVs de vencimientos (`irsa_deuda.csv`, `cresud_deuda.csv`) muestran el valor económico ajustado por brecha de tipo de cambio para instrumentos HD s/MULC (MEP/cable) — el `TC < 1` refleja que 1 USD MEP ≠ 1 USD oficial. Los CSVs completos (`irsa_deuda_total.csv`, `cresud_completo.csv`) muestran el valor nominal (par value) sin ajuste de brecha. Por eso los montos de capital en el timeline "Solo Capital" (fuente: CSV de vencimientos) pueden diferir de los del timeline "+ Intereses" (fuente: CSV completo) exactamente cuando el instrumento es HD s/MULC. Esto es intencional: cada timeline refleja la perspectiva de su CSV fuente.
+- **Criterio de valuación de montos**: los CSVs de vencimientos (`irsa_deuda.csv`, `cresud_deuda.csv`) muestran el valor económico ajustado por brecha de tipo de cambio para instrumentos HD s/MULC (MEP/cable) — `Monto USD` puede diferir del nominal para estos instrumentos. Los CSVs completos (`irsa_deuda_total.csv`, `cresud_completo.csv`) muestran el valor nominal (par value) sin ajuste de brecha. Por eso los montos de capital en el timeline "Solo Capital" (fuente: CSV de vencimientos) pueden diferir de los del timeline "+ Intereses" (fuente: CSV completo) exactamente cuando el instrumento es HD s/MULC. Esto es intencional: cada timeline refleja la perspectiva de su CSV fuente.
+- **Clasificación S/MULC en IRSA**: desde el cambio de schema de `irsa_deuda.csv`, la columna `MONEDA` reemplazó a `TC` como fuente de verdad para identificar instrumentos HD s/MULC. La clasificación se hace con `MONEDA.includes('S/MULC')` en lugar de `TC < 0.99`. La columna `TC` fue eliminada del CSV.
 - Los demás datos financieros siguen embebidos en el HTML/JS hasta que se migren
 - Montos expresados en millones de USD (MM USD) salvo aclaración
 - Año fiscal de IRSA/Cresud: julio–junio (FY termina en junio)
