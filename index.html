@@ -1808,13 +1808,21 @@ function _fyLabel(fyStr) {
   return year === curFY ? `IVQ ${yy}` : `FY ${yy}`;
 }
 
+// Helper: monto base en USD de una fila (USD directo o ARS convertido con TC manual)
+function _rowUsdAmt(r) { return parseFloat(r['Monto USD']) || 0; }
+// Helper: ¿la fila aporta al maturity wall? USD siempre; ARS solo si tiene USD equiv > 0
+function _rowIsMatActive(r, today) {
+  const ff = _parseDMY(r['Fecha Fin']);
+  if (!ff || ff <= today) return false;
+  if (r['Moneda'] === 'USD') return true;
+  return r['Moneda'] === 'ARS' && _rowUsdAmt(r) > 0;
+}
+
 function _buildIrsaMatData(rows) {
   const MONTHS = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const today  = new Date();
 
-  const active = rows.filter(r =>
-    r['Moneda'] === 'USD' && _parseDMY(r['Fecha Fin']) > today
-  );
+  const active = rows.filter(r => _rowIsMatActive(r, today));
 
   const fyGroups = {}, calGroups = {};
   active.forEach(r => {
@@ -1965,9 +1973,7 @@ function _buildCresudMatData(rows) {
   const today  = new Date();
   const curFY  = today.getMonth() >= 6 ? today.getFullYear() + 1 : today.getFullYear();
 
-  const active = rows.filter(r =>
-    r['Moneda'] === 'USD' && _parseDMY(r['Fecha Fin']) > today
-  );
+  const active = rows.filter(r => _rowIsMatActive(r, today));
 
   // For FY view: current FY splits into fiscal quarters; future FYs group annually.
   function _fyGroupKey(row) {
