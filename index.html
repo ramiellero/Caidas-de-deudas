@@ -899,8 +899,15 @@
       </div>
     </div>
 
+    <div class="modal-row" id="descTcRow" style="display:none;">
+      <div class="modal-field" style="flex:0 0 180px;">
+        <label class="modal-label">TC ARS/USD</label>
+        <input class="modal-input" type="number" id="descTC" placeholder="1200" min="0.01" step="0.01">
+      </div>
+    </div>
+
     <p id="descArsNote" style="display:none; font-size:10.5px; color:#92400E; background:#FFF7ED; border:1px solid #FED7AA; border-radius:3px; padding:6px 10px; margin-top:4px;">
-      Los descubiertos en ARS solo aparecen en la tabla de detalle, no en los gráficos ni en el pie de moneda.
+      Los descubiertos en ARS se convierten a USD equivalente usando el tipo de cambio ingresado para incluirse en la composición de moneda.
     </p>
 
     <div class="modal-actions">
@@ -1370,19 +1377,27 @@ function _tipoLabel(tipo) {
 }
 
 // Pie chart color palettes keyed by _tipoLabel output
-const IRSA_PIE_COLORS   = { 'Cable': '#1D4B6E', 'MEP': '#3A6E9B', 'MEP S/MULC': '#5B8DB8', 'Cable s/MULC': '#7AAFC8' };
-const CRESUD_PIE_COLORS = { 'Cable': '#1A3D2A', 'HD': '#1A3D2A', 'MEP': '#2D6B4A', 'MEP S/MULC': '#4A8C60', 'Cable s/MULC': '#5EA375', 'DL': '#6BBF8A' };
+const IRSA_PIE_COLORS   = { 'Cable': '#1D4B6E', 'MEP': '#3A6E9B', 'MEP S/MULC': '#5B8DB8', 'Cable s/MULC': '#7AAFC8', 'ARS': '#D97706' };
+const CRESUD_PIE_COLORS = { 'Cable': '#1A3D2A', 'HD': '#1A3D2A', 'MEP': '#2D6B4A', 'MEP S/MULC': '#4A8C60', 'Cable s/MULC': '#5EA375', 'DL': '#6BBF8A', 'ARS': '#D97706' };
 
 function _pieColor(label, colorMap) { return colorMap[label] || '#94A3B8'; }
 
-// Computes dynamic pie buckets from the cap CSV rows, grouped by _tipoLabel
+// Computes dynamic pie buckets from the cap CSV rows, grouped by _tipoLabel.
+// Also includes ARS rows that carry a USD-equivalent amount (converted via TC manual).
 function _computePieDataFromRows(rows) {
   const today = new Date();
-  const active = rows.filter(r => r['Moneda'] === 'USD' && _parseDMY(r['Fecha Fin']) > today);
+  const active = rows.filter(r => {
+    const ff = _parseDMY(r['Fecha Fin']);
+    if (!ff || ff <= today) return false;
+    if (r['Moneda'] === 'USD') return true;
+    if (r['Moneda'] === 'ARS' && parseFloat(r['Monto USD']) > 0) return true;
+    return false;
+  });
   const buckets = {};
   active.forEach(r => {
-    const label = r['Concepto 2'] === 'Bancaria' ? 'MEP' : _tipoLabel(r['MONEDA'] || '');
-    const amt   = parseFloat(r['Monto USD']) / 1e6;
+    const isArs  = r['Moneda'] === 'ARS';
+    const label  = isArs ? 'ARS' : (r['Concepto 2'] === 'Bancaria' ? 'MEP' : _tipoLabel(r['MONEDA'] || ''));
+    const amt    = parseFloat(r['Monto USD']) / 1e6;
     if (!isNaN(amt) && amt > 0) buckets[label] = (buckets[label] || 0) + amt;
   });
   const entries = Object.entries(buckets).sort((a, b) => b[1] - a[1]);
@@ -2339,7 +2354,9 @@ function _updateIrsaTable(allCapRows) {
     const dateStr = `${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`;
     const isArs   = r['Moneda'] === 'ARS';
     const rawAmt  = parseFloat(isArs ? r['Monto Webcast'] : r['Monto USD']) || 0;
-    const montoDisp = isArs ? `<span style="color:#92400E;">ARS ${(rawAmt/1e6).toFixed(1)}M</span>` : (rawAmt/1e6).toFixed(1);
+    const arsUsdEquiv = isArs ? parseFloat(r['Monto USD']) || 0 : 0;
+    const arsEquivStr = (isArs && arsUsdEquiv > 0) ? ` <span style="color:#64748B;font-size:10px;">≈ USD ${(arsUsdEquiv/1e6).toFixed(1)}M</span>` : '';
+    const montoDisp = isArs ? `<span style="color:#92400E;">ARS ${(rawAmt/1e6).toFixed(1)}M</span>${arsEquivStr}` : (rawAmt/1e6).toFixed(1);
     const fyYear  = parseInt(r['FY'].replace('FY', ''));
     const curFY   = today.getMonth() >= 6 ? today.getFullYear() + 1 : today.getFullYear();
     const fyLbl   = fyYear === curFY ? `IVQ FY${String(fyYear).slice(-2)}` : `FY ${String(fyYear).slice(-2)}`;
@@ -2349,7 +2366,13 @@ function _updateIrsaTable(allCapRows) {
     tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${r['Tasa'] || '—'}</td><td>${dateStr}</td><td></td><td class="num">${montoDisp}</td><td></td><td class="fy">${fyLbl}</td>`;
     tbody.appendChild(tr);
   });
-  const active = allCapRows.filter(rr => rr['Moneda'] === 'USD' && _parseDMY(rr['Fecha Fin']) > today);
+  const active = allCapRows.filter(rr => {
+    const ff = _parseDMY(rr['Fecha Fin']);
+    if (!ff || ff <= today) return false;
+    if (rr['Moneda'] === 'USD') return true;
+    if (rr['Moneda'] === 'ARS' && parseFloat(rr['Monto USD']) > 0) return true;
+    return false;
+  });
   const total  = active.reduce((s, rr) => s + parseFloat(rr['Monto USD']) / 1e6, 0);
   const footTd = table.querySelector('tfoot td.num');
   if (footTd) footTd.textContent = total.toFixed(1).replace('.', ',');
@@ -2367,7 +2390,9 @@ function _updateCresudTable(allCapRows) {
     const dateStr  = `${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`;
     const isArs    = r['Moneda'] === 'ARS';
     const rawAmt   = parseFloat(isArs ? r['Monto Webcast'] : r['Monto USD']) || 0;
-    const montoDisp = isArs ? `<span style="color:#92400E;">ARS ${(rawAmt/1e6).toFixed(1)}M</span>` : (rawAmt/1e6).toFixed(1);
+    const arsUsdEquiv = isArs ? parseFloat(r['Monto USD']) || 0 : 0;
+    const arsEquivStr = (isArs && arsUsdEquiv > 0) ? ` <span style="color:#64748B;font-size:10px;">≈ USD ${(arsUsdEquiv/1e6).toFixed(1)}M</span>` : '';
+    const montoDisp = isArs ? `<span style="color:#92400E;">ARS ${(rawAmt/1e6).toFixed(1)}M</span>${arsEquivStr}` : (rawAmt/1e6).toFixed(1);
     const fyYear   = parseInt(r['FY'].replace('FY', ''));
     const curFY    = today.getMonth() >= 6 ? today.getFullYear() + 1 : today.getFullYear();
     const fyLbl    = fyYear === curFY ? `IVQ FY${String(fyYear).slice(-2)}` : `FY ${String(fyYear).slice(-2)}`;
@@ -2378,7 +2403,13 @@ function _updateCresudTable(allCapRows) {
     tr.innerHTML = `<td>${r['Concepto']}</td><td>Desc. ${isArs ? 'ARS' : 'USD'}</td><td class="num">${tasaDisp}</td><td>${dateStr}</td><td></td><td class="num">${montoDisp}</td><td></td><td class="fy">${fyLbl}</td>`;
     tbody.appendChild(tr);
   });
-  const active = allCapRows.filter(rr => rr['Moneda'] === 'USD' && _parseDMY(rr['Fecha Fin']) > today);
+  const active = allCapRows.filter(rr => {
+    const ff = _parseDMY(rr['Fecha Fin']);
+    if (!ff || ff <= today) return false;
+    if (rr['Moneda'] === 'USD') return true;
+    if (rr['Moneda'] === 'ARS' && parseFloat(rr['Monto USD']) > 0) return true;
+    return false;
+  });
   const total  = active.reduce((s, rr) => s + parseFloat(rr['Monto USD']) / 1e6, 0);
   const footTd = table.querySelector('tfoot td.num');
   if (footTd) footTd.textContent = total.toFixed(1).replace('.', ',');
@@ -2457,12 +2488,14 @@ function _rebuildCresud() {
 }
 
 // ── Row builders ─────────────────────────────────────────────────────────────
-function _buildIrsaExtraRow(nombre, fechaIni, fechaFin, monto, tasa, moneda) {
+function _buildIrsaExtraRow(nombre, fechaIni, fechaFin, monto, tasa, moneda, tc) {
   const fdDate   = _parseInputDate(fechaFin);
   const fy       = _computeFY(fdDate);
   const isUsd    = moneda === 'USD';
   const tasaStr  = parseFloat(tasa).toFixed(2) + '%';
-  const montoStr = String(Math.round(parseFloat(monto)));
+  const montoNum = Math.round(parseFloat(monto));
+  const montoStr = String(montoNum);
+  const montoUsd = isUsd ? montoNum : (tc ? Math.round(montoNum / parseFloat(tc)) : 0);
   return {
     'AÑO': String(fdDate.getFullYear()), 'FY': fy, 'MONEDA': isUsd ? 'HD' : 'ARS',
     'Periodo': _computePeriodo(fdDate),
@@ -2470,16 +2503,19 @@ function _buildIrsaExtraRow(nombre, fechaIni, fechaFin, monto, tasa, moneda) {
     'Concepto': nombre, 'Concepto 2': 'Bancaria',
     'Fecha Inicio': _inputToFmt(fechaIni), 'Fecha Fin': _inputToFmt(fechaFin),
     'Tasa': tasaStr, 'Moneda': moneda,
-    'Monto Webcast': montoStr, 'Monto USD': isUsd ? montoStr : '0',
+    'Monto Webcast': montoStr, 'Monto USD': String(montoUsd),
+    '_TC': isUsd ? null : (tc || null),
   };
 }
 
-function _buildCresudExtraRow(nombre, fechaIni, fechaFin, monto, tasa, moneda) {
+function _buildCresudExtraRow(nombre, fechaIni, fechaFin, monto, tasa, moneda, tc) {
   const fdDate   = _parseInputDate(fechaFin);
   const fy       = _computeFY(fdDate);
   const isUsd    = moneda === 'USD';
   const tasaStr  = parseFloat(tasa).toFixed(2) + '%';
-  const montoStr = String(Math.round(parseFloat(monto)));
+  const montoNum = Math.round(parseFloat(monto));
+  const montoStr = String(montoNum);
+  const montoUsd = isUsd ? montoNum : (tc ? Math.round(montoNum / parseFloat(tc)) : 0);
   return {
     'AÑO': String(fdDate.getFullYear()), 'FY': fy, 'MONEDA': isUsd ? 'HD' : 'ARS',
     'Periodo': _computePeriodo(fdDate),
@@ -2487,7 +2523,8 @@ function _buildCresudExtraRow(nombre, fechaIni, fechaFin, monto, tasa, moneda) {
     'Concepto': nombre, 'Concepto 2': 'Bancaria',
     'Fecha Inicio': _inputToFmt(fechaIni), 'Fecha Fin': _inputToFmt(fechaFin),
     'Tasa': tasaStr, 'Moneda': moneda,
-    'Monto Webcast': montoStr, 'Monto USD': isUsd ? montoStr : '0',
+    'Monto Webcast': montoStr, 'Monto USD': String(montoUsd),
+    '_TC': isUsd ? null : (tc || null),
   };
 }
 
@@ -2506,7 +2543,11 @@ function _renderDescList() {
     const isArs   = r['Moneda'] === 'ARS';
     const rawAmt  = parseFloat(isArs ? (r['Monto MO'] || r['Monto Webcast']) : r['Monto USD']) || 0;
     const montoStr = (rawAmt / 1e6).toFixed(1);
-    const label   = `[${empresa.toUpperCase()}] ${r['Concepto']} — ${r['Fecha Fin']} — ${isArs ? 'ARS' : 'USD'} ${montoStr}M @ ${r['Tasa']}`;
+    const arsUsdEquiv = isArs ? parseFloat(r['Monto USD']) || 0 : 0;
+    const tcSuffix    = (isArs && r['_TC']) ? ` · TC ${parseFloat(r['_TC']).toLocaleString('es-AR')}` : '';
+    const equivSuffix = (isArs && arsUsdEquiv > 0) ? ` ≈ USD ${(arsUsdEquiv/1e6).toFixed(1)}M` : '';
+    const montoLabel  = isArs ? `ARS ${montoStr}M${equivSuffix}${tcSuffix}` : `USD ${montoStr}M`;
+    const label   = `[${empresa.toUpperCase()}] ${r['Concepto']} — ${r['Fecha Fin']} — ${montoLabel} @ ${r['Tasa']}`;
     return `<div class="modal-extra-item">
       <span style="color:${accent}; font-size:11.5px;">${label}</span>
       <button class="modal-extra-remove" onclick="removeDescubierto('${empresa}',${idx})">✕</button>
@@ -2516,8 +2557,11 @@ function _renderDescList() {
 
 function _onDescMonedaChange() {
   const m = document.getElementById('descMoneda').value;
+  const isArs = m === 'ARS';
   document.getElementById('descMontoLabel').textContent = `Monto (${m})`;
-  document.getElementById('descArsNote').style.display  = m === 'ARS' ? '' : 'none';
+  document.getElementById('descArsNote').style.display = isArs ? '' : 'none';
+  document.getElementById('descTcRow').style.display   = isArs ? '' : 'none';
+  if (!isArs) document.getElementById('descTC').value  = '';
 }
 
 function _updateDescDlBtn() {
@@ -2543,6 +2587,8 @@ function openDescModal(empresa) {
   document.getElementById('descMoneda').value  = 'USD';
   document.getElementById('descMontoLabel').textContent = 'Monto (USD)';
   document.getElementById('descArsNote').style.display  = 'none';
+  document.getElementById('descTC').value      = '';
+  document.getElementById('descTcRow').style.display    = 'none';
   _renderDescList();
   _updateDescDlBtn();
   document.getElementById('descModal').classList.add('open');
@@ -2560,10 +2606,14 @@ function submitDescubierto() {
   const montoVal = document.getElementById('descMonto').value;
   const tasaVal  = document.getElementById('descTasa').value;
   const moneda   = document.getElementById('descMoneda').value;
+  const tcVal    = document.getElementById('descTC').value;
 
   if (!nombre)                      { alert('Ingresá el nombre del banco / instrumento.'); return; }
   if (!fechaIni || !fechaFin)       { alert('Ingresá ambas fechas.'); return; }
   if (!montoVal || +montoVal <= 0)  { alert('Ingresá un monto válido mayor a 0.'); return; }
+  if (moneda === 'ARS') {
+    if (!tcVal || +tcVal <= 0)      { alert('Ingresá un tipo de cambio ARS/USD válido mayor a 0.'); return; }
+  }
 
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const fi    = _parseInputDate(fechaIni);
@@ -2575,10 +2625,10 @@ function submitDescubierto() {
   if (ff > maxFin)  { alert('Un descubierto no puede superar 14 días de plazo.'); return; }
 
   if (empresa === 'irsa') {
-    _irsaExtraRows.push(_buildIrsaExtraRow(nombre, fechaIni, fechaFin, montoVal, tasaVal, moneda));
+    _irsaExtraRows.push(_buildIrsaExtraRow(nombre, fechaIni, fechaFin, montoVal, tasaVal, moneda, tcVal));
     _rebuildIrsa();
   } else {
-    _cresudExtraRows.push(_buildCresudExtraRow(nombre, fechaIni, fechaFin, montoVal, tasaVal, moneda));
+    _cresudExtraRows.push(_buildCresudExtraRow(nombre, fechaIni, fechaFin, montoVal, tasaVal, moneda, tcVal));
     _rebuildCresud();
   }
 
@@ -2587,6 +2637,8 @@ function submitDescubierto() {
   document.getElementById('descMoneda').value  = 'USD';
   document.getElementById('descMontoLabel').textContent = 'Monto (USD)';
   document.getElementById('descArsNote').style.display  = 'none';
+  document.getElementById('descTC').value      = '';
+  document.getElementById('descTcRow').style.display    = 'none';
   const nf = new Date(); nf.setDate(nf.getDate() + 7);
   document.getElementById('descFechaFin').value = _dateToInput(nf);
   _renderDescList();
