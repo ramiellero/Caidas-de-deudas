@@ -1235,6 +1235,7 @@
     <div id="sgr-individual">
 
       <!-- Foto SGR KPI row -->
+      <div style="font-size:11px;color:#64748B;margin-bottom:6px;font-weight:500;" id="sgr-foto-periodo-label"></div>
       <div class="kpi-row sgr-foto-kpi-row" style="display:flex; gap:12px; margin-bottom:28px;">
         <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
           <div><div class="kpi-label">Aporte</div><div style="font-size:10px;color:#64748B;margin-top:1px;">ARS MM</div></div>
@@ -2798,10 +2799,10 @@ function _callCellHtml(instrText) {
 // ══════════════════════════════════════════════════════════════════════════════
 
 const SGR_META = {
-  potenciar:  { label: 'Potenciar',      csvLabel: 'Potenciar',      totalLabel: 'POTENCIAR S.G.R.',       fotoLabel: 'POTENCIAR',  color: '#166534', bgLight: '#f0fdf4', borderLight: '#bbf7d0' },
-  garantizar: { label: 'Garantizar',     csvLabel: 'Garantizar',     totalLabel: 'GARANTIZAR S.G.R.',      fotoLabel: 'GARANTIZAR', color: '#1D4B6E', bgLight: '#eff6ff', borderLight: '#bfdbfe' },
-  integra:    { label: 'Integra',        csvLabel: 'Integra',        totalLabel: 'INTEGRA PYMES S.G.R.',   fotoLabel: 'INTEGRA',    color: '#6D28D9', bgLight: '#f5f3ff', borderLight: '#ddd6fe' },
-  bind:       { label: 'Bind Garantías', csvLabel: 'Bind Garantias', totalLabel: 'GARANTIAS BIND S.G.R.', fotoLabel: 'BIND',       color: '#B45309', bgLight: '#fffbeb', borderLight: '#fde68a' },
+  potenciar:  { label: 'Potenciar',      entity: 'IRSA',   csvLabel: 'Potenciar',      totalLabel: 'POTENCIAR S.G.R.',       fotoLabel: 'POTENCIAR',  color: '#166534', bgLight: '#f0fdf4', borderLight: '#bbf7d0' },
+  garantizar: { label: 'Garantizar',     entity: 'IRSA',   csvLabel: 'Garantizar',     totalLabel: 'GARANTIZAR S.G.R.',      fotoLabel: 'GARANTIZAR', color: '#1D4B6E', bgLight: '#eff6ff', borderLight: '#bfdbfe' },
+  integra:    { label: 'Integra',        entity: 'FIBESA', csvLabel: 'Integra',        totalLabel: 'INTEGRA PYMES S.G.R.',   fotoLabel: 'INTEGRA',    color: '#6D28D9', bgLight: '#f5f3ff', borderLight: '#ddd6fe' },
+  bind:       { label: 'Bind Garantías', entity: 'FIBESA', csvLabel: 'Bind Garantias', totalLabel: 'GARANTIAS BIND S.G.R.', fotoLabel: 'BIND',       color: '#B45309', bgLight: '#fffbeb', borderLight: '#fde68a' },
 };
 
 const SGR_HEADER_BG = {
@@ -2916,11 +2917,16 @@ async function initSgrSection() {
     // Total_sgr.csv
     _sgrTotalSgr = _sgrParseCsv(totalTxt).map(r => ({ sgr: r['SGR'], mora: parseFloat(r['Mora']) }));
 
-    // foto_sgr.csv
+    // foto_sgr.csv — histórico multi-período: se queda con el Periodo más reciente por SGR
+    // Formato Periodo: YYYY-MM — ordena correctamente como string
     _sgrParseCsv(fotoTxt).forEach(r => {
       const key = r['SGR'];
       if (!key || key === 'Total') return;
+      const periodo = (r['Periodo'] || '').trim();
+      const existing = _sgrFotoData[key];
+      if (existing && existing.periodo >= periodo) return; // ya tenemos uno más nuevo
       _sgrFotoData[key] = {
+        periodo,
         aporte:   parseFloat(r['Aporte']),
         posicion: parseFloat(r['Posicion']),
         weight:   parseFloat(r['Weight']),
@@ -2950,9 +2956,14 @@ function selectSgr(sgr) {
   const hdr = document.getElementById('sgr-header');
   if (hdr) hdr.style.background = SGR_HEADER_BG[sgr] || SGR_HEADER_BG.mercado;
   const titleEl = document.getElementById('sgr-header-title');
-  if (titleEl) titleEl.textContent = sgr === 'mercado'
-    ? 'SGR · MERCADO'
-    : 'SGR · ' + (SGR_META[sgr]?.label || sgr).toUpperCase();
+  if (titleEl) {
+    if (sgr === 'mercado') {
+      titleEl.textContent = 'SGR · MERCADO';
+    } else {
+      const meta = SGR_META[sgr];
+      titleEl.textContent = (meta?.label || sgr) + ' · ' + (meta?.entity || '');
+    }
+  }
 
   if (sgr === 'mercado') {
     document.getElementById('sgr-individual').style.display = 'none';
@@ -2998,6 +3009,15 @@ function _sgrRenderIndividual(sgr) {
   const fotoRow = _sgrFotoData[meta.fotoLabel];
   const fmtN = v => Math.round(Math.abs(v)).toLocaleString('es-AR');
   const fmtSign = v => (v >= 0 ? '+' : '−') + fmtN(v);
+  // Label de período (e.g. "2026-03" → "Datos al: mar-26")
+  const periodoEl = document.getElementById('sgr-foto-periodo-label');
+  if (periodoEl && fotoRow && fotoRow.periodo) {
+    const [anio, mes] = fotoRow.periodo.split('-').map(Number);
+    const mesStr = MESES[mes - 1] ? MESES[mes - 1].toLowerCase() : '';
+    periodoEl.textContent = `Datos al: ${mesStr}-${String(anio).slice(2)}`;
+  } else if (periodoEl) {
+    periodoEl.textContent = '';
+  }
   document.getElementById('sgr-foto-aporte').textContent   = fotoRow ? fmtN(fotoRow.aporte)                    : '—';
   document.getElementById('sgr-foto-posicion').textContent = fotoRow ? fmtN(fotoRow.posicion)                   : '—';
   document.getElementById('sgr-foto-weight').textContent   = fotoRow ? (fotoRow.weight * 100).toFixed(1) + '%'  : '—';

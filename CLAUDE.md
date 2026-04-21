@@ -17,7 +17,7 @@ mora_sobre_garantias.csv # Mora/Garantías mensual por SGR (jun-25 → feb-26): 
 mora_mercado.csv         # Mora mensual del mercado SGR (feb-25 → feb-26)
 plazo_mora_mercado.csv   # Mora por plazo de garantía del mercado
 Total_sgr.csv            # Ranking de 42 SGRs con mora (feb-26)
-foto_sgr.csv             # Snapshot de posición IRSA en cada SGR (Aporte, Posicion, Weight, P&L, Mora, TIR)
+foto_sgr.csv             # Histórico mensual de posición IRSA en cada SGR (Periodo, SGR, Aporte, Posicion, Weight, P&L, Mora, TIR) — se agrega una fila por SGR por mes; el frontend toma el período más reciente
 cartera_monedas.csv      # Composición por moneda por SGR (guardado, no usado aún)
 composicion_carteras.csv # Composición por tipo de activo por SGR (guardado, no usado aún)
 CLAUDE.md                # Este archivo
@@ -282,13 +282,14 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 **Selector de vehículo** (pills): Potenciar · Garantizar · Integra · Bind Garantías · Mercado. Cada opción cambia el header (color de fondo) y el contenido de forma dinámica.
 
 **Vista individual** (Potenciar / Garantizar / Integra / Bind):
-- **KPI row** (foto de posición): Aporte, Posición, Weight, P&L, Mora, TIR — fuente: `foto_sgr.csv`; se actualiza mensualmente reemplazando el CSV
+- **KPI row** (foto de posición): Aporte, Posición, Weight, P&L, Mora, TIR — fuente: `foto_sgr.csv`; tabla histórica multi-período; el frontend muestra siempre el registro más reciente por SGR
   - Aporte / Posición / P&L: número entero con separador de miles (`es-AR`); subtítulo "ARS MM" debajo del label
   - Weight: porcentaje a 1 decimal (e.g. `87.0%`)
   - P&L: con signo explícito `+` / `−`
   - Mora / TIR: porcentaje a 1 decimal
   - TIR: muestra subtítulo "* sin benef. impos." debajo del label (nota aclaratoria sobre el cálculo)
   - CSS: usa `.kpi-box-sm` (label 11px, valor 15px, padding reducido) para caber en 6 columnas
+  - Label de período `#sgr-foto-periodo-label`: muestra automáticamente "Datos al: mmm-aa" (e.g. "Datos al: mar-26") según el `Periodo` del registro elegido
 - **Mora/Garantías**: línea de evolución mensual de la SGR seleccionada (en su color) + línea dashed naranja del Promedio Mercado; fuente: `mora_sobre_garantias.csv`
 - **Stock de Garantías**: barras Garantías + FDR por mes, línea Apalancamiento en eje derecho; fuente: `garantia_sgr.csv`
 - **Mora por Antigüedad**: donut con distribución por tramos; fuente: `mora_antiguedad.csv`
@@ -311,7 +312,7 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 - `_sgrMoraEvolucion`  — `[{fecha, potenciar, garantizar, integra, bind, promedio}]` — valores en % (e.g. 0.7 = 0.7%)
 - `_sgrPlazoMercado`   — `[{plazo, mora}]`
 - `_sgrTotalSgr`       — `[{sgr, mora}]`
-- `_sgrFotoData`       — `{ 'POTENCIAR': {aporte, posicion, weight, pnl, mora, tir}, ... }` — keyed por nombre en mayúsculas del CSV
+- `_sgrFotoData`       — `{ 'POTENCIAR': {periodo, aporte, posicion, weight, pnl, mora, tir}, ... }` — keyed por `fotoLabel`; solo el registro más reciente por SGR (seleccionado durante el parse de `foto_sgr.csv`)
 - `_sgrActiveSgr`      — key activa ('potenciar' | 'garantizar' | 'integra' | 'bind' | 'mercado')
 
 **Instancias de Chart.js**:
@@ -333,6 +334,36 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 - `csvLabel`: clave usada en `garantia_sgr.csv`, `mora_antiguedad.csv`, `garantias_sector_sgr.csv` (e.g. "Bind Garantias")
 - `totalLabel`: clave usada en `Total_sgr.csv` (e.g. "GARANTIAS BIND S.G.R.")
 - `fotoLabel`: clave usada en `foto_sgr.csv` — mayúsculas sin sufijo (e.g. "BIND")
+
+### `foto_sgr.csv` — esquema histórico y lógica de carga
+
+**Estructura del CSV** (columnas en orden):
+```
+Periodo,SGR,Aporte,Posicion,Weight,P&L,Mora,TIR
+```
+- `Periodo`: formato `YYYY-MM` (e.g. `2026-03`) — clave de ordenamiento; ordena correctamente como string
+- `SGR`: nombre en mayúsculas, sin sufijo — debe coincidir con `fotoLabel` en `SGR_META` (e.g. `POTENCIAR`, `GARANTIZAR`, `INTEGRA`, `BIND`)
+- `Aporte` / `Posicion` / `P&L`: valores enteros o decimales en ARS MM
+- `Weight`: fracción decimal (e.g. `0.87398` para 87.4%)
+- `Mora` / `TIR`: fracción decimal (e.g. `0.007` para 0.7%, `0.444` para 44.4%)
+- No incluir fila `Total` — el JS la ignora pero es mejor no agregarla
+- El orden de las filas no importa — la lógica selecciona el `Periodo` más reciente por SGR
+
+**Lógica de selección en el parse** (`initSgrSection`):
+- Por cada fila se compara `r['Periodo']` con el período ya almacenado para ese SGR
+- Si el nuevo período es mayor (string), reemplaza; si es igual o menor, se ignora
+- En caso de filas con mismo `SGR` y mismo `Periodo`, gana la **última** en el CSV
+
+**Cómo agregar un nuevo mes** — simplemente agregar 4 filas al final del CSV:
+```csv
+2026-04,POTENCIAR,11500,15200,0.875,4100,0.006,0.451
+2026-04,GARANTIZAR,1500,1530,0.088,185,0.041,0.152
+2026-04,INTEGRA,392,365,0.021,-20,0.072,-0.098
+2026-04,BIND,275,265,0.015,48,0.025,0.210
+```
+No es necesario tocar el JS — el frontend toma el período más alto automáticamente.
+
+**Label de período en la UI**: el elemento `#sgr-foto-periodo-label` muestra "Datos al: mmm-aa" (e.g. "Datos al: mar-26"); se actualiza solo al cambiar de SGR vía `_sgrRenderIndividual`.
 
 **CSS**:
 - `.sgr-selector`, `.sgr-pill`, `.sgr-pill.active`, `.sgr-pill-sep` — selector de vehículo
@@ -370,7 +401,7 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 | SGR — Mercado: tendencia mora (4 SGRs + Promedio) | `mora_sobre_garantias.csv` — dinámico |
 | SGR — Mercado: mora por plazo | `plazo_mora_mercado.csv` — dinámico |
 | SGR — Mercado: ranking SGRs | `Total_sgr.csv` — dinámico |
-| SGR — KPI foto (Aporte, Posición, Weight, P&L, Mora, TIR) | `foto_sgr.csv` — dinámico |
+| SGR — KPI foto (Aporte, Posición, Weight, P&L, Mora, TIR) | `foto_sgr.csv` — dinámico; histórico multi-período; siempre muestra el mes más reciente por SGR |
 
 ## Diseño responsive (mobile + desktop)
 
