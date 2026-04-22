@@ -1308,7 +1308,22 @@
         <div class="sgr-chart-inner" style="height:220px;"><canvas id="sgr-mkt-mora-chart"></canvas></div>
       </div>
 
+      <!-- Composición de Fondos de Riesgo -->
+      <div style="margin-top:8px;margin-bottom:6px;padding-top:18px;border-top:1px solid #E2E8F0;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748B;margin-bottom:14px;">Composición de los Fondos de Riesgo</div>
+      </div>
       <div class="sgr-mkt-grid">
+        <div class="sgr-chart-card">
+          <div class="sgr-chart-title">Composición por Instrumento</div>
+          <div class="sgr-chart-inner" style="height:320px;"><canvas id="sgr-mkt-composicion-chart"></canvas></div>
+        </div>
+        <div class="sgr-chart-card">
+          <div class="sgr-chart-title">Composición por Moneda</div>
+          <div class="sgr-chart-inner" style="height:320px;"><canvas id="sgr-mkt-moneda-chart"></canvas></div>
+        </div>
+      </div><!-- /composicion grid -->
+
+      <div class="sgr-mkt-grid" style="margin-top:20px;">
 
         <!-- Mora por Plazo -->
         <div class="sgr-chart-card">
@@ -1329,6 +1344,7 @@
         </div>
 
       </div><!-- /sgr-mkt-grid -->
+
     </div><!-- /sgr-mercado -->
 
   </div><!-- /content -->
@@ -2829,9 +2845,14 @@ let _sgrMoraChartInst       = null;
 let _sgrGarantiasChartInst  = null;
 let _sgrAntiguedadChartInst = null;
 let _sgrSectorChartInst     = null;
-let _sgrMktMoraChartInst    = null;
-let _sgrMktPlazoChartInst   = null;
-let _sgrMktRankChartInst    = null;
+let _sgrMktMoraChartInst         = null;
+let _sgrMktPlazoChartInst        = null;
+let _sgrMktRankChartInst         = null;
+let _sgrMktComposicionChartInst  = null;
+let _sgrMktMonedaChartInst       = null;
+
+let _sgrComposicionData = []; // [{ categoria, potenciar, garantizar, integra, bind }]
+let _sgrMonedaData      = []; // [{ moneda, potenciar, garantizar, integra, bind }]
 
 function _sgrParseCsv(text) {
   const lines = text.trim().split(/\r?\n/);
@@ -2856,7 +2877,7 @@ function _sgrDestroy(inst) {
 
 async function initSgrSection() {
   try {
-    const [garantiasTxt, antiguedadTxt, sectorTxt, moraMktTxt, plazoTxt, totalTxt, moraEvolTxt, fotoTxt] = await Promise.all([
+    const [garantiasTxt, antiguedadTxt, sectorTxt, moraMktTxt, plazoTxt, totalTxt, moraEvolTxt, fotoTxt, composicionTxt, monedaTxt] = await Promise.all([
       fetch('garantia_sgr.csv').then(r => r.text()),
       fetch('mora_antiguedad.csv').then(r => r.text()),
       fetch('garantias_sector_sgr.csv').then(r => r.text()),
@@ -2865,6 +2886,8 @@ async function initSgrSection() {
       fetch('Total_sgr.csv').then(r => r.text()),
       fetch('mora_sobre_garantias.csv').then(r => r.text()),
       fetch('foto_sgr.csv').then(r => r.text()),
+      fetch('composicion_carteras.csv').then(r => r.text()),
+      fetch('cartera_monedas.csv').then(r => r.text()),
     ]);
 
     // garantia_sgr.csv
@@ -2935,6 +2958,24 @@ async function initSgrSection() {
         tir:      parseFloat(r['TIR']),
       };
     });
+
+    // composicion_carteras.csv — filas: categoría; columnas: Potenciar, Garantizar, Integra, BIND
+    _sgrComposicionData = _sgrParseCsv(composicionTxt).map(r => ({
+      categoria:  r['Categoria'],
+      potenciar:  parseFloat(r['Potenciar']  || 0),
+      garantizar: parseFloat(r['Garantizar'] || 0),
+      integra:    parseFloat(r['Integra']    || 0),
+      bind:       parseFloat(r['BIND']       || 0),
+    })).filter(r => r.categoria);
+
+    // cartera_monedas.csv — filas: USD / ARS; columnas: Potenciar, Garantizar, Integra, BIND
+    _sgrMonedaData = _sgrParseCsv(monedaTxt).map(r => ({
+      moneda:     r['Moneda'],
+      potenciar:  parseFloat(r['Potenciar']  || 0),
+      garantizar: parseFloat(r['Garantizar'] || 0),
+      integra:    parseFloat(r['Integra']    || 0),
+      bind:       parseFloat(r['BIND']       || 0),
+    })).filter(r => r.moneda);
 
     // Pre-render default view (will render on hidden page — fine for Chart.js)
     selectSgr(_sgrActiveSgr);
@@ -3210,6 +3251,8 @@ function _sgrRenderMercado() {
   _sgrRenderMktMora();
   _sgrRenderMktPlazo();
   _sgrRenderMktRanking();
+  _sgrRenderMktComposicion();
+  _sgrRenderMktMoneda();
 }
 
 function _sgrRenderMktMora() {
@@ -3335,6 +3378,167 @@ function _sgrRenderMktRanking() {
       scales: {
         x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 9 }, callback: v => v + '%' }, beginAtZero: true },
         y: { grid: { display: false }, ticks: { font: { size: 9 } } },
+      },
+    },
+  });
+}
+
+function _sgrRenderMktComposicion() {
+  _sgrMktComposicionChartInst = _sgrDestroy(_sgrMktComposicionChartInst);
+  const ctx = document.getElementById('sgr-mkt-composicion-chart');
+  if (!ctx || !_sgrComposicionData.length) return;
+
+  const sgrLabels = ['Potenciar', 'Garantizar', 'Integra', 'BIND'];
+  const sgrKeys   = ['potenciar', 'garantizar', 'integra', 'bind'];
+
+  const CAT_COLORS = {
+    'Tit. Nac. + Lebac': '#1D4B6E',
+    'ON':                '#166534',
+    'FCI + Act. Pyme':   '#B45309',
+    'Plazos Fijos':      '#E8960C',
+    'Equity':            '#6B7280',
+    'Provinciales':      '#6D28D9',
+  };
+
+  const datasets = _sgrComposicionData.map(cat => ({
+    label:           cat.categoria,
+    data:            sgrKeys.map(k => +(cat[k] * 100).toFixed(1)),
+    backgroundColor: CAT_COLORS[cat.categoria] || '#94A3B8',
+    barThickness:    52,
+    borderWidth:     0,
+    borderRadius:    0,
+  }));
+
+  const _stackedLabelPlugin = {
+    id: 'stackedPctLabels',
+    afterDatasetsDraw(chart) {
+      const { ctx } = chart;
+      chart.data.datasets.forEach((ds, i) => {
+        const meta = chart.getDatasetMeta(i);
+        if (meta.hidden) return;
+        meta.data.forEach((bar, j) => {
+          const val = ds.data[j];
+          if (!val || val < 4) return;
+          const { x, y, base } = bar.getProps(['x', 'y', 'base'], true);
+          const segH = Math.abs(base - y);
+          if (segH < 13) return;
+          ctx.save();
+          ctx.fillStyle = 'rgba(255,255,255,0.92)';
+          ctx.font = '600 9.5px Inter,sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(Math.round(val) + '%', x, (y + base) / 2);
+          ctx.restore();
+        });
+      });
+    },
+  };
+
+  _sgrMktComposicionChartInst = new Chart(ctx, {
+    type: 'bar',
+    data: { labels: sgrLabels, datasets },
+    plugins: [_stackedLabelPlugin],
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom',
+          labels: { font: { size: 10 }, boxWidth: 10, padding: 8, color: '#334155' },
+        },
+        tooltip: { ...TOOLTIP, callbacks: {
+          label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(1)}%`,
+        }},
+      },
+      scales: {
+        x: {
+          stacked: true,
+          grid: { display: false },
+          ticks: { font: { size: 11, weight: '600' }, color: '#0F172A' },
+        },
+        y: {
+          stacked: true,
+          min: 0, max: 100,
+          grid: { color: '#F1F5F9' },
+          ticks: { font: { size: 9 }, callback: v => v + '%' },
+        },
+      },
+    },
+  });
+}
+
+function _sgrRenderMktMoneda() {
+  _sgrMktMonedaChartInst = _sgrDestroy(_sgrMktMonedaChartInst);
+  const ctx = document.getElementById('sgr-mkt-moneda-chart');
+  if (!ctx || !_sgrMonedaData.length) return;
+
+  const sgrLabels = ['Potenciar', 'Garantizar', 'Integra', 'BIND'];
+  const sgrKeys   = ['potenciar', 'garantizar', 'integra', 'bind'];
+
+  const MONEDA_COLORS = { 'USD': '#166534', 'ARS': '#1D4B6E' };
+
+  const datasets = _sgrMonedaData.map(row => ({
+    label:           row.moneda,
+    data:            sgrKeys.map(k => +(row[k] * 100).toFixed(1)),
+    backgroundColor: MONEDA_COLORS[row.moneda] || '#94A3B8',
+    barThickness:    52,
+    borderWidth:     0,
+    borderRadius:    0,
+  }));
+
+  const _monedaLabelPlugin = {
+    id: 'monedaPctLabels',
+    afterDatasetsDraw(chart) {
+      const { ctx } = chart;
+      chart.data.datasets.forEach((ds, i) => {
+        const meta = chart.getDatasetMeta(i);
+        if (meta.hidden) return;
+        meta.data.forEach((bar, j) => {
+          const val = ds.data[j];
+          if (!val || val < 4) return;
+          const { x, y, base } = bar.getProps(['x', 'y', 'base'], true);
+          const segH = Math.abs(base - y);
+          if (segH < 13) return;
+          ctx.save();
+          ctx.fillStyle = 'rgba(255,255,255,0.92)';
+          ctx.font = '600 9.5px Inter,sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(Math.round(val) + '%', x, (y + base) / 2);
+          ctx.restore();
+        });
+      });
+    },
+  };
+
+  _sgrMktMonedaChartInst = new Chart(ctx, {
+    type: 'bar',
+    data: { labels: sgrLabels, datasets },
+    plugins: [_monedaLabelPlugin],
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom',
+          labels: { font: { size: 10 }, boxWidth: 10, padding: 8, color: '#334155' },
+        },
+        tooltip: { ...TOOLTIP, callbacks: {
+          label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(1)}%`,
+        }},
+      },
+      scales: {
+        x: {
+          stacked: true,
+          grid: { display: false },
+          ticks: { font: { size: 11, weight: '600' }, color: '#0F172A' },
+        },
+        y: {
+          stacked: true,
+          min: 0, max: 100,
+          grid: { color: '#F1F5F9' },
+          ticks: { font: { size: 9 }, callback: v => v + '%' },
+        },
       },
     },
   });
