@@ -733,6 +733,137 @@
       .footer { font-size: 9.5px; padding: 12px 14px; }
     }
 
+    /* ── Login overlay ── */
+    #login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #F8FAFC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    #login-overlay.hidden { display: none; }
+    .login-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+      padding: 44px 40px 36px;
+      width: 100%;
+      max-width: 380px;
+    }
+    .login-logo {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #94A3B8;
+      margin-bottom: 28px;
+      display: block;
+    }
+    .login-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 6px;
+    }
+    .login-subtitle {
+      font-size: 13px;
+      color: #64748B;
+      margin-bottom: 32px;
+    }
+    .login-field {
+      margin-bottom: 16px;
+    }
+    .login-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #64748B;
+      margin-bottom: 6px;
+    }
+    .login-field input {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: 'Inter', system-ui, sans-serif;
+      border: 1px solid #CBD5E1;
+      border-radius: 7px;
+      color: #0F172A;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .login-field input:focus {
+      border-color: #1D4B6E;
+      box-shadow: 0 0 0 3px rgba(29,75,110,0.12);
+    }
+    .login-field input.input-error {
+      border-color: #DC2626;
+      box-shadow: 0 0 0 3px rgba(220,38,38,0.10);
+    }
+    .login-error {
+      display: none;
+      font-size: 12.5px;
+      color: #DC2626;
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      border-radius: 6px;
+      padding: 9px 13px;
+      margin-bottom: 16px;
+    }
+    .login-error.visible { display: block; }
+    .login-btn {
+      width: 100%;
+      padding: 11px;
+      background: #1D4B6E;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Inter', system-ui, sans-serif;
+      letter-spacing: 0.05em;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 4px;
+    }
+    .login-btn:hover { background: #163A56; }
+    .login-btn:active { background: #0F2A3E; }
+    .login-footer {
+      margin-top: 24px;
+      font-size: 11px;
+      color: #94A3B8;
+      text-align: center;
+      border-top: 1px solid #F1F5F9;
+      padding-top: 18px;
+    }
+    /* Logout button in nav */
+    .nav-logout {
+      margin-left: auto;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #94A3B8;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      cursor: pointer;
+      background: none;
+      font-family: 'Inter', system-ui, sans-serif;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .nav-logout:hover { color: #334155; border-color: #94A3B8; }
+    @media (max-width: 600px) {
+      .login-card { padding: 32px 20px 28px; margin: 16px; }
+      .login-title { font-size: 18px; }
+    }
+
     /* ── SGR Section ── */
     .nav-sep { width: 1px; height: 20px; background: #E2E8F0; margin: 0 8px; display: inline-block; align-self: center; }
     .nav-tab.active[data-co="sgr"] { color: #166534; border-bottom-color: #166534; }
@@ -839,6 +970,26 @@
 </head>
 <body>
 
+<!-- ═══════ LOGIN OVERLAY ═══════ -->
+<div id="login-overlay">
+  <div class="login-card">
+    <span class="login-logo">Debt Profile · IRSA &amp; Cresud</span>
+    <div class="login-title">Iniciar sesión</div>
+    <div class="login-subtitle">Ingresá tus credenciales para acceder al dashboard.</div>
+    <div id="login-error" class="login-error">Usuario o contraseña incorrectos.</div>
+    <div class="login-field">
+      <label for="login-user">Usuario</label>
+      <input type="text" id="login-user" placeholder="usuario" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('login-pass').focus()">
+    </div>
+    <div class="login-field">
+      <label for="login-pass">Contraseña</label>
+      <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')_loginSubmit()">
+    </div>
+    <button class="login-btn" onclick="_loginSubmit()">Ingresar</button>
+    <div class="login-footer">Dashboard confidencial · uso interno</div>
+  </div>
+</div>
+
 <!-- ═══════ NAV ═══════ -->
 <nav class="nav">
   <span class="nav-logo">Debt Profile</span>
@@ -846,6 +997,7 @@
   <div class="nav-tab"        data-co="cresud" onclick="switchTab('cresud')">Cresud</div>
   <span class="nav-sep"></span>
   <div class="nav-tab"        data-co="sgr"    onclick="switchTab('sgr')">SGR</div>
+  <button class="nav-logout" onclick="_logout()" title="Cerrar sesión">Salir</button>
 </nav>
 
 
@@ -1356,6 +1508,72 @@
 ══════════════════════════════════════════════════════ -->
 <script>
 'use strict';
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+// Credenciales almacenadas como hashes SHA-256.
+// Para cambiar usuario/contraseña: reemplazá los valores de _AUTH_USER y _AUTH_HASH.
+// Para generar un nuevo hash: abrí la consola del browser y ejecutá:
+//   crypto.subtle.digest('SHA-256', new TextEncoder().encode('tu_contraseña'))
+//     .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
+const _AUTH_USER = 'IrsaFinanzas';
+const _AUTH_HASH = 'b2835b74034e3bfe4119f4dfa45b91f819ed8fe916661e24567aec86829bf13e'; // GD30.GD41
+
+async function _hashStr(s) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+async function _loginSubmit() {
+  const userEl = document.getElementById('login-user');
+  const passEl = document.getElementById('login-pass');
+  const errEl  = document.getElementById('login-error');
+  const user = userEl.value.trim();
+  const pass = passEl.value;
+
+  [userEl, passEl].forEach(el => el.classList.remove('input-error'));
+  errEl.classList.remove('visible');
+
+  if (!user || !pass) {
+    if (!user) userEl.classList.add('input-error');
+    if (!pass) passEl.classList.add('input-error');
+    errEl.textContent = 'Completá usuario y contraseña.';
+    errEl.classList.add('visible');
+    return;
+  }
+
+  const hash = await _hashStr(pass);
+  if (user === _AUTH_USER && hash === _AUTH_HASH) {
+    sessionStorage.setItem('auth', '1');
+    document.getElementById('login-overlay').classList.add('hidden');
+    passEl.value = '';
+  } else {
+    userEl.classList.add('input-error');
+    passEl.classList.add('input-error');
+    passEl.value = '';
+    errEl.textContent = 'Usuario o contraseña incorrectos.';
+    errEl.classList.add('visible');
+    passEl.focus();
+  }
+}
+
+function _logout() {
+  sessionStorage.removeItem('auth');
+  document.getElementById('login-overlay').classList.remove('hidden');
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('login-error').classList.remove('visible');
+  document.querySelectorAll('#login-user,#login-pass').forEach(el => el.classList.remove('input-error'));
+  document.getElementById('login-user').focus();
+}
+
+// Verificar sesión al cargar la página (el script es inline al final de body, DOM ya disponible)
+(function _checkSession() {
+  if (sessionStorage.getItem('auth') === '1') {
+    document.getElementById('login-overlay').classList.add('hidden');
+  } else {
+    document.getElementById('login-user').focus();
+  }
+})();
 
 // ── Global row stores (populated on init) ────────────────────────────────────
 let _irsaCapRows = [], _irsaFullRows = [];
