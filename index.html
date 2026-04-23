@@ -965,9 +965,11 @@
       .sgr-pill-sep { display: none; }
       /* Selector: menos padding */
       .sgr-selector { padding: 14px 0 12px; margin-bottom: 16px; gap: 6px; }
-      /* KPI foto row: grid 2 columnas en lugar de apilar 6 en fila */
+      /* KPI foto row: grid 2 columnas en lugar de apilar 5 en fila */
       .sgr-foto-kpi-row { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; margin-bottom: 8px !important; }
       .sgr-foto-kpi-row .kpi-box { flex: none !important; width: auto; }
+      /* Con 5 items, el último queda solo → lo estiramos a ancho completo */
+      .sgr-foto-kpi-row .kpi-box:last-child:nth-child(odd) { grid-column: span 2; }
       .sgr-foto-kpi-row2 { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; margin-bottom: 16px !important; }
       .sgr-foto-kpi-row2 .kpi-box { flex: none !important; width: auto; }
       /* Chart heights internas (inline height:260px) */
@@ -1420,10 +1422,6 @@
           <div class="kpi-label">Mora</div>
           <div class="kpi-value" id="sgr-foto-mora">—</div>
         </div>
-        <div class="kpi-box sgr-kpi-primary sgr-kpi" style="flex:1;">
-          <div><div class="kpi-label">TIR</div><div style="font-size:10px;color:#64748B;margin-top:2px;">sin benef. impos.</div></div>
-          <div class="kpi-value" id="sgr-foto-tir">—</div>
-        </div>
       </div>
 
       <!-- Secondary metrics -->
@@ -1437,7 +1435,7 @@
           <div class="kpi-value" id="sgr-foto-benchmark">46,3%</div>
         </div>
         <div class="kpi-box sgr-kpi-secondary sgr-kpi" style="flex:1;">
-          <div><div class="kpi-label">Rend. Neto c/benef</div><div style="font-size:10px;color:#64748B;margin-top:2px;">ARS MM</div></div>
+          <div><div class="kpi-label">P&amp;L neto c/benef</div><div style="font-size:10px;color:#64748B;margin-top:2px;">ARS MM</div></div>
           <div class="kpi-value" id="sgr-foto-rend-neto">—</div>
         </div>
         <div class="kpi-box sgr-kpi-secondary sgr-kpi" style="flex:1;">
@@ -3317,7 +3315,6 @@ function _sgrRenderIndividual(sgr) {
   document.getElementById('sgr-foto-weight').textContent        = fotoRow ? fmtPct(fotoRow.weight)                  : '—';
   document.getElementById('sgr-foto-pnl').textContent           = fotoRow ? fmtSign(fotoRow.pnl)                    : '—';
   document.getElementById('sgr-foto-mora').textContent          = fotoRow ? fmtPct(fotoRow.mora)                    : '—';
-  document.getElementById('sgr-foto-tir').textContent           = fotoRow ? fmtPct(fotoRow.tir)                     : '—';
   document.getElementById('sgr-foto-rend-cartera').textContent  = fotoRow ? fmtPct(fotoRow.rendCartera)             : '—';
   document.getElementById('sgr-foto-rend-neto').textContent     = fotoRow && !isNaN(fotoRow.rendNeto) ? fmtSign(fotoRow.rendNeto) : '—';
   document.getElementById('sgr-foto-tir-benef').textContent     = fotoRow ? fmtPct(fotoRow.tirConBenef)             : '—';

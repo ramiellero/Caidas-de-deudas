@@ -282,18 +282,17 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 **Selector de vehículo** (pills): Potenciar · Garantizar · Integra · Bind Garantías · Mercado. Cada opción cambia el header (color de fondo) y el contenido de forma dinámica.
 
 **Vista individual** (Potenciar / Garantizar / Integra / Bind):
-- **KPI fila primaria** (`.sgr-foto-kpi-row`, `.sgr-kpi-primary`): Aporte, Posición, Weight, P&L, Mora, TIR — fuente: `foto_sgr.csv`; el frontend muestra siempre el registro más reciente por SGR
+- **KPI fila primaria** (`.sgr-foto-kpi-row`, `.sgr-kpi-primary`): Aporte, Posición, Weight, P&L, Mora — fuente: `foto_sgr.csv`; el frontend muestra siempre el registro más reciente por SGR (la tarjeta TIR sin benef. fue eliminada)
   - Aporte / Posición / P&L: número entero con separador de miles (`es-AR`); subtítulo "ARS MM" debajo del label
   - Weight: porcentaje a 1 decimal (e.g. `87.0%`)
   - P&L: con signo explícito `+` / `−`
-  - Mora / TIR: porcentaje a 1 decimal
-  - TIR: muestra subtítulo "* sin benef. impos." debajo del label (nota aclaratoria)
+  - Mora: porcentaje a 1 decimal
   - CSS: `.sgr-kpi-primary` — label 12px, valor 20px
   - Label de período `#sgr-foto-periodo-label`: muestra automáticamente "Datos al: mmm-aa" (e.g. "Datos al: mar-26") según el `Periodo` del registro elegido
 - **KPI fila secundaria** (`.sgr-foto-kpi-row2`, `.sgr-kpi-secondary`): métricas de rendimiento — 4 boxes en una segunda fila debajo de la primaria
   - **Rend. Cartera** (`#sgr-foto-rend-cartera`): `Rendimiento Cartera` del CSV; porcentaje a 1 decimal; subtítulo "sin netear mora y fee"
   - **Benchmark** (`#sgr-foto-benchmark`): TTRFPD — valor **hardcodeado** en HTML (`46,3%`); no viene del CSV
-  - **Rend. Neto c/benef** (`#sgr-foto-rend-neto`): `Rend. Neto c/benef` del CSV; en ARS MM, con signo (`fmtSign`)
+  - **P&L neto c/benef** (`#sgr-foto-rend-neto`): `Rend. Neto c/benef` del CSV; en ARS MM, con signo (`fmtSign`)
   - **TIR c/benef impos.** (`#sgr-foto-tir-benef`): `TIR c/benef` del CSV; porcentaje a 1 decimal
   - CSS: `.sgr-kpi-secondary` — padding 8px 14px, border-left 2px, label 10.5px `#64748B`, valor 13px peso 600
   - Si una columna no tiene dato para ese período (e.g. filas feb-26), el JS muestra `—`
@@ -417,7 +416,7 @@ No es necesario tocar el JS — el frontend toma el período más alto automáti
 | SGR — Mercado: tendencia mora (4 SGRs + Promedio) | `mora_sobre_garantias.csv` — dinámico |
 | SGR — Mercado: mora por plazo | `plazo_mora_mercado.csv` — dinámico |
 | SGR — Mercado: ranking SGRs | `Total_sgr.csv` — dinámico |
-| SGR — KPI foto (Aporte, Posición, Weight, P&L, Mora, TIR) | `foto_sgr.csv` — dinámico; histórico multi-período; siempre muestra el mes más reciente por SGR |
+| SGR — KPI foto (Aporte, Posición, Weight, P&L, Mora) | `foto_sgr.csv` — dinámico; histórico multi-período; siempre muestra el mes más reciente por SGR |
 
 ## Diseño responsive (mobile + desktop)
 
