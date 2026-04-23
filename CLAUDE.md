@@ -282,14 +282,21 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 **Selector de vehículo** (pills): Potenciar · Garantizar · Integra · Bind Garantías · Mercado. Cada opción cambia el header (color de fondo) y el contenido de forma dinámica.
 
 **Vista individual** (Potenciar / Garantizar / Integra / Bind):
-- **KPI row** (foto de posición): Aporte, Posición, Weight, P&L, Mora, TIR — fuente: `foto_sgr.csv`; tabla histórica multi-período; el frontend muestra siempre el registro más reciente por SGR
+- **KPI fila primaria** (`.sgr-foto-kpi-row`, `.sgr-kpi-primary`): Aporte, Posición, Weight, P&L, Mora, TIR — fuente: `foto_sgr.csv`; el frontend muestra siempre el registro más reciente por SGR
   - Aporte / Posición / P&L: número entero con separador de miles (`es-AR`); subtítulo "ARS MM" debajo del label
   - Weight: porcentaje a 1 decimal (e.g. `87.0%`)
   - P&L: con signo explícito `+` / `−`
   - Mora / TIR: porcentaje a 1 decimal
-  - TIR: muestra subtítulo "* sin benef. impos." debajo del label (nota aclaratoria sobre el cálculo)
-  - CSS: usa `.kpi-box-sm` (label 11px, valor 15px, padding reducido) para caber en 6 columnas
+  - TIR: muestra subtítulo "* sin benef. impos." debajo del label (nota aclaratoria)
+  - CSS: `.sgr-kpi-primary` — label 12px, valor 20px
   - Label de período `#sgr-foto-periodo-label`: muestra automáticamente "Datos al: mmm-aa" (e.g. "Datos al: mar-26") según el `Periodo` del registro elegido
+- **KPI fila secundaria** (`.sgr-foto-kpi-row2`, `.sgr-kpi-secondary`): métricas de rendimiento — 4 boxes en una segunda fila debajo de la primaria
+  - **Rend. Cartera** (`#sgr-foto-rend-cartera`): `Rendimiento Cartera` del CSV; porcentaje a 1 decimal; subtítulo "sin netear mora y fee"
+  - **Benchmark** (`#sgr-foto-benchmark`): TTRFPD — valor **hardcodeado** en HTML (`46,3%`); no viene del CSV
+  - **Rend. Neto c/benef** (`#sgr-foto-rend-neto`): `Rend. Neto c/benef` del CSV; en ARS MM, con signo (`fmtSign`)
+  - **TIR c/benef impos.** (`#sgr-foto-tir-benef`): `TIR c/benef` del CSV; porcentaje a 1 decimal
+  - CSS: `.sgr-kpi-secondary` — padding 8px 14px, border-left 2px, label 10.5px `#64748B`, valor 13px peso 600
+  - Si una columna no tiene dato para ese período (e.g. filas feb-26), el JS muestra `—`
 - **Mora/Garantías**: línea de evolución mensual de la SGR seleccionada (en su color) + línea dashed naranja del Promedio Mercado; fuente: `mora_sobre_garantias.csv`
 - **Stock de Garantías**: barras Garantías + FDR por mes, línea Apalancamiento en eje derecho; fuente: `garantia_sgr.csv`
 - **Mora por Antigüedad**: donut con distribución por tramos; fuente: `mora_antiguedad.csv`
@@ -312,7 +319,7 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 - `_sgrMoraEvolucion`  — `[{fecha, potenciar, garantizar, integra, bind, promedio}]` — valores en % (e.g. 0.7 = 0.7%)
 - `_sgrPlazoMercado`   — `[{plazo, mora}]`
 - `_sgrTotalSgr`       — `[{sgr, mora}]`
-- `_sgrFotoData`       — `{ 'POTENCIAR': {periodo, aporte, posicion, weight, pnl, mora, tir}, ... }` — keyed por `fotoLabel`; solo el registro más reciente por SGR (seleccionado durante el parse de `foto_sgr.csv`)
+- `_sgrFotoData`       — `{ 'POTENCIAR': {periodo, aporte, posicion, weight, pnl, mora, tir, rendCartera, rendNeto, tirConBenef}, ... }` — keyed por `fotoLabel`; solo el registro más reciente por SGR (seleccionado durante el parse de `foto_sgr.csv`)
 - `_sgrActiveSgr`      — key activa ('potenciar' | 'garantizar' | 'integra' | 'bind' | 'mercado')
 
 **Instancias de Chart.js**:
@@ -339,13 +346,16 @@ Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un 
 
 **Estructura del CSV** (columnas en orden):
 ```
-Periodo,SGR,Aporte,Posicion,Weight,P&L,Mora,TIR
+Periodo,SGR,Aporte,Posicion,Weight,P&L,Mora,TIR,Rendimiento Cartera,Rend. Neto c/benef,TIR c/benef
 ```
 - `Periodo`: formato `YYYY-MM` (e.g. `2026-03`) — clave de ordenamiento; ordena correctamente como string
 - `SGR`: nombre en mayúsculas, sin sufijo — debe coincidir con `fotoLabel` en `SGR_META` (e.g. `POTENCIAR`, `GARANTIZAR`, `INTEGRA`, `BIND`)
 - `Aporte` / `Posicion` / `P&L`: valores enteros o decimales en ARS MM
 - `Weight`: fracción decimal (e.g. `0.87398` para 87.4%)
 - `Mora` / `TIR`: fracción decimal (e.g. `0.007` para 0.7%, `0.444` para 44.4%)
+- `Rendimiento Cartera`: fracción decimal (e.g. `0.506` para 50.6%); puede dejarse vacío (``) en períodos sin dato
+- `Rend. Neto c/benef`: número entero en ARS MM (e.g. `7744`); puede dejarse vacío (``) en períodos sin dato
+- `TIR c/benef`: fracción decimal (e.g. `1.112` para 111.2%); puede dejarse vacío (``) en períodos sin dato
 - No incluir fila `Total` — el JS la ignora pero es mejor no agregarla
 - El orden de las filas no importa — la lógica selecciona el `Periodo` más reciente por SGR
 
@@ -354,13 +364,15 @@ Periodo,SGR,Aporte,Posicion,Weight,P&L,Mora,TIR
 - Si el nuevo período es mayor (string), reemplaza; si es igual o menor, se ignora
 - En caso de filas con mismo `SGR` y mismo `Periodo`, gana la **última** en el CSV
 
-**Cómo agregar un nuevo mes** — simplemente agregar 4 filas al final del CSV:
+**Cómo agregar un nuevo mes** — simplemente agregar 4 filas al final del CSV. Las tres últimas columnas son opcionales (dejar vacías si aún no están disponibles):
 ```csv
-2026-04,POTENCIAR,11500,15200,0.875,4100,0.006,0.451
-2026-04,GARANTIZAR,1500,1530,0.088,185,0.041,0.152
-2026-04,INTEGRA,392,365,0.021,-20,0.072,-0.098
-2026-04,BIND,275,265,0.015,48,0.025,0.210
+2026-04,POTENCIAR,11500,15200,0.875,4100,0.006,0.451,0.510,8000,1.120
+2026-04,GARANTIZAR,1500,1530,0.088,185,0.041,0.152,0.330,700,0.940
+2026-04,INTEGRA,392,365,0.021,-20,0.072,-0.098,0.250,110,0.430
+2026-04,BIND,275,265,0.015,48,0.025,0.210,0.370,140,0.590
 ```
+Si las columnas de rendimiento no están disponibles aún: `2026-04,POTENCIAR,11500,15200,0.875,4100,0.006,0.451,,,`
+
 No es necesario tocar el JS — el frontend toma el período más alto automáticamente.
 
 **Label de período en la UI**: el elemento `#sgr-foto-periodo-label` muestra "Datos al: mmm-aa" (e.g. "Datos al: mar-26"); se actualiza solo al cambiar de SGR vía `_sgrRenderIndividual`.
@@ -372,6 +384,10 @@ No es necesario tocar el JS — el frontend toma el período más alto automáti
 - `.sgr-chart-title` — label de cada chart (11.5px, uppercase)
 - `.sgr-kpi` — variante del `.kpi-box` base; colores se actualizan vía JS
 - `.kpi-box-sm` — modificador para la fila foto: label 11px, valor 15px, padding 10px 14px; permite caber 6 tarjetas en una fila
+- `.sgr-foto-kpi-row` — contenedor de la fila primaria de KPIs (Aporte, Posición, etc.); en mobile colapsa a grid 2 columnas
+- `.sgr-kpi-primary` — variante de `.sgr-kpi` para fila primaria: label 12px, valor 20px
+- `.sgr-foto-kpi-row2` — contenedor de la fila secundaria (Rend. Cartera, Benchmark, etc.); en mobile colapsa a grid 2 columnas
+- `.sgr-kpi-secondary` — variante de `.sgr-kpi` para fila secundaria: padding 8px 14px, border-left 2px, label 10.5px `#64748B`, valor 13px
 - `.sgr-legend`, `.sgr-legend-item`, `.sgr-legend-dot` — leyenda custom de donuts
 - `.sgr-mkt-grid` — grid 2 columnas para la vista Mercado
 - `.sgr-rank-wrap` — contenedor scrolleable del ranking
