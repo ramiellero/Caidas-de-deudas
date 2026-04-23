@@ -161,6 +161,14 @@
     .kpi-box-sm .kpi-value { font-size: 15px; letter-spacing: -0.01em; }
     .kpi-box-sm { padding: 10px 14px; }
 
+    /* SGR foto — two-tier KPI layout */
+    .sgr-kpi-primary { padding: 14px 18px; }
+    .sgr-kpi-primary .kpi-label { font-size: 12px; }
+    .sgr-kpi-primary .kpi-value { font-size: 20px; letter-spacing: -0.02em; }
+    .sgr-kpi-secondary { padding: 8px 14px; border-left-width: 2px !important; }
+    .sgr-kpi-secondary .kpi-label { font-size: 10.5px; color: #64748B; }
+    .sgr-kpi-secondary .kpi-value { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
+
     /* ── Emission table (IRSA left panel) ── */
     .emission-wrap {
       background: #fff;
@@ -958,8 +966,10 @@
       /* Selector: menos padding */
       .sgr-selector { padding: 14px 0 12px; margin-bottom: 16px; gap: 6px; }
       /* KPI foto row: grid 2 columnas en lugar de apilar 6 en fila */
-      .sgr-foto-kpi-row { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; margin-bottom: 16px !important; }
+      .sgr-foto-kpi-row { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; margin-bottom: 8px !important; }
       .sgr-foto-kpi-row .kpi-box { flex: none !important; width: auto; }
+      .sgr-foto-kpi-row2 { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; margin-bottom: 16px !important; }
+      .sgr-foto-kpi-row2 .kpi-box { flex: none !important; width: auto; }
       /* Chart heights internas (inline height:260px) */
       .sgr-chart-inner { height: 180px !important; }
       /* Donuts: apilar canvas arriba, leyenda abajo */
@@ -1385,32 +1395,54 @@
     <!-- ── Individual SGR view ── -->
     <div id="sgr-individual">
 
-      <!-- Foto SGR KPI row -->
-      <div style="font-size:11px;color:#64748B;margin-bottom:6px;font-weight:500;" id="sgr-foto-periodo-label"></div>
-      <div class="kpi-row sgr-foto-kpi-row" style="display:flex; gap:12px; margin-bottom:28px;">
-        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
-          <div><div class="kpi-label">Aporte</div><div style="font-size:10px;color:#64748B;margin-top:1px;">ARS MM</div></div>
+      <!-- Foto SGR KPI rows — primary + secondary -->
+      <div style="font-size:11px;color:#64748B;margin-bottom:10px;font-weight:500;" id="sgr-foto-periodo-label"></div>
+
+      <!-- Primary metrics -->
+      <div class="kpi-row sgr-foto-kpi-row" style="display:flex; gap:10px; margin-bottom:10px;">
+        <div class="kpi-box sgr-kpi-primary sgr-kpi" style="flex:1;">
+          <div><div class="kpi-label">Aporte</div><div style="font-size:10px;color:#64748B;margin-top:2px;">ARS MM</div></div>
           <div class="kpi-value" id="sgr-foto-aporte">—</div>
         </div>
-        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
-          <div><div class="kpi-label">Posición</div><div style="font-size:10px;color:#64748B;margin-top:1px;">ARS MM</div></div>
+        <div class="kpi-box sgr-kpi-primary sgr-kpi" style="flex:1;">
+          <div><div class="kpi-label">Posición</div><div style="font-size:10px;color:#64748B;margin-top:2px;">ARS MM</div></div>
           <div class="kpi-value" id="sgr-foto-posicion">—</div>
         </div>
-        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
+        <div class="kpi-box sgr-kpi-primary sgr-kpi" style="flex:1;">
           <div class="kpi-label">Weight</div>
           <div class="kpi-value" id="sgr-foto-weight">—</div>
         </div>
-        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
-          <div><div class="kpi-label">P&amp;L</div><div style="font-size:10px;color:#64748B;margin-top:1px;">ARS MM</div></div>
+        <div class="kpi-box sgr-kpi-primary sgr-kpi" style="flex:1;">
+          <div><div class="kpi-label">P&amp;L Neto</div><div style="font-size:10px;color:#64748B;margin-top:2px;">ARS MM</div></div>
           <div class="kpi-value" id="sgr-foto-pnl">—</div>
         </div>
-        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
+        <div class="kpi-box sgr-kpi-primary sgr-kpi" style="flex:1;">
           <div class="kpi-label">Mora</div>
           <div class="kpi-value" id="sgr-foto-mora">—</div>
         </div>
-        <div class="kpi-box kpi-box-sm sgr-kpi" style="flex:1;">
-          <div><div class="kpi-label">TIR</div><div style="font-size:10px;color:#64748B;margin-top:1px;">* sin benef. impos.</div></div>
+        <div class="kpi-box sgr-kpi-primary sgr-kpi" style="flex:1;">
+          <div><div class="kpi-label">TIR</div><div style="font-size:10px;color:#64748B;margin-top:2px;">sin benef. impos.</div></div>
           <div class="kpi-value" id="sgr-foto-tir">—</div>
+        </div>
+      </div>
+
+      <!-- Secondary metrics -->
+      <div class="kpi-row sgr-foto-kpi-row2" style="display:flex; gap:10px; margin-bottom:28px;">
+        <div class="kpi-box sgr-kpi-secondary sgr-kpi" style="flex:1;">
+          <div><div class="kpi-label">Rend. Cartera</div><div style="font-size:10px;color:#64748B;margin-top:2px;">sin netear mora y fee</div></div>
+          <div class="kpi-value" id="sgr-foto-rend-cartera">—</div>
+        </div>
+        <div class="kpi-box sgr-kpi-secondary sgr-kpi" style="flex:1;">
+          <div><div class="kpi-label">Benchmark</div><div style="font-size:10px;color:#64748B;margin-top:2px;">TTRFPD</div></div>
+          <div class="kpi-value" id="sgr-foto-benchmark">46,3%</div>
+        </div>
+        <div class="kpi-box sgr-kpi-secondary sgr-kpi" style="flex:1;">
+          <div><div class="kpi-label">Rend. Neto c/benef</div><div style="font-size:10px;color:#64748B;margin-top:2px;">ARS MM</div></div>
+          <div class="kpi-value" id="sgr-foto-rend-neto">—</div>
+        </div>
+        <div class="kpi-box sgr-kpi-secondary sgr-kpi" style="flex:1;">
+          <div class="kpi-label">TIR c/benef impos.</div>
+          <div class="kpi-value" id="sgr-foto-tir-benef">—</div>
         </div>
       </div>
 
@@ -3167,12 +3199,15 @@ async function initSgrSection() {
       if (existing && existing.periodo >= periodo) return; // ya tenemos uno más nuevo
       _sgrFotoData[key] = {
         periodo,
-        aporte:   parseFloat(r['Aporte']),
-        posicion: parseFloat(r['Posicion']),
-        weight:   parseFloat(r['Weight']),
-        pnl:      parseFloat(r['P&L']),
-        mora:     parseFloat(r['Mora']),
-        tir:      parseFloat(r['TIR']),
+        aporte:      parseFloat(r['Aporte']),
+        posicion:    parseFloat(r['Posicion']),
+        weight:      parseFloat(r['Weight']),
+        pnl:         parseFloat(r['P&L']),
+        mora:        parseFloat(r['Mora']),
+        tir:         parseFloat(r['TIR']),
+        rendCartera: parseFloat(r['Rendimiento Cartera']),
+        rendNeto:    parseFloat(r['Rend. Neto c/benef']),
+        tirConBenef: parseFloat(r['TIR c/benef']),
       };
     });
 
@@ -3276,12 +3311,16 @@ function _sgrRenderIndividual(sgr) {
   } else if (periodoEl) {
     periodoEl.textContent = '';
   }
-  document.getElementById('sgr-foto-aporte').textContent   = fotoRow ? fmtN(fotoRow.aporte)                    : '—';
-  document.getElementById('sgr-foto-posicion').textContent = fotoRow ? fmtN(fotoRow.posicion)                   : '—';
-  document.getElementById('sgr-foto-weight').textContent   = fotoRow ? (fotoRow.weight * 100).toFixed(1) + '%'  : '—';
-  document.getElementById('sgr-foto-pnl').textContent      = fotoRow ? fmtSign(fotoRow.pnl)                     : '—';
-  document.getElementById('sgr-foto-mora').textContent     = fotoRow ? (fotoRow.mora * 100).toFixed(1) + '%'    : '—';
-  document.getElementById('sgr-foto-tir').textContent      = fotoRow ? (fotoRow.tir * 100).toFixed(1) + '%'     : '—';
+  const fmtPct = v => isNaN(v) ? '—' : (v * 100).toFixed(1) + '%';
+  document.getElementById('sgr-foto-aporte').textContent        = fotoRow ? fmtN(fotoRow.aporte)                   : '—';
+  document.getElementById('sgr-foto-posicion').textContent      = fotoRow ? fmtN(fotoRow.posicion)                  : '—';
+  document.getElementById('sgr-foto-weight').textContent        = fotoRow ? fmtPct(fotoRow.weight)                  : '—';
+  document.getElementById('sgr-foto-pnl').textContent           = fotoRow ? fmtSign(fotoRow.pnl)                    : '—';
+  document.getElementById('sgr-foto-mora').textContent          = fotoRow ? fmtPct(fotoRow.mora)                    : '—';
+  document.getElementById('sgr-foto-tir').textContent           = fotoRow ? fmtPct(fotoRow.tir)                     : '—';
+  document.getElementById('sgr-foto-rend-cartera').textContent  = fotoRow ? fmtPct(fotoRow.rendCartera)             : '—';
+  document.getElementById('sgr-foto-rend-neto').textContent     = fotoRow && !isNaN(fotoRow.rendNeto) ? fmtSign(fotoRow.rendNeto) : '—';
+  document.getElementById('sgr-foto-tir-benef').textContent     = fotoRow ? fmtPct(fotoRow.tirConBenef)             : '—';
 
   _sgrRenderMoraChart(meta);
   _sgrRenderGarantiasChart(meta);
