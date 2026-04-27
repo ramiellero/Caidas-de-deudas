@@ -100,7 +100,8 @@ Vencimientos de capital de Cresud. Columnas: `AÑO, FY, MONEDA, Periodo, Compañ
 Schedule completo de Cresud con todos los flujos. Columnas: `AÑO, FY, Compañía, Sociedad, Clase, Concepto 2, Fecha Inicio, Fecha Fin, Tasa, Moneda, Monto Emitido, Outstanding, Intereses, Amortización, Capital`.
 - `Concepto 2` puede ser: `Capital`, `Intereses`, `Intereses + Capital`
 - Usado para construir la timeline `#cresud-tl-full`
-- Período cubierto: hasta marzo 2029 (ON L)
+- Período cubierto: hasta abril 2030 (ON LIII)
+- ONs incluidas: XL, XLII, XLIV, XLV, XLVI, XLVII, XLVIII, XLIX, L, LI, LII (4,75% MEP, vto abr-28), LIII (6,25% MEP, vto abr-30)
 
 ### `emisiones_obligaciones_negociables.csv`
 Registro de emisiones de ONs del mercado argentino. Columnas: `FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN`.
