@@ -1499,21 +1499,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td>ON XX</td><td>MEP S/MULC</td><td class="num">6,00%</td><td>10 Jun 2026</td><td class="num">21,7</td><td class="num outstanding-td">—</td><td class="fy">IVQ FY26</td></tr>
-        <tr><td>ON XIV</td><td>Cable</td><td class="num">8,75%</td><td>22 Jun 2026</td><td class="num">18,1</td><td class="num outstanding-td">—</td><td class="fy">IVQ FY26</td></tr>
-        <tr><td>ON XVIII</td><td>MEP S/MULC</td><td class="num">7,00%</td><td>28 Feb 2027</td><td class="num">21,8</td><td class="num outstanding-td">—</td><td class="fy">FY 27</td></tr>
-        <tr><td>ON XIV</td><td>Cable</td><td class="num">8,75%</td><td>22 Jun 2027</td><td class="num">18,1</td><td class="num outstanding-td">—</td><td class="fy">FY 27</td></tr>
-        <tr><td>ON XXII</td><td>MEP</td><td class="num">5,75%</td><td>23 Oct 2027</td><td class="num">15,8</td><td class="num outstanding-td">—</td><td class="fy">FY 28</td></tr>
-        <tr><td>ON XIV</td><td>Cable</td><td class="num">8,75%</td><td>22 Jun 2028</td><td class="num">31,0</td><td class="num outstanding-td">—</td><td class="fy">FY 28</td></tr>
-        <tr><td>ON XXIII</td><td>MEP</td><td class="num">7,25%</td><td>23 Oct 2029</td><td class="num">51,5</td><td class="num outstanding-td">—</td><td class="fy">FY 30</td></tr>
-        <tr><td>ON XXIV</td><td>Cable</td><td class="num">8,00%</td><td>31 Mar 2033</td><td class="num">156,3</td><td class="num outstanding-td">—</td><td class="fy">FY 33</td></tr>
-        <tr><td>ON XXIV</td><td>Cable</td><td class="num">8,00%</td><td>31 Mar 2034</td><td class="num">156,3</td><td class="num outstanding-td">—</td><td class="fy">FY 34</td></tr>
-        <tr><td>ON XXIV</td><td>Cable</td><td class="num">8,00%</td><td>31 Mar 2035</td><td class="num">161,1</td><td class="num outstanding-td">—</td><td class="fy">FY 35</td></tr>
+        <!-- rows generated dynamically by _renderIrsaTableBase() from irsa_deuda.csv -->
       </tbody>
       <tfoot>
         <tr>
           <td colspan="5" style="color:#1D4B6E;">Total Deuda Vigente</td>
-          <td class="num" style="color:#1D4B6E;">651,6</td>
+          <td class="num" style="color:#1D4B6E;">—</td>
           <td></td>
           <td></td>
         </tr>
@@ -2616,7 +2607,7 @@ async function initIrsaMatChart() {
     });
     _updateIrsaKpis(_irsaCapRows);
     _updateIrsaPie(_irsaCapRows);
-    _applyOutstandingCol('irsa-mat-table', _computeOutstandingMap(_irsaCapRows));
+    _updateIrsaTable(_irsaCapRows);
   } catch (e) {
     console.error('IRSA mat chart: error cargando CSV', e);
   }
@@ -3058,12 +3049,54 @@ function _renderCresudTableBase() {
 }
 
 // ── Detail table update ───────────────────────────────────────────────────────
+// ── IRSA table: generate base rows from CSV ──────────────────────────────────
+function _renderIrsaTableBase() {
+  const table = document.getElementById('irsa-mat-table');
+  if (!table || !_irsaCapRows.length) return;
+  const tbody  = table.querySelector('tbody');
+  const today  = new Date();
+  const curFY  = today.getMonth() >= 6 ? today.getFullYear() + 1 : today.getFullYear();
+
+  tbody.querySelectorAll('tr:not(.extra-row)').forEach(r => r.remove());
+
+  const rows = _irsaCapRows
+    .filter(r => {
+      const ff = _parseDMY(r['Fecha Fin']);
+      return ff && ff > today && r['Moneda'] === 'USD';
+    })
+    .sort((a, b) => _parseDMY(a['Fecha Fin']) - _parseDMY(b['Fecha Fin']));
+
+  const firstExtra = tbody.querySelector('tr.extra-row');
+
+  rows.forEach(r => {
+    const isBancaria = r['Concepto 2'] === 'Bancaria' || r['Concepto 2'] === 'Descubiertos';
+    const instrText  = isBancaria ? (r['Concepto'] + ' Bancaria') : ('ON ' + r['Concepto']);
+    const tipo       = isBancaria ? 'Bancaria' : r['MONEDA'];
+    const tasaDisp   = (r['Tasa'] || '0.00%').replace('.', ',');
+    const d          = _parseDMY(r['Fecha Fin']);
+    const dateStr    = `${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`;
+    const capitalM   = (parseFloat(r['Monto USD']) / 1e6).toFixed(1);
+    const fyYear     = parseInt(r['FY'].replace('FY', ''));
+    const fyLbl      = fyYear === curFY
+      ? `IVQ FY${String(fyYear).slice(-2)}`
+      : `FY ${String(fyYear).slice(-2)}`;
+    const callTd     = isBancaria ? '<td></td>' : `<td>${_callCellHtml(instrText)}</td>`;
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${instrText}</td><td>${tipo}</td><td class="num">${tasaDisp}</td><td>${dateStr}</td>${callTd}<td class="num">${capitalM}</td><td class="num outstanding-td">—</td><td class="fy">${fyLbl}</td>`;
+    if (firstExtra) tbody.insertBefore(tr, firstExtra);
+    else tbody.appendChild(tr);
+  });
+}
+
 function _updateIrsaTable(allCapRows) {
   const table = document.getElementById('irsa-mat-table');
   if (!table) return;
   table.querySelectorAll('tr.extra-row').forEach(r => r.remove());
+  _renderIrsaTableBase();
   const tbody = table.querySelector('tbody');
   const today = new Date();
+  const curFY = today.getMonth() >= 6 ? today.getFullYear() + 1 : today.getFullYear();
   _irsaExtraRows.forEach(r => {
     if (_parseDMY(r['Fecha Fin']) <= today) return;
     const d       = _parseDMY(r['Fecha Fin']);
@@ -3074,7 +3107,6 @@ function _updateIrsaTable(allCapRows) {
     const arsEquivStr = (isArs && arsUsdEquiv > 0) ? ` <span style="color:#64748B;font-size:10px;">≈ USD ${(arsUsdEquiv/1e6).toFixed(1)}M</span>` : '';
     const montoDisp = isArs ? `<span style="color:#92400E;">ARS ${(rawAmt/1e6).toFixed(1)}M</span>${arsEquivStr}` : (rawAmt/1e6).toFixed(1);
     const fyYear  = parseInt(r['FY'].replace('FY', ''));
-    const curFY   = today.getMonth() >= 6 ? today.getFullYear() + 1 : today.getFullYear();
     const fyLbl   = fyYear === curFY ? `IVQ FY${String(fyYear).slice(-2)}` : `FY ${String(fyYear).slice(-2)}`;
     const tr = document.createElement('tr');
     tr.className = 'extra-row';
@@ -3092,12 +3124,14 @@ function _updateIrsaTable(allCapRows) {
   const total  = active.reduce((s, rr) => s + parseFloat(rr['Monto USD']) / 1e6, 0);
   const footTd = table.querySelector('tfoot td.num');
   if (footTd) footTd.textContent = total.toFixed(1).replace('.', ',');
+  _applyOutstandingCol('irsa-mat-table', _computeOutstandingMap(allCapRows));
 }
 
 function _updateCresudTable(allCapRows) {
-  _renderCresudTableBase();
   const table = document.getElementById('cresud-mat-table');
   if (!table) return;
+  table.querySelectorAll('tr.extra-row').forEach(r => r.remove());
+  _renderCresudTableBase();
   const tbody = table.querySelector('tbody');
   const today = new Date();
   const curFY = today.getMonth() >= 6 ? today.getFullYear() + 1 : today.getFullYear();
@@ -3184,7 +3218,6 @@ function _rebuildIrsa() {
   _updateIrsaPie(allCap);
   _updateIrsaTable(allCap);
   _updateIrsaKpis(allCap);
-  _applyOutstandingCol('irsa-mat-table', _computeOutstandingMap(allCap));
 }
 
 function _rebuildCresud() {
@@ -4422,8 +4455,6 @@ document.addEventListener('click', function(e) {
     if (popover) { popover.classList.remove('visible'); _callPopoverBtn = null; }
   }
 });
-
-initCallColumns();
 
 /* ════════════════════════════════════════════════════════
    DEALS — Emisiones de ONs

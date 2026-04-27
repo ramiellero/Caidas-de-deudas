@@ -190,7 +190,8 @@ Nueva columna **Outstanding (USD M)** añadida entre **Capital (USD M)** y **Añ
 **Funciones**:
 - `_computeOutstandingMap(rows)` — agrupa filas USD vigentes por `Concepto`, las ordena por fecha y computa el acumulado reverso; retorna un mapa `"Concepto|YYYY-MM-DD" → outstanding`
 - `_applyOutstandingCol(tableId, map)` — recorre `tbody tr:not(.extra-row)` y rellena la celda `.outstanding-td` con el valor del mapa (o "—" si no hay match)
-- Se llama en `initIrsaMatChart()`, `initCresudMatChart()` y en cada `_rebuildIrsa()` / `_rebuildCresud()`
+- Para IRSA: se llama en `initIrsaMatChart()` y `_rebuildIrsa()`
+- Para Cresud: se llama internamente desde `_updateCresudTable()` — ya no es necesario llamarla por separado desde `_rebuildCresud()` ni `initCresudMatChart()`
 
 **CSS**: `.outstanding-td` — clase en cada `<td>` de la columna
 
@@ -222,7 +223,7 @@ Columna interactiva añadida en ambas tablas (`#irsa-mat-table`, `#cresud-mat-ta
 - `_callCurrentPrice(key)` — recorre los steps del schedule para encontrar el precio vigente
 - `_callPopoverHtml(key, outstanding)` — genera el HTML del popover; muestra "Outstanding: X USD M" en la cabecera del popover; lee el outstanding desde `td[6]` de la fila del botón
 - `_callCellHtml(instrText)` — genera el HTML del botón para una fila
-- `initCallColumns()` — inyecta la `<td>` en cada `tr` de `tbody` (excepto `.extra-row`); se posiciona antes del índice 4 (Capital); excluye filas con `Tipo = "Bancaria"`; se llama una sola vez al cargar la página
+- `initCallColumns()` — inyecta la `<td>` de Call Option en cada `tr` de `tbody` (excepto `.extra-row`); se posiciona antes del índice 4 (Capital); excluye filas con `Tipo = "Bancaria"`; se llama una sola vez al cargar la página y solo procesa **IRSA** (el tbody de Cresud está vacío en ese momento — sus filas se generan más tarde con la columna Call Option ya incluida inline por `_renderCresudTableBase()`)
 - `toggleCallPopover(btn, key)` — muestra/oculta el popover fijo; lo mide off-screen antes de posicionarlo para evitar desborde de viewport; click fuera lo cierra
 - `_callPopoverBtn` — referencia al botón activo (para toggle)
 
@@ -256,7 +257,9 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - `_rebuildIrsa()` / `_rebuildCresud()` — recalcula todo: maturity wall, timeline cap, pie chart, tabla, KPI boxes
 - `_applyIrsaMatData(d)` / `_applyCresudMatData(d)` — aplican datos pre-calculados al chart Chart.js; usados tanto por los toggles de vista como por el rebuild
 - `_updateIrsaPie(allCapRows)` / `_updateCresudPie(allCapRows)` — llaman a `_computePieDataFromRows`, actualizan `labels`, `data` y `backgroundColor` del chart dinámicamente, y regeneran el HTML de la leyenda (`.currency-legend`) completo
-- `_updateIrsaTable(allCapRows)` / `_updateCresudTable(allCapRows)` — insertan filas `.extra-row` antes del `<tfoot>` y recalculan el total (solo USD)
+- `_renderCresudTableBase()` — genera todas las filas base de `#cresud-mat-table` desde `_cresudCapRows`; filtra USD no-vencidas, ordena por fecha ascendente, incluye columna Call Option inline en cada `<tr>`. Se llama desde `_updateCresudTable` en cada render. Instrumento display: `'ON ' + Concepto` para ONs, `Concepto + ' Bancaria'` para bancaria.
+- `_updateIrsaTable(allCapRows)` — inserta filas `.extra-row` antes del `<tfoot>` y recalcula el total (solo USD)
+- `_updateCresudTable(allCapRows)` — llama `_renderCresudTableBase()` (regenera filas base), luego inserta `.extra-row` de descubiertos, recalcula total, y llama `_applyOutstandingCol` internamente
 - `_computePieDataFromRows(rows)` — función unificada que agrupa filas USD vigentes por `_tipoLabel(r['MONEDA'])`, ordena por valor descendente; retorna `{ labels, values, total }`. Reemplaza las funciones individuales `_computeIrsaPieData` y `_computeCresudPieData` que fueron eliminadas
 - `_computeKpis(rows, parseTasa)` — calcula tasa y vida promedio ponderadas (Σ monto×tasa / Σ monto y Σ monto×años / Σ monto) sobre filas USD vigentes; `parseTasa` es función para parsear el formato de tasa del CSV
 - `_updateIrsaKpis(allCapRows)` — actualiza `#irsa-kpi-tasa`, `#irsa-kpi-vida`, `#irsa-kpi-note`; usa parsing con punto decimal ("8.75%") — mismo formato que Cresud desde el cambio de schema de `irsa_deuda.csv`
@@ -304,6 +307,7 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - **Ver cambios**: el dashboard se sirve vía HTTP (GitHub Pages u otro host) — refrescar el browser tras cada commit
 - **Actualizar datos de maturity walls**: editar el CSV correspondiente y hacer commit; el chart se recalcula automáticamente al cargar la página
 - **Actualizar timeline IRSA**: editar `irsa_deuda.csv` (capital) o `irsa_deuda_total.csv` (capital+intereses) y hacer commit; la timeline se regenera automáticamente
+- **Actualizar Cresud (ON nueva)**: agregar filas en `cresud_deuda.csv` (capital) y `cresud_completo.csv` (schedule de intereses); tabla, KPIs, maturity wall, pie chart y timelines se recalculan solos — sin tocar `index.html`
 - **Actualizar timeline Cresud**: editar `cresud_deuda.csv` (capital, banking) o `cresud_completo.csv` (capital+intereses de ONs) y hacer commit
 - **No hay build step** — editar archivos y hacer commit directamente
 
@@ -493,7 +497,8 @@ No es necesario tocar el JS — el frontend toma el período más alto automáti
 | Timeline IRSA (capital + intereses) | `irsa_deuda_total.csv` — dinámico |
 | Timeline Cresud (capital) | `cresud_deuda.csv` — dinámico |
 | Timeline Cresud (capital + intereses) | `cresud_completo.csv` + `cresud_deuda.csv` (banking) — dinámico |
-| Tabla detalle de vencimientos | Base hardcodeada en HTML; filas de descubiertos se insertan dinámicamente en sesión |
+| Tabla detalle IRSA | Base hardcodeada en HTML; filas de descubiertos se insertan dinámicamente en sesión |
+| Tabla detalle Cresud | `cresud_deuda.csv` — **completamente dinámico** via `_renderCresudTableBase()`; agregar ON al CSV actualiza la tabla automáticamente |
 | SGR — Stock de Garantías chart | `garantia_sgr.csv` — dinámico |
 | SGR — Mora/Garantías chart (individual) | `mora_sobre_garantias.csv` — dinámico |
 | SGR — Mora por Antigüedad donut | `mora_antiguedad.csv` — dinámico |
