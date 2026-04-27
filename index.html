@@ -4220,6 +4220,7 @@ async function initDealsSection() {
       row._fecha  = _dealsParseDate(row['FECHA']);
       row._emisor = row['EMISOR'] || '';
       row._moneda = _dealsNormMoneda(row['MONEDA']);
+      if (row._moneda.toLowerCase() === 'resultado pendiente') continue;
       row._tasa   = row['TASA']   || '';
       row._margen = _col(row, 'TASA/MARGEN', 'TASA_MARGEN') || '';
       row._plazo  = parseInt(_col(row, 'PLAZO (en meses)', 'PLAZO_MESES', 'PLAZO'), 10) || 0;
