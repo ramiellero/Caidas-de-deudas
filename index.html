@@ -1791,9 +1791,16 @@
     <div id="sgr-mercado" style="display:none;">
 
       <!-- Mora del Mercado trend — full width -->
+      <!-- Month selector (afecta charts de snapshot, no el trend de evolución) -->
       <div class="sgr-chart-card" style="margin-bottom:20px;">
         <div class="sgr-chart-title">Mora del Mercado SGR <span style="font-size:10.5px;color:#94A3B8;font-weight:500;text-transform:none;letter-spacing:0;">· evolución mensual</span></div>
         <div class="sgr-chart-inner" style="height:220px;"><canvas id="sgr-mkt-mora-chart"></canvas></div>
+      </div>
+
+      <!-- Selector de período para datos de snapshot -->
+      <div class="sgr-month-bar" style="margin-top:20px;margin-bottom:0;padding-top:18px;border-top:1px solid #E2E8F0;">
+        <label>Período</label>
+        <select id="sgr-mercado-month-select" onchange="_sgrSelectMercadoMonth(this.value)"></select>
       </div>
 
       <!-- Composición de Fondos de Riesgo -->
@@ -3493,8 +3500,14 @@ let _sgrSectorData     = {};   // { csvLabel: [{sector, weight}] }
 let _sgrMoraMercado    = [];   // [{fecha, mora}]
 let _sgrMoraEvolucion  = [];   // [{fecha, potenciar, garantizar, integra, bind, promedio}]
 let _sgrPlazoMercado   = [];   // [{plazo, mora}]
-let _sgrTotalSgr       = [];   // [{sgr, mora}]
-let _sgrTotalSgrFecha  = '';   // DD/M/YYYY del período más reciente de Total_sgr.csv
+let _sgrTotalSgr           = [];   // [{sgr, mora}] — snapshot activo
+let _sgrTotalSgrFecha      = '';
+let _sgrTotalSgrAllData    = {};   // { 'YYYY-MM': [{sgr, mora, rawFecha}] }
+let _sgrPlazoAllData       = {};   // { 'YYYY-MM': [{plazo, mora}] }
+let _sgrComposicionAllData = {};   // { 'YYYY-MM': [{categoria,...}] }
+let _sgrMonedaAllData      = {};   // { 'YYYY-MM': [{moneda,...}] }
+let _sgrMercadoAvailableMonths = [];
+let _sgrMercadoSelectedMonth   = '';
 let _sgrFotoData       = {};   // { 'POTENCIAR': {aporte,...} } — período seleccionado activo
 let _sgrFotoAllData    = {};   // { 'POTENCIAR': { 'YYYY-MM': {aporte,...} } }
 let _sgrAvailableMonths = [];  // ['2026-03','2026-02',...] desc
@@ -3599,11 +3612,19 @@ async function initSgrSection() {
       promedio:  _pctVal(r['Promedio']),
     }));
 
-    // plazo_mora_mercado.csv — usa solo el período más reciente
-    { const tmp = {}; _sgrParseCsv(plazoTxt).forEach(r => { const f = r['Fecha'] || ''; if (!tmp.fecha || f > tmp.fecha) { tmp.fecha = f; tmp.rows = []; } if (f === tmp.fecha) tmp.rows.push({ plazo: r['Plazo'], mora: parseFloat(r['Mora']) }); }); _sgrPlazoMercado = tmp.rows || []; }
+    // plazo_mora_mercado.csv — guarda todos los períodos
+    _sgrParseCsv(plazoTxt).forEach(r => {
+      const yyyymm = _sgrDateToYYYYMM(r['Fecha'] || '');
+      if (!_sgrPlazoAllData[yyyymm]) _sgrPlazoAllData[yyyymm] = [];
+      _sgrPlazoAllData[yyyymm].push({ plazo: r['Plazo'], mora: parseFloat(r['Mora']) });
+    });
 
-    // Total_sgr.csv — usa solo el período más reciente
-    { const tmp = {}; _sgrParseCsv(totalTxt).forEach(r => { const f = r['Fecha'] || ''; if (!tmp.fecha || f > tmp.fecha) { tmp.fecha = f; tmp.rows = []; } if (f === tmp.fecha) tmp.rows.push({ sgr: r['SGR'], mora: parseFloat(r['Mora']) }); }); _sgrTotalSgr = tmp.rows || []; _sgrTotalSgrFecha = tmp.fecha || ''; }
+    // Total_sgr.csv — guarda todos los períodos
+    _sgrParseCsv(totalTxt).forEach(r => {
+      const yyyymm = _sgrDateToYYYYMM(r['Fecha'] || '');
+      if (!_sgrTotalSgrAllData[yyyymm]) _sgrTotalSgrAllData[yyyymm] = [];
+      _sgrTotalSgrAllData[yyyymm].push({ sgr: r['SGR'], mora: parseFloat(r['Mora']), rawFecha: r['Fecha'] || '' });
+    });
 
     // foto_sgr.csv — histórico multi-período: guarda todos los períodos por SGR
     // Formato Periodo: YYYY-MM — ordena correctamente como string
@@ -3631,26 +3652,42 @@ async function initSgrSection() {
     _sgrSelectedMonth   = _sgrAvailableMonths[0] || '';
     _sgrFotoData = _sgrBuildFotoSnapshot(_sgrSelectedMonth);
 
-    // composicion_carteras.csv — filas: categoría; columnas: Potenciar, Garantizar, Integra, BIND
-    _sgrComposicionData = _sgrParseCsv(composicionTxt).map(r => ({
-      categoria:  r['Categoria'],
-      potenciar:  parseFloat(r['Potenciar']  || 0),
-      garantizar: parseFloat(r['Garantizar'] || 0),
-      integra:    parseFloat(r['Integra']    || 0),
-      bind:       parseFloat(r['BIND']       || 0),
-    })).filter(r => r.categoria);
+    // composicion_carteras.csv — guarda todos los períodos
+    _sgrParseCsv(composicionTxt).forEach(r => {
+      if (!r['Categoria']) return;
+      const yyyymm = _sgrDateToYYYYMM(r['Fecha'] || '');
+      if (!_sgrComposicionAllData[yyyymm]) _sgrComposicionAllData[yyyymm] = [];
+      _sgrComposicionAllData[yyyymm].push({
+        categoria:  r['Categoria'],
+        potenciar:  parseFloat(r['Potenciar']  || 0),
+        garantizar: parseFloat(r['Garantizar'] || 0),
+        integra:    parseFloat(r['Integra']    || 0),
+        bind:       parseFloat(r['BIND']       || 0),
+      });
+    });
 
-    // cartera_monedas.csv — filas: USD / ARS; columnas: Potenciar, Garantizar, Integra, BIND
-    _sgrMonedaData = _sgrParseCsv(monedaTxt).map(r => ({
-      moneda:     r['Moneda'],
-      potenciar:  parseFloat(r['Potenciar']  || 0),
-      garantizar: parseFloat(r['Garantizar'] || 0),
-      integra:    parseFloat(r['Integra']    || 0),
-      bind:       parseFloat(r['BIND']       || 0),
-    })).filter(r => r.moneda);
+    // cartera_monedas.csv — guarda todos los períodos
+    _sgrParseCsv(monedaTxt).forEach(r => {
+      if (!r['Moneda']) return;
+      const yyyymm = _sgrDateToYYYYMM(r['Fecha'] || '');
+      if (!_sgrMonedaAllData[yyyymm]) _sgrMonedaAllData[yyyymm] = [];
+      _sgrMonedaAllData[yyyymm].push({
+        moneda:     r['Moneda'],
+        potenciar:  parseFloat(r['Potenciar']  || 0),
+        garantizar: parseFloat(r['Garantizar'] || 0),
+        integra:    parseFloat(r['Integra']    || 0),
+        bind:       parseFloat(r['BIND']       || 0),
+      });
+    });
 
-    // Populate month selector and pre-render default view
+    // Deriva meses disponibles para Mercado y carga snapshot inicial
+    _sgrMercadoAvailableMonths = Object.keys(_sgrTotalSgrAllData).sort((a, b) => b.localeCompare(a));
+    _sgrMercadoSelectedMonth   = _sgrMercadoAvailableMonths[0] || '';
+    _sgrBuildMercadoSnapshot(_sgrMercadoSelectedMonth);
+
+    // Populate month selectors and pre-render default view
     _sgrPopulateMonthSelect();
+    _sgrPopulateMercadoSelect();
     selectSgr(_sgrActiveSgr);
 
   } catch(e) {
@@ -3699,6 +3736,34 @@ function _sgrSelectMonth(month) {
   _sgrFotoData      = _sgrBuildFotoSnapshot(month);
   _sgrAntiguedadData = _sgrBuildAntiguedadSnapshot(month);
   _sgrRenderIndividual(_sgrActiveSgr);
+}
+
+function _sgrBuildMercadoSnapshot(month) {
+  _sgrPlazoMercado    = _sgrPlazoAllData[month] || [];
+  const totalRows     = _sgrTotalSgrAllData[month] || [];
+  _sgrTotalSgr        = totalRows.map(r => ({ sgr: r.sgr, mora: r.mora }));
+  _sgrTotalSgrFecha   = totalRows.length ? totalRows[0].rawFecha : '';
+  _sgrComposicionData = _sgrComposicionAllData[month] || [];
+  _sgrMonedaData      = _sgrMonedaAllData[month] || [];
+}
+
+function _sgrPopulateMercadoSelect() {
+  const sel = document.getElementById('sgr-mercado-month-select');
+  if (!sel) return;
+  sel.innerHTML = _sgrMercadoAvailableMonths.map(m => {
+    const [anio, mes] = m.split('-').map(Number);
+    const label = _sgrMonthLabel(new Date(anio, mes - 1, 1));
+    return `<option value="${m}"${m === _sgrMercadoSelectedMonth ? ' selected' : ''}>${label}</option>`;
+  }).join('');
+}
+
+function _sgrSelectMercadoMonth(month) {
+  _sgrMercadoSelectedMonth = month;
+  _sgrBuildMercadoSnapshot(month);
+  _sgrRenderMktPlazo();
+  _sgrRenderMktRanking();
+  _sgrRenderMktComposicion();
+  _sgrRenderMktMoneda();
 }
 
 function selectSgr(sgr) {
