@@ -978,6 +978,172 @@
       .sgr-donut-wrap { flex-direction: column !important; height: auto !important; gap: 14px !important; padding: 8px 0 !important; }
       .sgr-donut-canvas-wrap { width: 140px !important; height: 140px !important; }
     }
+
+    /* ── Deals Section ── */
+    .nav-tab.active[data-co="deals"] { color: #0F4C75; border-bottom-color: #0F4C75; }
+
+    .deals-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-end;
+      padding: 20px 0 16px;
+      border-bottom: 1px solid #E2E8F0;
+      margin-bottom: 20px;
+    }
+    .deals-filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .deals-filter-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #64748B;
+    }
+    .deals-filter-input {
+      height: 32px;
+      padding: 0 10px;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #0F172A;
+      background: #fff;
+      min-width: 120px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .deals-filter-input:focus { border-color: #0F4C75; }
+    .deals-filter-input.wide { min-width: 180px; }
+    select.deals-filter-input { cursor: pointer; }
+    .deals-clear-btn {
+      height: 32px;
+      padding: 0 16px;
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748B;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      font-family: 'Inter', system-ui, sans-serif;
+      transition: background 0.15s, color 0.15s;
+      align-self: flex-end;
+    }
+    .deals-clear-btn:hover { background: #E2E8F0; color: #334155; }
+
+    .deals-summary-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    .deals-summary-card {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-left: 3px solid #0F4C75;
+      border-radius: 20px;
+      padding: 5px 13px;
+      white-space: nowrap;
+    }
+    .deals-summary-card.total {
+      background: #0F4C75;
+      border-color: #0F4C75;
+    }
+    .deals-summary-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #3B82F6;
+    }
+    .deals-summary-card.total .deals-summary-label { color: rgba(255,255,255,0.75); }
+    .deals-summary-value {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1;
+    }
+    .deals-summary-card.total .deals-summary-value { color: #fff; }
+
+    .deals-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+    }
+    .deals-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    .deals-table thead th {
+      position: sticky;
+      top: 0;
+      background: #F8FAFC;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 9px 12px;
+      text-align: left;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #64748B;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    .deals-table thead th:hover { color: #334155; }
+    .deals-table thead th.sort-asc::after  { content: ' ▲'; font-size: 9px; }
+    .deals-table thead th.sort-desc::after { content: ' ▼'; font-size: 9px; }
+    .deals-table tbody tr {
+      border-bottom: 1px solid #F1F5F9;
+      transition: background 0.1s;
+    }
+    .deals-table tbody tr:last-child { border-bottom: none; }
+    .deals-table tbody tr:hover { background: #F8FAFC; }
+    .deals-table td {
+      padding: 7px 12px;
+      color: #334155;
+      white-space: nowrap;
+    }
+    .deals-table td.deals-emisor { color: #0F172A; font-weight: 500; white-space: normal; max-width: 220px; }
+    .deals-table td.deals-fecha { color: #64748B; font-variant-numeric: tabular-nums; }
+    .deals-table td.deals-vn    { text-align: right; font-variant-numeric: tabular-nums; }
+    .deals-table td.deals-plazo { text-align: right; }
+    .deals-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .deals-badge-usdint  { background: #DBEAFE; color: #1E40AF; }
+    .deals-badge-usdmep  { background: #D1FAE5; color: #065F46; }
+    .deals-badge-usdcable{ background: #E0F2FE; color: #0369A1; }
+    .deals-badge-ars     { background: #FEF3C7; color: #92400E; }
+    .deals-badge-dl      { background: #F3E8FF; color: #6B21A8; }
+    .deals-badge-uva     { background: #FCE7F3; color: #9D174D; }
+    .deals-badge-other   { background: #F1F5F9; color: #475569; }
+    .deals-empty {
+      text-align: center;
+      padding: 40px;
+      color: #94A3B8;
+      font-size: 13px;
+    }
+    @media (max-width: 600px) {
+      .deals-filters { gap: 8px; }
+      .deals-filter-input { min-width: 100px; }
+    }
   </style>
 </head>
 <body>
@@ -1008,6 +1174,8 @@
   <div class="nav-tab"        data-co="cresud" onclick="switchTab('cresud')">Cresud</div>
   <span class="nav-sep"></span>
   <div class="nav-tab"        data-co="sgr"    onclick="switchTab('sgr')">SGR</div>
+  <span class="nav-sep"></span>
+  <div class="nav-tab"        data-co="deals"  onclick="switchTab('deals')">Deals</div>
   <button class="nav-logout" onclick="_logout()" title="Cerrar sesión">Salir</button>
 </nav>
 
@@ -1530,6 +1698,91 @@
 
   </div><!-- /content -->
 </div><!-- /page-sgr -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     DEALS — Emisiones de ONs
+══════════════════════════════════════════════════════ -->
+<div id="page-deals" class="page">
+
+  <!-- Slide header -->
+  <div class="slide-header" style="background: linear-gradient(135deg, #0F4C75 0%, #083050 100%);">
+    <div class="logo-box">IRSA</div>
+    <span class="header-title">Deals · Emisiones de ONs</span>
+    <div class="header-date">Al <span class="header-today"></span></div>
+  </div>
+
+  <div class="content">
+
+    <!-- Filters -->
+    <div class="deals-filters">
+
+      <div class="deals-filter-group">
+        <span class="deals-filter-label">Desde</span>
+        <input type="date" class="deals-filter-input" id="deals-f-desde" oninput="_dealsApplyFilters()">
+      </div>
+
+      <div class="deals-filter-group">
+        <span class="deals-filter-label">Hasta</span>
+        <input type="date" class="deals-filter-input" id="deals-f-hasta" oninput="_dealsApplyFilters()">
+      </div>
+
+      <div class="deals-filter-group">
+        <span class="deals-filter-label">Moneda</span>
+        <select class="deals-filter-input" id="deals-f-moneda" onchange="_dealsApplyFilters()">
+          <option value="">Todas</option>
+        </select>
+      </div>
+
+      <div class="deals-filter-group">
+        <span class="deals-filter-label">Tasa</span>
+        <select class="deals-filter-input" id="deals-f-tasa" onchange="_dealsApplyFilters()">
+          <option value="">Todas</option>
+        </select>
+      </div>
+
+      <div class="deals-filter-group">
+        <span class="deals-filter-label">Emisor</span>
+        <input type="text" class="deals-filter-input wide" id="deals-f-emisor" placeholder="Buscar emisor…" oninput="_dealsApplyFilters()">
+      </div>
+
+      <div class="deals-filter-group">
+        <span class="deals-filter-label">Calificación</span>
+        <input type="text" class="deals-filter-input" id="deals-f-calif" placeholder="Ej: AAA, B-…" oninput="_dealsApplyFilters()">
+      </div>
+
+      <button class="deals-clear-btn" onclick="_dealsClearFilters()">Limpiar filtros</button>
+
+    </div><!-- /deals-filters -->
+
+    <!-- Summary row -->
+    <div class="deals-summary-row" id="deals-summary-row">
+      <!-- populated by JS -->
+    </div>
+
+    <!-- Table -->
+    <div class="deals-table-wrap">
+      <table class="deals-table" id="deals-table">
+        <thead>
+          <tr>
+            <th onclick="_dealsSortBy('FECHA')">Fecha</th>
+            <th onclick="_dealsSortBy('EMISOR')">Emisor</th>
+            <th onclick="_dealsSortBy('MONEDA')">Moneda</th>
+            <th onclick="_dealsSortBy('TASA')">Tasa</th>
+            <th onclick="_dealsSortBy('TASA_MARGEN')">Tasa / Margen</th>
+            <th onclick="_dealsSortBy('PLAZO')">Plazo<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(meses)</span></th>
+            <th onclick="_dealsSortBy('VN')">VN</th>
+            <th onclick="_dealsSortBy('CALIFICACION')">Calificación</th>
+          </tr>
+        </thead>
+        <tbody id="deals-tbody">
+          <tr><td colspan="8" class="deals-empty">Cargando…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /page-deals -->
 
 
 <!-- ══════════════════════════════════════════════════════
@@ -2401,6 +2654,7 @@ function setCresudMatView(mode, btn) {
 initCresudMatChart();
 initCresudTimeline();
 initSgrSection();
+initDealsSection();
 
 
 /* ════════════════════════════════════════════════════════
@@ -3852,6 +4106,297 @@ document.addEventListener('click', function(e) {
 });
 
 initCallColumns();
+
+/* ════════════════════════════════════════════════════════
+   DEALS — Emisiones de ONs
+   Fuente: emisiones_obligaciones_negociables.csv
+   Para agregar nuevas emisiones: append filas al CSV y hacer commit.
+════════════════════════════════════════════════════════ */
+
+// ── State ─────────────────────────────────────────────
+let _dealsAllRows   = [];   // all parsed rows
+let _dealsFiltered  = [];   // after filters
+let _dealsSortCol   = 'FECHA';
+let _dealsSortAsc   = false; // most recent first by default
+
+// ── Spanish month map for date parsing ────────────────
+const _DEALS_MON = { ene:0,feb:1,mar:2,abr:3,may:4,jun:5,jul:6,ago:7,sep:8,oct:9,nov:10,dic:11 };
+
+function _dealsParseDate(s) {
+  if (!s) return null;
+  const p = s.trim().split('-');
+  if (p.length !== 3) return null;
+  const d = parseInt(p[0], 10);
+  const m = _DEALS_MON[p[1].toLowerCase()];
+  const y = parseInt(p[2], 10);
+  if (isNaN(d) || m === undefined || isNaN(y)) return null;
+  return new Date(2000 + y, m, d);
+}
+
+function _dealsNormMoneda(s) {
+  const v = (s || '').trim();
+  // unify variants with and without dash
+  if (/^USD\s*-\s*Int$/i.test(v))    return 'USD Int';
+  if (/^USD\s*-\s*CCL$/i.test(v))    return 'USD Cable';
+  if (/^USD\s*-\s*Linked$/i.test(v)) return 'USD Linked';
+  // bare "USD" → MEP
+  if (/^USD$/i.test(v))              return 'USD Mep';
+  return v;
+}
+
+function _dealsParseVN(s) {
+  if (!s || !s.trim()) return 0;
+  // "157.000,00" → 157000.00 ; "650,00" → 650.00
+  return parseFloat(s.trim().replace(/\./g, '').replace(',', '.')) || 0;
+}
+
+function _dealsParseTasaNum(s) {
+  if (!s) return NaN;
+  // "9,45%" → 9.45
+  return parseFloat(s.replace(',', '.').replace('%', ''));
+}
+
+function _dealsFmtDate(d) {
+  if (!d) return '';
+  return String(d.getDate()).padStart(2,'0') + '/' +
+         String(d.getMonth()+1).padStart(2,'0') + '/' +
+         d.getFullYear();
+}
+
+function _dealsFmtVN(n) {
+  if (isNaN(n) || n === 0) return '—';
+  return n.toLocaleString('es-AR', { minimumFractionDigits:2, maximumFractionDigits:2 });
+}
+
+function _dealsMonedaBadge(m) {
+  const v = (m||'').trim().toLowerCase();
+  if (v.includes('int'))                    return ['deals-badge-usdint',  m];
+  if (v.includes('cable'))                  return ['deals-badge-usdcable', m];
+  if (v.includes('mep') || v.includes('ccl')) return ['deals-badge-usdmep', m];
+  if (v.includes('linked') || v.includes('dl')) return ['deals-badge-dl', m];
+  if (v === 'uva')                          return ['deals-badge-uva', m];
+  if (v === 'ars')                          return ['deals-badge-ars', m];
+  return ['deals-badge-other', m];
+}
+
+function _dealsSetDefaultDates() {
+  const today = new Date();
+  const hasta = today.toISOString().slice(0, 10);
+  const from  = new Date(today);
+  from.setDate(from.getDate() - 365);
+  const desde = from.toISOString().slice(0, 10);
+  document.getElementById('deals-f-desde').value = desde;
+  document.getElementById('deals-f-hasta').value = hasta;
+}
+
+// ── CSV init ──────────────────────────────────────────
+async function initDealsSection() {
+  try {
+    const text = await fetch('emisiones_obligaciones_negociables.csv').then(r => r.text());
+    const lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+
+    // strip BOM if present
+    if (lines[0].charCodeAt(0) === 0xFEFF) lines[0] = lines[0].slice(1);
+
+    const rawHeaders = _parseCsvLine(lines[0]).map(h => h.trim());
+
+    // map raw column names to safe keys
+    const _col = (row, ...candidates) => {
+      for (const c of candidates) {
+        if (row[c] !== undefined) return row[c];
+      }
+      return '';
+    };
+
+    _dealsAllRows = [];
+    for (let i = 1; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+      const vals = _parseCsvLine(line);
+      const row = {};
+      rawHeaders.forEach((h, idx) => row[h] = (vals[idx] || '').trim());
+
+      // normalize into known keys
+      row._fecha  = _dealsParseDate(row['FECHA']);
+      row._emisor = row['EMISOR'] || '';
+      row._moneda = _dealsNormMoneda(row['MONEDA']);
+      row._tasa   = row['TASA']   || '';
+      row._margen = _col(row, 'TASA/MARGEN', 'TASA_MARGEN') || '';
+      row._plazo  = parseInt(_col(row, 'PLAZO (en meses)', 'PLAZO_MESES', 'PLAZO'), 10) || 0;
+      row._vnRaw  = _dealsParseVN(_col(row, 'VN'));
+      row._calif  = _col(row, 'CALIFICACIÓN', 'CALIFICACION') || '';
+      row._margenNum = _dealsParseTasaNum(row._margen);
+
+      _dealsAllRows.push(row);
+    }
+
+    // populate filter dropdowns and apply default date range
+    _dealsSetDefaultDates();
+    _dealsPopulateDropdowns();
+    _dealsApplyFilters();
+
+  } catch(e) {
+    console.error('Deals: error loading CSV', e);
+    document.getElementById('deals-tbody').innerHTML =
+      '<tr><td colspan="8" class="deals-empty">Error cargando datos.</td></tr>';
+  }
+}
+
+function _dealsPopulateDropdowns() {
+  const monedas  = [...new Set(_dealsAllRows.map(r => r._moneda).filter(Boolean))].sort();
+  const tasas    = [...new Set(_dealsAllRows.map(r => r._tasa).filter(Boolean))].sort();
+
+  const mSel = document.getElementById('deals-f-moneda');
+  monedas.forEach(m => {
+    const o = document.createElement('option'); o.value = m; o.textContent = m; mSel.appendChild(o);
+  });
+
+  const tSel = document.getElementById('deals-f-tasa');
+  tasas.forEach(t => {
+    const o = document.createElement('option'); o.value = t; o.textContent = t; tSel.appendChild(o);
+  });
+}
+
+// ── Filters ────────────────────────────────────────────
+function _dealsApplyFilters() {
+  const desde  = document.getElementById('deals-f-desde').value;  // "YYYY-MM-DD"
+  const hasta  = document.getElementById('deals-f-hasta').value;
+  const moneda = document.getElementById('deals-f-moneda').value.toLowerCase();
+  const tasa   = document.getElementById('deals-f-tasa').value.toLowerCase();
+  const emisor = document.getElementById('deals-f-emisor').value.toLowerCase().trim();
+  const calif  = document.getElementById('deals-f-calif').value.toLowerCase().trim();
+
+  _dealsFiltered = _dealsAllRows.filter(r => {
+    if (desde && r._fecha && r._fecha < new Date(desde + 'T00:00:00')) return false;
+    if (hasta && r._fecha && r._fecha > new Date(hasta + 'T23:59:59'))  return false;
+    if (moneda && r._moneda.toLowerCase() !== moneda) return false;
+    if (tasa   && r._tasa.toLowerCase()   !== tasa)   return false;
+    if (emisor && !r._emisor.toLowerCase().includes(emisor)) return false;
+    if (calif  && !r._calif.toLowerCase().includes(calif))   return false;
+    return true;
+  });
+
+  _dealsSortRows();
+  _dealsRenderSummary();
+  _dealsRenderTable();
+  _dealsUpdateSortHeaders();
+}
+
+function _dealsClearFilters() {
+  _dealsSetDefaultDates();
+  document.getElementById('deals-f-moneda').value = '';
+  document.getElementById('deals-f-tasa').value   = '';
+  document.getElementById('deals-f-emisor').value = '';
+  document.getElementById('deals-f-calif').value  = '';
+  _dealsApplyFilters();
+}
+
+// ── Sort ───────────────────────────────────────────────
+function _dealsSortBy(col) {
+  if (_dealsSortCol === col) {
+    _dealsSortAsc = !_dealsSortAsc;
+  } else {
+    _dealsSortCol = col;
+    _dealsSortAsc = (col !== 'FECHA'); // date defaults desc; others asc
+  }
+  _dealsSortRows();
+  _dealsRenderTable();
+  _dealsUpdateSortHeaders();
+}
+
+function _dealsSortRows() {
+  const col = _dealsSortCol;
+  const asc = _dealsSortAsc;
+  _dealsFiltered.sort((a, b) => {
+    let va, vb;
+    if (col === 'FECHA')       { va = a._fecha ? a._fecha.getTime() : 0; vb = b._fecha ? b._fecha.getTime() : 0; }
+    else if (col === 'VN')     { va = a._vnRaw;     vb = b._vnRaw; }
+    else if (col === 'PLAZO')  { va = a._plazo;     vb = b._plazo; }
+    else if (col === 'TASA_MARGEN') { va = isNaN(a._margenNum) ? -Infinity : a._margenNum; vb = isNaN(b._margenNum) ? -Infinity : b._margenNum; }
+    else if (col === 'EMISOR') { va = a._emisor; vb = b._emisor; }
+    else if (col === 'MONEDA') { va = a._moneda; vb = b._moneda; }
+    else if (col === 'TASA')   { va = a._tasa;   vb = b._tasa;   }
+    else if (col === 'CALIFICACION') { va = a._calif; vb = b._calif; }
+    else { va = 0; vb = 0; }
+    if (typeof va === 'string') return asc ? va.localeCompare(vb) : vb.localeCompare(va);
+    return asc ? va - vb : vb - va;
+  });
+}
+
+function _dealsUpdateSortHeaders() {
+  const colMap = { FECHA:0, EMISOR:1, MONEDA:2, TASA:3, TASA_MARGEN:4, PLAZO:5, VN:6, CALIFICACION:7 };
+  const ths = document.querySelectorAll('#deals-table thead th');
+  ths.forEach((th, i) => {
+    th.classList.remove('sort-asc','sort-desc');
+  });
+  const idx = colMap[_dealsSortCol];
+  if (idx !== undefined && ths[idx]) {
+    ths[idx].classList.add(_dealsSortAsc ? 'sort-asc' : 'sort-desc');
+  }
+}
+
+// ── Summary ────────────────────────────────────────────
+function _dealsRenderSummary() {
+  const container = document.getElementById('deals-summary-row');
+  const n = _dealsFiltered.length;
+  const total = _dealsFiltered.reduce((s,r) => s + r._vnRaw, 0);
+
+  // group VN by moneda
+  const byMoneda = {};
+  _dealsFiltered.forEach(r => {
+    const m = r._moneda || 'Sin moneda';
+    byMoneda[m] = (byMoneda[m] || 0) + r._vnRaw;
+  });
+  const groups = Object.entries(byMoneda).sort((a,b) => b[1]-a[1]);
+
+  const SKIP_MONEDA = new Set(['resultado pendiente']);
+
+  let html = `
+    <div class="deals-summary-card total">
+      <span class="deals-summary-label">Emisiones</span>
+      <span class="deals-summary-value">${n.toLocaleString('es-AR')}</span>
+    </div>`;
+
+  groups.forEach(([mon, sum]) => {
+    if (SKIP_MONEDA.has(mon.toLowerCase().trim())) return;
+    html += `
+      <div class="deals-summary-card">
+        <span class="deals-summary-label">${mon}</span>
+        <span class="deals-summary-value">${_dealsFmtVN(sum)}</span>
+      </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+// ── Table render ───────────────────────────────────────
+function _dealsRenderTable() {
+  const tbody = document.getElementById('deals-tbody');
+  if (!_dealsFiltered.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="deals-empty">Sin resultados para los filtros aplicados.</td></tr>';
+    return;
+  }
+
+  const rows = _dealsFiltered.map(r => {
+    const [badgeCls, badgeTxt] = _dealsMonedaBadge(r._moneda);
+    return `<tr>
+      <td class="deals-fecha">${_dealsFmtDate(r._fecha)}</td>
+      <td class="deals-emisor">${_escHtml(r._emisor)}</td>
+      <td><span class="deals-badge ${badgeCls}">${_escHtml(badgeTxt)}</span></td>
+      <td>${_escHtml(r._tasa)}</td>
+      <td>${_escHtml(r._margen)}</td>
+      <td class="deals-plazo">${r._plazo || '—'}</td>
+      <td class="deals-vn">${_dealsFmtVN(r._vnRaw)}</td>
+      <td style="color:#64748B;font-size:11.5px;">${_escHtml(r._calif)}</td>
+    </tr>`;
+  }).join('');
+
+  tbody.innerHTML = rows;
+}
+
+function _escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 
 // Fecha dinámica en el header
 (function() {
