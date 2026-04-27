@@ -1,21 +1,41 @@
-SGR,Plazo,Mora_por_Antiguedad
-Potenciar,< 31 d,0.14
-Potenciar,32 - 90 d,0.28
-Potenciar,91- 180 d,0.19
-Potenciar,181 - 360 d,0.23
-Potenciar,> 360 d,0.15
-Garantizar,< 31 d,0.16
-Garantizar,32 - 90 d,0.21
-Garantizar,91- 180 d,0.25
-Garantizar,181 - 360 d,0.24
-Garantizar,> 360 d,0.14
-Integra,< 31 d,0.04
-Integra,32 - 90 d,0.5
-Integra,91- 180 d,0.32
-Integra,181 - 360 d,0.13
-Integra,> 360 d,0.01
-Bind Garantias,< 31 d,0.2154
-Bind Garantias,32 - 90 d,0.2651
-Bind Garantias,91- 180 d,0.31
-Bind Garantias,181 - 360 d,0.15
-Bind Garantias,> 360 d,0.06
+Fecha,SGR,Plazo,Mora_por_Antiguedad
+27/2/2026,Potenciar,< 31 d,0.14
+27/2/2026,Potenciar,32 - 90 d,0.28
+27/2/2026,Potenciar,91- 180 d,0.19
+27/2/2026,Potenciar,181 - 360 d,0.23
+27/2/2026,Potenciar,> 360 d,0.15
+27/2/2026,Garantizar,< 31 d,0.16
+27/2/2026,Garantizar,32 - 90 d,0.21
+27/2/2026,Garantizar,91- 180 d,0.25
+27/2/2026,Garantizar,181 - 360 d,0.24
+27/2/2026,Garantizar,> 360 d,0.14
+27/2/2026,Integra,< 31 d,0.04
+27/2/2026,Integra,32 - 90 d,0.5
+27/2/2026,Integra,91- 180 d,0.32
+27/2/2026,Integra,181 - 360 d,0.13
+27/2/2026,Integra,> 360 d,0.01
+27/2/2026,Bind Garantias,< 31 d,0.2154
+27/2/2026,Bind Garantias,32 - 90 d,0.2651
+27/2/2026,Bind Garantias,91- 180 d,0.31
+27/2/2026,Bind Garantias,181 - 360 d,0.15
+27/2/2026,Bind Garantias,> 360 d,0.06
+31/3/2026,Potenciar,< 31 d,0.49
+31/3/2026,Potenciar,32 - 90 d,0.12
+31/3/2026,Potenciar,91- 180 d,0.15
+31/3/2026,Potenciar,181 - 360 d,0.23
+31/3/2026,Potenciar,> 360 d,0.01
+31/3/2026,Garantizar,< 31 d,0.12
+31/3/2026,Garantizar,32 - 90 d,0.21
+31/3/2026,Garantizar,91- 180 d,0.26
+31/3/2026,Garantizar,181 - 360 d,0.26
+31/3/2026,Garantizar,> 360 d,0.15
+31/3/2026,Integra,< 31 d,0.10
+31/3/2026,Integra,32 - 90 d,0.13
+31/3/2026,Integra,91- 180 d,0.57
+31/3/2026,Integra,181 - 360 d,0.19
+31/3/2026,Integra,> 360 d,0.01
+31/3/2026,Bind Garantias,< 31 d,0.25
+31/3/2026,Bind Garantias,32 - 90 d,0.26
+31/3/2026,Bind Garantias,91- 180 d,0.31
+31/3/2026,Bind Garantias,181 - 360 d,0.14
+31/3/2026,Bind Garantias,> 360 d,0.04

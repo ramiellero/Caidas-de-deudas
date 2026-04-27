@@ -7,6 +7,7 @@ Fecha,SGR,Garantias,FDR,Apalancamiento
 30/12/2025,Potenciar,178.869,83.121,215%
 30/1/2026,Potenciar,231.773,82.271,282%
 27/2/2026,Potenciar,209.228,84.231,248%
+31/3/2026,Potenciar,228.038,84.323,270%
 31/7/2025,Garantizar,978.057,255.628,383%
 31/8/2025,Garantizar,975.935,252.794,386%
 30/9/2025,Garantizar,977.085,264.661,369%
@@ -15,6 +16,7 @@ Fecha,SGR,Garantias,FDR,Apalancamiento
 30/12/2025,Garantizar,953.494,275.598,346%
 30/1/2026,Garantizar,950.398,271.779,350%
 27/2/2026,Garantizar,945.946,267.109,354%
+31/3/2026,Garantizar,938.828,283.430,331%
 31/7/2025,Integra,33.933,9.458,359%
 31/8/2025,Integra,32.629,9.352,349%
 30/9/2025,Integra,33.192,9.85,337%
@@ -23,6 +25,7 @@ Fecha,SGR,Garantias,FDR,Apalancamiento
 30/12/2025,Integra,32.677,9.235,354%
 30/1/2026,Integra,31.787,9.204,345%
 27/2/2026,Integra,30.549,8.959,341%
+31/3/2026,Integra,31.981,9.529,336%
 31/7/2025,Bind Garantias,134.317,44.198,304%
 31/8/2025,Bind Garantias,137.49,43.931,313%
 30/9/2025,Bind Garantias,135.738,46.626,291%
@@ -31,3 +34,4 @@ Fecha,SGR,Garantias,FDR,Apalancamiento
 30/12/2025,Bind Garantias,142.771,48.354,295%
 30/1/2026,Bind Garantias,140.101,48.001,292%
 27/2/2026,Bind Garantias,138.615,47.328,293%
+31/3/2026,Bind Garantias,140.131,49.983,280%

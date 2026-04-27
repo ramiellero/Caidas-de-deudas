@@ -915,6 +915,32 @@
       border-bottom: 1px solid #E2E8F0;
       margin-bottom: 28px;
     }
+    .sgr-month-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .sgr-month-bar label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    #sgr-month-select {
+      font-size: 12px;
+      font-weight: 500;
+      color: #0F172A;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      padding: 5px 10px;
+      background: #F8FAFC;
+      cursor: pointer;
+      outline: none;
+    }
+    #sgr-month-select:focus { border-color: #94A3B8; }
     .sgr-pill {
       padding: 7px 18px;
       font-size: 12px;
@@ -1675,6 +1701,10 @@
     <div id="sgr-individual">
 
       <!-- Foto SGR KPI rows — primary + secondary -->
+      <div class="sgr-month-bar">
+        <label>Período</label>
+        <select id="sgr-month-select" onchange="_sgrSelectMonth(this.value)"></select>
+      </div>
       <div style="font-size:11px;color:#64748B;margin-bottom:10px;font-weight:500;" id="sgr-foto-periodo-label"></div>
 
       <!-- Primary metrics -->
@@ -1793,7 +1823,7 @@
         <div class="sgr-chart-card" style="display:flex;flex-direction:column;">
           <div class="sgr-chart-title">
             Ranking SGRs por Mora
-            <span style="font-size:10px;color:#94A3B8;font-weight:400;text-transform:none;letter-spacing:0;">· feb-26 &nbsp;·&nbsp;</span>
+            <span id="sgr-rank-fecha-label" style="font-size:10px;color:#94A3B8;font-weight:400;text-transform:none;letter-spacing:0;"></span>
             <span style="font-size:10px;color:#166534;font-weight:600;text-transform:none;letter-spacing:0;">■ cartera IRSA</span>
           </div>
           <div class="sgr-rank-wrap" style="flex:1;min-height:260px;">
@@ -3457,13 +3487,18 @@ const SGR_HEADER_BG = {
 
 // Data stores
 let _sgrGarantiasData  = {};   // { csvLabel: [{fecha, garantias, fdr, apalancamiento, apalNum}] }
-let _sgrAntiguedadData = {};   // { csvLabel: [{plazo, mora}] }
+let _sgrAntiguedadData    = {};   // { csvLabel: [{plazo, mora}] }  — período seleccionado activo
+let _sgrAntiguedadAllData = {};   // { csvLabel: { 'YYYY-MM': [{plazo, mora}] } }
 let _sgrSectorData     = {};   // { csvLabel: [{sector, weight}] }
 let _sgrMoraMercado    = [];   // [{fecha, mora}]
 let _sgrMoraEvolucion  = [];   // [{fecha, potenciar, garantizar, integra, bind, promedio}]
 let _sgrPlazoMercado   = [];   // [{plazo, mora}]
 let _sgrTotalSgr       = [];   // [{sgr, mora}]
-let _sgrFotoData       = {};   // { 'POTENCIAR': {aporte, posicion, weight, pnl, mora, tir}, ... }
+let _sgrTotalSgrFecha  = '';   // DD/M/YYYY del período más reciente de Total_sgr.csv
+let _sgrFotoData       = {};   // { 'POTENCIAR': {aporte,...} } — período seleccionado activo
+let _sgrFotoAllData    = {};   // { 'POTENCIAR': { 'YYYY-MM': {aporte,...} } }
+let _sgrAvailableMonths = [];  // ['2026-03','2026-02',...] desc
+let _sgrSelectedMonth  = '';
 let _sgrActiveSgr      = 'potenciar';
 
 // Chart instances
@@ -3530,12 +3565,16 @@ async function initSgrSection() {
     });
     Object.values(_sgrGarantiasData).forEach(arr => arr.sort((a, b) => a.fecha - b.fecha));
 
-    // mora_antiguedad.csv
+    // mora_antiguedad.csv — guarda todos los períodos; normaliza DD/M/YYYY → YYYY-MM
     _sgrParseCsv(antiguedadTxt).forEach(r => {
       const key = r['SGR'];
-      if (!_sgrAntiguedadData[key]) _sgrAntiguedadData[key] = [];
-      _sgrAntiguedadData[key].push({ plazo: r['Plazo'], mora: parseFloat(r['Mora_por_Antiguedad']) });
+      if (!key) return;
+      const yyyymm = _sgrDateToYYYYMM(r['Fecha'] || '');
+      if (!_sgrAntiguedadAllData[key]) _sgrAntiguedadAllData[key] = {};
+      if (!_sgrAntiguedadAllData[key][yyyymm]) _sgrAntiguedadAllData[key][yyyymm] = [];
+      _sgrAntiguedadAllData[key][yyyymm].push({ plazo: r['Plazo'], mora: parseFloat(r['Mora_por_Antiguedad']) });
     });
+    _sgrAntiguedadData = _sgrBuildAntiguedadSnapshot(_sgrSelectedMonth);
 
     // garantias_sector_sgr.csv — skip rows with Weight 0
     _sgrParseCsv(sectorTxt).forEach(r => {
@@ -3560,22 +3599,23 @@ async function initSgrSection() {
       promedio:  _pctVal(r['Promedio']),
     }));
 
-    // plazo_mora_mercado.csv
-    _sgrPlazoMercado = _sgrParseCsv(plazoTxt).map(r => ({ plazo: r['Plazo'], mora: parseFloat(r['Mora']) }));
+    // plazo_mora_mercado.csv — usa solo el período más reciente
+    { const tmp = {}; _sgrParseCsv(plazoTxt).forEach(r => { const f = r['Fecha'] || ''; if (!tmp.fecha || f > tmp.fecha) { tmp.fecha = f; tmp.rows = []; } if (f === tmp.fecha) tmp.rows.push({ plazo: r['Plazo'], mora: parseFloat(r['Mora']) }); }); _sgrPlazoMercado = tmp.rows || []; }
 
-    // Total_sgr.csv
-    _sgrTotalSgr = _sgrParseCsv(totalTxt).map(r => ({ sgr: r['SGR'], mora: parseFloat(r['Mora']) }));
+    // Total_sgr.csv — usa solo el período más reciente
+    { const tmp = {}; _sgrParseCsv(totalTxt).forEach(r => { const f = r['Fecha'] || ''; if (!tmp.fecha || f > tmp.fecha) { tmp.fecha = f; tmp.rows = []; } if (f === tmp.fecha) tmp.rows.push({ sgr: r['SGR'], mora: parseFloat(r['Mora']) }); }); _sgrTotalSgr = tmp.rows || []; _sgrTotalSgrFecha = tmp.fecha || ''; }
 
-    // foto_sgr.csv — histórico multi-período: se queda con el Periodo más reciente por SGR
+    // foto_sgr.csv — histórico multi-período: guarda todos los períodos por SGR
     // Formato Periodo: YYYY-MM — ordena correctamente como string
+    const _fotoPeriosSet = new Set();
     _sgrParseCsv(fotoTxt).forEach(r => {
       const key = r['SGR'];
       if (!key || key === 'Total') return;
       const periodo = (r['Periodo'] || '').trim();
-      const existing = _sgrFotoData[key];
-      if (existing && existing.periodo >= periodo) return; // ya tenemos uno más nuevo
-      _sgrFotoData[key] = {
-        periodo,
+      if (!periodo) return;
+      _fotoPeriosSet.add(periodo);
+      if (!_sgrFotoAllData[key]) _sgrFotoAllData[key] = {};
+      _sgrFotoAllData[key][periodo] = {
         aporte:      parseFloat(r['Aporte']),
         posicion:    parseFloat(r['Posicion']),
         weight:      parseFloat(r['Weight']),
@@ -3587,6 +3627,9 @@ async function initSgrSection() {
         tirConBenef: parseFloat(r['TIR c/benef']),
       };
     });
+    _sgrAvailableMonths = Array.from(_fotoPeriosSet).sort((a, b) => b.localeCompare(a));
+    _sgrSelectedMonth   = _sgrAvailableMonths[0] || '';
+    _sgrFotoData = _sgrBuildFotoSnapshot(_sgrSelectedMonth);
 
     // composicion_carteras.csv — filas: categoría; columnas: Potenciar, Garantizar, Integra, BIND
     _sgrComposicionData = _sgrParseCsv(composicionTxt).map(r => ({
@@ -3606,12 +3649,56 @@ async function initSgrSection() {
       bind:       parseFloat(r['BIND']       || 0),
     })).filter(r => r.moneda);
 
-    // Pre-render default view (will render on hidden page — fine for Chart.js)
+    // Populate month selector and pre-render default view
+    _sgrPopulateMonthSelect();
     selectSgr(_sgrActiveSgr);
 
   } catch(e) {
     console.error('[SGR] Load error:', e);
   }
+}
+
+function _sgrDateToYYYYMM(s) {
+  // "31/3/2026" → "2026-03"
+  const p = s.split('/');
+  if (p.length !== 3) return s;
+  return p[2] + '-' + p[1].padStart(2, '0');
+}
+
+function _sgrBuildFotoSnapshot(month) {
+  const snap = {};
+  Object.entries(_sgrFotoAllData).forEach(([key, periods]) => {
+    if (periods[month]) snap[key] = periods[month];
+  });
+  return snap;
+}
+
+function _sgrBuildAntiguedadSnapshot(month) {
+  const snap = {};
+  Object.entries(_sgrAntiguedadAllData).forEach(([key, periods]) => {
+    // Si no hay dato para el mes exacto, usa el más reciente anterior
+    const available = Object.keys(periods).sort((a, b) => b.localeCompare(a));
+    const pick = available.find(m => m <= month) || available[0];
+    if (pick) snap[key] = periods[pick];
+  });
+  return snap;
+}
+
+function _sgrPopulateMonthSelect() {
+  const sel = document.getElementById('sgr-month-select');
+  if (!sel) return;
+  sel.innerHTML = _sgrAvailableMonths.map(m => {
+    const [anio, mes] = m.split('-').map(Number);
+    const label = _sgrMonthLabel(new Date(anio, mes - 1, 1));
+    return `<option value="${m}"${m === _sgrSelectedMonth ? ' selected' : ''}>${label}</option>`;
+  }).join('');
+}
+
+function _sgrSelectMonth(month) {
+  _sgrSelectedMonth = month;
+  _sgrFotoData      = _sgrBuildFotoSnapshot(month);
+  _sgrAntiguedadData = _sgrBuildAntiguedadSnapshot(month);
+  _sgrRenderIndividual(_sgrActiveSgr);
 }
 
 function selectSgr(sgr) {
@@ -3679,12 +3766,12 @@ function _sgrRenderIndividual(sgr) {
   const fotoRow = _sgrFotoData[meta.fotoLabel];
   const fmtN = v => Math.round(Math.abs(v)).toLocaleString('es-AR');
   const fmtSign = v => (v >= 0 ? '+' : '−') + fmtN(v);
-  // Label de período (e.g. "2026-03" → "Datos al: mar-26")
+  // Label de período desde _sgrSelectedMonth (e.g. "2026-03" → "Datos al: mar-26")
   const periodoEl = document.getElementById('sgr-foto-periodo-label');
-  if (periodoEl && fotoRow && fotoRow.periodo) {
-    const [anio, mes] = fotoRow.periodo.split('-').map(Number);
-    const mesStr = MESES[mes - 1] ? MESES[mes - 1].toLowerCase() : '';
-    periodoEl.textContent = `Datos al: ${mesStr}-${String(anio).slice(2)}`;
+  if (periodoEl && _sgrSelectedMonth) {
+    const [anio, mes] = _sgrSelectedMonth.split('-').map(Number);
+    const mesStr = _sgrMonthLabel(new Date(anio, mes - 1, 1));
+    periodoEl.textContent = `Datos al: ${mesStr}`;
   } else if (periodoEl) {
     periodoEl.textContent = '';
   }
@@ -3978,6 +4065,16 @@ function _sgrRenderMktRanking() {
   _sgrMktRankChartInst = _sgrDestroy(_sgrMktRankChartInst);
   const ctx = document.getElementById('sgr-mkt-ranking-chart');
   if (!ctx || !_sgrTotalSgr.length) return;
+
+  // Actualiza label dinámico de fecha en el título
+  const rankFechaEl = document.getElementById('sgr-rank-fecha-label');
+  if (rankFechaEl && _sgrTotalSgrFecha) {
+    const parts = _sgrTotalSgrFecha.split('/');
+    if (parts.length === 3) {
+      const d = new Date(+parts[2], +parts[1] - 1, 1);
+      rankFechaEl.textContent = '· ' + _sgrMonthLabel(d) + ' · ';
+    }
+  }
 
   const sorted  = [..._sgrTotalSgr].sort((a, b) => b.mora - a.mora);
   const ourSGRs = new Set(Object.values(SGR_META).map(m => m.totalLabel));
