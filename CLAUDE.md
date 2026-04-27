@@ -5,29 +5,30 @@ Dashboard web estático (single HTML file) que visualiza el perfil de vencimient
 
 ## Estructura del proyecto
 ```
-index.html               # Toda la aplicación: HTML + CSS + JS en un único archivo
-irsa_deuda.csv           # Vencimientos de capital de IRSA (fuente principal de KPIs IRSA)
-irsa_deuda_total.csv     # Schedule completo IRSA: capital + intereses por período
-cresud_deuda.csv         # Vencimientos de capital de Cresud (fuente principal de KPIs Cresud)
-cresud_completo.csv      # Schedule completo Cresud: capital + intereses por período
-garantia_sgr.csv         # Stock de garantías históricas por SGR (Garantías, FDR, Apalancamiento)
-mora_antiguedad.csv      # Distribución de mora por antigüedad por SGR
-garantias_sector_sgr.csv # Exposición por sector por SGR
-mora_sobre_garantias.csv # Mora/Garantías mensual por SGR (jun-25 → feb-26): POTENCIAR, GARANTIZAR, INTEGRA, BIND, Promedio
-mora_mercado.csv         # Mora mensual del mercado SGR (feb-25 → feb-26)
-plazo_mora_mercado.csv   # Mora por plazo de garantía del mercado
-Total_sgr.csv            # Ranking de 42 SGRs con mora (feb-26)
-foto_sgr.csv             # Histórico mensual de posición IRSA en cada SGR (Periodo, SGR, Aporte, Posicion, Weight, P&L, Mora, TIR) — se agrega una fila por SGR por mes; el frontend toma el período más reciente
-cartera_monedas.csv      # Composición por moneda por SGR (guardado, no usado aún)
-composicion_carteras.csv # Composición por tipo de activo por SGR (guardado, no usado aún)
-CLAUDE.md                # Este archivo
+index.html                              # Toda la aplicación: HTML + CSS + JS en un único archivo
+irsa_deuda.csv                          # Vencimientos de capital de IRSA (fuente principal de KPIs IRSA)
+irsa_deuda_total.csv                    # Schedule completo IRSA: capital + intereses por período
+cresud_deuda.csv                        # Vencimientos de capital de Cresud (fuente principal de KPIs Cresud)
+cresud_completo.csv                     # Schedule completo Cresud: capital + intereses por período
+garantia_sgr.csv                        # Stock de garantías históricas por SGR (Garantías, FDR, Apalancamiento)
+mora_antiguedad.csv                     # Distribución de mora por antigüedad por SGR
+garantias_sector_sgr.csv               # Exposición por sector por SGR
+mora_sobre_garantias.csv               # Mora/Garantías mensual por SGR (jun-25 → feb-26): POTENCIAR, GARANTIZAR, INTEGRA, BIND, Promedio
+mora_mercado.csv                        # Mora mensual del mercado SGR (feb-25 → feb-26)
+plazo_mora_mercado.csv                  # Mora por plazo de garantía del mercado
+Total_sgr.csv                           # Ranking de 42 SGRs con mora (feb-26)
+foto_sgr.csv                            # Histórico mensual de posición IRSA en cada SGR (Periodo, SGR, Aporte, Posicion, Weight, P&L, Mora, TIR) — se agrega una fila por SGR por mes; el frontend toma el período más reciente
+emisiones_obligaciones_negociables.csv  # Registro semanal de emisiones de ONs del mercado argentino
+cartera_monedas.csv                     # Composición por moneda por SGR (guardado, no usado aún)
+composicion_carteras.csv                # Composición por tipo de activo por SGR (guardado, no usado aún)
+CLAUDE.md                               # Este archivo
 ```
 
 ## Arquitectura del archivo `index.html`
 El archivo está organizado en tres bloques principales dentro de un único `.html`:
 
 1. **`<style>`** — CSS completo embebido (Inter font, grid layouts, tablas, charts, timeline, responsive)
-2. **`<body>`** — HTML con tres secciones (`#page-irsa`, `#page-cresud`, `#page-sgr`) más la navegación
+2. **`<body>`** — HTML con cuatro secciones (`#page-irsa`, `#page-cresud`, `#page-sgr`, `#page-deals`) más la navegación
 3. **`<script>`** — Lógica JS: tab switching, Chart.js charts, renderizado de timelines
 
 ### Dependencias externas (CDN)
@@ -101,6 +102,19 @@ Schedule completo de Cresud con todos los flujos. Columnas: `AÑO, FY, Compañí
 - Usado para construir la timeline `#cresud-tl-full`
 - Período cubierto: hasta marzo 2029 (ON L)
 
+### `emisiones_obligaciones_negociables.csv`
+Registro de emisiones de ONs del mercado argentino. Columnas: `FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN`.
+- `FECHA`: formato `29-abr-26` (día-mesES-año2d)
+- `VN`: formato argentino con puntos de miles y coma decimal (`"157.000,00"`)
+- `TASA/MARGEN`: porcentaje con coma decimal (`"9,45%"`)
+- `MONEDA`: valores brutos del CSV son heterogéneos; se normalizan en el frontend via `_dealsNormMoneda`:
+  - `"USD"` → `"USD Mep"` (reclasificación por convención de mercado)
+  - `"USD - Int"` → `"USD Int"`
+  - `"USD - CCL"` → `"USD Cable"`
+  - `"USD - Linked"` → `"USD Linked"`
+  - Filas con `MONEDA = "resultado pendiente"` se descartan al parsear
+- Para agregar datos nuevos: appendear filas al final del CSV y hacer commit; el JS no requiere cambios
+
 ## Convenciones de código
 
 ### CSS
@@ -114,8 +128,24 @@ Schedule completo de Cresud con todos los flujos. Columnas: `AÑO, FY, Compañí
   - IRSA: fondo `#EBF2F8`, borde `1px solid #C5D8EA`, acento izquierdo `4px solid #1D4B6E`
   - Cresud: fondo `#EBF4EE`, borde `1px solid #C0D9C8`, acento izquierdo `4px solid #1A3D2A`
 
+### Nav — estructura y comportamiento
+
+El nav es de dos filas:
+- **`.nav-top`**: fila principal con `Debt Profile ▾` (padre colapsable), `Deals`, `SGR`, `Salir`
+- **`.nav-sub`**: sub-fila que muestra `IRSA` y `Cresud`; colapsa/expande con `max-height` CSS transition
+
+**Clases CSS de nav**:
+- `.nav-parent` — ítem padre (Debt Profile); tiene `.active` (color `#1D4B6E`) cuando IRSA/Cresud está activo, y `.open` cuando la sub-fila es visible
+- `.nav-chevron` — `▾` que rota −90° (cerrado) / 0° (abierto) via `transform`
+- `.nav-sub.open` — `max-height: 48px` para mostrar la sub-fila
+- `.nav-sep` — separador visual (ya no usado en la nav principal, clase CSS sigue definida)
+
+**Funciones**:
+- `switchTab(co)` — alterna `.page.active` y `.nav-tab.active`; si `co` es `irsa` o `cresud` agrega `.active` y `.open` al padre y `.open` al sub; si es `deals` o `sgr` quita `.active` del padre
+- `toggleDebtProfile()` — alterna `.open` en `#nav-dp-parent` y `#nav-sub-dp` sin cambiar la página activa
+
 ### JS
-- Tab switching: `switchTab(co)` — alterna `.page.active` y `.nav-tab.active`
+- Tab switching: `switchTab(co)` — ver sección Nav arriba
 - **Maturity wall charts**: cargados dinámicamente desde CSV via `fetch()` al iniciar la página
   - `initIrsaMatChart()` — lee `irsa_deuda.csv`, construye datos, renderiza el chart IRSA, y llama `_updateIrsaKpis` + `_updateIrsaPie`
   - `initCresudMatChart()` — lee `cresud_deuda.csv`, construye datos y renderiza el chart Cresud (no llama KPI/pie porque `_cresudOnMoneda` aún no está listo)
@@ -276,8 +306,62 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - **Actualizar timeline Cresud**: editar `cresud_deuda.csv` (capital, banking) o `cresud_completo.csv` (capital+intereses de ONs) y hacer commit
 - **No hay build step** — editar archivos y hacer commit directamente
 
+### Deals (color: `#0F4C75` azul petróleo)
+Sección de emisiones de ONs del mercado argentino. Fuente: `emisiones_obligaciones_negociables.csv`. Para agregar datos nuevos: solo hay que appendear filas al CSV y hacer commit; el frontend no requiere cambios.
+
+**Filtros** (barra superior):
+- Desde / Hasta: date range (default: hoy − 365d → hoy)
+- Moneda: dropdown con valores únicos normalizados del CSV
+- Tasa: dropdown (tipo de tasa)
+- Emisor: búsqueda textual libre (parcial, case-insensitive)
+- Calificación: búsqueda textual libre
+- Botón "Limpiar filtros": restaura los defaults de fecha y vacía el resto
+
+**Tarjetas de resumen** (pills compactas, una sola línea): muestra el conteo de emisiones filtradas + VN total agrupado por Moneda. Los monedas se agrupan por sus valores normalizados.
+
+**Tabla** (8 columnas, sortable por click en encabezado): Fecha · Emisor · Moneda · Tasa · Tasa/Margen · Plazo · VN · Calificación. Sort default: Fecha desc (más reciente primero).
+
+**Mobile** (≤ 600px): los filtros colapsan a grid 2 columnas (Emisor y botón a ancho completo); la tabla se transforma en cards por fila con `data-label` vía CSS (`display: block` en `tr/td`, `td[data-label]::before` para las etiquetas). Fecha actúa como header de card (fondo tintado), Emisor como nombre prominente.
+
+### Deals — JS
+
+**Globals de estado**:
+- `_dealsAllRows` — todas las filas parseadas del CSV (sin "resultado pendiente")
+- `_dealsFiltered` — subconjunto tras aplicar filtros activos
+- `_dealsSortCol` / `_dealsSortAsc` — columna activa y dirección de sort
+
+**Funciones de parseo**:
+- `_dealsNormMoneda(s)` — normaliza variantes de MONEDA a nombres canónicos (ver esquema CSV)
+- `_dealsParseDate(s)` — parsea `"29-abr-26"` → `Date` usando `_DEALS_MON` (map mes ES → índice)
+- `_dealsParseVN(s)` — parsea `"157.000,00"` → `157000.0` (formato argentino)
+- `_dealsParseTasaNum(s)` — parsea `"9,45%"` → `9.45`
+- `_dealsFmtDate(d)` — `Date` → `"29-abr-26"`
+- `_dealsFmtVN(n)` — número → `"157.000,00"` (es-AR locale)
+
+**Funciones principales**:
+- `initDealsSection()` — fetch del CSV, parsea filas (descarta "resultado pendiente"), llama `_dealsSetDefaultDates()` + `_dealsPopulateDropdowns()` + `_dealsApplyFilters()`
+- `_dealsSetDefaultDates()` — setea `deals-f-desde` = hoy − 365d y `deals-f-hasta` = hoy; usado al init y en `_dealsClearFilters()`
+- `_dealsPopulateDropdowns()` — pobla los `<select>` de Moneda y Tasa con los valores únicos del dataset
+- `_dealsApplyFilters()` — filtra `_dealsAllRows` → `_dealsFiltered`; llama sort + render + update headers
+- `_dealsSortBy(col)` — toggle sort: invierte dirección si misma columna, o resetea a asc (desc para FECHA)
+- `_dealsSortRows()` — ordena `_dealsFiltered` in-place; compara Dates, números o strings según columna
+- `_dealsRenderSummary()` — pills compactas: tarjeta "Emisiones" (count) + una por Moneda (VN sum); salta monedas en `SKIP_MONEDA`
+- `_dealsRenderTable()` — genera `<tr>` con 8 `<td>`; celdas no-header llevan `data-label` para la transformación CSS mobile
+- `_dealsClearFilters()` — restaura fechas default, vacía el resto, re-aplica filtros
+- `_dealsMonedaBadge(m)` — retorna `[cssClass, textoDisplay]` por tipo de moneda
+- `_escHtml(s)` — escapa `&`, `<`, `>` (XSS safety en `innerHTML`)
+- `_dealsUpdateSortHeaders()` — agrega clase `sort-asc` / `sort-desc` al `<th>` activo
+
+**CSS Deals**:
+- `.deals-filters` — flexbox; en mobile: grid 2 columnas; 5° grupo (Emisor) y botón a ancho completo
+- `.deals-summary-row` — flex-wrap de pills; gap 8px
+- `.deals-summary-card` — pill: `border-radius: 20px`, `padding: 5px 13px`, flex row label+valor; variante `.total` fondo `#0F4C75`
+- `.deals-table thead th` — sticky, sortable; `::after` muestra `▲` / `▼`
+- `.deals-badge-usdint/usdmep/usdcable/ars/dl/uva/other` — colores por tipo de moneda
+- **Mobile (≤ 600px)**: tabla → cards por fila (`display: block` en `tr/td`); `td[data-label]::before` muestra la etiqueta; `.deals-fecha` actúa de header (fondo `#F8FAFC`); `.deals-emisor` es nombre prominente
+
 ### SGR (color por vehículo: Potenciar `#166534`, Garantizar `#1D4B6E`, Integra `#6D28D9`, Bind `#B45309`)
-Sección nueva accesible desde la pestaña **SGR** en la nav. El nav muestra un separador visual (`<span class="nav-sep">`) entre las pestañas de Debt Profile (IRSA/Cresud) y SGR.
+Sección accesible desde la pestaña **SGR** en la nav.
 
 **Selector de vehículo** (pills): Potenciar · Garantizar · Integra · Bind Garantías · Mercado. Cada opción cambia el header (color de fondo) y el contenido de forma dinámica.
 
@@ -417,6 +501,7 @@ No es necesario tocar el JS — el frontend toma el período más alto automáti
 | SGR — Mercado: mora por plazo | `plazo_mora_mercado.csv` — dinámico |
 | SGR — Mercado: ranking SGRs | `Total_sgr.csv` — dinámico |
 | SGR — KPI foto (Aporte, Posición, Weight, P&L, Mora) | `foto_sgr.csv` — dinámico; histórico multi-período; siempre muestra el mes más reciente por SGR |
+| Deals — tabla de emisiones (filas, filtros, subtotales) | `emisiones_obligaciones_negociables.csv` — dinámico |
 
 ## Diseño responsive (mobile + desktop)
 
@@ -435,9 +520,10 @@ El dashboard **debe verse bien tanto en desktop como en mobile** (celulares y ta
 
 ### Elementos ocultos en mobile
 - `.header-title` (≤ 900px): texto largo del header
-- `.nav-logo` (≤ 600px): logo en la barra de navegación
+- `.nav-logo` (≤ 600px): logo en la barra de navegación (elemento eliminado del HTML; clase CSS sigue definida)
 - `.header-ir` (≤ 600px): texto "Investor Relations" del header
 - Columnas **Outstanding** (col 7) y **Año Fiscal** (col 8) de `.mat-table` (≤ 600px): ocultadas con `display: none` via `nth-child(7/8)` en `thead th`, `tbody td` y `tfoot td`
+- `thead` de `.deals-table` (≤ 600px): oculto; reemplazado por `data-label` en cada `td`
 
 ### Lo que NO debe cambiar en mobile
 - Las timelines de cashflows se mantienen horizontales con scroll (no se rediseñan para mobile)
