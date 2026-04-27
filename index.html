@@ -1141,8 +1141,83 @@
       font-size: 13px;
     }
     @media (max-width: 600px) {
-      .deals-filters { gap: 8px; }
-      .deals-filter-input { min-width: 100px; }
+      /* Filters: 2-column grid */
+      .deals-filters {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        align-items: end;
+        padding-bottom: 14px;
+      }
+      .deals-filters .deals-filter-group:nth-child(5),
+      .deals-filters .deals-clear-btn { grid-column: 1 / -1; }
+      .deals-filter-input,
+      .deals-filter-input.wide { width: 100%; min-width: unset !important; box-sizing: border-box; }
+
+      /* Summary pills: wrap tightly */
+      .deals-summary-row { gap: 6px; }
+
+      /* Table → cards */
+      .deals-table-wrap { border: none; border-radius: 0; overflow-x: visible; }
+      .deals-table thead { display: none; }
+      .deals-table,
+      .deals-table tbody { display: block; }
+      .deals-table tbody tr {
+        display: block;
+        background: #fff;
+        border: 1px solid #E2E8F0;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        border-bottom: 1px solid #E2E8F0 !important;
+      }
+      .deals-table tbody tr:hover { background: #fff; }
+      .deals-table td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 14px;
+        border-bottom: 1px solid #F1F5F9;
+        white-space: normal;
+        font-size: 13px;
+        box-sizing: border-box;
+      }
+      .deals-table td:last-child { border-bottom: none; }
+      /* Label via data-label attribute */
+      .deals-table td[data-label]::before {
+        content: attr(data-label);
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #94A3B8;
+        flex-shrink: 0;
+        margin-right: 10px;
+      }
+      /* Fecha: card header — tinted, no label */
+      .deals-table td.deals-fecha {
+        background: #F8FAFC;
+        font-weight: 600;
+        font-size: 12px;
+        color: #475569;
+        border-bottom: 1px solid #E2E8F0;
+        justify-content: flex-start;
+        font-variant-numeric: tabular-nums;
+      }
+      /* Emisor: prominent row, no label */
+      .deals-table td.deals-emisor {
+        font-size: 14px;
+        font-weight: 600;
+        color: #0F172A;
+        max-width: none;
+        padding: 10px 14px;
+        border-bottom: 1px solid #E2E8F0;
+        justify-content: flex-start;
+      }
+      /* Override desktop alignment */
+      .deals-table td.deals-vn,
+      .deals-table td.deals-plazo { text-align: left; }
     }
   </style>
 </head>
@@ -4383,12 +4458,12 @@ function _dealsRenderTable() {
     return `<tr>
       <td class="deals-fecha">${_dealsFmtDate(r._fecha)}</td>
       <td class="deals-emisor">${_escHtml(r._emisor)}</td>
-      <td><span class="deals-badge ${badgeCls}">${_escHtml(badgeTxt)}</span></td>
-      <td>${_escHtml(r._tasa)}</td>
-      <td>${_escHtml(r._margen)}</td>
-      <td class="deals-plazo">${r._plazo || '—'}</td>
-      <td class="deals-vn">${_dealsFmtVN(r._vnRaw)}</td>
-      <td style="color:#64748B;font-size:11.5px;">${_escHtml(r._calif)}</td>
+      <td data-label="Moneda"><span class="deals-badge ${badgeCls}">${_escHtml(badgeTxt)}</span></td>
+      <td data-label="Tasa">${_escHtml(r._tasa)}</td>
+      <td data-label="Tasa/Margen">${_escHtml(r._margen)}</td>
+      <td class="deals-plazo" data-label="Plazo">${r._plazo || '—'}</td>
+      <td class="deals-vn" data-label="VN">${_dealsFmtVN(r._vnRaw)}</td>
+      <td data-label="Calificación" style="color:#64748B;font-size:11.5px;">${_escHtml(r._calif)}</td>
     </tr>`;
   }).join('');
 
