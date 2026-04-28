@@ -1190,6 +1190,54 @@
     .deals-badge-dl      { background: #F3E8FF; color: #6B21A8; }
     .deals-badge-uva     { background: #FCE7F3; color: #9D174D; }
     .deals-badge-other   { background: #F1F5F9; color: #475569; }
+    .deals-view-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #E2E8F0;
+      margin-bottom: 18px;
+    }
+    .deals-view-tab {
+      padding: 7px 18px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #64748B;
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+      font-family: inherit;
+    }
+    .deals-view-tab:hover { color: #334155; }
+    .deals-view-tab.active {
+      color: #0F4C75;
+      border-bottom-color: #0F4C75;
+      font-weight: 600;
+    }
+    .deals-vol-charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    .deals-vol-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 14px 16px 10px;
+    }
+    .deals-vol-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 10px;
+    }
+    .deals-vol-empty {
+      color: #94A3B8;
+      font-size: 13px;
+      padding: 20px 0;
+    }
     .deals-empty {
       text-align: center;
       padding: 40px;
@@ -1880,31 +1928,46 @@
 
     </div><!-- /deals-filters -->
 
-    <!-- Summary row -->
+    <!-- Summary row (always visible) -->
     <div class="deals-summary-row" id="deals-summary-row">
       <!-- populated by JS -->
     </div>
 
-    <!-- Table -->
-    <div class="deals-table-wrap">
-      <table class="deals-table" id="deals-table">
-        <thead>
-          <tr>
-            <th onclick="_dealsSortBy('FECHA')">Fecha</th>
-            <th onclick="_dealsSortBy('EMISOR')">Emisor</th>
-            <th onclick="_dealsSortBy('MONEDA')">Moneda</th>
-            <th onclick="_dealsSortBy('TASA')">Tasa</th>
-            <th onclick="_dealsSortBy('TASA_MARGEN')">Tasa / Margen</th>
-            <th onclick="_dealsSortBy('PLAZO')">Plazo<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(meses)</span></th>
-            <th onclick="_dealsSortBy('VN')">VN</th>
-            <th onclick="_dealsSortBy('CALIFICACION')">Calificación</th>
-          </tr>
-        </thead>
-        <tbody id="deals-tbody">
-          <tr><td colspan="8" class="deals-empty">Cargando…</td></tr>
-        </tbody>
-      </table>
+    <!-- Sub-view tabs -->
+    <div class="deals-view-tabs">
+      <button class="deals-view-tab active" id="deals-tab-tabla"   onclick="setDealsView('tabla',   this)">Tabla</button>
+      <button class="deals-view-tab"        id="deals-tab-volumen" onclick="setDealsView('volumen', this)">Volumen de emisiones</button>
     </div>
+
+    <!-- View: Tabla -->
+    <div id="deals-view-tabla">
+      <div class="deals-table-wrap">
+        <table class="deals-table" id="deals-table">
+          <thead>
+            <tr>
+              <th onclick="_dealsSortBy('FECHA')">Fecha</th>
+              <th onclick="_dealsSortBy('EMISOR')">Emisor</th>
+              <th onclick="_dealsSortBy('MONEDA')">Moneda</th>
+              <th onclick="_dealsSortBy('TASA')">Tasa</th>
+              <th onclick="_dealsSortBy('TASA_MARGEN')">Tasa / Margen</th>
+              <th onclick="_dealsSortBy('PLAZO')">Plazo<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(meses)</span></th>
+              <th onclick="_dealsSortBy('VN')">VN</th>
+              <th onclick="_dealsSortBy('CALIFICACION')">Calificación</th>
+            </tr>
+          </thead>
+          <tbody id="deals-tbody">
+            <tr><td colspan="8" class="deals-empty">Cargando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /deals-view-tabla -->
+
+    <!-- View: Volumen de emisiones -->
+    <div id="deals-view-volumen" style="display:none;">
+      <div id="deals-vol-charts-grid" class="deals-vol-charts-grid">
+        <!-- populated by JS: one card per currency -->
+      </div>
+    </div><!-- /deals-view-volumen -->
 
   </div><!-- /content -->
 </div><!-- /page-deals -->
@@ -4467,6 +4530,7 @@ let _dealsAllRows   = [];   // all parsed rows
 let _dealsFiltered  = [];   // after filters
 let _dealsSortCol   = 'FECHA';
 let _dealsSortAsc   = false; // most recent first by default
+let _dealsVolChartInsts = {}; // currency key -> Chart.js instance
 
 // ── Spanish month map for date parsing ────────────────
 const _DEALS_MON = { ene:0,feb:1,mar:2,abr:3,may:4,jun:5,jul:6,ago:7,sep:8,oct:9,nov:10,dic:11 };
@@ -4485,8 +4549,8 @@ function _dealsParseDate(s) {
 function _dealsNormMoneda(s) {
   const v = (s || '').trim();
   // unify variants with and without dash
-  if (/^USD\s*-\s*Int$/i.test(v))    return 'USD Int';
-  if (/^USD\s*-\s*CCL$/i.test(v))    return 'USD Cable';
+  if (/^USD\s*-\s*Int$/i.test(v))    return 'USD Int (Ley NY)';
+  if (/^USD\s*-\s*CCL$/i.test(v))    return 'USD Cable (Ley Arg)';
   if (/^USD\s*-\s*Linked$/i.test(v)) return 'USD Linked';
   // bare "USD" → MEP
   if (/^USD$/i.test(v))              return 'USD Mep';
@@ -4628,6 +4692,7 @@ function _dealsApplyFilters() {
 
   _dealsSortRows();
   _dealsRenderSummary();
+  _dealsRenderVolumeChart();
   _dealsRenderTable();
   _dealsUpdateSortHeaders();
 }
@@ -4717,6 +4782,123 @@ function _dealsRenderSummary() {
   });
 
   container.innerHTML = html;
+}
+
+// ── Volume charts (one per currency) ──────────────────
+const _DEALS_VOL_COLORS = {
+  'USD Int (Ley NY)':    '#2563EB',
+  'USD Mep':             '#059669',
+  'USD Cable (Ley Arg)': '#0284C7',
+  'USD Linked': '#8B5CF6',
+  'ARS':        '#D97706',
+  'UVA':        '#DB2777',
+};
+
+function setDealsView(mode, btn) {
+  const volView = document.getElementById('deals-view-volumen');
+  const tblView = document.getElementById('deals-view-tabla');
+  tblView.style.display = mode === 'tabla'   ? '' : 'none';
+  volView.style.display = mode === 'volumen' ? '' : 'none';
+  document.querySelectorAll('.deals-view-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  if (mode === 'volumen') _dealsRenderVolumeChart();
+}
+
+function _dealsRenderVolumeChart() {
+  const grid = document.getElementById('deals-vol-charts-grid');
+  if (!grid) return;
+  // skip if view is hidden (renders correctly when shown via setDealsView)
+  const volView = document.getElementById('deals-view-volumen');
+  if (volView && volView.style.display === 'none') return;
+
+  // Group VN by YYYY-MM then by currency
+  const monthMap = {};
+  _dealsFiltered.forEach(r => {
+    if (!r._fecha) return;
+    const key = r._fecha.getFullYear() + '-' + String(r._fecha.getMonth() + 1).padStart(2, '0');
+    if (!monthMap[key]) monthMap[key] = {};
+    const m = r._moneda || 'Otro';
+    monthMap[key][m] = (monthMap[key][m] || 0) + r._vnRaw;
+  });
+
+  const months = Object.keys(monthMap).sort();
+
+  // Collect currencies present, ordered by total desc
+  const totByCur = {};
+  Object.values(monthMap).forEach(mo => {
+    Object.entries(mo).forEach(([c, v]) => { totByCur[c] = (totByCur[c] || 0) + v; });
+  });
+  const currencies = Object.keys(totByCur).sort((a, b) => totByCur[b] - totByCur[a]);
+
+  // Destroy all existing chart instances before rebuilding
+  Object.values(_dealsVolChartInsts).forEach(inst => inst.destroy());
+  _dealsVolChartInsts = {};
+  grid.innerHTML = '';
+
+  if (!currencies.length) {
+    grid.innerHTML = '<p class="deals-vol-empty">Sin datos para los filtros aplicados.</p>';
+    return;
+  }
+
+  const MESES_S = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const labels = months.map(mk => {
+    const [y, mo] = mk.split('-');
+    return MESES_S[parseInt(mo, 10) - 1] + '-' + y.slice(2);
+  });
+
+  currencies.forEach(cur => {
+    const color = _DEALS_VOL_COLORS[cur] || '#94A3B8';
+    const data  = months.map(mk => Math.round(monthMap[mk][cur] || 0));
+
+    // Build total for subtitle — values in CSV are already in MM
+    const totalMM = Math.round(totByCur[cur]);
+
+    const safeId  = cur.replace(/[\s/]+/g, '-').toLowerCase();
+    const canvasId = 'deals-vol-c-' + safeId;
+
+    const card = document.createElement('div');
+    card.className = 'deals-vol-card';
+    card.innerHTML =
+      `<div class="deals-vol-card-title">${_escHtml(cur)}<span style="font-weight:400;color:#94A3B8;font-size:11px;margin-left:8px;">Total: ${totalMM.toLocaleString('es-AR')} MM</span></div>` +
+      `<div style="position:relative;height:200px;"><canvas id="${canvasId}"></canvas></div>`;
+    grid.appendChild(card);
+
+    const canvas = document.getElementById(canvasId);
+    _dealsVolChartInsts[cur] = new Chart(canvas.getContext('2d'), {
+      type: 'bar',
+      data: { labels, datasets: [{ label: cur, data, backgroundColor: color, borderRadius: 2, borderSkipped: false }] },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => {
+                const v = ctx.parsed.y;
+                if (!v) return null;
+                return ` ${v.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} MM`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { font: { size: 10 }, maxRotation: 45 }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              font: { size: 10 },
+              callback: v => v.toLocaleString('es-AR') + ' MM'
+            },
+            grid: { color: '#F1F5F9' }
+          }
+        }
+      }
+    });
+  });
 }
 
 // ── Table render ───────────────────────────────────────
