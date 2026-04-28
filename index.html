@@ -3173,11 +3173,11 @@ function _computeKpis(rows, parseTasa) {
   const active = rows.filter(r => r['Moneda'] === 'USD' && _parseDMY(r['Fecha Fin']) > today);
   let sumW = 0, sumWtasa = 0, sumWvida = 0;
   active.forEach(r => {
-    const monto = parseFloat(r['Monto USD']);
+    const monto = parseFloat(r['Monto Webcast']);
     if (!monto || isNaN(monto)) return;
     const tasa = parseTasa(r['Tasa']);
     const ff   = _parseDMY(r['Fecha Fin']);
-    const vida = (ff - today) / (1000 * 60 * 60 * 24 * 365.25);
+    const vida = (ff - today) / (1000 * 60 * 60 * 24 * 365);
     sumW     += monto;
     sumWtasa += monto * tasa;
     sumWvida += monto * vida;

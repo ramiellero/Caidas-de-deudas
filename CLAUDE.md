@@ -262,7 +262,7 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - `_updateIrsaTable(allCapRows)` — limpia extra-rows, llama `_renderIrsaTableBase()` (regenera filas base), re-agrega `.extra-row` de descubiertos, recalcula total, y llama `_applyOutstandingCol` internamente
 - `_updateCresudTable(allCapRows)` — ídem para Cresud; llama `_renderCresudTableBase()`
 - `_computePieDataFromRows(rows)` — función unificada que agrupa filas USD vigentes por `_tipoLabel(r['MONEDA'])`, ordena por valor descendente; retorna `{ labels, values, total }`. Reemplaza las funciones individuales `_computeIrsaPieData` y `_computeCresudPieData` que fueron eliminadas
-- `_computeKpis(rows, parseTasa)` — calcula tasa y vida promedio ponderadas (Σ monto×tasa / Σ monto y Σ monto×años / Σ monto) sobre filas USD vigentes; `parseTasa` es función para parsear el formato de tasa del CSV
+- `_computeKpis(rows, parseTasa)` — calcula tasa y vida promedio ponderadas (Σ monto×tasa / Σ monto y Σ monto×años / Σ monto) sobre filas USD vigentes; `parseTasa` es función para parsear el formato de tasa del CSV. Peso: `Monto Webcast` (nominal, no ajustado por brecha). Divisor de tiempo: 365 días exactos (no 365,25). Ambas convenciones alineadas con el Excel de seguimiento interno.
 - `_updateIrsaKpis(allCapRows)` — actualiza `#irsa-kpi-tasa`, `#irsa-kpi-vida`, `#irsa-kpi-note`; usa parsing con punto decimal ("8.75%") — mismo formato que Cresud desde el cambio de schema de `irsa_deuda.csv`
 - `_updateCresudKpis(allCapRows)` — ídem para Cresud; usa parsing con punto decimal ("6.00%")
 - `openDescModal(empresa?)` — abre modal; si se pasa `empresa` ('irsa'/'cresud') lo pre-selecciona, si no detecta el tab activo
