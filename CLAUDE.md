@@ -382,7 +382,7 @@ Sección accesible desde la pestaña **SGR** en la nav.
   - Label de período `#sgr-foto-periodo-label`: muestra automáticamente "Datos al: mmm-aa" (e.g. "Datos al: mar-26") según el `Periodo` del registro elegido
 - **KPI fila secundaria** (`.sgr-foto-kpi-row2`, `.sgr-kpi-secondary`): métricas de rendimiento — 4 boxes en una segunda fila debajo de la primaria
   - **Rend. Cartera** (`#sgr-foto-rend-cartera`): `Rendimiento Cartera` del CSV; porcentaje a 1 decimal; subtítulo "sin netear mora y fee"
-  - **Benchmark** (`#sgr-foto-benchmark`): TTRFPD — valor **hardcodeado** en HTML (`46,3%`); no viene del CSV
+  - **Benchmark** (`#sgr-foto-benchmark`): TTRFPD — valor **hardcodeado** en HTML (`44,2%`); no viene del CSV
   - **P&L neto c/benef** (`#sgr-foto-rend-neto`): `Rend. Neto c/benef` del CSV; en ARS MM, con signo (`fmtSign`)
   - **TIR c/benef impos.** (`#sgr-foto-tir-benef`): `TIR c/benef` del CSV; porcentaje a 1 decimal
   - CSS: `.sgr-kpi-secondary` — padding 8px 14px, border-left 2px, label 10.5px `#64748B`, valor 13px peso 600
