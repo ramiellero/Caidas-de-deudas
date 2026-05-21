@@ -4594,7 +4594,9 @@ function _dealsMonedaBadge(m) {
 
 function _dealsSetDefaultDates() {
   const today = new Date();
-  const hasta = today.toISOString().slice(0, 10);
+  const hastaDate = new Date(today);
+  hastaDate.setDate(hastaDate.getDate() + 30);
+  const hasta = hastaDate.toISOString().slice(0, 10);
   const from  = new Date(today);
   from.setDate(from.getDate() - 365);
   const desde = from.toISOString().slice(0, 10);
