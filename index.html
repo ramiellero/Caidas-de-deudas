@@ -1867,6 +1867,21 @@
 
       </div><!-- /sgr-mkt-grid -->
 
+      <!-- Fondo de Riesgo — misma columna que Ranking Mora -->
+      <div class="sgr-mkt-grid" style="margin-top:20px;">
+        <div></div>
+        <div class="sgr-chart-card" style="display:flex;flex-direction:column;">
+          <div class="sgr-chart-title">
+            Ranking SGRs por Fondo de Riesgo
+            <span style="font-size:10px;color:#94A3B8;font-weight:400;text-transform:none;letter-spacing:0;">· ARS Bn ·</span>
+            <span style="font-size:10px;color:#166534;font-weight:600;text-transform:none;letter-spacing:0;">■ cartera IRSA</span>
+          </div>
+          <div class="sgr-rank-wrap" style="flex:1;min-height:260px;">
+            <div id="sgr-fdr-canvas-wrap"><canvas id="sgr-mkt-fdr-chart"></canvas></div>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /sgr-mercado -->
 
   </div><!-- /content -->
@@ -3629,6 +3644,7 @@ let _sgrMoraEvolucion  = [];   // [{fecha, potenciar, garantizar, integra, bind,
 let _sgrPlazoMercado   = [];   // [{plazo, mora}]
 let _sgrTotalSgr           = [];   // [{sgr, mora}] — snapshot activo
 let _sgrTotalSgrFecha      = '';
+let _sgrFdrData            = [];   // [{sgr, valor}]
 let _sgrTotalSgrAllData    = {};   // { 'YYYY-MM': [{sgr, mora, rawFecha}] }
 let _sgrPlazoAllData       = {};   // { 'YYYY-MM': [{plazo, mora}] }
 let _sgrComposicionAllData = {};   // { 'YYYY-MM': [{categoria,...}] }
@@ -3649,6 +3665,7 @@ let _sgrSectorChartInst     = null;
 let _sgrMktMoraChartInst         = null;
 let _sgrMktPlazoChartInst        = null;
 let _sgrMktRankChartInst         = null;
+let _sgrMktFdrChartInst          = null;
 let _sgrMktComposicionChartInst  = null;
 let _sgrMktMonedaChartInst       = null;
 
@@ -3678,7 +3695,7 @@ function _sgrDestroy(inst) {
 
 async function initSgrSection() {
   try {
-    const [garantiasTxt, antiguedadTxt, sectorTxt, moraMktTxt, plazoTxt, totalTxt, moraEvolTxt, fotoTxt, composicionTxt, monedaTxt] = await Promise.all([
+    const [garantiasTxt, antiguedadTxt, sectorTxt, moraMktTxt, plazoTxt, totalTxt, moraEvolTxt, fotoTxt, composicionTxt, monedaTxt, fdrTxt] = await Promise.all([
       fetch('garantia_sgr.csv').then(r => r.text()),
       fetch('mora_antiguedad.csv').then(r => r.text()),
       fetch('garantias_sector_sgr.csv').then(r => r.text()),
@@ -3689,6 +3706,7 @@ async function initSgrSection() {
       fetch('foto_sgr.csv').then(r => r.text()),
       fetch('composicion_carteras.csv').then(r => r.text()),
       fetch('cartera_monedas.csv').then(r => r.text()),
+      fetch('fondo_de_riesgo.csv').then(r => r.text()),
     ]);
 
     // garantia_sgr.csv
@@ -3806,6 +3824,11 @@ async function initSgrSection() {
         bind:       parseFloat(r['BIND']       || 0),
       });
     });
+
+    // fondo_de_riesgo.csv
+    _sgrFdrData = _sgrParseCsv(fdrTxt)
+      .filter(r => r['SGR'] && r['Valor_Mercado'])
+      .map(r => ({ sgr: r['SGR'], valor: parseFloat(r['Valor_Mercado']) }));
 
     // Deriva meses disponibles para Mercado y carga snapshot inicial
     _sgrMercadoAvailableMonths = Object.keys(_sgrTotalSgrAllData).sort((a, b) => b.localeCompare(a));
@@ -4162,6 +4185,7 @@ function _sgrRenderMercado() {
   _sgrRenderMktMora();
   _sgrRenderMktPlazo();
   _sgrRenderMktRanking();
+  _sgrRenderMktFdr();
   _sgrRenderMktComposicion();
   _sgrRenderMktMoneda();
 }
@@ -4269,17 +4293,37 @@ function _sgrRenderMktRanking() {
   }
 
   const sorted  = [..._sgrTotalSgr].sort((a, b) => b.mora - a.mora);
-  const ourSGRs = new Set(Object.values(SGR_META).map(m => m.totalLabel));
+  const ourSGRs = new Set([...Object.values(SGR_META).map(m => m.totalLabel), 'ACINDAR PYMES S.G.R.']);
 
   const labels = sorted.map(r =>
     r.sgr.replace(/ S\.G\.R\.$/, '').replace(' PYMES', '').replace('GARANTIAS ', '').trim()
   );
-  const data   = sorted.map(r => +(r.mora * 100).toFixed(2));
+  const data   = sorted.map(r => +(r.mora * 100).toFixed(1));
   const colors = sorted.map(r => ourSGRs.has(r.sgr) ? '#166534' : '#CBD5E1');
 
   // Height: ~20px per bar
   const wrapEl = document.getElementById('sgr-rank-canvas-wrap');
   if (wrapEl) wrapEl.style.height = Math.max(300, sorted.length * 20) + 'px';
+
+  const rankBarLabelPlugin = {
+    id: 'rankBarLabels',
+    afterDatasetsDraw(chart) {
+      const { ctx: c, scales: { x, y } } = chart;
+      chart.getDatasetMeta(0).data.forEach((bar, i) => {
+        const val = data[i];
+        const xPos = x.getPixelForValue(val);
+        const yPos = bar.y;
+        const isOur = ourSGRs.has(sorted[i].sgr);
+        c.save();
+        c.font = `${isOur ? '600' : '400'} 8.5px Inter, sans-serif`;
+        c.fillStyle = isOur ? '#166534' : '#64748B';
+        c.textAlign = 'left';
+        c.textBaseline = 'middle';
+        c.fillText(val.toFixed(1) + '%', xPos + 3, yPos);
+        c.restore();
+      });
+    },
+  };
 
   _sgrMktRankChartInst = new Chart(ctx, {
     type: 'bar',
@@ -4287,17 +4331,81 @@ function _sgrRenderMktRanking() {
       labels,
       datasets: [{ label: 'Mora (%)', data, backgroundColor: colors, borderRadius: 2 }],
     },
+    plugins: [rankBarLabelPlugin],
     options: {
       indexAxis: 'y',
       responsive: true, maintainAspectRatio: false,
+      layout: { padding: { right: 42 } },
       plugins: {
         legend: { display: false },
         tooltip: { ...TOOLTIP, callbacks: {
-          label: c => `${sorted[c.dataIndex].sgr}: ${c.parsed.x.toFixed(2)}%`,
+          label: c => `${sorted[c.dataIndex].sgr}: ${c.parsed.x.toFixed(1)}%`,
         }},
       },
       scales: {
         x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 9 }, callback: v => v + '%' }, beginAtZero: true },
+        y: { grid: { display: false }, ticks: { font: { size: 9 } } },
+      },
+    },
+  });
+}
+
+function _sgrRenderMktFdr() {
+  _sgrMktFdrChartInst = _sgrDestroy(_sgrMktFdrChartInst);
+  const ctx = document.getElementById('sgr-mkt-fdr-chart');
+  if (!ctx || !_sgrFdrData.length) return;
+
+  const ourSGRs = new Set([...Object.values(SGR_META).map(m => m.totalLabel), 'ACINDAR PYMES S.G.R.']);
+  const sorted  = [..._sgrFdrData].sort((a, b) => b.valor - a.valor);
+
+  const labels = sorted.map(r =>
+    r.sgr.replace(/ S\.G\.R\.$/, '').replace(' PYMES', '').replace('GARANTIAS ', '').trim()
+  );
+  const data   = sorted.map(r => Math.round(r.valor));
+  const colors = sorted.map(r => ourSGRs.has(r.sgr) ? '#166534' : '#CBD5E1');
+
+  const wrapEl = document.getElementById('sgr-fdr-canvas-wrap');
+  if (wrapEl) wrapEl.style.height = Math.max(300, sorted.length * 20) + 'px';
+
+  const fdrBarLabelPlugin = {
+    id: 'fdrBarLabels',
+    afterDatasetsDraw(chart) {
+      const { ctx: c, scales: { x, y } } = chart;
+      chart.getDatasetMeta(0).data.forEach((bar, i) => {
+        const val = data[i];
+        const xPos = x.getPixelForValue(val);
+        const yPos = bar.y;
+        const isOur = ourSGRs.has(sorted[i].sgr);
+        c.save();
+        c.font = `${isOur ? '600' : '400'} 8.5px Inter, sans-serif`;
+        c.fillStyle = isOur ? '#166534' : '#64748B';
+        c.textAlign = 'left';
+        c.textBaseline = 'middle';
+        c.fillText((val / 1000).toFixed(0) + 'Bn', xPos + 3, yPos);
+        c.restore();
+      });
+    },
+  };
+
+  _sgrMktFdrChartInst = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ label: 'Fondo de Riesgo (ARS MM)', data, backgroundColor: colors, borderRadius: 2 }],
+    },
+    plugins: [fdrBarLabelPlugin],
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { right: 48 } },
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...TOOLTIP, callbacks: {
+          label: c => `${sorted[c.dataIndex].sgr}: ${(c.parsed.x / 1000).toFixed(1)}Bn`,
+        }},
+      },
+      scales: {
+        x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 9 }, callback: v => (v / 1000).toFixed(0) + 'Bn' }, beginAtZero: true },
         y: { grid: { display: false }, ticks: { font: { size: 9 } } },
       },
     },
