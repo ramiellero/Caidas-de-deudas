@@ -1,4 +1,8 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
+29-may-26,BONAR 2027 (AO27),USD Mep,Fija,"6,00%",17,"200,00",SC
+29-may-26,BONAR 2028 (AO28),USD Mep,Fija,"6,00%",29,"150,00",SC
+29-may-26,Telecom Argentina – 29,USD Mep,Fija,"3,50%",12,"26,40",A-1 (Moody´S)
+29-may-26,Telecom Argentina – 30,USD Mep,Fija,"6,25%",48,"35,10",AA+ (Moody´s)
 28-may-26,Credicuotas Consumo – XX,ARS,TAMAR,"5,00%",12,"13444,30",A1 (Fix SCR)
 28-may-26,Credicuotas Consumo – XXI,USD Mep,Fija,"7,00%",12,"35,90",A1 (Fix SCR)
 28-may-26,Mirgor – VI,USD Mep,Fija,"8,00%",24,"22,40",A+ (Moody´s)
