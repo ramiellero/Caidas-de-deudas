@@ -430,42 +430,67 @@ def parsear_resultados_generico(resultados):
         row_text = limpiar_texto_celda(fila.group(0))
         body = limpiar_texto_celda(fila.group("body"))
 
-        if fila_excluida(row_text):
+        matches = list(patron_detalle.finditer(body))
+
+        if not matches:
             continue
 
-        detalle = patron_detalle.search(body)
-        if not detalle:
-            continue
+        for detalle in matches:
 
-        prefix = detalle.group("prefix")
-        emisor = nombre_desde_prefix(prefix)
+            if fila_excluida(detalle.group(0)):
+                continue
 
-        moneda = normalizar_moneda(detalle.group("moneda"), emisor)
-        vn = limpiar_vn(detalle.group("vn"))
+            prefix = detalle.group("prefix")
 
-        if not cumple_monto(moneda, vn):
-            continue
+            if " ON " in prefix:
+                prefix = "ON " + prefix.split(" ON ")[-1]
 
-        tasa, margen = tasa_y_margen(detalle.group("cupon"))
+            if " BONAR " in prefix:
+                prefix = "BONAR " + prefix.split(" BONAR ")[-1]
 
-        if not tasa or margen == "":
-            continue
+            emisor = nombre_desde_prefix(prefix)
 
-        rating = limpiar_texto_celda(detalle.group("rating"))
+            moneda = normalizar_moneda(
+                detalle.group("moneda"),
+                emisor
+            )
 
-        # Limpieza final de rating
-        rating = re.sub(r"\s+(Tasa|Margen|Precio|Book building|Por Adhesión)$", "", rating).strip()
+            vn = limpiar_vn(
+                detalle.group("vn")
+            )
 
-        filas.append({
-            "FECHA": fecha_stonex_a_ddmmyyyy(fila.group("liq")),
-            "EMISOR": emisor,
-            "MONEDA": moneda,
-            "TASA": tasa,
-            "TASA/MARGEN": margen,
-            "PLAZO (en meses)": plazo_meses(detalle.group("maturity")),
-            "VN": vn,
-            "CALIFICACIÓN": rating,
-        })
+            if not cumple_monto(moneda, vn):
+                continue
+
+            tasa, margen = tasa_y_margen(
+                detalle.group("cupon")
+            )
+
+            if not tasa or margen == "":
+                continue
+
+            rating = limpiar_texto_celda(
+                detalle.group("rating")
+            )
+
+            rating = re.sub(
+                r"\s+(Tasa|Margen|Precio|Book building|Por Adhesión)$",
+                "",
+                rating
+            ).strip()
+
+            filas.append({
+                "FECHA": fecha_stonex_a_ddmmyyyy(fila.group("liq")),
+                "EMISOR": emisor,
+                "MONEDA": moneda,
+                "TASA": tasa,
+                "TASA/MARGEN": margen,
+                "PLAZO (en meses)": plazo_meses(
+                    detalle.group("maturity")
+                ),
+                "VN": vn,
+                "CALIFICACIÓN": rating,
+            })
 
     return filas
 
