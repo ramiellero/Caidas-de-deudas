@@ -437,9 +437,6 @@ def parsear_resultados_generico(resultados):
 
         for detalle in matches:
 
-            if fila_excluida(detalle.group(0)):
-                continue
-
             prefix = detalle.group("prefix")
 
             if " ON " in prefix:
