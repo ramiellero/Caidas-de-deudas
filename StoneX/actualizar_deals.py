@@ -8,12 +8,17 @@ import win32com.client
 from playwright.sync_api import sync_playwright
 import os
 
-CARPETA = Path(r"C:\Users\lgullo\OneDrive - IRSACORP\Downloads\StoneX")
+BASE_DIR = Path(__file__).resolve().parent
+REPO_GIT = BASE_DIR.parent
+
+CARPETA = BASE_DIR
 
 TXT_OUTPUT = CARPETA / "texto_extraido_stonex.txt"
 CSV_OUTPUT = CARPETA / "deals.csv"
-CSV_WEB = Path(r"C:\Users\lgullo\Caidas-de-deudas\emisiones_obligaciones_negociables.csv")
-REPO_GIT = r"C:\Users\lgullo\Caidas-de-deudas"
+CSV_DIFUSION = CARPETA / "difusion.csv"
+
+CSV_WEB = REPO_GIT / "emisiones_obligaciones_negociables.csv"
+CSV_DIFUSION_WEB = REPO_GIT / "operaciones_difusion.csv"
 SCREENSHOT = CARPETA / "screenshot_stonex.png"
 
 ASUNTO_BUSCADO = "AGENDA DE EMISIONES"
@@ -27,6 +32,17 @@ COLUMNAS = [
     "TASA/MARGEN",
     "PLAZO (en meses)",
     "VN",
+    "CALIFICACIÓN",
+]
+
+COLUMNAS_DIFUSION = [
+    "FECHA LICITACIÓN",
+    "FECHA LIQUIDACIÓN",
+    "EMISOR",
+    "MONEDA",
+    "TASA",
+    "TASA/MARGEN",
+    "PLAZO (en meses)",
     "CALIFICACIÓN",
 ]
 
@@ -180,6 +196,38 @@ def fecha_stonex_a_ddmmyyyy(txt):
 
     return f"{dia}/{mes}/2026"
 
+def fecha_licitacion_a_fecha(txt):
+
+    m = re.search(
+        r"(\d{1,2})\s+([a-z]{3})",
+        str(txt).lower()
+    )
+
+    if not m:
+        return pd.NaT
+
+    dia = int(m.group(1))
+
+    mes = {
+        "ene": 1,
+        "feb": 2,
+        "mar": 3,
+        "abr": 4,
+        "may": 5,
+        "jun": 6,
+        "jul": 7,
+        "ago": 8,
+        "sep": 9,
+        "oct": 10,
+        "nov": 11,
+        "dic": 12,
+    }[m.group(2)]
+
+    return pd.Timestamp(
+        year=2026,
+        month=mes,
+        day=dia
+    )
 
 def limpiar_vn(txt):
     nums = re.findall(r"\d[\d\.]*", str(txt))
@@ -274,7 +322,26 @@ def normalizar_emisor(emisor):
     s = s.replace("—", "-").replace("–", "-")
     s = re.sub(r"\s*-\s*", " – ", s)
     s = s.replace("[Ley NY]", "(Ley NY)")
+
+    s = re.sub(
+        r"\s*\(Integra en efectivo y/o en especie\)",
+        "",
+        s,
+        flags=re.I
+    )
+
     s = re.sub(r"\s+", " ", s).strip()
+    s = re.sub(r"\s*–\s*–\s*", " – ", s)
+
+    # Si termina en clase romana y NO tiene guion, agregarlo.
+    # Evita romper casos como "Tarjeta Naranja I LXVII".
+    m = re.search(r"^(.*)\s+([IVXLCDM]+)$", s)
+    if m and " – " not in s:
+        base = m.group(1).strip()
+        clase = m.group(2).strip()
+        prev = base.split()[-1] if base.split() else ""
+        if prev not in {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"}:
+            s = f"{base} – {clase}"
 
     return s
 
@@ -294,8 +361,15 @@ def nombre_desde_prefix(prefix):
     # Normalizar Ley NY
     p = p.replace("[Ley NY]", "(Ley NY)")
 
+    # Sacar aclaraciones largas
+    p = re.sub(
+        r"\s*\(Integra en efectivo y/o en especie\)",
+        "",
+        p,
+        flags=re.I
+    )
+
     # Sacar aclaraciones largas que no queremos en el nombre
-    p = re.sub(r"\s*\(Integra.*?\)", "", p, flags=re.I)
     p = re.sub(r"\s*\(Pyme\)", "", p, flags=re.I)
 
     # Normalizar guiones
@@ -342,15 +416,14 @@ def parsear_resultados_generico(resultados):
 
     patron_detalle = re.compile(
         r"(?P<prefix>(?:ON|BONAR).*?)\s+"
-        r"(?P<moneda>USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS)\s+"
+        r"-?(?P<moneda>USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS)\s+"
         r"(?P<vn>(?:USD|\$)\s*[\d\.]+)"
         r"(?:\s+\([^)]*\))?\s+"
         r"(?P<cupon>TAMAR\+\d+(?:,\d+)?%|T\+\d+(?:,\d+)?|\d{1,2},\d{2,3}%|0,00%)\s+"
         r"(?P<duration>[\d,]+)\s+"
         r"(?P<maturity>\d+)\s+"
         r"(?P<ultima>\d{2}/\d{2}/\d{4})\s+"
-        r"(?P<rating>.*)$",
-        re.DOTALL
+        r"(?P<rating>.*)$"
     )
 
     for fila in patron_fila.finditer(texto):
@@ -530,10 +603,10 @@ def actualizar_csv(texto):
     # GIT PULL
     # ==========================================
 
-    os.chdir(REPO_GIT)
+    #os.chdir(REPO_GIT)
 
-    print("\nHaciendo git pull...")
-    os.system("git pull")
+    #print("\nHaciendo git pull...")
+    #os.system("git pull")
 
     # ==========================================
     # CSV PARA WEB
@@ -563,11 +636,11 @@ def actualizar_csv(texto):
     # GIT PUSH
     # ==========================================
 
-    print("\nSubiendo cambios a GitHub...")
+    #print("\nSubiendo cambios a GitHub...")
 
-    os.system("git add .")
-    os.system('git commit -m "update deals automatico"')
-    os.system("git push")
+    #os.system("git add .")
+    #os.system('git commit -m "update deals automatico"')
+    #os.system("git push")
 
     print("\n====================================")
     print("CSV actualizado")
@@ -590,6 +663,276 @@ def actualizar_csv(texto):
     print("\nTotal filas:")
     print(len(final))
 
+def actualizar_difusion(texto):
+
+    print("\n======================")
+    print("ACTUALIZANDO DIFUSION")
+    print("======================")
+
+    if "Operaciones en difusión" not in texto:
+        print("No encontré sección difusión")
+        return
+
+    bloque = texto.split(
+        "Operaciones en difusión",
+        1
+    )[1]
+
+    patron = re.compile(
+        rf"(?P<fecha_lic>{DIA})\s+"
+        rf"(?P<reg>(?:ON |Títulos de Deuda).*?)\s+"
+        rf"(?P<tipo>Tasa|Margen|Book building)\s+"
+        rf"(?P<fecha_liq>{DIA}|A informar)",
+        re.DOTALL
+    )
+
+    filas = []
+
+    for m in patron.finditer(bloque):
+
+        reg = m.group("reg")
+        reg_limpio = limpiar_texto_celda(reg)
+
+        fecha_lic = m.group("fecha_lic")
+        fecha_liq = m.group("fecha_liq")
+
+        # -------------------------
+        # MONEDA
+        # -------------------------
+
+        moneda = ""
+
+        if "USD Mep" in reg:
+            moneda = "USD Mep"
+
+        elif "USD Cable" in reg:
+            moneda = "USD Cable"
+
+        elif "USD Linked" in reg:
+            moneda = "USD Linked"
+
+        elif "ARS" in reg or "-ARS" in reg:
+            moneda = "ARS"
+
+        if "Ley NY" in reg:
+            moneda = "USD Int"
+
+        # -------------------------
+        # EMISOR
+        # -------------------------
+
+        lineas = [
+            x.strip()
+            for x in reg.splitlines()
+            if x.strip()
+        ]
+
+        partes = []
+
+        for l in lineas:
+
+            if l in [
+                "USD Mep",
+                "USD Cable",
+                "USD Linked",
+                "ARS",
+                "-ARS"
+            ]:
+                break
+
+            if re.fullmatch(r"[IVXLCDM]+", l):
+                continue
+
+            if re.fullmatch(r"\d+", l):
+                continue
+
+            if re.fullmatch(r"\d{2}/\d{2}/\d{4}", l):
+                break
+
+            m_usd = re.split(
+                r"(?:-USD|\$)",
+                l,
+                maxsplit=1
+            )
+
+            if len(m_usd) > 1:
+
+                texto_limpio = m_usd[0].strip()
+
+                if texto_limpio:
+                    partes.append(texto_limpio)
+
+                break
+
+            if re.search(r"^(USD|\$)\s*[\d\.]+", l):
+                break
+
+            if l in ["TAMAR+Mg", "A licitar"]:
+                break
+
+            partes.append(l)
+
+        emisor = " ".join(partes)
+
+        emisor = re.sub(r"^ON\s+", "", emisor, flags=re.I)
+        emisor = re.sub(r"^Títulos de Deuda del\s+", "", emisor, flags=re.I)
+        emisor = re.sub(r"\(Integra.*", "", emisor, flags=re.I)
+        emisor = re.sub(r"\(Pyme\)", "", emisor, flags=re.I)
+        emisor = re.sub(r"\[Ley NY\]", "", emisor)
+        emisor = re.sub(r"\[Bono SVS\]", "", emisor)
+        emisor = re.sub(r"Garantizadas?\s+", "", emisor, flags=re.I)
+        emisor = re.sub(r"-(?:[IVXLCDM]+)$", "", emisor)
+
+        emisor = limpiar_texto_celda(emisor)
+
+
+        # -------------------------
+        # PLAZO
+        # -------------------------
+
+        plazo = ""
+
+        m_plazo = re.search(
+            r"\s(\d{3,4})\s+\d{2}/\d{2}/\d{4}",
+            reg_limpio
+        )
+
+        if m_plazo:
+            plazo = plazo_meses(
+                m_plazo.group(1)
+            )
+
+        if "Venc. entre los 8 y 10 años" in reg:
+            plazo = 108
+
+        # -------------------------
+        # TASA
+        # -------------------------
+
+        tasa = (
+            "TAMAR+Mg"
+            if moneda == "ARS"
+            else "Fija"
+        )
+
+        # -------------------------
+        # RATING
+        # -------------------------
+
+        rating = ""
+
+        m_rating = re.search(
+            r"(AAA.*?\)|AA.*?\)|A1\+.*?\)|SC|A informar)",
+            reg_limpio
+        )
+
+        if m_rating:
+            rating = m_rating.group(1)
+
+        filas.append({
+            "FECHA LICITACIÓN": fecha_lic,
+            "FECHA LIQUIDACIÓN": fecha_liq,
+            "EMISOR": emisor,
+            "MONEDA": moneda,
+            "TASA": tasa,
+            "TASA/MARGEN": "A licitar",
+            "PLAZO (en meses)": plazo,
+            "CALIFICACIÓN": rating
+        })
+
+    df_nuevo = pd.DataFrame(
+        filas,
+        columns=COLUMNAS_DIFUSION
+    )
+
+    if CSV_DIFUSION.exists():
+        df_existente = pd.read_csv(
+            CSV_DIFUSION,
+            sep=";"
+        )
+    else:
+        df_existente = pd.DataFrame(
+            columns=COLUMNAS_DIFUSION
+        )
+
+    df_existente = df_existente.fillna("")
+    df_nuevo = df_nuevo.fillna("")
+
+    df_existente["KEY"] = (
+        df_existente["FECHA LICITACIÓN"].astype(str)
+        + "|"
+        + df_existente["EMISOR"].astype(str)
+        + "|"
+        + df_existente["MONEDA"].astype(str)
+        + "|"
+        + df_existente["PLAZO (en meses)"].astype(str)
+    )
+
+    df_nuevo["KEY"] = (
+        df_nuevo["FECHA LICITACIÓN"].astype(str)
+        + "|"
+        + df_nuevo["EMISOR"].astype(str)
+        + "|"
+        + df_nuevo["MONEDA"].astype(str)
+        + "|"
+        + df_nuevo["PLAZO (en meses)"].astype(str)
+    )
+
+    df_agregar = df_nuevo[
+        ~df_nuevo["KEY"].isin(
+            set(df_existente["KEY"])
+        )
+    ]
+
+    final = pd.concat([
+        df_existente.drop(columns=["KEY"], errors="ignore"),
+        df_agregar.drop(columns=["KEY"], errors="ignore")
+    ])
+
+    final["KEY"] = (
+    final["FECHA LICITACIÓN"].fillna("").astype(str)
+    + "|"
+    + final["EMISOR"].fillna("").astype(str)
+    + "|"
+    + final["MONEDA"].fillna("").astype(str)
+    + "|"
+    + final["PLAZO (en meses)"].fillna("").astype(str)
+    )
+
+    final = final.drop_duplicates(
+        subset=["KEY"],
+        keep="first"
+    ).drop(columns=["KEY"])
+
+    # ==========================================
+    # ELIMINAR LICITACIONES YA PASADAS
+    # ==========================================
+
+    hoy = pd.Timestamp.today().normalize()
+
+    fechas_lic = final[
+        "FECHA LICITACIÓN"
+    ].apply(
+        fecha_licitacion_a_fecha
+    )
+
+    final = final[
+        fechas_lic.isna()
+        |
+        (fechas_lic >= hoy)
+    ]
+
+    final.to_csv(
+        CSV_DIFUSION,
+        index=False,
+        encoding="utf-8-sig",
+        sep=";"
+    )
+
+    print(
+        f"Difusión actualizada. Total filas: {len(final)}"
+    )
+
 # =========================================================
 # MAIN
 # =========================================================
@@ -611,8 +954,9 @@ def main():
         return
 
     texto = abrir_y_extraer_texto(link_stonex)
-    actualizar_csv(texto)
 
+    actualizar_csv(texto)
+    actualizar_difusion(texto)
 
 if __name__ == "__main__":
     main()

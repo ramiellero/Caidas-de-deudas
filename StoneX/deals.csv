@@ -1,4 +1,14 @@
 ﻿FECHA;EMISOR;MONEDA;TASA;TASA/MARGEN;PLAZO (en meses);VN;CALIFICACIÓN
+29/05/2026;BONAR 2027 (AO27);USD Mep;Fija;6,00%;17.0;200.0;SC
+29/05/2026;BONAR 2027 (AO27);USD Mep;Fija;6,00%;17.0;105.0;SC
+29/05/2026;BONAR 2028 (AO28);USD Mep;Fija;6,00%;29.0;150.0;SC
+29/05/2026;BONAR 2028 (AO28);USD Mep;Fija;6,00%;29.0;100.0;SC
+29/05/2026;Telecom Argentina – 29;USD Mep;Fija;3,50%;12.0;26.4;A-1 (Moody´S)
+29/05/2026;Telecom Argentina – 30;USD Mep;Fija;6,25%;48.0;35.1;AA+ (Moody´s)
+28/05/2026;Credicuotas Consumo – XX;ARS;TAMAR;5,00%;12.0;13444.3;A1 (Fix SCR)
+28/05/2026;Credicuotas Consumo – XXI;USD Mep;Fija;7,00%;12.0;35.9;A1 (Fix SCR)
+28/05/2026;Mirgor – VI;USD Mep;Fija;8,00%;24.0;22.4;A+ (Moody´s)
+26/05/2026;Scania Credit – 3;USD Mep;Fija;6,50%;36.0;27.0;AA (Fix SCR)
 22/05/2026;ICBC – VI;USD Mep;Fija;3,70%;12.0;45.1;A1 (Fix SCR)
 22/05/2026;Tarjeta Naranja I LXVII;ARS;TAMAR;4,50%;12.0;157273.3;A1+ (Fix SCR)
 22/05/2026;Tarjeta Naranja II LXVII;USD Mep;Fija;5,00%;9.0;115.1;A1+ (Fix SCR)
@@ -82,7 +92,7 @@
 23/01/2026;Loma Negra;USD Mep;Fija;6,50%;36.0;60.0;AAA (Fix SCR)
 20/01/2026;Banco Macro;USD Int;Fija;7,25%;12.0;400.0;A-1 (Moody’s)
 20/01/2026;Cresud L Adicionales;USD Mep;Fija;7,25%;38.0;40.8;AAA (Fix SCR)
-20/01/2026;Cresud LI;USD Mep;Fija;5,75%;12.0;46.8;A1+ (Fix SCR)
+20/01/2026;Cresud – LI;USD Mep;Fija;5,75%;12.0;46.8;A1+ (Fix SCR)
 20/01/2026;FyO;USD Linked;Fija;8,50%;18.0;7.1;A+ (Fix SCR)
 20/01/2026;FyO;USD Mep;Fija;7,90%;18.0;20.9;AA- (Fix SCR)
 20/01/2026;Telecom;USD Int;Fija;8,50%;120.0;600.0;B2 (Moody’s)
@@ -145,7 +155,7 @@
 03/11/2025;Tecpetrol;USD Int;Fija;7,62%;61.0;750.0;BB- (Fitch) / B1 (Moody’s)
 23/10/2025;Banco de Servicios y Transacciones;USD Mep;Fija;8,00%;12.0;21.1;A1 (Fix SCR)
 23/10/2025;John Deere;USD Mep;Fija;7,50%;18.0;26.2;AA (Fix SCR)
-23/10/2025;Otamerica Ebytem V;USD Mep;Fija;6,69%;12.0;50.0;A-1 (Moody’s)
+23/10/2025;Otamerica Ebytem – V;USD Mep;Fija;6,69%;12.0;50.0;A-1 (Moody’s)
 20/10/2025;Mercado Pago (Adicionales);USD Mep;Fija;4,98%;7.0;46.1;A1+ (Fix SCR) / A-1 (Moody’s)
 17/10/2025;Pan American Energy;USD Mep;Fija;6,00%;18.0;56.1;AAA (Fix SCR)
 16/10/2025;Tecpetrol;USD Mep;Fija;6,50%;23.0;114.5;AAA (Fix SCR)
@@ -172,8 +182,8 @@
 25/08/2025;Pan American Energy;USD Mep;Fija;7,50%;42.0;85.9;AAA (Moody´s)
 21/08/2025;Central Puerto;USD Cable;Fija;8,00%;42.0;50.0;AA (Fix SCR)
 20/08/2025;Banco Hipotecario;USD Mep;Fija;7,00%;12.0;30.8;A-1 (Moody’s)
-20/08/2025;Banco Provincia de Córdoba I;ARS;TAMAR;3,00%;10.0;26094.0;A+1 (Fix SCR) / A-1 (Moody’s)
-20/08/2025;Banco Provincia de Córdoba II;USD Mep;Fija;7,00%;12.0;13.3;A+1 (Fix SCR) / A-1 (Moody’s)
+20/08/2025;Banco Provincia de Córdoba – I;ARS;TAMAR;3,00%;10.0;26094.0;A+1 (Fix SCR) / A-1 (Moody’s)
+20/08/2025;Banco Provincia de Córdoba – II;USD Mep;Fija;7,00%;12.0;13.3;A+1 (Fix SCR) / A-1 (Moody’s)
 20/08/2025;CFN;ARS;TAMAR;9,00%;10.0;25688.0;A1 (Fix SCR)
 19/08/2025;BBVA;USD Mep;Fija;6,00%;12.0;43.4;A1+ (Fix SCR)
 19/08/2025;Banco Comafi;USD Mep;Fija;6,75%;12.0;25.4;A1+ (Fix SCR)

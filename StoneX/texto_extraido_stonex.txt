@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 21-05-2026
+Licitaciones Primarias 03-06-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 11:20 AM
+Hoy 11:16 AM
 View Full
 REGRESAR
 
@@ -62,10 +62,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 21-05-2026
+Licitaciones Primarias 03-06-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 11:20 AM
+Hoy 11:16 AM
 View Full
 REGRESAR
 
@@ -114,9 +114,8 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 Page 1
 
-2
-1
-de mayo de 2026
+3
+de junio de 2026
 
 Este
 informe
@@ -275,70 +274,94 @@ Pago
  Tipo de Licitación
  Fecha de 
 Liquidación
- TAMAR+4,50%
- 22,8125%
- 30,24%
- 3,90%
- 26,71%
- mié, 20 may.
- ON Tarjeta Naranja (Integra en efectivo 
-y/o en especie)
- I
- LXVII
+ Por Adhesión
+-8,18%--
+ mar, 2 jun.
+ [OFERTA DE CANJE] ON Garantizada 
+GEMSA & CTR [Ley NY]
+ XLVI
+-USD Cable
+ STEP-UP: 
+(i) 7,50% h/ 30-06-2028
+ (ii) 8,00% h/ 30-06-2030
+ (iii) 9,00% h/ 31-12-2034
+ 48,99
+ 3120
+ 31/12/2034
+-Por Adhesión
+ mar, 16 jun.
+ Por Adhesión
+-9,95%--
+ mar, 2 jun.
+ [OFERTA DE CANJE] ON Garantizada 
+GEMSA & CTR [Ley NY]
+ XLVII
+-USD Cable
+ STEP-UP: 
+(i) 10,50% h/ 31-12-2034 (Pago en 
+Especie)
+ (ii) 4,00% h/ 30-06-2036 (Pago en 
+Efectivo)
+ 116,16
+ 3667
+ 30/06/2036
+-Por Adhesión
+ mar, 16 jun.
+ Px 100,95 
+22,2500%
+ 28,41%
+ 3,02%
+ 25,27%
+ mar, 2 jun.
+ FF AMFAyS
+ 52
+ VDFA
  ARS
- $ 157.273.293.571
- TAMAR+4,50%
- 10,90
- 365
- 22/05/2027
- A1+ (Fix SCR)
- Margen
- vie, 22 may.
- 5,00%
--5,09%--
- mié, 20 may.
- ON Tarjeta Naranja (Integra en efectivo 
-y/o en especie)
- II
- LXVII
- USD Mep
- USD 115.084.281
- 5,00%
- 8,96
- 276
- 22/02/2027
- A1+ (Fix SCR)
- Tasa
- vie, 22 may.
- 4,00%
--3,96%--
- mié, 20 may.
- ON Tarjeta Naranja
- III
- LXVII
- USD Cable
- USD 13.849.604
- 4,00%
- 18,05
- 549
- 22/11/2027
- AA (Fix SCR)
- Tasa
- vie, 22 may.
- 3,70%
--3,75%--
- mié, 20 may.
- ON ICBC
--VI
- USD Mep
- USD 45.080.301
- 3,70%
- 11,84
- 365
- 22/05/2027
- A1 (Fix SCR)
- Tasa
- vie, 22 may.
+ $ 1.909.066.965
+ (25%; T+100; 45%)
+ 6,41
+ 469
+ 15/09/2027
+ AAA (Moody´s)
+ Precio
+ mié, 3 jun.
+ Px 90,54 
+22,2500%
+ 36,14%
+ 9,00%
+ 31,25%
+ mar, 2 jun.
+ FF AMFAyS
+ 52
+ VDFB
+ ARS
+ $ 63.635.566
+ (26%; T+100; 46%)
+ 15,60
+ 499
+ 15/10/2027
+ AA (Moody´s)
+ Precio
+ mié, 3 jun.
+ Px 78,53 
+22,2500%
+ 48,21%
+ 17,75%
+ 40,00%
+ mar, 2 jun.
+ FF AMFAyS
+ 52
+ VDFC
+ ARS
+ $ 148.482.986
+ 25,00%
+ 16,97
+ 560
+ 15/12/2027
+ A+ (Moody´s)
+ Precio
+ mié, 3 jun.
+ USD 346.457.132
 Presentation Heading  |
 
 Page 3
@@ -366,36 +389,105 @@ Pago
 Licitación
  Fecha de 
 Liquidación
- jue, 21 may.
- ON Pyme CNV Garantizadas 
-Vitalcan
- I
- $4.000.000.000 (amp. h/ 
-$6.000.000.000)-ARS
- $4.000.000.000 (amp. h/ 
-$6.000.000.000)
- TAMAR+Mg
- 18,51
- 731
- 22/05/2028
- SC
- Margen
- vie, 22 may.
- jue, 21 may.
- ON Scania Credit
--USD 20.000.000 (amp. h/ 
-USD 40.000.000)
- 3
+ mié, 3 jun.
+ [OFERTA DE CANJE] ON Garantizada 
+GEMSA & CTR-XLVIII
  USD Mep
- USD 20.000.000 (amp. h/ 
-USD 40.000.000)
+ STEP-UP: 
+(i) 7,50% h/ 30-06-2028
+ (ii) 8,00% h/ 30-06-2030
+ (iii) 9,00% h/ 31-12-2034
+ 48,99
+-31/12/2034
+ SC
+ Por Adhesión
+ A informar
+ mié, 3 jun.
+ [OFERTA DE CANJE] ON Garantizada 
+GEMSA & CTR-XLIX
+ USD linked
+ STEP-UP: 
+(i) 7,50% h/ 30-06-2028
+ (ii) 8,00% h/ 30-06-2030
+ (iii) 9,00% h/ 31-12-2034
+ 48,99
+-31/12/2034
+ SC
+ Por Adhesión
+ A informar
+ mié, 3 jun.
+ [OFERTA DE CANJE] ON Garantizada 
+GEMSA & CTR-L
+ USD linked
+ STEP-UP: 
+(i) 10,50% h/ 31-12-2034 (Pago en 
+Especie)
+ (ii) 4,00% h/ 30-06-2036 (Pago en 
+Efectivo)
+ 116,16
+-30/06/2036
+ SC
+ Por Adhesión
+ A informar
+ mié, 3 jun.
+ ON John Deere Credit Cía. 
+Financiera -USD 40.000.000 (amp. h/ 
+USD 80.000.000)
+ XX
+ USD Mep
+ USD 40.000.000 (amp. h/ 
+USD 80.000.000)
  A licitar
- 20,10
- 1096
- 26/05/2029
+ 28,21
+ 914
+ 08/12/2028
  AA (Fix SCR)
  Tasa
- mar, 26 may.
+ lun, 8 jun.
+ mié, 3 jun.
+ ON Banco de Galicia
+ I
+ XXXII
+ ARS
+ TAMAR+Mg
+ 10,95
+ 365
+ 05/06/2027
+ A1+ (Fix SCR)
+ Margen
+ vie, 5 jun.
+ mié, 3 jun.
+ ON Banco de Galicia
+ II
+ XXXII
+ USD Mep
+ A licitar
+ 23,13
+ 731
+ 05/06/2028
+ AAA (Fix SCR)
+ Tasa
+ vie, 5 jun.
+ mié, 3 jun.
+ ON Banco de Galicia
+ III
+ XXXII
+ USD Cable
+ A licitar
+ 18,02
+ 548
+ 05/12/2027
+ AAA (Fix SCR)
+ Tasa
+ vie, 5 jun.
+ Hasta el Monto Máximo de 
+Emisión
+ Hasta el Monto Máximo de 
+Emisión
+ USD 100.000.000 (amp. h/ 
+USD 500.000.000)
+ USD 100.000.000 (amp. h/ 
+USD 500.000.000)
 Presentation Heading  |
 
 Page 4
@@ -422,32 +514,32 @@ Pago
 Licitación
  Fecha de 
 Liquidación
- vie, 22 may.
- FF Confibono  
-LXXXVI
+ jue, 4 jun.
+ FF Megabono Crédito
+ 346
  VDFA
  ARS
- $ 3.475.671.879
+ $ 10.446.858.162
  (20%; T+Mg; 45%)
- 4,90
- 271
- 22/02/2027
+ 5,17
+ 297
+ 29/03/2027
  AAA (Fix SCR)
  Margen
- mié, 27 may.
- vie, 22 may.
- FF Confibono  
-LXXXVI
+ vie, 5 jun.
+ jue, 4 jun.
+ FF Megabono Crédito
+ 346
  VDFB
  ARS
- $ 401.845.442
+ $ 2.332.173.229
  (25%; T+Mg; 50%)
- 10,31
- 358
- 20/05/2027
- AA (Fix SCR)
+ 11,51
+ 417
+ 27/07/2027
+ AA- (Fix SCR)
  Margen
- mié, 27 may.
+ vie, 5 jun.
  OPERACIONES DE TERCEROS
  
 Fecha de 
@@ -469,250 +561,137 @@ Pago
 Licitación
  Fecha de 
 Liquidación
- mar, 26 may.
- FF Inmobiliario Espacio Añelo
--USD 4.961.000
- CP
- USD Mep
- USD 4.961.000
---
- 10901
- 01/04/2056
- SC
- Por Adhesión
- jue, 28 may.
- mar, 26 may.
- FF Mercado Crédito
- XLIX
- $ 129.999.996.678
- VDF
+ jue, 4 jun.
+ FF San Cristóbal Caja Mutual
+ II
+ $ 3.630.998.873
+ VRDA
  ARS
- $ 110.499.997.176
- (17%; T+100; 50%)
- 8,79
- 352
- 15/05/2027
- AAA (Fix SCR)
- TIR
- jue, 28 may.
- mar, 26 may.
- ON Credicuotas Consumo (Integra 
-en efectivo y/o en especie)
- XX
--ARS
+ $ 3.630.998.873
+ (18%; T+100; 36%)
+ 7,90
+ 525
+ 15/11/2027
+ AAA (Moody´s)
+ Precio
+ lun, 8 jun.
+ jue, 4 jun.
+ Títulos de Deuda del Banco de la 
+Provincia de Buenos Aires-V
+ USD Mep
+ A licitar
+ 11,80
+ 365
+ 08/06/2027
+ A1+ (Fix SCR)
+ Tasa
+ lun, 8 jun.
+ jue, 4 jun.
+ Títulos de Deuda del Banco de la 
+Provincia de Buenos Aires-VI
+ ARS
  TAMAR+Mg
- 10,88
+ 10,92
  365
- 28/05/2027
- A1 (Fix SCR)
+ 08/06/2027
+ A1+ (Fix SCR)
  Margen
- jue, 28 may.
- mar, 26 may.
- ON Credicuotas Consumo (Integra 
-en efectivo y/o en especie)
- XXI
--USD Mep
+ lun, 8 jun.
+ jue, 4 jun.
+ ON Empresa Distribuidora de 
+Electricidad de Mendoza [Ley NY]-USD 300.000.000
+ 8
+ USD Cable
+ USD 300.000.000
  A licitar
- 11,65
- 365
- 28/05/2027
- A1 (Fix SCR)
- Tasa
- jue, 28 may.
- mar, 26 may.
- ON Mirgor
--USD 20.000.000 (amp. h/ 
-USD 40.000.000)
- VI
- USD Mep
- USD 20.000.000 (amp. h/ 
-USD 40.000.000)
- A licitar
- 22,19
+ 58,41
+ 2557
+ 11/06/2033
+ A informar
+ Book building
+ jue, 11 jun.
+ jue, 4 jun.
+ ON Garantizada Transporte Peduzzi 
+(Pyme)
+ I
+ $ 2.500.000.000
+-ARS
+ $ 2.500.000.000
+ TAMAR+Mg
+ 16,83
  731
- 28/05/2028
+ 08/06/2028
+ SC
+ Margen
+ lun, 8 jun.
+ jue, 4 jun.
+ ON Irsa (Integra en efectivo y/o en 
+especie)-USD 15.000.000 (amp. h/ 
+USD 50.000.000)
+ XXV
+ USD Mep
+ USD 15.000.000 (amp. h/ 
+USD 50.000.000)
+ A licitar
+ 11,85
+ 365
+ 08/06/2027
+ A1+ (Fix SCR)
+ Tasa
+ lun, 8 jun.
+ jue, 4 jun.
+ ON Banco Comafi
+-XXIV
+ USD Mep
+ A licitar
+ 23,42
+ 731
+ 05/06/2028
  A informar
  Tasa
- jue, 28 may.
- mar, 26 may.
- FF Pyme Inverlease FSA
- II
- VDFA
- ARS
- $ 4.025.994.113
- (20%; T+100; 45%)
- 4,91
- 298
- 22/03/2027
- AA (Fix SCR)
- TIR
- jue, 28 may.
- mar, 26 may.
- FF Pyme Inverlease FSA
- II
- VDFB
- ARS
- $ 422.365.756
- (21%; T+200; 46%)
- 10,36
- 327
- 20/04/2027
- A (Fix SCR)
- TIR
- jue, 28 may.
- jue, 28 may.
- [OFERTA DE CANJE] ON Rizobacter 
-Argentina
- XI
- A
- USD Linked
- 9,00%
- 21,58
- 1187
- 03/09/2029
- CC (Fix SCR)
- Por Adhesión
+ vie, 5 jun.
  jue, 4 jun.
- jue, 28 may.
- [OFERTA DE CANJE] ON Rizobacter 
-Argentina
- XI
- B
- USD Mep
- 9,00%
- 21,58
- 1187
- 03/09/2029
- CC (Fix SCR)
- Por Adhesión
- jue, 4 jun.
- jue, 28 may.
- [OFERTA DE CANJE] ON Rizobacter 
-Argentina
- XI
- C
- USD Mep
- 9,00%
- 21,58
- 1187
- 03/09/2029
- CC (Fix SCR)
- Por Adhesión
- jue, 4 jun.
- USD 200.000.000
- USD 200.000.000
- $ 5.874.808.721
- $10.000.000.000 (amp. h/ 
+ ON Banco Comafi
+-XXV
+ USD Cable
+ A licitar
+ 17,70
+ 549
+ 06/12/2027
+ A informar
+ Tasa
+ vie, 5 jun.
+ lun, 8 jun.
+ ON Garantizadas MSU Green Energy 
+[Ley NY] 
+[Bono SVS]
+USD 400.000.000 (amp. h/ 
 Monto Máximo Disponible 
-del Programa)
- $10.000.000.000 (amp. h/ 
+Bajo el Programa)
+ 4
+ USD Cable
+ USD 400.000.000 (amp. h/ 
 Monto Máximo Disponible 
-del Programa)
- $ 9.483.953.462
-
-Page 5
-
-Operaciones en difusión
-
-OPERACIONES DE TERCEROS
- 
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity (días)
- Última Fecha de 
-Pago
- Rating
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
- mar, 2 jun.
- [OFERTA DE CANJE] ON Garantizada 
-GEMSA & CTR [Ley NY]
- XLVI
- Hasta el Monto Máximo de 
-Emisión-USD Cable
- Hasta el Monto Máximo de 
-Emisión
- STEP-UP: 
-(i) 7,50% h/ 30-06-2028
- (ii) 8,00% h/ 30-06-2030
- (iii) 9,00% h/ 31-12-2034
- 48,99
- 3120
- 31/12/2034
--Por Adhesión
- mar, 16 jun.
- mar, 2 jun.
- [OFERTA DE CANJE] ON Garantizada 
-GEMSA & CTR [Ley NY]
- XLVII
- Hasta el Monto Máximo de 
-Emisión-USD Cable
- Hasta el Monto Máximo de 
-Emisión
- STEP-UP: 
-(i) 10,50% h/ 31-12-2034 (Pago en 
-Especie)
- (ii) 4,00% h/ 30-06-2036 (Pago en 
-Efectivo)
- 116,16
- 3667
- 30/06/2036
--Por Adhesión
- mar, 16 jun.
- mar, 2 jun.
- [OFERTA DE CANJE] ON Garantizada 
-GEMSA & CTR-XLVIII
- USD Mep
- STEP-UP: 
-(i) 7,50% h/ 30-06-2028
- (ii) 8,00% h/ 30-06-2030
- (iii) 9,00% h/ 31-12-2034
- 48,99
--31/12/2034
- SC
- Por Adhesión
+Bajo el Programa)
+ A licitar
+--
+ Venc. entre los 8 
+y 10 años
  A informar
- mar, 2 jun.
- [OFERTA DE CANJE] ON Garantizada 
-GEMSA & CTR-XLIX
- USD linked
- STEP-UP: 
-(i) 7,50% h/ 30-06-2028
- (ii) 8,00% h/ 30-06-2030
- (iii) 9,00% h/ 31-12-2034
- 48,99
--31/12/2034
- SC
- Por Adhesión
+ Book building
  A informar
- mar, 2 jun.
- [OFERTA DE CANJE] ON Garantizada 
-GEMSA & CTR-L
- USD linked
- STEP-UP: 
-(i) 10,50% h/ 31-12-2034 (Pago en 
-Especie)
- (ii) 4,00% h/ 30-06-2036 (Pago en 
-Efectivo)
- 116,16
--30/06/2036
- SC
- Por Adhesión
- A informar
- Hasta el Monto Máximo de 
-Emisión
- Hasta el Monto Máximo de 
-Emisión
+ USD 20.000.000 (amp. h/ 
+Máximo Disponible del 
+Programa)
+ USD 20.000.000 (amp. h/ 
+Máximo Disponible del 
+Programa)
+ $ 12.779.031.391
+ USD 20.000.000 (amp. h/ 
+Monto Disponible del 
+Programa)
+ USD 20.000.000 (amp. h/ 
+Monto Disponible del 
+Programa)
 
 Carga del documento completada. Está en la página 1.
