@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 03-06-2026
+Licitaciones Primarias 04-06-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 11:16 AM
+Hoy 10:58 AM
 View Full
 REGRESAR
 
@@ -62,10 +62,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 03-06-2026
+Licitaciones Primarias 04-06-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 11:16 AM
+Hoy 10:58 AM
 View Full
 REGRESAR
 
@@ -114,7 +114,7 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 Page 1
 
-3
+4
 de junio de 2026
 
 Este
@@ -252,8 +252,8 @@ Page 2
 Resultados
 
 Tasa / Precio de Corte
- Tasa Tamar 
-TIR Proyectada
+ Tasa 
+Tamar TIR Proyectada
  Spread TNA30d - 
 Tamar
  TNA (30días)
@@ -265,134 +265,24 @@ Licitación
  Moneda
  VN
  Cupón
- Duration (Meses)
+ Duration 
+(Meses)
  Maturity 
 (días)
  Última Fecha de 
 Pago
  Calificación
- Tipo de Licitación
- Fecha de 
-Liquidación
- Por Adhesión
--8,18%--
- mar, 2 jun.
- [OFERTA DE CANJE] ON Garantizada 
-GEMSA & CTR [Ley NY]
- XLVI
--USD Cable
- STEP-UP: 
-(i) 7,50% h/ 30-06-2028
- (ii) 8,00% h/ 30-06-2030
- (iii) 9,00% h/ 31-12-2034
- 48,99
- 3120
- 31/12/2034
--Por Adhesión
- mar, 16 jun.
- Por Adhesión
--9,95%--
- mar, 2 jun.
- [OFERTA DE CANJE] ON Garantizada 
-GEMSA & CTR [Ley NY]
- XLVII
--USD Cable
- STEP-UP: 
-(i) 10,50% h/ 31-12-2034 (Pago en 
-Especie)
- (ii) 4,00% h/ 30-06-2036 (Pago en 
-Efectivo)
- 116,16
- 3667
- 30/06/2036
--Por Adhesión
- mar, 16 jun.
- Px 100,95 
-22,2500%
- 28,41%
- 3,02%
- 25,27%
- mar, 2 jun.
- FF AMFAyS
- 52
- VDFA
- ARS
- $ 1.909.066.965
- (25%; T+100; 45%)
- 6,41
- 469
- 15/09/2027
- AAA (Moody´s)
- Precio
- mié, 3 jun.
- Px 90,54 
-22,2500%
- 36,14%
- 9,00%
- 31,25%
- mar, 2 jun.
- FF AMFAyS
- 52
- VDFB
- ARS
- $ 63.635.566
- (26%; T+100; 46%)
- 15,60
- 499
- 15/10/2027
- AA (Moody´s)
- Precio
- mié, 3 jun.
- Px 78,53 
-22,2500%
- 48,21%
- 17,75%
- 40,00%
- mar, 2 jun.
- FF AMFAyS
- 52
- VDFC
- ARS
- $ 148.482.986
- 25,00%
- 16,97
- 560
- 15/12/2027
- A+ (Moody´s)
- Precio
- mié, 3 jun.
- USD 346.457.132
-Presentation Heading  |
-
-Page 3
-
-Licita hoy
-
-OPERACIONES DE TERCEROS
- 
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity (días)
- Última Fecha de 
-Pago
- Rating
  Tipo de 
 Licitación
  Fecha de 
 Liquidación
+ A Informar
+-A Informar--
  mié, 3 jun.
  [OFERTA DE CANJE] ON Garantizada 
 GEMSA & CTR-XLVIII
  USD Mep
+ A Informar
  STEP-UP: 
 (i) 7,50% h/ 30-06-2028
  (ii) 8,00% h/ 30-06-2030
@@ -402,10 +292,13 @@ GEMSA & CTR-XLVIII
  SC
  Por Adhesión
  A informar
+ A Informar
+-A Informar--
  mié, 3 jun.
  [OFERTA DE CANJE] ON Garantizada 
 GEMSA & CTR-XLIX
  USD linked
+ A Informar
  STEP-UP: 
 (i) 7,50% h/ 30-06-2028
  (ii) 8,00% h/ 30-06-2030
@@ -415,10 +308,13 @@ GEMSA & CTR-XLIX
  SC
  Por Adhesión
  A informar
+ A Informar
+-A Informar--
  mié, 3 jun.
  [OFERTA DE CANJE] ON Garantizada 
 GEMSA & CTR-L
  USD linked
+ A Informar
  STEP-UP: 
 (i) 10,50% h/ 31-12-2034 (Pago en 
 Especie)
@@ -429,70 +325,73 @@ Efectivo)
  SC
  Por Adhesión
  A informar
+ 6,50%
+-6,61%--
  mié, 3 jun.
- ON John Deere Credit Cía. 
-Financiera -USD 40.000.000 (amp. h/ 
-USD 80.000.000)
- XX
+ ON John Deere Credit Cía. Financiera 
+-XX
  USD Mep
- USD 40.000.000 (amp. h/ 
-USD 80.000.000)
- A licitar
+ USD 80.000.000
+ 6,50%
  28,21
  914
  08/12/2028
  AA (Fix SCR)
  Tasa
  lun, 8 jun.
+ TAMAR+3,25%
+ 22,9375%
+ 28,87%
+ 2,70%
+ 25,63%
  mié, 3 jun.
  ON Banco de Galicia
  I
  XXXII
  ARS
- TAMAR+Mg
- 10,95
+ $ 156.553.654.957
+ TAMAR+3,25%
+ 10,94
  365
  05/06/2027
  A1+ (Fix SCR)
  Margen
  vie, 5 jun.
+ 4,75%
+-4,81%--
  mié, 3 jun.
  ON Banco de Galicia
  II
  XXXII
  USD Mep
- A licitar
- 23,13
+ USD 53.059.085
+ 4,75%
+ 23,21
  731
  05/06/2028
  AAA (Fix SCR)
  Tasa
  vie, 5 jun.
+ 3,00%
+-2,98%--
  mié, 3 jun.
  ON Banco de Galicia
  III
  XXXII
  USD Cable
- A licitar
+ USD 36.728.372
+ 3,00%
  18,02
  548
  05/12/2027
  AAA (Fix SCR)
  Tasa
  vie, 5 jun.
- Hasta el Monto Máximo de 
-Emisión
- Hasta el Monto Máximo de 
-Emisión
- USD 100.000.000 (amp. h/ 
-USD 500.000.000)
- USD 100.000.000 (amp. h/ 
-USD 500.000.000)
 Presentation Heading  |
 
-Page 4
+Page 3
 
-Operaciones en difusión
+Licita hoy
 
 STONEX
  Fecha de 
@@ -506,7 +405,8 @@ Licitación
  Cupón
  Duration 
 (meses)
- Maturity (días)
+ Maturity 
+(días)
  Última Fecha de 
 Pago
  Rating
@@ -553,7 +453,8 @@ Licitación
  Cupón
  Duration 
 (meses)
- Maturity (días)
+ Maturity 
+(días)
  Última Fecha de 
 Pago
  Rating
@@ -611,8 +512,8 @@ Electricidad de Mendoza [Ley NY]-USD 300.000.000
  Book building
  jue, 11 jun.
  jue, 4 jun.
- ON Garantizada Transporte Peduzzi 
-(Pyme)
+ ON Garantizada Transporte 
+Peduzzi (Pyme)
  I
  $ 2.500.000.000
 -ARS
@@ -647,7 +548,7 @@ USD 50.000.000)
  23,42
  731
  05/06/2028
- A informar
+ AA (Fix SCR)
  Tasa
  vie, 5 jun.
  jue, 4 jun.
@@ -658,12 +559,53 @@ USD 50.000.000)
  17,70
  549
  06/12/2027
- A informar
+ AA (Fix SCR)
  Tasa
  vie, 5 jun.
+ USD 20.000.000 (amp. h/ 
+Máximo Disponible del 
+Programa)
+ USD 20.000.000 (amp. h/ 
+Máximo Disponible del 
+Programa)
+ $ 12.779.031.391
+ USD 20.000.000 (amp. h/ 
+Monto Disponible del 
+Programa)
+ USD 20.000.000 (amp. h/ 
+Monto Disponible del 
+Programa)
+Presentation Heading  |
+
+Page 4
+
+Operaciones en difusión
+
+OPERACIONES DE TERCEROS
+ 
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
  lun, 8 jun.
- ON Garantizadas MSU Green Energy 
-[Ley NY] 
+ ON Garantizadas MSU Green 
+Energy [Ley NY] 
 [Bono SVS]
 USD 400.000.000 (amp. h/ 
 Monto Máximo Disponible 
@@ -680,18 +622,5 @@ y 10 años
  A informar
  Book building
  A informar
- USD 20.000.000 (amp. h/ 
-Máximo Disponible del 
-Programa)
- USD 20.000.000 (amp. h/ 
-Máximo Disponible del 
-Programa)
- $ 12.779.031.391
- USD 20.000.000 (amp. h/ 
-Monto Disponible del 
-Programa)
- USD 20.000.000 (amp. h/ 
-Monto Disponible del 
-Programa)
 
 Carga del documento completada. Está en la página 1.

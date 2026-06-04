@@ -1,4 +1,7 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
+5-jun-26,Banco de Galicia I XXXII,ARS,TAMAR,"3,25%",12,"156553,70",A1+ (Fix SCR)
+5-jun-26,Banco de Galicia II XXXII,USD Mep,Fija,"4,75%",24,"53,10",AAA (Fix SCR)
+5-jun-26,Banco de Galicia III XXXII,USD Cable,Fija,"3,00%",18,"36,70",AAA (Fix SCR)
 29-may-26,BONAR 2027 (AO27),USD Mep,Fija,"6,00%",17,"200,00",SC
 29-may-26,BONAR 2027 (AO27),USD Mep,Fija,"6,00%",17,"105,00",SC
 29-may-26,BONAR 2028 (AO28),USD Mep,Fija,"6,00%",29,"150,00",SC
