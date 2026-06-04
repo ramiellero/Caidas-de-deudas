@@ -603,10 +603,10 @@ def actualizar_csv(texto):
     # GIT PULL
     # ==========================================
 
-    #os.chdir(REPO_GIT)
+    os.chdir(REPO_GIT)
 
-    #print("\nHaciendo git pull...")
-    #os.system("git pull")
+    print("\nHaciendo git pull...")
+    os.system("git pull")
 
     # ==========================================
     # CSV PARA WEB
@@ -636,11 +636,11 @@ def actualizar_csv(texto):
     # GIT PUSH
     # ==========================================
 
-    #print("\nSubiendo cambios a GitHub...")
+    print("\nSubiendo cambios a GitHub...")
 
-    #os.system("git add .")
-    #os.system('git commit -m "update deals automatico"')
-    #os.system("git push")
+    os.system("git add .")
+    os.system('git commit -m "update deals automatico"')
+    os.system("git push")
 
     print("\n====================================")
     print("CSV actualizado")

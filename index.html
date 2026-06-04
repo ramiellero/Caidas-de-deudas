@@ -1950,8 +1950,23 @@
 
     <!-- Sub-view tabs -->
     <div class="deals-view-tabs">
-      <button class="deals-view-tab active" id="deals-tab-tabla"   onclick="setDealsView('tabla',   this)">Tabla</button>
-      <button class="deals-view-tab"        id="deals-tab-volumen" onclick="setDealsView('volumen', this)">Volumen de emisiones</button>
+      <button class="deals-view-tab active"
+              id="deals-tab-tabla"
+              onclick="setDealsView('tabla', this)">
+        Tabla
+      </button>
+
+      <button class="deals-view-tab"
+              id="deals-tab-volumen"
+              onclick="setDealsView('volumen', this)">
+        Volumen de emisiones
+      </button>
+
+      <button class="deals-view-tab"
+              id="deals-tab-difusion"
+              onclick="setDealsView('difusion', this)">
+        Difusión
+      </button>
     </div>
 
     <!-- View: Tabla -->
@@ -1983,6 +1998,34 @@
         <!-- populated by JS: one card per currency -->
       </div>
     </div><!-- /deals-view-volumen -->
+
+    <!-- View: Difusión -->
+    <div id="deals-view-difusion" style="display:none;">
+      <div class="deals-table-wrap">
+        <table class="deals-table" id="deals-difusion-table">
+          <thead>
+            <tr>
+              <th>Fecha Licitación</th>
+              <th>Fecha Liquidación</th>
+              <th>Emisor</th>
+              <th>Moneda</th>
+              <th>Tasa</th>
+              <th>Tasa/Margen</th>
+              <th>Plazo</th>
+              <th>Calificación</th>
+            </tr>
+          </thead>
+
+          <tbody id="deals-difusion-tbody">
+            <tr>
+              <td colspan="8" class="deals-empty">
+                Cargando...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /deals-view-difusion -->
 
   </div><!-- /content -->
 </div><!-- /page-deals -->
@@ -4636,6 +4679,7 @@ document.addEventListener('click', function(e) {
 // ── State ─────────────────────────────────────────────
 let _dealsAllRows   = [];   // all parsed rows
 let _dealsFiltered  = [];   // after filters
+let _difusionAllRows = [];
 let _dealsSortCol   = 'FECHA';
 let _dealsSortAsc   = false; // most recent first by default
 let _dealsVolChartInsts = {}; // currency key -> Chart.js instance
@@ -4758,6 +4802,9 @@ async function initDealsSection() {
     _dealsSetDefaultDates();
     _dealsPopulateDropdowns();
     _dealsApplyFilters();
+    _dealsApplyFilters();
+
+    initDifusionSection();
 
   } catch(e) {
     console.error('Deals: error loading CSV', e);
@@ -4779,6 +4826,102 @@ function _dealsPopulateDropdowns() {
   tasas.forEach(t => {
     const o = document.createElement('option'); o.value = t; o.textContent = t; tSel.appendChild(o);
   });
+}
+
+// ─────────────────────────────────────────────
+// DIFUSION
+// ─────────────────────────────────────────────
+
+async function initDifusionSection() {
+  console.log("INIT DIFUSION");
+
+  try {
+
+    const text = await fetch('StoneX/difusion.csv')
+      .then(r => r.text());
+    
+    console.log("CSV DIFUSION CARGADO");  
+
+    const lines = text
+      .replace(/\r\n/g, '\n')
+      .replace(/\r/g, '\n')
+      .split('\n');
+
+    if (
+      lines.length &&
+      lines[0].charCodeAt(0) === 0xFEFF
+    ) {
+      lines[0] = lines[0].slice(1);
+    }
+
+    const headers =
+      lines[0].split(";").map(h => h.trim());
+
+    _difusionAllRows = [];
+
+    for (let i = 1; i < lines.length; i++) {
+
+      const line = lines[i].trim();
+
+      if (!line) continue;
+
+      const vals = line.split(";").map(v => v.trim());
+
+      const row = {};
+
+      headers.forEach((h, idx) => {
+        row[h] = (vals[idx] || '').trim();
+      });
+
+      _difusionAllRows.push(row);
+    }
+
+    console.log(_difusionAllRows);
+    _renderDifusionTable();
+
+  } catch (e) {
+
+    console.error(
+      'Difusion: error loading CSV',
+      e
+    );
+
+    document.getElementById(
+      'deals-difusion-tbody'
+    ).innerHTML =
+      '<tr><td colspan="9" class="deals-empty">Error cargando datos.</td></tr>';
+  }
+}
+
+function _renderDifusionTable() {
+
+  const tbody =
+    document.getElementById(
+      'deals-difusion-tbody'
+    );
+
+  if (!_difusionAllRows.length) {
+
+    tbody.innerHTML =
+      '<tr><td colspan="8" class="deals-empty">Sin datos.</td></tr>';
+
+    return;
+  }
+
+  tbody.innerHTML = _difusionAllRows.map(r => `
+
+    <tr>
+      <td>${r['FECHA LICITACIÓN'] || ''}</td>
+      <td>${r['FECHA LIQUIDACIÓN'] || ''}</td>
+      <td>${r['EMISOR'] || ''}</td>
+      <td>${r['MONEDA'] || ''}</td>
+      <td>${r['TASA'] || ''}</td>
+      <td>${r['TASA/MARGEN'] || ''}</td>
+      <td>${r['PLAZO (en meses)'] || ''}</td>
+      <td>${r['CALIFICACIÓN'] || ''}</td>
+    </tr>
+
+  `).join('');
 }
 
 // ── Filters ────────────────────────────────────────────
@@ -4907,10 +5050,15 @@ const _DEALS_VOL_COLORS = {
 function setDealsView(mode, btn) {
   const volView = document.getElementById('deals-view-volumen');
   const tblView = document.getElementById('deals-view-tabla');
-  tblView.style.display = mode === 'tabla'   ? '' : 'none';
+  const difView = document.getElementById('deals-view-difusion');
+
+  tblView.style.display = mode === 'tabla' ? '' : 'none';
   volView.style.display = mode === 'volumen' ? '' : 'none';
+  difView.style.display = mode === 'difusion' ? '' : 'none';
+
   document.querySelectorAll('.deals-view-tab').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
+
   if (mode === 'volumen') _dealsRenderVolumeChart();
 }
 
