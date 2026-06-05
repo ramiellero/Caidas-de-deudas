@@ -654,16 +654,6 @@ def actualizar_csv(texto):
         encoding="utf-8-sig"
     )
     
-    # ==========================================
-    # GIT PUSH
-    # ==========================================
-
-    print("\nSubiendo cambios a GitHub...")
-
-    os.system("git add .")
-    os.system('git commit -m "update deals automatico"')
-    os.system("git push")
-
     print("\n====================================")
     print("CSV actualizado")
     print("Backup:", CSV_OUTPUT)
@@ -979,6 +969,18 @@ def main():
 
     actualizar_csv(texto)
     actualizar_difusion(texto)
+
+# ==========================================
+# GIT PUSH
+# ==========================================
+
+os.chdir(REPO_GIT)
+
+print("\nSubiendo cambios a GitHub...")
+
+os.system("git add .")
+os.system('git commit -m "update deals automatico"')
+os.system("git push")
 
 if __name__ == "__main__":
     main()
