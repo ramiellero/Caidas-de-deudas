@@ -1244,6 +1244,111 @@
       color: #94A3B8;
       font-size: 13px;
     }
+
+    /* ── Curvas ── */
+    .curvas-header-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: #64748B;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .curvas-header-bar strong { color: #0F172A; font-weight: 600; }
+    .curvas-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-end;
+      margin-bottom: 14px;
+    }
+    .curvas-table-wrap {
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .curvas-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    .curvas-table thead th {
+      padding: 9px 10px;
+      text-align: left;
+      background: #F8FAFC;
+      border-bottom: 1px solid #E2E8F0;
+      color: #475569;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    .curvas-table thead th:hover { color: #334155; }
+    .curvas-table thead th.sort-asc::after  { content: ' ▲'; font-size: 9px; }
+    .curvas-table thead th.sort-desc::after { content: ' ▼'; font-size: 9px; }
+    .curvas-table thead th.no-sort { cursor: default; }
+    .curvas-table tbody tr { border-bottom: 1px solid #F1F5F9; }
+    .curvas-table tbody tr:last-child { border-bottom: none; }
+    .curvas-table tbody tr:hover { background: #F8FAFC; }
+    .curvas-table td {
+      padding: 7px 10px;
+      color: #334155;
+      white-space: nowrap;
+    }
+    .curvas-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .curvas-table td.curvas-ticker {
+      font-family: 'Courier New', monospace;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0F172A;
+    }
+    .curvas-table td.curvas-emisor { font-weight: 500; color: #0F172A; }
+    .curvas-table tr.curvas-irsa   { background: #EBF2F8; }
+    .curvas-table tr.curvas-cresud { background: #EBF4EE; }
+    .curvas-table tr.curvas-irsa:hover   { background: #dce9f4; }
+    .curvas-table tr.curvas-cresud:hover { background: #d8eede; }
+    .curvas-badge-mep { background:#D1FAE5; color:#065F46; }
+    .curvas-badge-ccl { background:#E0F2FE; color:#0369A1; }
+    .curvas-badge-arg { background:#F1F5F9; color:#475569; }
+    .curvas-badge-ny  { background:#FEF3C7; color:#92400E; }
+    .curvas-count-note {
+      font-size: 12px;
+      color: #64748B;
+      margin-bottom: 8px;
+    }
+    .curvas-charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .curvas-chart-card {
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 16px 16px 12px;
+      background: #fff;
+    }
+    .curvas-chart-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #475569;
+      margin-bottom: 10px;
+    }
+    .curvas-chart-wrap {
+      position: relative;
+      height: 300px;
+    }
+    @media (max-width: 900px) {
+      .curvas-charts-grid { grid-template-columns: 1fr; }
+      .curvas-chart-wrap  { height: 220px; }
+    }
     @media (max-width: 600px) {
       /* Filters: 2-column grid */
       .deals-filters {
@@ -1950,23 +2055,10 @@
 
     <!-- Sub-view tabs -->
     <div class="deals-view-tabs">
-      <button class="deals-view-tab active"
-              id="deals-tab-tabla"
-              onclick="setDealsView('tabla', this)">
-        Tabla
-      </button>
-
-      <button class="deals-view-tab"
-              id="deals-tab-volumen"
-              onclick="setDealsView('volumen', this)">
-        Volumen de emisiones
-      </button>
-
-      <button class="deals-view-tab"
-              id="deals-tab-difusion"
-              onclick="setDealsView('difusion', this)">
-        Difusión
-      </button>
+      <button class="deals-view-tab active" id="deals-tab-tabla"   onclick="setDealsView('tabla',   this)">Tabla</button>
+      <button class="deals-view-tab"        id="deals-tab-volumen" onclick="setDealsView('volumen', this)">Volumen de emisiones</button>
+      <button class="deals-view-tab"        id="deals-tab-difusion" onclick="setDealsView('difusion', this)">Difusión</button>
+      <button class="deals-view-tab"        id="deals-tab-curvas"  onclick="setDealsView('curvas',  this)">Curvas ONs</button>
     </div>
 
     <!-- View: Tabla -->
@@ -2015,17 +2107,92 @@
               <th>Calificación</th>
             </tr>
           </thead>
-
           <tbody id="deals-difusion-tbody">
-            <tr>
-              <td colspan="8" class="deals-empty">
-                Cargando...
-              </td>
-            </tr>
+            <tr><td colspan="8" class="deals-empty">Cargando...</td></tr>
           </tbody>
         </table>
       </div>
     </div><!-- /deals-view-difusion -->
+
+
+    <!-- View: Curvas ONs -->
+    <div id="deals-view-curvas" style="display:none;">
+
+      <!-- Header: fecha del informe -->
+      <div class="curvas-header-bar">
+        <span>Bonos Corporativos (USD) — Índice PPI</span>
+        <strong id="curvas-fecha-label">—</strong>
+        <span id="curvas-count-label" style="margin-left:auto;color:#94A3B8;"></span>
+      </div>
+
+      <!-- Filtros -->
+      <div class="curvas-filters">
+        <div class="deals-filter-group">
+          <span class="deals-filter-label">Emisor</span>
+          <input type="text" class="deals-filter-input wide" id="curvas-f-emisor" placeholder="Buscar emisor…" oninput="_curvasApplyFilters()">
+        </div>
+        <div class="deals-filter-group">
+          <span class="deals-filter-label">Industria</span>
+          <select class="deals-filter-input" id="curvas-f-industria" onchange="_curvasApplyFilters()">
+            <option value="">Todas</option>
+          </select>
+        </div>
+        <div class="deals-filter-group">
+          <span class="deals-filter-label">Moneda</span>
+          <select class="deals-filter-input" id="curvas-f-moneda" onchange="_curvasApplyFilters()">
+            <option value="">Todas</option>
+            <option value="MEP">MEP</option>
+            <option value="CCL">CCL</option>
+          </select>
+        </div>
+        <div class="deals-filter-group">
+          <span class="deals-filter-label">Ley</span>
+          <select class="deals-filter-input" id="curvas-f-ley" onchange="_curvasApplyFilters()">
+            <option value="">Todas</option>
+            <option value="Arg">Argentina</option>
+            <option value="NY">Nueva York</option>
+          </select>
+        </div>
+        <button class="deals-clear-btn" onclick="_curvasClearFilters()">Limpiar</button>
+      </div>
+
+      <!-- Scatter charts -->
+      <div class="curvas-charts-grid">
+        <div class="curvas-chart-card">
+          <div class="curvas-chart-title">Curva MEP &mdash; TIR vs. MD</div>
+          <div class="curvas-chart-wrap"><canvas id="curvas-chart-mep"></canvas></div>
+        </div>
+        <div class="curvas-chart-card">
+          <div class="curvas-chart-title">Curva CCL &mdash; TIR vs. MD</div>
+          <div class="curvas-chart-wrap"><canvas id="curvas-chart-ccl"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Tabla -->
+      <div class="curvas-table-wrap">
+        <table class="curvas-table" id="curvas-table">
+          <thead>
+            <tr>
+              <th onclick="_curvasSortBy('Ticker')">Ticker</th>
+              <th onclick="_curvasSortBy('Emisor')">Emisor</th>
+              <th onclick="_curvasSortBy('Industria')">Industria</th>
+              <th onclick="_curvasSortBy('Cupon')">Cupón</th>
+              <th onclick="_curvasSortBy('Vencimiento')">Vencimiento</th>
+              <th class="no-sort">Ley · Moneda</th>
+              <th onclick="_curvasSortBy('Precio_Clean_MEP')" style="text-align:right">Precio Clean<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(MEP)</span></th>
+              <th onclick="_curvasSortBy('TIR')" style="text-align:right">TIR</th>
+              <th onclick="_curvasSortBy('TNA')" style="text-align:right">TNA</th>
+              <th onclick="_curvasSortBy('MD')" style="text-align:right">MD</th>
+              <th onclick="_curvasSortBy('Monto_Circ')" style="text-align:right">Monto<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(US$ M)</span></th>
+            </tr>
+          </thead>
+          <tbody id="curvas-tbody">
+            <tr><td colspan="11" class="deals-empty">Cargando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /deals-view-curvas -->
 
   </div><!-- /content -->
 </div><!-- /page-deals -->
@@ -2919,6 +3086,7 @@ initCresudMatChart();
 initCresudTimeline();
 initSgrSection();
 initDealsSection();
+initCurvasSection();
 
 
 /* ════════════════════════════════════════════════════════
@@ -4358,8 +4526,8 @@ function _sgrRenderMktRanking() {
         const yPos = bar.y;
         const isOur = ourSGRs.has(sorted[i].sgr);
         c.save();
-        c.font = `${isOur ? '600' : '400'} 8.5px Inter, sans-serif`;
-        c.fillStyle = isOur ? '#166534' : '#64748B';
+        c.font = `${isOur ? '700' : '400'} 8.5px Inter, sans-serif`;
+        c.fillStyle = '#0F172A';
         c.textAlign = 'left';
         c.textBaseline = 'middle';
         c.fillText(val.toFixed(1) + '%', xPos + 3, yPos);
@@ -4386,8 +4554,8 @@ function _sgrRenderMktRanking() {
         }},
       },
       scales: {
-        x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 9 }, callback: v => v + '%' }, beginAtZero: true },
-        y: { grid: { display: false }, ticks: { font: { size: 9 } } },
+        x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 9 }, color: '#0F172A', callback: v => v + '%' }, beginAtZero: true },
+        y: { grid: { display: false }, ticks: { font: { size: 9 }, color: '#0F172A' } },
       },
     },
   });
@@ -4420,8 +4588,8 @@ function _sgrRenderMktFdr() {
         const yPos = bar.y;
         const isOur = ourSGRs.has(sorted[i].sgr);
         c.save();
-        c.font = `${isOur ? '600' : '400'} 8.5px Inter, sans-serif`;
-        c.fillStyle = isOur ? '#166534' : '#64748B';
+        c.font = `${isOur ? '700' : '400'} 8.5px Inter, sans-serif`;
+        c.fillStyle = '#0F172A';
         c.textAlign = 'left';
         c.textBaseline = 'middle';
         c.fillText((val / 1000).toFixed(0) + 'Bn', xPos + 3, yPos);
@@ -4448,8 +4616,8 @@ function _sgrRenderMktFdr() {
         }},
       },
       scales: {
-        x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 9 }, callback: v => (v / 1000).toFixed(0) + 'Bn' }, beginAtZero: true },
-        y: { grid: { display: false }, ticks: { font: { size: 9 } } },
+        x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 9 }, color: '#0F172A', callback: v => (v / 1000).toFixed(0) + 'Bn' }, beginAtZero: true },
+        y: { grid: { display: false }, ticks: { font: { size: 9 }, color: '#0F172A' } },
       },
     },
   });
@@ -5048,18 +5216,373 @@ const _DEALS_VOL_COLORS = {
 };
 
 function setDealsView(mode, btn) {
-  const volView = document.getElementById('deals-view-volumen');
-  const tblView = document.getElementById('deals-view-tabla');
-  const difView = document.getElementById('deals-view-difusion');
-
-  tblView.style.display = mode === 'tabla' ? '' : 'none';
-  volView.style.display = mode === 'volumen' ? '' : 'none';
-  difView.style.display = mode === 'difusion' ? '' : 'none';
+  const volView    = document.getElementById('deals-view-volumen');
+  const tblView    = document.getElementById('deals-view-tabla');
+  const difView    = document.getElementById('deals-view-difusion');
+  const curvasView = document.getElementById('deals-view-curvas');
+  tblView.style.display    = mode === 'tabla'    ? '' : 'none';
+  volView.style.display    = mode === 'volumen'  ? '' : 'none';
+  difView.style.display    = mode === 'difusion' ? '' : 'none';
+  curvasView.style.display = mode === 'curvas'   ? '' : 'none';
 
   document.querySelectorAll('.deals-view-tab').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
 
   if (mode === 'volumen') _dealsRenderVolumeChart();
+  if (mode === 'curvas' && _curvasAllRows.length) _curvasRenderCharts();
+}
+
+/* ── Curvas ONs ─────────────────────────────────────────────────────────── */
+
+let _curvasAllRows   = [];
+let _curvasFiltered  = [];
+let _curvasSortCol   = 'Vencimiento';
+let _curvasSortAscending = true;
+
+// Normaliza nombres de industria con artefactos de encoding del PDF
+function _curvasNormIndustria(s) {
+  if (!s) return '';
+  const sl = s.toLowerCase();
+  if (sl.includes('petr'))     return 'Petróleo & Gas';
+  if (sl.includes('materiale')) return 'Materiales Básicos';
+  if (sl.includes('alimento'))  return 'Alimentos y Bebidas';
+  if (sl.includes('construcc')) return 'Construcción';
+  if (sl.includes('aerol'))     return 'Aerolíneas';
+  return s;
+}
+
+function _curvasParseFecha(s) {
+  // "DD/MM/YYYY"
+  if (!s) return null;
+  const p = s.split('/');
+  if (p.length !== 3) return null;
+  return new Date(+p[2], +p[1] - 1, +p[0]);
+}
+
+async function initCurvasSection() {
+  try {
+    const resp = await fetch('curvas_on.csv');
+    if (!resp.ok) return;
+    const text = await resp.text();
+    const lines = text.split('\n');
+    if (lines.length < 2) return;
+    const headers = lines[0].split(',');
+    const rows = [];
+    for (let i = 1; i < lines.length; i++) {
+      const l = lines[i].trim();
+      if (!l) continue;
+      const cells = l.split(',');
+      const r = {};
+      headers.forEach((h, j) => r[h.trim()] = (cells[j] || '').trim());
+      // Excluir bonos sin precio clean
+      if (!r['Precio_Clean_MEP'] || r['Precio_Clean_MEP'] === '-') continue;
+      // Excluir San Miguel (reestructurado)
+      if (r['Emisor'] && r['Emisor'].toLowerCase().includes('san miguel')) continue;
+      // Excluir MEP con TIR > 10% (distressed / posible reestructuración)
+      if (r['Moneda'] === 'MEP' && parseFloat(r['TIR']) > 10) continue;
+      // Excluir outliers CCL: TIR > 13% o TIR < -5%
+      if (r['Moneda'] === 'CCL') { const t = parseFloat(r['TIR']); if (t > 13 || t < -5) continue; }
+      r._industria = _curvasNormIndustria(r['Industria']);
+      r._venc      = _curvasParseFecha(r['Vencimiento']);
+      r._tir       = parseFloat(r['TIR'])  || null;
+      r._tna       = parseFloat(r['TNA'])  || null;
+      r._md        = parseFloat(r['MD'])   || null;
+      r._cupon     = parseFloat(r['Cupon']) || null;
+      r._monto     = parseFloat(r['Monto_Circ']) || null;
+      r._precio    = parseFloat(r['Precio_Clean_MEP']) || null;
+      rows.push(r);
+    }
+    _curvasAllRows = rows;
+
+    // Fecha del informe
+    const fecha = rows[0] && rows[0]['Fecha'] ? rows[0]['Fecha'] : '—';
+    const id    = rows[0] && rows[0]['ID'] ? rows[0]['ID'] : '';
+    const lbl = document.getElementById('curvas-fecha-label');
+    if (lbl) lbl.textContent = `Informe ${id} · ${fecha}`;
+
+    // Poblar dropdown de industrias
+    const industrias = [...new Set(rows.map(r => r._industria).filter(Boolean))].sort();
+    const selInd = document.getElementById('curvas-f-industria');
+    if (selInd) {
+      industrias.forEach(ind => {
+        const o = document.createElement('option');
+        o.value = ind; o.textContent = ind;
+        selInd.appendChild(o);
+      });
+    }
+
+    _curvasApplyFilters();
+    _curvasRenderCharts();
+  } catch(e) {
+    console.error('initCurvasSection:', e);
+  }
+}
+
+function _curvasApplyFilters() {
+  const emisor   = (document.getElementById('curvas-f-emisor')   ?.value || '').toLowerCase();
+  const industria= (document.getElementById('curvas-f-industria') ?.value || '');
+  const moneda   = (document.getElementById('curvas-f-moneda')   ?.value || '');
+  const ley      = (document.getElementById('curvas-f-ley')      ?.value || '');
+
+  _curvasFiltered = _curvasAllRows.filter(r => {
+    if (emisor    && !r['Emisor'].toLowerCase().includes(emisor)) return false;
+    if (industria && r._industria !== industria)                  return false;
+    if (moneda    && r['Moneda'] !== moneda)                      return false;
+    if (ley       && r['Ley'] !== ley)                            return false;
+    return true;
+  });
+
+  _curvasSortRows();
+  _curvasRenderTable();
+
+  const cnt = document.getElementById('curvas-count-label');
+  if (cnt) cnt.textContent = `${_curvasFiltered.length} bonos`;
+}
+
+function _curvasSortBy(col) {
+  if (_curvasSortCol === col) {
+    _curvasSortAscending = !_curvasSortAscending;
+  } else {
+    _curvasSortCol = col;
+    _curvasSortAscending = true;
+  }
+  _curvasSortRows();
+  _curvasRenderTable();
+  _curvasUpdateSortHeaders();
+}
+
+function _curvasSortRows() {
+  const col = _curvasSortCol;
+  const asc = _curvasSortAscending;
+  _curvasFiltered.sort((a, b) => {
+    let va, vb;
+    if (col === 'Vencimiento') {
+      va = a._venc ? a._venc.getTime() : Infinity;
+      vb = b._venc ? b._venc.getTime() : Infinity;
+    } else if (col === 'TIR')           { va = a._tir   ?? Infinity; vb = b._tir   ?? Infinity; }
+    else if   (col === 'TNA')           { va = a._tna   ?? Infinity; vb = b._tna   ?? Infinity; }
+    else if   (col === 'MD')            { va = a._md    ?? Infinity; vb = b._md    ?? Infinity; }
+    else if   (col === 'Cupon')         { va = a._cupon ?? Infinity; vb = b._cupon ?? Infinity; }
+    else if   (col === 'Monto_Circ')    { va = a._monto ?? Infinity; vb = b._monto ?? Infinity; }
+    else if   (col === 'Precio_Clean_MEP') { va = a._precio ?? Infinity; vb = b._precio ?? Infinity; }
+    else { va = (a[col] || '').toLowerCase(); vb = (b[col] || '').toLowerCase(); }
+    if (va < vb) return asc ? -1 : 1;
+    if (va > vb) return asc ?  1 : -1;
+    return 0;
+  });
+}
+
+function _curvasUpdateSortHeaders() {
+  document.querySelectorAll('#curvas-table thead th').forEach(th => {
+    th.classList.remove('sort-asc', 'sort-desc');
+  });
+  const ths = document.querySelectorAll('#curvas-table thead th');
+  const colMap = ['Ticker','Emisor','Industria','Cupon','Vencimiento',null,'Precio_Clean_MEP','TIR','TNA','MD','Monto_Circ'];
+  colMap.forEach((c, i) => {
+    if (c === _curvasSortCol && ths[i]) {
+      ths[i].classList.add(_curvasSortAscending ? 'sort-asc' : 'sort-desc');
+    }
+  });
+}
+
+const _CURVAS_IRSA   = new Set(['IRCLO','IRCJO','IRCFO','IRCOO','IRCPO']);
+const _CURVAS_CRESUD = new Set(['CS44O','CS45O']);
+
+function _curvasMonedaBadge(moneda) {
+  const cls = moneda === 'CCL' ? 'curvas-badge-ccl' : 'curvas-badge-mep';
+  return `<span class="deals-badge ${cls}">${moneda}</span>`;
+}
+function _curvasLeyBadge(ley) {
+  const cls = ley === 'NY' ? 'curvas-badge-ny' : 'curvas-badge-arg';
+  return `<span class="deals-badge ${cls}">${ley === 'NY' ? 'NY' : 'Arg'}</span>`;
+}
+function _curvasFmtPct(v) {
+  if (v === '' || v === null || v === undefined || isNaN(+v)) return '—';
+  return (+v).toFixed(1) + '%';
+}
+function _curvasFmtNum(v, decimals = 1) {
+  if (v === '' || v === null || v === undefined || isNaN(+v)) return '—';
+  return (+v).toFixed(decimals);
+}
+
+function _curvasRenderTable() {
+  const tbody = document.getElementById('curvas-tbody');
+  if (!tbody) return;
+  if (!_curvasFiltered.length) {
+    tbody.innerHTML = '<tr><td colspan="11" class="deals-empty">Sin resultados para los filtros aplicados.</td></tr>';
+    _curvasUpdateSortHeaders();
+    return;
+  }
+  const html = _curvasFiltered.map(r => {
+    const isIrsa   = _CURVAS_IRSA.has(r['Ticker']);
+    const isCresud = _CURVAS_CRESUD.has(r['Ticker']);
+    const rowCls   = isIrsa ? 'curvas-irsa' : isCresud ? 'curvas-cresud' : '';
+    const precio   = r['Precio_Clean_MEP'] ? `US$${(+r['Precio_Clean_MEP']).toFixed(1)}` : '—';
+    return `<tr class="${rowCls}">
+      <td class="curvas-ticker">${_escHtml(r['Ticker'])}</td>
+      <td class="curvas-emisor">${_escHtml(r['Emisor'])}</td>
+      <td>${_escHtml(r._industria)}</td>
+      <td>${_escHtml(r['Cupon'])}</td>
+      <td>${_escHtml(r['Vencimiento'])}</td>
+      <td>${_curvasLeyBadge(r['Ley'])} ${_curvasMonedaBadge(r['Moneda'])}</td>
+      <td class="num">${precio}</td>
+      <td class="num">${_curvasFmtPct(r._tir)}</td>
+      <td class="num">${_curvasFmtPct(r._tna)}</td>
+      <td class="num">${_curvasFmtNum(r._md, 1)}</td>
+      <td class="num">${r['Monto_Circ'] || '—'}</td>
+    </tr>`;
+  }).join('');
+  tbody.innerHTML = html;
+  _curvasUpdateSortHeaders();
+}
+
+function _curvasClearFilters() {
+  const ids = ['curvas-f-emisor','curvas-f-industria','curvas-f-moneda','curvas-f-ley'];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  _curvasApplyFilters();
+}
+
+// ── Scatter charts ────────────────────────────────────────────────────────────
+
+const _CURVAS_SECTOR_COLORS = {
+  'Real Estate':         '#1D4B6E',
+  'Finanzas':            '#7C3AED',
+  'Petróleo & Gas':      '#B45309',
+  'Telecomunicaciones':  '#0891B2',
+  'Electricidad':        '#D97706',
+  'Agroindustria':       '#16A34A',
+  'Construcción':        '#DC2626',
+  'Alimentos y Bebidas': '#DB2777',
+  'Materiales Básicos':  '#64748B',
+  'Aerolíneas':          '#0369A1',
+};
+function _curvasSectorColor(s) {
+  return _CURVAS_SECTOR_COLORS[s] || '#94A3B8';
+}
+
+let _curvasChartMEP = null;
+let _curvasChartCCL = null;
+
+function _curvasRenderCharts() {
+  _curvasBuildScatter('mep', _curvasAllRows.filter(r => r['Moneda'] === 'MEP'));
+  _curvasBuildScatter('ccl', _curvasAllRows.filter(r => r['Moneda'] === 'CCL'));
+}
+
+function _curvasBuildScatter(type, rows) {
+  const canvas = document.getElementById(`curvas-chart-${type}`);
+  if (!canvas) return;
+  if (type === 'mep' && _curvasChartMEP) { _curvasChartMEP.destroy(); _curvasChartMEP = null; }
+  if (type === 'ccl' && _curvasChartCCL) { _curvasChartCCL.destroy(); _curvasChartCCL = null; }
+
+  // Agrupar por sector
+  const sectorMap = {};
+  rows.forEach(r => {
+    const md  = r._md;
+    const tir = r._tir;
+    if (md === null || tir === null || isNaN(md) || isNaN(tir)) return;
+    const sector = r._industria || 'Otros';
+    if (!sectorMap[sector]) sectorMap[sector] = [];
+    sectorMap[sector].push({
+      x: md,
+      y: tir,
+      ticker:      r['Ticker'],
+      emisor:      r['Emisor'],
+      cupon:       r['Cupon'],
+      vencimiento: r['Vencimiento'],
+      sector,
+    });
+  });
+
+  const datasets = Object.keys(sectorMap).sort().map(sector => {
+    const color = _curvasSectorColor(sector);
+    return {
+      label: sector,
+      data:  sectorMap[sector],
+      backgroundColor: color + 'BB',
+      borderColor:     color,
+      pointRadius:     5,
+      pointHoverRadius: 7,
+      borderWidth: 1.5,
+    };
+  });
+
+  const chart = new Chart(canvas, {
+    type: 'scatter',
+    data: { datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            font: { size: 10 },
+            padding: 10,
+            boxWidth: 10,
+            usePointStyle: true,
+            pointStyle: 'circle',
+          },
+        },
+        tooltip: {
+          callbacks: {
+            title: items => {
+              const d = items[0].raw;
+              return `${d.ticker}  —  ${d.emisor}`;
+            },
+            label: item => {
+              const d = item.raw;
+              return [
+                `Sector: ${d.sector}`,
+                `Cupón: ${d.cupon}`,
+                `Vencimiento: ${d.vencimiento}`,
+                `TIR: ${d.y.toFixed(1)}%`,
+                `MD: ${d.x.toFixed(2)}`,
+              ];
+            },
+          },
+          backgroundColor: '#1E293B',
+          titleColor: '#F8FAFC',
+          bodyColor: '#CBD5E1',
+          padding: 11,
+          cornerRadius: 6,
+          titleFont: { size: 12, weight: '600' },
+          bodyFont: { size: 11 },
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'MD (Duración Modificada)',
+            font: { size: 11 },
+            color: '#64748B',
+          },
+          grid:  { color: '#F1F5F9' },
+          ticks: { font: { size: 10 }, color: '#64748B' },
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'TIR Efectiva (%)',
+            font: { size: 11 },
+            color: '#64748B',
+          },
+          grid:  { color: '#F1F5F9' },
+          ticks: {
+            font: { size: 10 },
+            color: '#64748B',
+            callback: v => `${v.toFixed(0)}%`,
+          },
+        },
+      },
+    },
+  });
+
+  if (type === 'mep') _curvasChartMEP = chart;
+  else                _curvasChartCCL = chart;
 }
 
 function _dealsRenderVolumeChart() {
