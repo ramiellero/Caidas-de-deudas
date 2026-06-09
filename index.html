@@ -2174,6 +2174,10 @@
             <option value="NY">Nueva York</option>
           </select>
         </div>
+        <div class="deals-filter-group">
+          <span class="deals-filter-label">Fix LP</span>
+          <input type="text" class="deals-filter-input" id="curvas-f-fixlp" placeholder="Ej: AA, BBB+…" oninput="_curvasApplyFilters()">
+        </div>
         <button class="deals-clear-btn" onclick="_curvasClearFilters()">Limpiar</button>
       </div>
 
@@ -2211,10 +2215,11 @@
               <th onclick="_curvasSortBy('TNA')" style="text-align:right">TNA</th>
               <th onclick="_curvasSortBy('MD')" style="text-align:right">MD</th>
               <th onclick="_curvasSortBy('Monto_Circ')" style="text-align:right">Monto<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(US$ M)</span></th>
+              <th onclick="_curvasSortBy('Calificacion')">Fix LP</th>
             </tr>
           </thead>
           <tbody id="curvas-tbody">
-            <tr><td colspan="11" class="deals-empty">Cargando…</td></tr>
+            <tr><td colspan="12" class="deals-empty">Cargando…</td></tr>
           </tbody>
         </table>
       </div>
@@ -5355,12 +5360,14 @@ function _curvasApplyFilters() {
   const industria= (document.getElementById('curvas-f-industria') ?.value || '');
   const moneda   = (document.getElementById('curvas-f-moneda')   ?.value || '');
   const ley      = (document.getElementById('curvas-f-ley')      ?.value || '');
+  const fixlp    = (document.getElementById('curvas-f-fixlp')    ?.value || '').toLowerCase();
 
   _curvasFiltered = _curvasAllRows.filter(r => {
-    if (emisor    && !r['Emisor'].toLowerCase().includes(emisor)) return false;
-    if (industria && r._industria !== industria)                  return false;
-    if (moneda    && r['Moneda'] !== moneda)                      return false;
-    if (ley       && r['Ley'] !== ley)                            return false;
+    if (emisor    && !r['Emisor'].toLowerCase().includes(emisor))        return false;
+    if (industria && r._industria !== industria)                         return false;
+    if (moneda    && r['Moneda'] !== moneda)                             return false;
+    if (ley       && r['Ley'] !== ley)                                   return false;
+    if (fixlp     && !(r['Calificacion'] || '').toLowerCase().includes(fixlp)) return false;
     return true;
   });
 
@@ -5409,7 +5416,7 @@ function _curvasUpdateSortHeaders() {
     th.classList.remove('sort-asc', 'sort-desc');
   });
   const ths = document.querySelectorAll('#curvas-table thead th');
-  const colMap = ['Ticker','Emisor','Industria','Cupon','Vencimiento',null,'Precio_Clean_MEP','TIR','TNA','MD','Monto_Circ'];
+  const colMap = ['Ticker','Emisor','Industria','Cupon','Vencimiento',null,'Precio_Clean_MEP','TIR','TNA','MD','Monto_Circ','Calificacion'];
   colMap.forEach((c, i) => {
     if (c === _curvasSortCol && ths[i]) {
       ths[i].classList.add(_curvasSortAscending ? 'sort-asc' : 'sort-desc');
@@ -5462,6 +5469,7 @@ function _curvasRenderTable() {
       <td class="num">${_curvasFmtPct(r._tna)}</td>
       <td class="num">${_curvasFmtNum(r._md, 1)}</td>
       <td class="num">${r['Monto_Circ'] || '—'}</td>
+      <td>${_escHtml(r['Calificacion'] || '—')}</td>
     </tr>`;
   }).join('');
   tbody.innerHTML = html;
@@ -5469,7 +5477,7 @@ function _curvasRenderTable() {
 }
 
 function _curvasClearFilters() {
-  const ids = ['curvas-f-emisor','curvas-f-industria','curvas-f-moneda','curvas-f-ley'];
+  const ids = ['curvas-f-emisor','curvas-f-industria','curvas-f-moneda','curvas-f-ley','curvas-f-fixlp'];
   ids.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
