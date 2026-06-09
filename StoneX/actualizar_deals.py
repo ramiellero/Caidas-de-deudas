@@ -622,15 +622,6 @@ def actualizar_csv(texto):
     )
 
     # ==========================================
-    # GIT PULL
-    # ==========================================
-
-    os.chdir(REPO_GIT)
-
-    print("\nHaciendo git pull...")
-    os.system("git pull")
-
-    # ==========================================
     # CSV PARA WEB
     # ==========================================
 
@@ -970,17 +961,17 @@ def main():
     actualizar_csv(texto)
     actualizar_difusion(texto)
 
-# ==========================================
-# GIT PUSH
-# ==========================================
+    # ==========================================
+    # GIT PUSH
+    # ==========================================
 
-os.chdir(REPO_GIT)
+    os.chdir(REPO_GIT)
 
-print("\nSubiendo cambios a GitHub...")
+    print("\nSubiendo cambios a GitHub...")
 
-os.system("git add .")
-os.system('git commit -m "update deals automatico"')
-os.system("git push")
+    os.system("git add .")
+    os.system('git commit -m "update deals automatico"')
+    os.system("git push")
 
 if __name__ == "__main__":
     main()
