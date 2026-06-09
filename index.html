@@ -1333,6 +1333,27 @@
       padding: 16px 16px 12px;
       background: #fff;
     }
+    .curvas-moneda-toggle {
+      display: flex;
+      gap: 0;
+      border: 1px solid #CBD5E1;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .curvas-moneda-btn {
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      background: #fff;
+      color: #64748B;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.12s, color 0.12s;
+    }
+    .curvas-moneda-btn + .curvas-moneda-btn { border-left: 1px solid #CBD5E1; }
+    .curvas-moneda-btn.active { background: #1D4B6E; color: #fff; }
+    .curvas-moneda-btn:not(.active):hover { background: #F1F5F9; color: #334155; }
     .curvas-chart-title {
       font-size: 11px;
       font-weight: 600;
@@ -2008,7 +2029,7 @@
   <div class="content">
 
     <!-- Filters -->
-    <div class="deals-filters">
+    <div class="deals-filters" id="deals-filters-bar">
 
       <div class="deals-filter-group">
         <span class="deals-filter-label">Desde</span>
@@ -2159,12 +2180,18 @@
       <!-- Scatter charts -->
       <div class="curvas-charts-grid">
         <div class="curvas-chart-card">
-          <div class="curvas-chart-title">Curva MEP &mdash; TIR vs. MD</div>
-          <div class="curvas-chart-wrap"><canvas id="curvas-chart-mep"></canvas></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <div class="curvas-chart-title" style="margin-bottom:0">Ley Argentina &mdash; TIR vs. MD</div>
+            <div class="curvas-moneda-toggle">
+              <button id="curvas-arg-btn-mep" class="curvas-moneda-btn active" onclick="_curvasSetArgMoneda('MEP',this)">MEP</button>
+              <button id="curvas-arg-btn-ccl" class="curvas-moneda-btn"        onclick="_curvasSetArgMoneda('CCL',this)">CCL</button>
+            </div>
+          </div>
+          <div class="curvas-chart-wrap"><canvas id="curvas-chart-arg"></canvas></div>
         </div>
         <div class="curvas-chart-card">
-          <div class="curvas-chart-title">Curva CCL &mdash; TIR vs. MD</div>
-          <div class="curvas-chart-wrap"><canvas id="curvas-chart-ccl"></canvas></div>
+          <div class="curvas-chart-title">Ley Nueva York &mdash; TIR vs. MD</div>
+          <div class="curvas-chart-wrap"><canvas id="curvas-chart-ny"></canvas></div>
         </div>
       </div>
 
@@ -5225,6 +5252,9 @@ function setDealsView(mode, btn) {
   difView.style.display    = mode === 'difusion' ? '' : 'none';
   curvasView.style.display = mode === 'curvas'   ? '' : 'none';
 
+  const filtersBar = document.getElementById('deals-filters-bar');
+  if (filtersBar) filtersBar.style.display = mode === 'curvas' ? 'none' : '';
+
   document.querySelectorAll('.deals-view-tab').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
 
@@ -5278,10 +5308,12 @@ async function initCurvasSection() {
       if (!r['Precio_Clean_MEP'] || r['Precio_Clean_MEP'] === '-') continue;
       // Excluir San Miguel (reestructurado)
       if (r['Emisor'] && r['Emisor'].toLowerCase().includes('san miguel')) continue;
+      // Excluir TIR < 0% (outliers de precio, ensucian el gráfico)
+      if (parseFloat(r['TIR']) < 0) continue;
       // Excluir MEP con TIR > 10% (distressed / posible reestructuración)
       if (r['Moneda'] === 'MEP' && parseFloat(r['TIR']) > 10) continue;
-      // Excluir outliers CCL: TIR > 13% o TIR < -5%
-      if (r['Moneda'] === 'CCL') { const t = parseFloat(r['TIR']); if (t > 13 || t < -5) continue; }
+      // Excluir outliers CCL: TIR > 13%
+      if (r['Moneda'] === 'CCL' && parseFloat(r['TIR']) > 13) continue;
       r._industria = _curvasNormIndustria(r['Industria']);
       r._venc      = _curvasParseFecha(r['Vencimiento']);
       r._tir       = parseFloat(r['TIR'])  || null;
@@ -5463,19 +5495,68 @@ function _curvasSectorColor(s) {
   return _CURVAS_SECTOR_COLORS[s] || '#94A3B8';
 }
 
-let _curvasChartMEP = null;
-let _curvasChartCCL = null;
+// Regresión polinómica grado 2 (y = a + b·x + c·x²) por mínimos cuadrados.
+// Devuelve array de {x,y} listo para usar como dataset de línea de tendencia.
+function _curvasTrendPoints(points) {
+  const n = points.length;
+  if (n < 4) return [];
+  let s0=n, s1=0, s2=0, s3=0, s4=0, t0=0, t1=0, t2=0;
+  for (const {x, y} of points) {
+    s1+=x; s2+=x*x; s3+=x*x*x; s4+=x*x*x*x;
+    t0+=y; t1+=x*y; t2+=x*x*y;
+  }
+  // Eliminación gaussiana con pivoteo parcial sobre sistema 3×3
+  let M = [[s0,s1,s2,t0],[s1,s2,s3,t1],[s2,s3,s4,t2]];
+  for (let col=0; col<3; col++) {
+    let mx=col;
+    for (let row=col+1; row<3; row++) if (Math.abs(M[row][col])>Math.abs(M[mx][col])) mx=row;
+    [M[col],M[mx]]=[M[mx],M[col]];
+    if (Math.abs(M[col][col])<1e-10) return [];
+    for (let row=col+1; row<3; row++) {
+      const f=M[row][col]/M[col][col];
+      for (let k=col; k<=3; k++) M[row][k]-=f*M[col][k];
+    }
+  }
+  const c=[0,0,0];
+  for (let i=2; i>=0; i--) {
+    c[i]=M[i][3];
+    for (let k=i+1; k<3; k++) c[i]-=M[i][k]*c[k];
+    c[i]/=M[i][i];
+  }
+  const xs = points.map(p=>p.x);
+  const minX = Math.max(0, Math.min(...xs));
+  const maxX = Math.max(...xs);
+  const result = [];
+  for (let i=0; i<=80; i++) {
+    const x = minX + (maxX-minX)*i/80;
+    result.push({ x, y: c[0]+c[1]*x+c[2]*x*x });
+  }
+  return result;
+}
+
+let _curvasChartArg = null;
+let _curvasChartNY  = null;
+let _curvasArgMoneda = 'MEP';
+
+function _curvasSetArgMoneda(m, btn) {
+  _curvasArgMoneda = m;
+  document.querySelectorAll('.curvas-moneda-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  _curvasBuildScatter('arg', _curvasAllRows.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
+}
 
 function _curvasRenderCharts() {
-  _curvasBuildScatter('mep', _curvasAllRows.filter(r => r['Moneda'] === 'MEP'));
-  _curvasBuildScatter('ccl', _curvasAllRows.filter(r => r['Moneda'] === 'CCL'));
+  _curvasBuildScatter('arg', _curvasAllRows.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
+  _curvasBuildScatter('ny',  _curvasAllRows.filter(r => r['Ley'] === 'NY'));
 }
 
 function _curvasBuildScatter(type, rows) {
   const canvas = document.getElementById(`curvas-chart-${type}`);
   if (!canvas) return;
-  if (type === 'mep' && _curvasChartMEP) { _curvasChartMEP.destroy(); _curvasChartMEP = null; }
-  if (type === 'ccl' && _curvasChartCCL) { _curvasChartCCL.destroy(); _curvasChartCCL = null; }
+  const existing = Chart.getChart(canvas);
+  if (existing) existing.destroy();
+  if (type === 'arg') _curvasChartArg = null;
+  if (type === 'ny')  _curvasChartNY  = null;
 
   // Agrupar por sector
   const sectorMap = {};
@@ -5509,6 +5590,24 @@ function _curvasBuildScatter(type, rows) {
     };
   });
 
+  // Línea de tendencia (regresión polinómica grado 2)
+  const allPts = datasets.flatMap(ds => ds.data.map(d => ({ x: d.x, y: d.y })));
+  const trendPts = _curvasTrendPoints(allPts);
+  if (trendPts.length) {
+    datasets.push({
+      type: 'line',
+      label: '_trend',
+      data: trendPts,
+      borderColor: '#475569',
+      borderWidth: 1.5,
+      borderDash: [5, 4],
+      pointRadius: 0,
+      fill: false,
+      tension: 0,
+      order: 1,
+    });
+  }
+
   const chart = new Chart(canvas, {
     type: 'scatter',
     data: { datasets },
@@ -5524,9 +5623,11 @@ function _curvasBuildScatter(type, rows) {
             boxWidth: 10,
             usePointStyle: true,
             pointStyle: 'circle',
+            filter: item => item.text !== '_trend',
           },
         },
         tooltip: {
+          filter: item => item.dataset.label !== '_trend',
           callbacks: {
             title: items => {
               const d = items[0].raw;
@@ -5560,6 +5661,7 @@ function _curvasBuildScatter(type, rows) {
             font: { size: 11 },
             color: '#64748B',
           },
+          min: 0,
           grid:  { color: '#F1F5F9' },
           ticks: { font: { size: 10 }, color: '#64748B' },
         },
@@ -5581,8 +5683,8 @@ function _curvasBuildScatter(type, rows) {
     },
   });
 
-  if (type === 'mep') _curvasChartMEP = chart;
-  else                _curvasChartCCL = chart;
+  if (type === 'arg') _curvasChartArg = chart;
+  else                _curvasChartNY  = chart;
 }
 
 function _dealsRenderVolumeChart() {
