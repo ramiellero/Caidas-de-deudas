@@ -66,21 +66,39 @@ Get-Content curvas_last_id.txt
 
 ---
 
-## Cómo funciona la validación de informes
+## Cómo funciona la búsqueda de informes
 
 PPI publica dos tipos de informe con IDs secuenciales:
 - **Informe de cierre** — contiene tabla de bonos en páginas 12-13 → se procesa
-- **Informe diario de mercados** — no tiene esa tabla → se saltea
+- **Informe diario de mercados** — no tiene esa tabla → se saltea y continúa
 
-El scraper detecta el tipo revisando si "Bonos Corporativos" aparece en las
-páginas 12-13. Si un ID no es el de cierre, lo saltea y prueba el siguiente.
-Prueba hasta 10 IDs consecutivos (`MAX_TRIES = 10`).
+El scraper itera desde `last_id + 1` sin límite fijo de intentos:
 
-Si no encuentra ningún informe de cierre (fin de semana, feriado):
+1. Si el ID no existe (HTTP 404) → incrementa contador de 404s consecutivas
+2. Si el PDF es el informe diario → lo saltea y pasa al siguiente ID
+3. Si el PDF es el informe de cierre → lo parsea, guarda y termina
+
+**Condición de salida sin éxito**: 3 IDs consecutivos sin respuesta
+(`MAX_CONSECUTIVE_404 = 3`). Eso indica que el informe no fue publicado aún.
+
 ```
-[--] No se encontró informe de cierre en los IDs probados. Sin cambios.
+[--] 3 IDs consecutivos sin respuesta (ID 24526–24528). Informe no publicado aún.
 ```
-Esto es normal y no es un error.
+Esto es normal en fines de semana y feriados.
+
+**Ejemplo típico de un día normal**:
+```
+[BUSCA] desde ID 24526  (last_id=24525)
+  [OK] https://...24526.pdf  (842 KB)
+  [SKIP] ID 24526 → informe diario (sin tabla de Bonos Corporativos en p.12-13)
+  [OK] https://...24527.pdf  (1.2 MB)
+
+[PARSE] ID 24527
+  -> 47 bonos extraidos
+  [ID] Guardado last_id = 24527
+  [GIT] commit y push OK (ID 24527)
+[OK] Listo. Próximo ID a probar: 24528
+```
 
 ---
 
