@@ -36,9 +36,9 @@ BASE_DIR     = Path(__file__).parent
 CSV_OUT      = BASE_DIR / "curvas_on.csv"
 LAST_ID_FILE = BASE_DIR / "curvas_last_id.txt"
 LOG_FILE     = BASE_DIR / "scraper_curvas.log"
-BASE_URL     = "https://cdn1.portfoliopersonal.com/Attachs/{id}.pdf"
-MAX_TRIES    = 10
-HTTP_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+BASE_URL             = "https://cdn1.portfoliopersonal.com/Attachs/{id}.pdf"
+MAX_CONSECUTIVE_404  = 3   # para si hay N 404s seguidas (informe no publicado aún)
+HTTP_HEADERS         = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 
 FIELDNAMES = [
     "Fecha", "ID", "Ticker", "Emisor", "Industria",
@@ -340,48 +340,71 @@ def run(args):
     ts = date.today().strftime('%Y-%m-%d')
     log(f"\n[{ts}] === Iniciando scraper ===")
 
+    # Modo ID fijo: prueba solo ese ID
     if args.id:
-        ids_to_try = [args.id]
-    else:
-        last = read_last_id()
-        if last is None:
-            log("[!] No hay curvas_last_id.txt — usá --id XXXXX para arrancar")
-            sys.exit(1)
-        start = last + 1
-        ids_to_try = list(range(start, start + MAX_TRIES))
-        log(f"[BUSCA] IDs {start}..{start + MAX_TRIES - 1}  (last_id={last})")
-
-    pdf_bytes = None
-    found_id  = None
-    for id_ in ids_to_try:
-        raw = fetch_pdf(id_)
+        raw = fetch_pdf(args.id)
         if raw is None:
-            continue
+            log("[--] ID especificado no existe o no se pudo descargar.")
+            sys.exit(0)
         if not _is_cierre_pdf(raw):
-            log(f"  [SKIP] ID {id_} → informe diario (no es cierre — sin tabla de Bonos Corporativos en p.12-13)")
-            continue
-        pdf_bytes = raw
-        found_id  = id_
-        break
+            log(f"  [SKIP] ID {args.id} → informe diario (sin tabla de Bonos Corporativos en p.12-13)")
+            sys.exit(0)
+        log(f"\n[PARSE] ID {args.id}")
+        rows = extract_rows_from_pdf(raw, debug=args.debug)
+        log(f"  -> {len(rows)} bonos extraidos")
+        if not rows:
+            log("[!] Sin filas — el PDF pasó la validación pero no se extrajeron bonos. Verificá con --debug")
+            sys.exit(1)
+        save_csv(rows, args.id, date.today())
+        write_last_id(args.id)
+        log(f"\n[OK] Listo. Próximo ID a probar: {args.id + 1}")
+        if args.commit:
+            git_commit_push(args.id)
+        return
 
-    if not pdf_bytes:
-        log("[--] No se encontró informe de cierre en los IDs probados. Sin cambios.")
-        sys.exit(0)
-
-    log(f"\n[PARSE] ID {found_id}")
-    rows = extract_rows_from_pdf(pdf_bytes, debug=args.debug)
-    log(f"  -> {len(rows)} bonos extraidos")
-
-    if not rows:
-        log("[!] Sin filas — el PDF pasó la validación pero no se extrajeron bonos. Verificá con --debug")
+    # Modo automático: itera IDs desde last_id+1, salta informes diarios,
+    # para cuando hay MAX_CONSECUTIVE_404 seguidas (informe aún no publicado).
+    last = read_last_id()
+    if last is None:
+        log("[!] No hay curvas_last_id.txt — usá --id XXXXX para arrancar")
         sys.exit(1)
 
-    save_csv(rows, found_id, date.today())
-    write_last_id(found_id)
-    log(f"\n[OK] Listo. Próximo ID a probar: {found_id + 1}")
+    log(f"[BUSCA] desde ID {last + 1}  (last_id={last})")
+    consecutive_404 = 0
+    id_ = last + 1
+    while True:
+        raw = fetch_pdf(id_)
+        if raw is None:
+            consecutive_404 += 1
+            if consecutive_404 >= MAX_CONSECUTIVE_404:
+                log(f"[--] {MAX_CONSECUTIVE_404} IDs consecutivos sin respuesta (ID {id_ - MAX_CONSECUTIVE_404 + 1}–{id_}). Informe no publicado aún.")
+                sys.exit(0)
+            id_ += 1
+            continue
 
-    if args.commit:
-        git_commit_push(found_id)
+        # Encontró un PDF — resetear contador 404
+        consecutive_404 = 0
+
+        if not _is_cierre_pdf(raw):
+            log(f"  [SKIP] ID {id_} → informe diario (sin tabla de Bonos Corporativos en p.12-13)")
+            id_ += 1
+            continue
+
+        # Es el informe de cierre
+        log(f"\n[PARSE] ID {id_}")
+        rows = extract_rows_from_pdf(raw, debug=args.debug)
+        log(f"  -> {len(rows)} bonos extraidos")
+        if not rows:
+            log("[!] Sin filas — el PDF pasó la validación pero no se extrajeron bonos. Verificá con --debug")
+            id_ += 1
+            continue
+
+        save_csv(rows, id_, date.today())
+        write_last_id(id_)
+        log(f"\n[OK] Listo. Próximo ID a probar: {id_ + 1}")
+        if args.commit:
+            git_commit_push(id_)
+        return
 
 
 def main():
