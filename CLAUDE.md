@@ -337,18 +337,23 @@ Vista de curva de rendimientos de bonos corporativos USD del mercado argentino. 
 **Filtros de datos aplicados al parsear** (`initCurvasSection`):
 - Se descartan filas sin `Precio_Clean_MEP` (vacío o `-`)
 - Se descarta **San Miguel** (SNSBO) — reestructurado
+- Se descartan bonos con **TIR < 0%** — outliers de precio (aplicado globalmente antes de cualquier otro filtro de TIR)
 - Se descartan bonos **MEP con TIR > 10%** — distressed / posible reestructuración
-- Se descartan bonos **CCL con TIR > 13% o TIR < −5%** — outliers de precio
+- Se descartan bonos **CCL con TIR > 13%** — outliers de precio
 
-**Scatter charts** (dos paneles side-by-side, uno por tipo de liquidación):
-- Eje X: `MD` (Duración Modificada)
+**Scatter charts** (dos paneles side-by-side, separados por **jurisdicción legal**):
+- **Panel izquierdo**: bonos de **Ley Argentina** — con toggle MEP / CCL en la esquina del card; estado: `_curvasArgMoneda` ('MEP' por defecto)
+- **Panel derecho**: bonos de **Ley Nueva York** — muestra todas las monedas (MEP + CCL)
+- Eje X: `MD` (Duración Modificada), mínimo fijo en 0
 - Eje Y: `TIR` efectiva (%)
 - Color por sector (`_CURVAS_SECTOR_COLORS`): Real Estate `#1D4B6E`, Finanzas `#7C3AED`, Petróleo & Gas `#B45309`, Telecomunicaciones `#0891B2`, Electricidad `#D97706`, Agroindustria `#16A34A`, Construcción `#DC2626`, Alimentos y Bebidas `#DB2777`, Materiales Básicos `#64748B`, Aerolíneas `#0369A1`
-- Tooltip al hover: Ticker, Emisor, Sector, Cupón, Vencimiento, TIR, MD
+- Tooltip al hover: Ticker, Emisor, Sector, Cupón, Vencimiento, TIR, MD; la línea de tendencia no genera tooltip (filtrada con `filter: item => item.dataset.label !== '_trend'`)
 - Usan `_curvasAllRows` completo (no responden a los filtros de la tabla)
-- IDs canvas: `curvas-chart-mep`, `curvas-chart-ccl`
-- Instancias: `_curvasChartMEP`, `_curvasChartCCL` — destruidas y recreadas en cada render
+- IDs canvas: `curvas-chart-arg`, `curvas-chart-ny`
+- Instancias: `_curvasChartArg`, `_curvasChartNY` — destruidas con `Chart.getChart(canvas)` antes de cada render (más robusto que depender de la variable local; evita el error "canvas already in use" al cambiar el toggle)
 - Se renderizan al cargar datos (`initCurvasSection`) y al activar el tab (`setDealsView`)
+- Toggle MEP/CCL del panel izquierdo: función `_curvasSetArgMoneda(m, btn)` — actualiza `_curvasArgMoneda` y reconstruye solo el chart Arg; CSS: `.curvas-moneda-toggle`, `.curvas-moneda-btn`, `.curvas-moneda-btn.active` (fondo `#1D4B6E`)
+- **Línea de tendencia**: regresión polinómica grado 2 (y = a + b·x + c·x²) calculada sobre todos los puntos del chart; función `_curvasTrendPoints(points)` — implementa mínimos cuadrados con eliminación gaussiana y pivoteo parcial sobre sistema 3×3; genera 80 puntos; requiere mínimo 4 puntos o devuelve []; se agrega como dataset `type:'line'` con `label:'_trend'`, línea gris punteada (`#475569`, `borderDash:[5,4]`), excluida de leyenda y tooltip
 
 **Tabla** (11 columnas, sortable): Ticker · Emisor · Industria · Cupón · Vencimiento · Ley·Moneda (no-sort) · Precio Clean (MEP) · TIR · TNA · MD · Monto (US$ M)
 - Filas IRSA (IRCLO, IRCJO, IRCFO, IRCOO, IRCPO): fondo `#EBF2F8`
