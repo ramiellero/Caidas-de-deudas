@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 05-06-2026
+Licitaciones Primarias 08-06-2026
 Por:
 Mercado de Capitales Stonex
-Ayer 11:01 AM
+Hoy 10:31 AM
 View Full
 REGRESAR
 
@@ -62,10 +62,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 05-06-2026
+Licitaciones Primarias 08-06-2026
 Por:
 Mercado de Capitales Stonex
-Ayer 11:01 AM
+Hoy 10:31 AM
 View Full
 REGRESAR
 
@@ -114,7 +114,7 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 Page 1
 
-5
+8
 de junio de 2026
 
 Este
@@ -249,7 +249,256 @@ Presentation Heading  |
 
 Page 2
 
-Resultados
+Resultados de la semana
+
+Tasa / Precio de Corte
+ Tasa 
+Tamar TIR Proyectada
+ Spread TNA30d - 
+Tamar
+ TNA (30días)
+ Fecha de 
+Licitación
+ Emisión
+ Serie
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(Meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Calificación
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ 8,00%
+-8,24%--
+ lun, 1 jun.
+ ON ForteCar (Pyme)
+ I
+-USD Mep
+ USD 4.200.000
+ 8,00%
+ 17,10
+ 731
+ 03/06/2028
+ SC
+ Tasa
+ mié, 3 jun.
+ Por Adhesión
+-8,18%--
+ mar, 2 jun.
+ [OFERTA DE CANJE] ON Garantizada 
+GEMSA & CTR [Ley NY]
+ XLVI
+-USD Cable
+ STEP-UP: 
+(i) 7,50% h/ 30-06-2028
+ (ii) 8,00% h/ 30-06-2030
+ (iii) 9,00% h/ 31-12-2034
+ 48,99
+ 3131
+ 31/12/2034
+ SC
+ Por Adhesión
+ vie, 5 jun.
+ Por Adhesión
+-9,95%--
+ mar, 2 jun.
+ [OFERTA DE CANJE] ON Garantizada 
+GEMSA & CTR [Ley NY]
+ XLVII
+-USD Cable
+ STEP-UP: 
+(i) 10,50% h/ 31-12-2034 (Pago en 
+Especie)
+ (ii) 4,00% h/ 30-06-2036 (Pago en 
+Efectivo)
+ 116,16
+ 3678
+ 30/06/2036
+ SC
+ Por Adhesión
+ vie, 5 jun.
+ Px 100,95 
+22,2500%
+ 28,41%
+ 3,02%
+ 25,27%
+ mar, 2 jun.
+ FF AMFAyS
+ 52
+ VDFA
+ ARS
+ $ 1.909.066.965
+ (25%; T+100; 45%)
+ 6,41
+ 469
+ 15/09/2027
+ AAA (Moody´s)
+ Precio
+ mié, 3 jun.
+ Px 90,54 
+22,2500%
+ 36,14%
+ 9,00%
+ 31,25%
+ mar, 2 jun.
+ FF AMFAyS
+ 52
+ VDFB
+ ARS
+ $ 63.635.566
+ (26%; T+100; 46%)
+ 15,60
+ 499
+ 15/10/2027
+ AA (Moody´s)
+ Precio
+ mié, 3 jun.
+ Px 78,53 
+22,2500%
+ 48,21%
+ 17,75%
+ 40,00%
+ mar, 2 jun.
+ FF AMFAyS
+ 52
+ VDFC
+ ARS
+ $ 148.482.986
+ 25,00%
+ 16,97
+ 560
+ 15/12/2027
+ A+ (Moody´s)
+ Precio
+ mié, 3 jun.
+ Por Adhesión
+-8,18%--
+ mié, 3 jun.
+ [OFERTA DE CANJE] ON Garantizada 
+GEMSA & CTR-XLVIII
+ USD Mep
+ USD 2.106.025
+ STEP-UP: 
+(i) 7,50% h/ 30-06-2028
+ (ii) 8,00% h/ 30-06-2030
+ (iii) 9,00% h/ 31-12-2034
+ 48,99
+ 3131
+ 31/12/2034
+ SC
+ Por Adhesión
+ vie, 5 jun.
+ Por Adhesión
+-8,18%--
+ mié, 3 jun.
+ [OFERTA DE CANJE] ON Garantizada 
+GEMSA & CTR-XLIX
+ USD linked
+ USD 31.028.999
+ STEP-UP: 
+(i) 7,50% h/ 30-06-2028
+ (ii) 8,00% h/ 30-06-2030
+ (iii) 9,00% h/ 31-12-2034
+ 48,99
+ 3131
+ 31/12/2034
+ SC
+ Por Adhesión
+ vie, 5 jun.
+ Por Adhesión
+-9,95%--
+ mié, 3 jun.
+ [OFERTA DE CANJE] ON Garantizada 
+GEMSA & CTR-L
+ USD linked
+ USD 4.503.939
+ STEP-UP: 
+(i) 10,50% h/ 31-12-2034 (Pago en 
+Especie)
+ (ii) 4,00% h/ 30-06-2036 (Pago en 
+Efectivo)
+ 116,16
+ 3678
+ 30/06/2036
+ SC
+ Por Adhesión
+ vie, 5 jun.
+ 6,50%
+-6,61%--
+ mié, 3 jun.
+ ON John Deere Credit Cía. Financiera 
+-XX
+ USD Mep
+ USD 80.000.000
+ 6,50%
+ 28,21
+ 914
+ 08/12/2028
+ AA (Fix SCR)
+ Tasa
+ lun, 8 jun.
+ TAMAR+3,25%
+ 22,9375%
+ 28,87%
+ 2,70%
+ 25,63%
+ mié, 3 jun.
+ ON Banco de Galicia
+ I
+ XXXII
+ ARS
+ $ 156.553.654.957
+ TAMAR+3,25%
+ 10,94
+ 365
+ 05/06/2027
+ A1+ (Fix SCR)
+ Margen
+ vie, 5 jun.
+ 4,75%
+-4,81%--
+ mié, 3 jun.
+ ON Banco de Galicia
+ II
+ XXXII
+ USD Mep
+ USD 53.059.085
+ 4,75%
+ 23,21
+ 731
+ 05/06/2028
+ AAA (Fix SCR)
+ Tasa
+ vie, 5 jun.
+ 3,00%
+-2,98%--
+ mié, 3 jun.
+ ON Banco de Galicia
+ III
+ XXXII
+ USD Cable
+ USD 36.728.372
+ 3,00%
+ 18,02
+ 548
+ 05/12/2027
+ AAA (Fix SCR)
+ Tasa
+ vie, 5 jun.
+ USD 346.457.132
+Presentation Heading  |
+
+Page 3
+
+Resultados de la semana
 
 Tasa / Precio de Corte
  Tasa 
@@ -440,9 +689,9 @@ especie)-XXV
  vie, 5 jun.
 Presentation Heading  |
 
-Page 3
+Page 4
 
-Operaciones en difusión
+Licita hoy
 
 OPERACIONES DE TERCEROS
  
@@ -482,7 +731,8 @@ Bajo el Programa)
 --
  Venc. entre los 8 
 y 10 años
- A informar
+ B2 (Moody´s) / B- 
+(S&P)
  Book building
  A informar
  lun, 8 jun.
@@ -497,7 +747,7 @@ $250.000.000.000)
  10,96
  365
  10/06/2027
- A informar
+ A1+ (Fix SCR)
  Margen
  mié, 10 jun.
  lun, 8 jun.
@@ -513,6 +763,60 @@ $250.000.000.000)
  SC
  Margen
  mié, 10 jun.
+Presentation Heading  |
+
+Page 5
+
+Operaciones en difusión
+
+OPERACIONES DE TERCEROS
+ 
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ mié, 10 jun.
+ FF Pyme Ricardo Venturino
+ I
+ VDFA
+ USD Mep
+ USD 4.007.900
+ 8,50%
+ 9,75
+ 637
+ 10/03/2028
+ AAA (Fix SCR)
+ Precio
+ vie, 12 jun.
+ mié, 10 jun.
+ FF Pyme Ricardo Venturino
+ I
+ VDFB
+ USD Mep
+ USD 439.000
+ 10,00%
+ 25,02
+ 790
+ 10/08/2028
+ A (Fix SCR)
+ Precio
+ vie, 12 jun.
  jue, 11 jun.
  Letras de Tesoreria de la Provincia 
 del Chaco [Reapertura]-2
@@ -571,6 +875,7 @@ del Chaco [Nueva]-8
  Hasta el Monto Máximo 
 Autorizado 
 Hasta el Monto Máximo 
-Autorizado
+Autorizado 
+USD 4.446.900
 
 Carga del documento completada. Está en la página 1.
