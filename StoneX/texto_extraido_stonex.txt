@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 09-06-2026
+Licitaciones Primarias 10-06-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 10:29 AM
+Hoy 10:57 AM
 View Full
 REGRESAR
 
@@ -62,10 +62,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 09-06-2026
+Licitaciones Primarias 10-06-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 10:29 AM
+Hoy 10:57 AM
 View Full
 REGRESAR
 
@@ -112,10 +112,9 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 --- FRAME 2 ---
 
-4
 Page 1
 
-9
+10
 de junio de 2026
 
 Este
@@ -250,89 +249,7 @@ Presentation Heading  |
 
 Page 2
 
-Resultados
-
-Tasa / Precio de Corte
- Tasa 
-Tamar TIR Proyectada
- Spread TNA30d - 
-Tamar
- TNA (30días)
- Fecha de 
-Licitación
- Emisión
- Serie
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(Meses)
- Maturity 
-(días)
- Última Fecha de 
-Pago
- Calificación
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
- Px 100,00 
--9,98%--
- lun, 8 jun.
- ON Garantizadas MSU Green Energy 
-[Ley NY] 
-[Bono SVS]
--4
- USD Cable
- USD 400.000.000
- 9,75%
- 74,23
- 3653
- 16/06/2036
- B2 (Moody´s) / B- 
-(S&P)
- Book building
- mar, 16 jun.
- TAMAR+3,25%
- 22,2500%
- 28,04%
- 2,72%
- 24,97%
- lun, 8 jun.
- ON Banco BBVA (Integra en efectivo 
-y/o en especie)-47
- ARS
- $ 161.298.353.596
- TAMAR+3,25%
- 10,96
- 365
- 10/06/2027
- A1+ (Fix SCR)
- Margen
- mié, 10 jun.
- TAMAR-1,00%
- 22,2500%
- 23,00%
--1,37%
- 20,88%
- lun, 8 jun.
- ON Garantizada Tostex (Pyme)
- I
--ARS
- $ 2.000.000.000
- TAMAR-1,00%
- 18,07
- 731
- 10/06/2028
- SC
- Margen
- mié, 10 jun.
-Presentation Heading  |
-
-Page 3
-
-Operaciones en difusión
+Licita hoy
 
 OPERACIONES DE TERCEROS
  
@@ -523,8 +440,9 @@ Vigente
  Hasta el Monto Máximo 
 Autorizado por la Normativa 
 Vigente
+Presentation Heading  |
 
-Page 4
+Page 3
 
 Operaciones en difusión
 
@@ -618,6 +536,37 @@ del Chaco [Nueva]-8
  SC
  Precio
  vie, 12 jun.
+ jue, 11 jun.
+ FF Mercado Crédito
+ L
+ $ 139.999.998.130
+ VDF
+ ARS
+ $ 117.319.998.433
+ (17%; T+100; 45%)
+ 8,32
+ 364
+ 15/06/2027
+ AAA (Fix SCR)
+ TIR
+ mar, 16 jun.
+ mar, 16 jun.
+ ON ICBC
+$30.000.000.000 (amp. h/ 
+Monto Máximo Disponible 
+del Programa)
+ VII
+ ARS
+ $30.000.000.000 (amp. h/ 
+Monto Máximo Disponible 
+del Programa)
+ TAMAR+Mg
+ 10,99
+ 365
+ 17/06/2027
+ A-1 (Moody´s)
+ Margen
+ mié, 17 jun.
  Hasta el Monto Máximo 
 Autorizado 
 Hasta el Monto Máximo 
