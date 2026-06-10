@@ -825,7 +825,7 @@ def actualizar_difusion(texto):
         rating = ""
 
         m_rating = re.search(
-            r"(AAA.*?\)|AA.*?\)|A1\+.*?\)|SC|A informar)",
+            r"(AAA.*?\)|AA.*?\)|A1\+.*?\)|A-1.*?\)|A1.*?\)|SC|A informar)",
             reg_limpio
         )
 
