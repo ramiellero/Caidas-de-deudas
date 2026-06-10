@@ -54,7 +54,10 @@ FIELDNAMES = [
 
 def log(msg):
     """Imprime y appendea al log file."""
-    print(msg)
+    try:
+        print(msg)
+    except UnicodeEncodeError:
+        print(msg.encode('ascii', errors='replace').decode('ascii'))
     with open(LOG_FILE, 'a', encoding='utf-8') as f:
         f.write(msg + '\n')
 
