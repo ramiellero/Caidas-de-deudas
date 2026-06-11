@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 10-06-2026
+Licitaciones Primarias 11-06-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 10:57 AM
+48 hace unos minutos
 View Full
 REGRESAR
 
@@ -62,10 +62,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 10-06-2026
+Licitaciones Primarias 11-06-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 10:57 AM
+48 hace unos minutos
 View Full
 REGRESAR
 
@@ -114,7 +114,8 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 Page 1
 
-10
+1
+1
 de junio de 2026
 
 Este
@@ -249,30 +250,35 @@ Presentation Heading  |
 
 Page 2
 
-Licita hoy
+Resultados
 
-OPERACIONES DE TERCEROS
- 
-Fecha de 
+Tasa / Precio de Corte
+ Tasa 
+Tamar TIR Proyectada
+ Spread TNA30d - 
+Tamar
+ TNA (30días)
+ Fecha de 
 Licitación
  Emisión
  Serie
- VN Emisión
  Clase
  Moneda
  VN
  Cupón
  Duration 
-(meses)
+(Meses)
  Maturity 
 (días)
  Última Fecha de 
 Pago
- Rating
+ Calificación
  Tipo de 
 Licitación
  Fecha de 
 Liquidación
+ Px 100,81 
+-7,76%--
  mié, 10 jun.
  FF Pyme Ricardo Venturino
  I
@@ -286,6 +292,8 @@ Liquidación
  AAA (Fix SCR)
  Precio
  vie, 12 jun.
+ Px 95,00 
+-12,37%--
  mié, 10 jun.
  FF Pyme Ricardo Venturino
  I
@@ -299,10 +307,13 @@ Liquidación
  A (Fix SCR)
  Precio
  vie, 12 jun.
+ Px 89,00 
+-4,75%--
  mié, 10 jun.
  Bono del Tesoro Nacional en Pesos 
 Dual CER / TAMAR [Nueva]-TXMD8
  CER / ARS
+ $ 1.624.039.000.000
  0,00% / TAMAR TEM + 3,00%
  30,15
  917
@@ -310,10 +321,13 @@ Dual CER / TAMAR [Nueva]-TXMD8
  SC
  Precio
  vie, 12 jun.
+ Px 81,90 
+-5,85%--
  mié, 10 jun.
  Bono del Tesoro Nacional en Pesos 
 Dual CER / TAMAR [Nueva]-TXMD9
  CER / ARS
+ $ 1.010.962.000.000
  0,00% / TAMAR TEM + 3,00%
  42,12
  1281
@@ -321,10 +335,13 @@ Dual CER / TAMAR [Nueva]-TXMD9
  SC
  Precio
  vie, 12 jun.
+ Px 78,00 
+-6,33%--
  mié, 10 jun.
  Bono del Tesoro Nacional en Pesos 
 Dual CER / TAMAR [Nueva]-TXMJ0
  CER / ARS
+ $ 2.705.525.000.000
  0,00% / TAMAR TEM + 3,00%
  48,56
  1477
@@ -332,10 +349,13 @@ Dual CER / TAMAR [Nueva]-TXMJ0
  SC
  Precio
  vie, 12 jun.
+ Px 98,83 
+-5,50%--
  mié, 10 jun.
- Letra del Tesoro Nacional Cero 
-Cupón Vinculada al Dólar [Nueva]-D31G6
+ Letra del Tesoro Nacional Cero Cupón 
+Vinculada al Dólar [Nueva]-D31G6
  USD linked
+ USD 1.134.000.000
  0,00%
  2,63
  80
@@ -343,10 +363,13 @@ Cupón Vinculada al Dólar [Nueva]-D31G6
  SC
  Precio
  vie, 12 jun.
+ Px 81,80 
+-8,22%--
  mié, 10 jun.
- Bono del Tesoro Nacional Cero 
-Cupón Vinculado al Dólar [Nueva]-TZVD8
+ Bono del Tesoro Nacional Cero Cupón 
+Vinculado al Dólar [Nueva]-TZVD8
  USD linked
+ USD 98.000.000
  0,00%
  30,15
  917
@@ -354,12 +377,13 @@ Cupón Vinculado al Dólar [Nueva]-TZVD8
  SC
  Precio
  vie, 12 jun.
+ Px 95,25 
+-8,63%--
  mié, 10 jun.
  BONAR 2028 [Reapertura]
--USD 300.000.000
- AO28
+-AO28
  USD Mep
- USD 300.000.000
+ USD 200.000.000
  6,00%
  26,66
  872
@@ -367,11 +391,14 @@ Cupón Vinculado al Dólar [Nueva]-TZVD8
  SC
  Precio
  vie, 12 jun.
+ Px 89,80 
+-4,39%--
  mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TZX26 
-x Bono del Tesoro Nacional en 
-Pesos Dual CER / TAMAR [Nueva]-TXMD8
+ [OFERTA DE CONVERSIÓN] TZX26 x 
+Bono del Tesoro Nacional en Pesos 
+Dual CER / TAMAR [Nueva]-TXMD8
  CER / ARS
+ $ 324.705.000.000
  0,00% / TAMAR TEM + 3,00%
  30,02
  913
@@ -379,11 +406,14 @@ Pesos Dual CER / TAMAR [Nueva]-TXMD8
  SC
  Precio
  mar, 16 jun.
+ Px 82,80 
+-5,54%--
  mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TZX26 
-x Bono del Tesoro Nacional en 
-Pesos Dual CER / TAMAR [Nueva]-TXMD9
+ [OFERTA DE CONVERSIÓN] TZX26 x 
+Bono del Tesoro Nacional en Pesos 
+Dual CER / TAMAR [Nueva]-TXMD9
  CER / ARS
+ $ 734.525.000.000
  0,00% / TAMAR TEM + 3,00%
  41,98
  1277
@@ -391,11 +421,14 @@ Pesos Dual CER / TAMAR [Nueva]-TXMD9
  SC
  Precio
  mar, 16 jun.
+ Px 78,90 
+-6,05%--
  mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TZX26 
-x Bono del Tesoro Nacional en 
-Pesos Dual CER / TAMAR [Nueva]-TXMJ0
+ [OFERTA DE CONVERSIÓN] TZX26 x 
+Bono del Tesoro Nacional en Pesos 
+Dual CER / TAMAR [Nueva]-TXMJ0
  CER / ARS
+ $ 1.152.299.000.000
  0,00% / TAMAR TEM + 3,00%
  48,43
  1473
@@ -403,11 +436,14 @@ Pesos Dual CER / TAMAR [Nueva]-TXMJ0
  SC
  Precio
  mar, 16 jun.
+ Px 89,80 
+-4,39%--
  mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TTJ26 
-x Bono del Tesoro Nacional en 
-Pesos Dual CER / TAMAR [Nueva]-TXMD8
+ [OFERTA DE CONVERSIÓN] TTJ26 x 
+Bono del Tesoro Nacional en Pesos 
+Dual CER / TAMAR [Nueva]-TXMD8
  CER / ARS
+ $ 911.134.000.000
  0,00% / TAMAR TEM + 3,00%
  30,02
  913
@@ -415,11 +451,14 @@ Pesos Dual CER / TAMAR [Nueva]-TXMD8
  SC
  Precio
  mar, 16 jun.
+ Px 82,80 
+-5,54%--
  mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TTJ26 
-x Bono del Tesoro Nacional en 
-Pesos Dual CER / TAMAR [Nueva]-TXMD9
+ [OFERTA DE CONVERSIÓN] TTJ26 x 
+Bono del Tesoro Nacional en Pesos 
+Dual CER / TAMAR [Nueva]-TXMD9
  CER / ARS
+ $ 494.475.000.000
  0,00% / TAMAR TEM + 3,00%
  41,98
  1277
@@ -427,24 +466,11 @@ Pesos Dual CER / TAMAR [Nueva]-TXMD9
  SC
  Precio
  mar, 16 jun.
- USD 4.446.900
- Hasta el Monto Máximo 
-Autorizado por la Normativa 
-Vigente
- Hasta el Monto Máximo 
-Autorizado por la Normativa 
-Vigente
- Hasta el Monto Máximo 
-Autorizado por la Normativa 
-Vigente
- Hasta el Monto Máximo 
-Autorizado por la Normativa 
-Vigente
 Presentation Heading  |
 
 Page 3
 
-Operaciones en difusión
+Licita hoy
 
 OPERACIONES DE TERCEROS
  
@@ -550,6 +576,60 @@ del Chaco [Nueva]-8
  AAA (Fix SCR)
  TIR
  mar, 16 jun.
+ Hasta el Monto Máximo 
+Autorizado 
+Hasta el Monto Máximo 
+Autorizado
+Presentation Heading  |
+
+Page 4
+
+Operaciones en difusión
+
+OPERACIONES DE TERCEROS
+ 
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ vie, 12 jun.
+ ON Volkswagen Cía. Financiera
+-15
+ ARS
+ TAMAR+Mg
+ 10,98
+ 365
+ 18/06/2027
+ A1+ (Fix SCR)
+ Margen
+ jue, 18 jun.
+ vie, 12 jun.
+ ON Volkswagen Cía. Financiera
+-16
+ ARS
+ TEM A licitar
+ 8,98
+ 273
+ 18/03/2027
+ A1+ (Fix SCR)
+ TEM
+ jue, 18 jun.
  mar, 16 jun.
  ON ICBC
 $30.000.000.000 (amp. h/ 
@@ -567,9 +647,36 @@ del Programa)
  A-1 (Moody´s)
  Margen
  mié, 17 jun.
- Hasta el Monto Máximo 
-Autorizado 
-Hasta el Monto Máximo 
-Autorizado
+ mié, 17 jun.
+ FF Moni Mobile
+ XVIII
+ VDFA
+ ARS
+ $ 6.733.099.000
+ (20%; T+Mg; 45%)
+ 5,47
+ 333
+ 17/05/2027
+ A1+ (Fix SCR)
+ Margen
+ jue, 18 jun.
+ mié, 17 jun.
+ FF Moni Mobile
+ XVIII
+ VDFB
+ ARS
+ $ 470.987.000
+ (21%; T+Mg; 46%)
+ 12,35
+ 392
+ 15/07/2027
+ BBB (Fix SCR)
+ Margen
+ jue, 18 jun.
+ $20.000.000.000 (amp. h/ 
+$50.000.000.000)
+ $20.000.000.000 (amp. h/ 
+$50.000.000.000)
+ $ 7.204.086.000
 
 Carga del documento completada. Está en la página 1.
