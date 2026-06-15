@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 11-06-2026
+Licitaciones Primarias 12-06-2026
 Por:
 Mercado de Capitales Stonex
-48 hace unos minutos
+June 12, 10:27 AM
 View Full
 REGRESAR
 
@@ -62,10 +62,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 11-06-2026
+Licitaciones Primarias 12-06-2026
 Por:
 Mercado de Capitales Stonex
-48 hace unos minutos
+June 12, 10:27 AM
 View Full
 REGRESAR
 
@@ -115,7 +115,7 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 Page 1
 
 1
-1
+2
 de junio de 2026
 
 Este
@@ -277,227 +277,16 @@ Pago
 Licitación
  Fecha de 
 Liquidación
- Px 100,81 
--7,76%--
- mié, 10 jun.
- FF Pyme Ricardo Venturino
- I
- VDFA
- USD Mep
- USD 4.007.900
- 8,50%
- 9,75
- 637
- 10/03/2028
- AAA (Fix SCR)
- Precio
- vie, 12 jun.
- Px 95,00 
--12,37%--
- mié, 10 jun.
- FF Pyme Ricardo Venturino
- I
- VDFB
- USD Mep
- USD 439.000
- 10,00%
- 25,02
- 790
- 10/08/2028
- A (Fix SCR)
- Precio
- vie, 12 jun.
- Px 89,00 
--4,75%--
- mié, 10 jun.
- Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD8
- CER / ARS
- $ 1.624.039.000.000
- 0,00% / TAMAR TEM + 3,00%
- 30,15
- 917
- 15/12/2028
- SC
- Precio
- vie, 12 jun.
- Px 81,90 
--5,85%--
- mié, 10 jun.
- Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD9
- CER / ARS
- $ 1.010.962.000.000
- 0,00% / TAMAR TEM + 3,00%
- 42,12
- 1281
- 14/12/2029
- SC
- Precio
- vie, 12 jun.
- Px 78,00 
--6,33%--
- mié, 10 jun.
- Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMJ0
- CER / ARS
- $ 2.705.525.000.000
- 0,00% / TAMAR TEM + 3,00%
- 48,56
- 1477
- 28/06/2030
- SC
- Precio
- vie, 12 jun.
- Px 98,83 
--5,50%--
- mié, 10 jun.
- Letra del Tesoro Nacional Cero Cupón 
-Vinculada al Dólar [Nueva]-D31G6
- USD linked
- USD 1.134.000.000
- 0,00%
- 2,63
- 80
- 31/08/2026
- SC
- Precio
- vie, 12 jun.
- Px 81,80 
--8,22%--
- mié, 10 jun.
- Bono del Tesoro Nacional Cero Cupón 
-Vinculado al Dólar [Nueva]-TZVD8
- USD linked
- USD 98.000.000
- 0,00%
- 30,15
- 917
- 15/12/2028
- SC
- Precio
- vie, 12 jun.
- Px 95,25 
--8,63%--
- mié, 10 jun.
- BONAR 2028 [Reapertura]
--AO28
- USD Mep
- USD 200.000.000
- 6,00%
- 26,66
- 872
- 31/10/2028
- SC
- Precio
- vie, 12 jun.
- Px 89,80 
--4,39%--
- mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TZX26 x 
-Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD8
- CER / ARS
- $ 324.705.000.000
- 0,00% / TAMAR TEM + 3,00%
- 30,02
- 913
- 15/12/2028
- SC
- Precio
- mar, 16 jun.
- Px 82,80 
--5,54%--
- mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TZX26 x 
-Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD9
- CER / ARS
- $ 734.525.000.000
- 0,00% / TAMAR TEM + 3,00%
- 41,98
- 1277
- 14/12/2029
- SC
- Precio
- mar, 16 jun.
- Px 78,90 
--6,05%--
- mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TZX26 x 
-Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMJ0
- CER / ARS
- $ 1.152.299.000.000
- 0,00% / TAMAR TEM + 3,00%
- 48,43
- 1473
- 28/06/2030
- SC
- Precio
- mar, 16 jun.
- Px 89,80 
--4,39%--
- mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TTJ26 x 
-Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD8
- CER / ARS
- $ 911.134.000.000
- 0,00% / TAMAR TEM + 3,00%
- 30,02
- 913
- 15/12/2028
- SC
- Precio
- mar, 16 jun.
- Px 82,80 
--5,54%--
- mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TTJ26 x 
-Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD9
- CER / ARS
- $ 494.475.000.000
- 0,00% / TAMAR TEM + 3,00%
- 41,98
- 1277
- 14/12/2029
- SC
- Precio
- mar, 16 jun.
-Presentation Heading  |
-
-Page 3
-
-Licita hoy
-
-OPERACIONES DE TERCEROS
- 
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity 
-(días)
- Última Fecha de 
-Pago
- Rating
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
+ Px 113,98 
+21,5000%
+ 28,04%
+ 3,47%
+ 24,97%
  jue, 11 jun.
- Letras de Tesoreria de la Provincia 
-del Chaco [Reapertura]-2
+ Letras de Tesoreria de la Provincia del 
+Chaco [Reapertura]-2
  ARS
+ $ 3.637.769.944
  38,00%
  2,07
  63
@@ -505,43 +294,64 @@ del Chaco [Reapertura]-2
  B (Fix SCR)
  Precio
  vie, 12 jun.
+ 24,50%
+ 21,5000%
+ 27,40%
+ 2,96%
+ 24,46%
  jue, 11 jun.
- Letras de Tesoreria de la Provincia 
-del Chaco [Nueva]-5
+ Letras de Tesoreria de la Provincia del 
+Chaco [Nueva]-5
  ARS
- A licitar
+ $ 74.603.825.239
+ 24,50%
  1,15
  35
  17/07/2026
  B (Fix SCR)
  Tasa
  vie, 12 jun.
+ 26,00%
+ 21,5000%
+ 28,57%
+ 3,90%
+ 25,40%
  jue, 11 jun.
- Letras de Tesoreria de la Provincia 
-del Chaco [Nueva]-6
+ Letras de Tesoreria de la Provincia del 
+Chaco [Nueva]-6
  ARS
- A licitar
+ $ 4.184.258.729
+ 26,00%
  3,22
  98
  18/09/2026
  B (Fix SCR)
  Tasa
  vie, 12 jun.
+ TAMAR+5,00%
+ 21,5000%
+ 31,38%
+ 6,11%
+ 27,61%
  jue, 11 jun.
- Letras de Tesoreria de la Provincia 
-del Chaco [Nueva]-7
+ Letras de Tesoreria de la Provincia del 
+Chaco [Nueva]-7
  ARS
- TAMAR+Mg
+ $ 953.340.000
+ TAMAR+5,00%
  5,98
  182
  11/12/2026
  B (Fix SCR)
  Margen
  vie, 12 jun.
+ Desierta
+-Desierta--
  jue, 11 jun.
- Letras de Tesoreria de la Provincia 
-del Chaco [Nueva]-8
+ Letras de Tesoreria de la Provincia del 
+Chaco [Nueva]-8
  ARS
+ Desierta
  TAMAR+Mg
  11,97
  364
@@ -549,12 +359,13 @@ del Chaco [Nueva]-8
  B (Fix SCR)
  Margen
  vie, 12 jun.
+ 95,25%
+-8,63%--
  jue, 11 jun.
  BONAR 2028 [Reapertura]
--USD 300.000.000
- AO28
+-AO28
  USD Mep
- USD 300.000.000
+ USD 100.000.000
  6,00%
  26,66
  872
@@ -562,10 +373,14 @@ del Chaco [Nueva]-8
  SC
  Precio
  vie, 12 jun.
+ 23,14%
+ 21,5000%
+ 29,33%
+ 4,50%
+ 26,00%
  jue, 11 jun.
  FF Mercado Crédito
  L
- $ 139.999.998.130
  VDF
  ARS
  $ 117.319.998.433
@@ -576,15 +391,11 @@ del Chaco [Nueva]-8
  AAA (Fix SCR)
  TIR
  mar, 16 jun.
- Hasta el Monto Máximo 
-Autorizado 
-Hasta el Monto Máximo 
-Autorizado
 Presentation Heading  |
 
-Page 4
+Page 3
 
-Operaciones en difusión
+Licita hoy
 
 OPERACIONES DE TERCEROS
  
@@ -630,6 +441,38 @@ Liquidación
  A1+ (Fix SCR)
  TEM
  jue, 18 jun.
+ $20.000.000.000 (amp. h/ 
+$50.000.000.000)
+ $20.000.000.000 (amp. h/ 
+$50.000.000.000)
+Presentation Heading  |
+
+Page 4
+
+Operaciones en difusión
+
+OPERACIONES DE TERCEROS
+ 
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
  mar, 16 jun.
  ON ICBC
 $30.000.000.000 (amp. h/ 
@@ -673,10 +516,21 @@ del Programa)
  BBB (Fix SCR)
  Margen
  jue, 18 jun.
- $20.000.000.000 (amp. h/ 
-$50.000.000.000)
- $20.000.000.000 (amp. h/ 
-$50.000.000.000)
+ mié, 17 jun.
+ ON Sidersa (Integra en efectivo y/o 
+en especie)-USD 30.000.000 (amp. h/ 
+USD 50.000.000)
+ II
+ USD Mep
+ USD 30.000.000 (amp. h/ 
+USD 50.000.000)
+ A licitar
+ 33,31
+ 1096
+ 19/06/2029
+ A+ (Fix SCR)
+ Tasa
+ vie, 19 jun.
  $ 7.204.086.000
 
 Carga del documento completada. Está en la página 1.
