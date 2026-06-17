@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 16-06-2026
+Licitaciones Primarias 17-06-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 10:21 AM
+Hoy 10:55 AM
 View Full
 REGRESAR
 
@@ -62,10 +62,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 16-06-2026
+Licitaciones Primarias 17-06-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 10:21 AM
+Hoy 10:55 AM
 View Full
 REGRESAR
 
@@ -114,7 +114,9 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 Page 1
 
-16 de junio de 2026
+1
+7
+de junio de 2026
 
 Este
 informe
@@ -248,7 +250,7 @@ Presentation Heading  |
 
 Page 2
 
-Resultados de la semana
+Resultados
 
 Tasa / Precio de Corte
  Tasa 
@@ -275,464 +277,17 @@ Pago
 Licitación
  Fecha de 
 Liquidación
- Px 100,00 
--9,98%--
- lun, 8 jun.
- ON Garantizadas MSU Green Energy 
-[Ley NY] 
-[Bono SVS]
--4
- USD Cable
- USD 400.000.000
- 9,75%
- 74,23
- 3653
- 16/06/2036
- B2 (Moody´s) / B- 
-(S&P)
- Book building
- mar, 16 jun.
  TAMAR+3,25%
- 22,2500%
- 28,04%
- 2,72%
- 24,97%
- lun, 8 jun.
- ON Banco BBVA (Integra en efectivo 
-y/o en especie)-47
- ARS
- $ 161.298.353.596
- TAMAR+3,25%
- 10,96
- 365
- 10/06/2027
- A1+ (Fix SCR)
- Margen
- mié, 10 jun.
- TAMAR-1,00%
- 22,2500%
- 23,00%
--1,37%
- 20,88%
- lun, 8 jun.
- ON Garantizada Tostex (Pyme)
- I
--ARS
- $ 2.000.000.000
- TAMAR-1,00%
- 18,07
- 731
- 10/06/2028
- SC
- Margen
- mié, 10 jun.
- Px 100,81 
--7,76%--
- mié, 10 jun.
- FF Pyme Ricardo Venturino
- I
- VDFA
- USD Mep
- USD 4.007.900
- 8,50%
- 9,75
- 637
- 10/03/2028
- AAA (Fix SCR)
- Precio
- vie, 12 jun.
- Px 95,00 
--12,37%--
- mié, 10 jun.
- FF Pyme Ricardo Venturino
- I
- VDFB
- USD Mep
- USD 439.000
- 10,00%
- 25,02
- 790
- 10/08/2028
- A (Fix SCR)
- Precio
- vie, 12 jun.
- Px 89,00 
--4,75%--
- mié, 10 jun.
- Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD8
- CER / ARS
- $ 1.624.039.000.000
- 0,00% / TAMAR TEM + 3,00%
- 30,15
- 917
- 15/12/2028
- SC
- Precio
- vie, 12 jun.
- Px 81,90 
--5,85%--
- mié, 10 jun.
- Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD9
- CER / ARS
- $ 1.010.962.000.000
- 0,00% / TAMAR TEM + 3,00%
- 42,12
- 1281
- 14/12/2029
- SC
- Precio
- vie, 12 jun.
- Px 78,00 
--6,33%--
- mié, 10 jun.
- Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMJ0
- CER / ARS
- $ 2.705.525.000.000
- 0,00% / TAMAR TEM + 3,00%
- 48,56
- 1477
- 28/06/2030
- SC
- Precio
- vie, 12 jun.
- Px 98,83 
--5,50%--
- mié, 10 jun.
- Letra del Tesoro Nacional Cero Cupón 
-Vinculada al Dólar [Nueva]-D31G6
- USD linked
- USD 1.134.000.000
- 0,00%
- 2,63
- 80
- 31/08/2026
- SC
- Precio
- vie, 12 jun.
- Px 81,80 
--8,22%--
- mié, 10 jun.
- Bono del Tesoro Nacional Cero Cupón 
-Vinculado al Dólar [Nueva]-TZVD8
- USD linked
- USD 98.000.000
- 0,00%
- 30,15
- 917
- 15/12/2028
- SC
- Precio
- vie, 12 jun.
- Px 95,25 
--8,63%--
- mié, 10 jun.
- BONAR 2028 [Reapertura]
--AO28
- USD Mep
- USD 200.000.000
- 6,00%
- 26,66
- 872
- 31/10/2028
- SC
- Precio
- vie, 12 jun.
- Px 89,80 
--4,39%--
- mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TZX26 x 
-Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD8
- CER / ARS
- $ 324.705.000.000
- 0,00% / TAMAR TEM + 3,00%
- 30,02
- 913
- 15/12/2028
- SC
- Precio
- mar, 16 jun.
- Px 82,80 
--5,54%--
- mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TZX26 x 
-Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD9
- CER / ARS
- $ 734.525.000.000
- 0,00% / TAMAR TEM + 3,00%
- 41,98
- 1277
- 14/12/2029
- SC
- Precio
- mar, 16 jun.
- Px 78,90 
--6,05%--
- mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TZX26 x 
-Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMJ0
- CER / ARS
- $ 1.152.299.000.000
- 0,00% / TAMAR TEM + 3,00%
- 48,43
- 1473
- 28/06/2030
- SC
- Precio
- mar, 16 jun.
- Px 89,80 
--4,39%--
- mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TTJ26 x 
-Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD8
- CER / ARS
- $ 911.134.000.000
- 0,00% / TAMAR TEM + 3,00%
- 30,02
- 913
- 15/12/2028
- SC
- Precio
- mar, 16 jun.
- Px 82,80 
--5,54%--
- mié, 10 jun.
- [OFERTA DE CONVERSIÓN] TTJ26 x 
-Bono del Tesoro Nacional en Pesos 
-Dual CER / TAMAR [Nueva]-TXMD9
- CER / ARS
- $ 494.475.000.000
- 0,00% / TAMAR TEM + 3,00%
- 41,98
- 1277
- 14/12/2029
- SC
- Precio
- mar, 16 jun.
-Presentation Heading  |
-
-Page 3
-
-Resultados de la semana
-
-Tasa / Precio de Corte
- Tasa 
-Tamar TIR Proyectada
- Spread TNA30d - 
-Tamar
- TNA (30días)
- Fecha de 
-Licitación
- Emisión
- Serie
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(Meses)
- Maturity 
-(días)
- Última Fecha de 
-Pago
- Calificación
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
- Px 113,98 
-21,5000%
- 28,04%
- 3,47%
- 24,97%
- jue, 11 jun.
- Letras de Tesoreria de la Provincia del 
-Chaco [Reapertura]-2
- ARS
- $ 3.637.769.944
- 38,00%
- 2,07
- 63
- 14/08/2026
- B (Fix SCR)
- Precio
- vie, 12 jun.
- 24,50%
  21,5000%
- 27,40%
- 2,96%
- 24,46%
- jue, 11 jun.
- Letras de Tesoreria de la Provincia del 
-Chaco [Nueva]-5
- ARS
- $ 74.603.825.239
- 24,50%
- 1,15
- 35
- 17/07/2026
- B (Fix SCR)
- Tasa
- vie, 12 jun.
- 26,00%
- 21,5000%
- 28,57%
- 3,90%
- 25,40%
- jue, 11 jun.
- Letras de Tesoreria de la Provincia del 
-Chaco [Nueva]-6
- ARS
- $ 4.184.258.729
- 26,00%
- 3,22
- 98
- 18/09/2026
- B (Fix SCR)
- Tasa
- vie, 12 jun.
- TAMAR+5,00%
- 21,5000%
- 31,38%
- 6,11%
- 27,61%
- jue, 11 jun.
- Letras de Tesoreria de la Provincia del 
-Chaco [Nueva]-7
- ARS
- $ 953.340.000
- TAMAR+5,00%
- 5,98
- 182
- 11/12/2026
- B (Fix SCR)
- Margen
- vie, 12 jun.
- Desierta
--Desierta--
- jue, 11 jun.
- Letras de Tesoreria de la Provincia del 
-Chaco [Nueva]-8
- ARS
- Desierta
- TAMAR+Mg
- 11,97
- 364
- 11/06/2027
- B (Fix SCR)
- Margen
- vie, 12 jun.
- 95,25%
--8,63%--
- jue, 11 jun.
- BONAR 2028 [Reapertura]
--AO28
- USD Mep
- USD 100.000.000
- 6,00%
- 26,66
- 872
- 31/10/2028
- SC
- Precio
- vie, 12 jun.
- 23,14%
- 21,5000%
- 29,33%
- 4,50%
- 26,00%
- jue, 11 jun.
- FF Mercado Crédito
- L
- VDF
- ARS
- $ 117.319.998.433
- (17%; T+100; 45%)
- 8,32
- 364
- 15/06/2027
- AAA (Fix SCR)
- TIR
- mar, 16 jun.
- TAMAR+3,89%
- 21,5625%
- 27,99%
- 3,37%
- 24,93%
- vie, 12 jun.
- ON Volkswagen Cía. Financiera
--15
- ARS
- $ 41.493.700.000
- TAMAR+3,89%
- 10,97
- 365
- 18/06/2027
- A1+ (Fix SCR)
- Margen
- jue, 18 jun.
- TEM 1,98%
- 21,5625%
- 26,61%
- 2,27%
- 23,83%
- vie, 12 jun.
- ON Volkswagen Cía. Financiera
--16
- ARS
- $ 8.506.300.000
- TEM 1,98%
- 8,98
- 273
- 18/03/2027
- A1+ (Fix SCR)
- TEM
- jue, 18 jun.
-Presentation Heading  |
-
-Page 4
-
-Licita hoy
-
-OPERACIONES DE TERCEROS
- 
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity 
-(días)
- Última Fecha de 
-Pago
- Rating
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
+ 27,14%
+ 2,75%
+ 24,25%
  mar, 16 jun.
  ON ICBC
-$30.000.000.000 (amp. h/ 
-Monto Máximo Disponible 
-del Programa)
- VII
+-VII
  ARS
- $30.000.000.000 (amp. h/ 
-Monto Máximo Disponible 
-del Programa)
- TAMAR+Mg
+ $ 80.100.651.775
+ TAMAR+3,25%
  10,99
  365
  17/06/2027
@@ -741,9 +296,9 @@ del Programa)
  mié, 17 jun.
 Presentation Heading  |
 
-Page 5
+Page 3
 
-Operaciones en difusión
+Licita hoy
 
 OPERACIONES DE TERCEROS
  
@@ -823,9 +378,98 @@ Programa)
  9,03
  365
  19/06/2027
- A informar
+ A2 (Fix SCR)
  Margen
  vie, 19 jun.
+ $ 7.204.086.000
+Presentation Heading  |
+
+Page 4
+
+Operaciones en difusión
+
+STONEX
+ Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ vie, 19 jun.
+ FF Centrocard Créditos
+ VIII
+ VDFA
+ ARS
+ $ 5.250.000.000
+ (25%; T+100; 45%)
+ 5,76
+ 338
+ 26/05/2027
+ AAA (Moody´s)
+ TIR
+ lun, 22 jun.
+ vie, 19 jun.
+ FF Centrocard Créditos
+ VIII
+ VDFB
+ ARS
+ $ 700.000.000
+ (26%; T+200; 46%)
+ 12,50
+ 399
+ 26/07/2027
+ A (Moody´s)
+ TIR
+ lun, 22 jun.
+ vie, 19 jun.
+ FF Centrocard Créditos
+ VIII
+ VDFC
+ ARS
+ $ 1.050.000.000
+ 30,00%
+ 16,95
+ 673
+ 25/04/2028
+ B- (Moody´s)
+ TIR
+ lun, 22 jun.
+ OPERACIONES DE TERCEROS
+ 
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
  jue, 18 jun.
  ON Mastellone Hermanos
 -2
@@ -848,7 +492,90 @@ Programa)
  A-1 (Moody´s)
  Margen
  lun, 22 jun.
- $ 7.204.086.000
+ jue, 18 jun.
+ ON Toyota Financial Services
+-39
+ ARS
+ TAMAR+Mg
+ 15,49
+ 639
+ 22/03/2028
+ AA+ (Fix SCR)
+ Margen
+ lun, 22 jun.
+ jue, 18 jun.
+ ON Toyota Financial Services
+-40
+ ARS
+ TEM A licitar
+ 12,00
+ 365
+ 22/06/2027
+ A1+ (Fix SCR)
+ Tasa
+ lun, 22 jun.
+ jue, 18 jun.
+ ON Toyota Financial Services
+-41
+ UVA
+ A licitar
+ 19,88
+ 731
+ 22/06/2028
+ AA+ (Fix SCR)
+ Tasa
+ lun, 22 jun.
+ jue, 18 jun.
+ ON Garantizada Yacopini Mirai 
+(Pyme)
+ I
+ $ 500.000.000
+-ARS
+ $ 500.000.000
+ TAMAR+Mg
+ 11,19
+ 365
+ 22/06/2027
+ SC
+ Margen
+ lun, 22 jun.
+ jue, 18 jun.
+ [OFERTA DE CONVERSIÓN] TZV26 
+x Letra del Tesoro Nacional 
+Vinculada al Dólar [Reapertura]
+ D31L6
+-USD linked
+ 0,00%
+ 1,25
+ 38
+ 31/07/2026
+ SC
+ Precio
+ mar, 23 jun.
+ jue, 18 jun.
+ [OFERTA DE CONVERSIÓN] TZV26 
+x Bono del Tesoro Nacional 
+Vinculada al Dólar [Reapertura]
+ TZVD8
+-USD linked
+ 0,00%
+ 29,79
+ 906
+ 15/12/2028
+ SC
+ Precio
+ mar, 23 jun.
+ $10.000.000.000 (amp. h/ 
+$30.000.000.000)
+ $10.000.000.000 (amp. h/ 
+$30.000.000.000)
+ Hasta el Monto Máximo 
+Autorizado por la Normativa 
+Vigente
+ Hasta el Monto Máximo 
+Autorizado por la Normativa 
+Vigente
+ $ 7.000.000.000
  USD 60.000.000
  USD 60.000.000
 
