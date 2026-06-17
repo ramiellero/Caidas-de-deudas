@@ -2837,6 +2837,18 @@ function _buildIrsaMatData(rows) {
     return toNum(a) - toNum(b);
   }
 
+  // Quarter keys that should always appear even if empty:
+  // current quarter of curFY + all quarters of curFY+1
+  const _ALL_Q = ['IQ','IIQ','IIIQ','IVQ'];
+  const _cm = today.getMonth(), _cy = today.getFullYear();
+  let _curQKey;
+  if (_cm >= 6) { _curQKey = _cm <= 8 ? `IQ_${_cy+1}` : `IIQ_${_cy+1}`; }
+  else          { _curQKey = _cm <= 2 ? `IIIQ_${_cy}` : `IVQ_${_cy}`; }
+  const _expectedQKeys = [
+    ..._ALL_Q.map(q => `${q}_${curFY}`  ).filter(k => _fyGroupSort(k, _curQKey) >= 0),
+    ..._ALL_Q.map(q => `${q}_${curFY+1}`)
+  ];
+
   const fyGroups = {}, calGroups = {};
   active.forEach(r => {
     const fyKey     = _fyGroupKey(r);
@@ -2856,10 +2868,20 @@ function _buildIrsaMatData(rows) {
   });
 
   function buildFYView() {
-    const keys = Object.keys(fyGroups).sort(_fyGroupSort);
-    if (!keys.length) return { labels: [], banking: [], otras: [], xxiv: [], totals: [], detail: [] };
+    const rawKeys  = Object.keys(fyGroups);
+    // Merge actual keys with expected quarter keys (fills empty quarters)
+    const qKeys      = [...new Set([..._expectedQKeys, ...rawKeys.filter(k => !k.startsWith('FY'))])];
+    const annualKeys = rawKeys.filter(k => k.startsWith('FY'));
+    const allKeys    = [...qKeys];
+    if (annualKeys.length) {
+      const minFY = Math.min(...annualKeys.map(k => parseInt(k.replace('FY',''))));
+      const maxFY = Math.max(...annualKeys.map(k => parseInt(k.replace('FY',''))));
+      for (let y = minFY; y <= maxFY; y++) allKeys.push(`FY${y}`);
+    }
+    if (!allKeys.length) return { labels: [], banking: [], otras: [], xxiv: [], totals: [], detail: [] };
+    allKeys.sort(_fyGroupSort);
     const labels = [], banking = [], otras = [], xxiv = [], totals = [], detail = [];
-    keys.forEach(k => {
+    allKeys.forEach(k => {
       const items      = fyGroups[k] || [];
       const bankItems  = items.filter(i =>  i.isBanking);
       const xxivItems  = items.filter(i => !i.isBanking && i.name === 'ON XXIV');
@@ -3027,6 +3049,16 @@ function _buildCresudMatData(rows) {
     return toNum(a) - toNum(b);
   }
 
+  const _ALL_Q2 = ['IQ','IIQ','IIIQ','IVQ'];
+  const _cm2 = today.getMonth(), _cy2 = today.getFullYear();
+  let _curQKey2;
+  if (_cm2 >= 6) { _curQKey2 = _cm2 <= 8 ? `IQ_${_cy2+1}` : `IIQ_${_cy2+1}`; }
+  else           { _curQKey2 = _cm2 <= 2 ? `IIIQ_${_cy2}` : `IVQ_${_cy2}`; }
+  const _expectedQKeys2 = [
+    ..._ALL_Q2.map(q => `${q}_${curFY}`  ).filter(k => _fyGroupSort(k, _curQKey2) >= 0),
+    ..._ALL_Q2.map(q => `${q}_${curFY+1}`)
+  ];
+
   const fyGroups = {}, calGroups = {};
   active.forEach(r => {
     const fyKey     = _fyGroupKey(r);
@@ -3046,9 +3078,19 @@ function _buildCresudMatData(rows) {
   });
 
   function buildFYView() {
-    const keys = Object.keys(fyGroups).sort(_fyGroupSort);
+    const rawKeys    = Object.keys(fyGroups);
+    const qKeys      = [...new Set([..._expectedQKeys2, ...rawKeys.filter(k => !k.startsWith('FY'))])];
+    const annualKeys = rawKeys.filter(k => k.startsWith('FY'));
+    const allKeys    = [...qKeys];
+    if (annualKeys.length) {
+      const minFY = Math.min(...annualKeys.map(k => parseInt(k.replace('FY',''))));
+      const maxFY = Math.max(...annualKeys.map(k => parseInt(k.replace('FY',''))));
+      for (let y = minFY; y <= maxFY; y++) allKeys.push(`FY${y}`);
+    }
+    if (!allKeys.length) return { labels: [], banking: [], bonds: [], totals: [], detail: [] };
+    allKeys.sort(_fyGroupSort);
     const labels = [], banking = [], bonds = [], totals = [], detail = [];
-    keys.forEach(k => {
+    allKeys.forEach(k => {
       const items     = fyGroups[k] || [];
       const bankItems = items.filter(i =>  i.isBanking);
       const bondItems = items.filter(i => !i.isBanking);
