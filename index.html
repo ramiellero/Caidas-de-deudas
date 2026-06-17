@@ -5376,6 +5376,7 @@ function _curvasApplyFilters() {
 
   _curvasSortRows();
   _curvasRenderTable();
+  _curvasRenderCharts();
 
   const cnt = document.getElementById('curvas-count-label');
   if (cnt) cnt.textContent = `${_curvasFiltered.length} bonos`;
@@ -5553,12 +5554,12 @@ function _curvasSetArgMoneda(m, btn) {
   _curvasArgMoneda = m;
   document.querySelectorAll('.curvas-moneda-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
-  _curvasBuildScatter('arg', _curvasAllRows.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
+  _curvasBuildScatter('arg', _curvasFiltered.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
 }
 
 function _curvasRenderCharts() {
-  _curvasBuildScatter('arg', _curvasAllRows.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
-  _curvasBuildScatter('ny',  _curvasAllRows.filter(r => r['Ley'] === 'NY'));
+  _curvasBuildScatter('arg', _curvasFiltered.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
+  _curvasBuildScatter('ny',  _curvasFiltered.filter(r => r['Ley'] === 'NY'));
 }
 
 function _curvasBuildScatter(type, rows) {
@@ -5613,6 +5614,7 @@ function _curvasBuildScatter(type, rows) {
       borderWidth: 1.5,
       borderDash: [5, 4],
       pointRadius: 0,
+      pointHoverRadius: 0,
       fill: false,
       tension: 0,
       order: 1,
@@ -5625,6 +5627,11 @@ function _curvasBuildScatter(type, rows) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      animation: false,
+      interaction: {
+        mode: 'nearest',
+        intersect: true,
+      },
       plugins: {
         legend: {
           position: 'bottom',

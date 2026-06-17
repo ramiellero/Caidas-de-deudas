@@ -348,7 +348,7 @@ Vista de curva de rendimientos de bonos corporativos USD del mercado argentino. 
 - Eje Y: `TIR` efectiva (%)
 - Color por sector (`_CURVAS_SECTOR_COLORS`): Real Estate `#1D4B6E`, Finanzas `#7C3AED`, Petróleo & Gas `#B45309`, Telecomunicaciones `#0891B2`, Electricidad `#D97706`, Agroindustria `#16A34A`, Construcción `#DC2626`, Alimentos y Bebidas `#DB2777`, Materiales Básicos `#64748B`, Aerolíneas `#0369A1`
 - Tooltip al hover: Ticker, Emisor, Sector, Cupón, Vencimiento, TIR, MD; la línea de tendencia no genera tooltip (filtrada con `filter: item => item.dataset.label !== '_trend'`)
-- Usan `_curvasAllRows` completo (no responden a los filtros de la tabla)
+- Usan `_curvasFiltered` — responden dinámicamente a todos los filtros de la UI (Emisor, Industria, Moneda, Ley, Fix LP); `_curvasApplyFilters()` llama `_curvasRenderCharts()` al final
 - IDs canvas: `curvas-chart-arg`, `curvas-chart-ny`
 - Instancias: `_curvasChartArg`, `_curvasChartNY` — destruidas con `Chart.getChart(canvas)` antes de cada render (más robusto que depender de la variable local; evita el error "canvas already in use" al cambiar el toggle)
 - Se renderizan al cargar datos (`initCurvasSection`) y al activar el tab (`setDealsView`)
