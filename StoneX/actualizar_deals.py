@@ -1,5 +1,7 @@
 import re
 import time
+import datetime
+import io
 from pathlib import Path
 
 import pandas as pd
@@ -7,6 +9,13 @@ from bs4 import BeautifulSoup
 import win32com.client
 from playwright.sync_api import sync_playwright
 import os
+
+try:
+    import pdfplumber
+    import requests as _requests
+    HAS_PDFPLUMBER = True
+except ImportError:
+    HAS_PDFPLUMBER = False
 
 BASE_DIR = Path(__file__).resolve().parent
 REPO_GIT = BASE_DIR.parent
@@ -132,15 +141,29 @@ def abrir_y_extraer_texto(url):
     print("\nABRIENDO LINK STONEX:")
     print(url)
 
+    pdf_url_capturada = None
+    cookies_sesion = []
     texto_total = ""
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-
-        page = browser.new_page(
+        context = browser.new_context(
             accept_downloads=True,
-            viewport={"width": 1600, "height": 900}
+            viewport={"width": 1600, "height": 900},
         )
+        page = context.new_page()
+
+        # Interceptar respuestas para capturar URL del PDF embebido
+        def on_response(response):
+            nonlocal pdf_url_capturada
+            if pdf_url_capturada:
+                return
+            ct = response.headers.get("content-type", "")
+            if "pdf" in ct.lower() or response.url.lower().endswith(".pdf"):
+                pdf_url_capturada = response.url
+                print(f"  PDF detectado: {response.url}")
+
+        page.on("response", on_response)
 
         page.goto(url, wait_until="networkidle", timeout=60000)
         time.sleep(5)
@@ -152,25 +175,51 @@ def abrir_y_extraer_texto(url):
         page.mouse.wheel(0, 2000)
         time.sleep(3)
 
+        if pdf_url_capturada:
+            cookies_sesion = context.cookies()
+
+        # Extracción de texto desde frames (sin duplicados)
+        seen_fingerprints = set()
         try:
-            texto_total += "\n\n--- BODY ---\n\n"
-            texto_total += page.locator("body").inner_text(timeout=10000)
+            body_text = page.locator("body").inner_text(timeout=10000)
+            texto_total += "\n\n--- BODY ---\n\n" + body_text
+            seen_fingerprints.add(body_text[:300])
         except Exception as e:
             print("No pude leer body:", e)
 
         for i, frame in enumerate(page.frames):
             try:
                 t = frame.locator("body").inner_text(timeout=5000)
-                texto_total += f"\n\n--- FRAME {i} ---\n\n"
-                texto_total += t
+                fp = t[:300]
+                if fp in seen_fingerprints:
+                    continue
+                seen_fingerprints.add(fp)
+                texto_total += f"\n\n--- FRAME {i} ---\n\n{t}"
             except Exception:
                 pass
 
         browser.close()
 
+    # Si se capturó un PDF, parsearlo con pdfplumber (texto mucho más limpio)
+    if pdf_url_capturada and HAS_PDFPLUMBER:
+        try:
+            cookies_dict = {c["name"]: c["value"] for c in cookies_sesion}
+            resp = _requests.get(pdf_url_capturada, cookies=cookies_dict, timeout=30)
+            resp.raise_for_status()
+            texto_pdf = ""
+            with pdfplumber.open(io.BytesIO(resp.content)) as pdf:
+                for pg in pdf.pages:
+                    texto_pdf += (pg.extract_text() or "") + "\n"
+            if "Resultados" in texto_pdf or "Licitaciones" in texto_pdf:
+                print("PDF extraído con pdfplumber — texto limpio disponible")
+                texto_total = texto_pdf
+            else:
+                print("PDF descargado pero no contiene sección esperada; usando texto de frames")
+        except Exception as e:
+            print(f"No pude descargar/parsear PDF ({e}); usando texto de frames")
+
     TXT_OUTPUT.write_text(texto_total, encoding="utf-8")
-    print("\nTexto extraído guardado en:")
-    print(TXT_OUTPUT)
+    print(f"\nTexto extraído guardado en: {TXT_OUTPUT}")
 
     return texto_total
 
@@ -181,6 +230,15 @@ def abrir_y_extraer_texto(url):
 
 def limpiar_texto_celda(x):
     return re.sub(r"\s+", " ", str(x)).strip()
+
+
+def _año_para_mes(mes_num: int) -> int:
+    hoy = datetime.date.today()
+    año = hoy.year
+    # Si el mes parseado es enero y hoy es diciembre, la liquidación cae en el año siguiente
+    if mes_num == 1 and hoy.month == 12:
+        año += 1
+    return año
 
 
 def fecha_stonex_a_ddmmyyyy(txt):
@@ -194,40 +252,20 @@ def fecha_stonex_a_ddmmyyyy(txt):
     if not mes:
         return ""
 
-    return f"{dia}/{mes}/2026"
+    return f"{dia}/{mes}/{_año_para_mes(int(mes))}"
+
 
 def fecha_licitacion_a_fecha(txt):
-
-    m = re.search(
-        r"(\d{1,2})\s+([a-z]{3})",
-        str(txt).lower()
-    )
-
+    m = re.search(r"(\d{1,2})\s+([a-z]{3})", str(txt).lower())
     if not m:
         return pd.NaT
 
     dia = int(m.group(1))
+    mes_num = int(MESES.get(m.group(2), 0))
+    if not mes_num:
+        return pd.NaT
 
-    mes = {
-        "ene": 1,
-        "feb": 2,
-        "mar": 3,
-        "abr": 4,
-        "may": 5,
-        "jun": 6,
-        "jul": 7,
-        "ago": 8,
-        "sep": 9,
-        "oct": 10,
-        "nov": 11,
-        "dic": 12,
-    }[m.group(2)]
-
-    return pd.Timestamp(
-        year=2026,
-        month=mes,
-        day=dia
-    )
+    return pd.Timestamp(year=_año_para_mes(mes_num), month=mes_num, day=dia)
 
 def limpiar_vn(txt):
     nums = re.findall(r"\d[\d\.]*", str(txt))
@@ -965,13 +1003,54 @@ def main():
     # GIT PUSH
     # ==========================================
 
-    os.chdir(REPO_GIT)
+    import subprocess
 
     print("\nSubiendo cambios a GitHub...")
+    print(f"Repo: {REPO_GIT}")
+    print(f"Archivo: {CSV_WEB}")
 
-    os.system("git add .")
-    os.system('git commit -m "update deals automatico"')
-    os.system("git push")
+    def git(args, **kwargs):
+        result = subprocess.run(
+            ["git"] + args,
+            cwd=str(REPO_GIT),
+            capture_output=True,
+            text=True,
+            **kwargs,
+        )
+        if result.stdout.strip():
+            print(result.stdout.strip())
+        if result.stderr.strip():
+            print("[stderr]", result.stderr.strip())
+        if result.returncode != 0:
+            print(f"[ERROR] git {' '.join(args)} salió con código {result.returncode}")
+        return result.returncode
+
+    rc_add = git(["add", str(CSV_WEB)])
+    if rc_add != 0:
+        print("Error en git add — abortando push.")
+        return
+
+    # Verificar si hay cambios staged antes de commitear
+    status = subprocess.run(
+        ["git", "diff", "--cached", "--name-only"],
+        cwd=str(REPO_GIT),
+        capture_output=True,
+        text=True,
+    )
+    if not status.stdout.strip():
+        print("Sin cambios en el CSV — nada que commitear ni pushear.")
+        return
+
+    rc_commit = git(["commit", "-m", "update deals: emisiones StoneX"])
+    if rc_commit != 0:
+        print("Error en git commit — abortando push.")
+        return
+
+    rc_push = git(["push"])
+    if rc_push != 0:
+        print("Error en git push — revisá credenciales o conexión.")
+    else:
+        print("Push exitoso.")
 
 if __name__ == "__main__":
     main()

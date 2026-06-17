@@ -2806,12 +2806,40 @@ function _rowIsMatActive(r, today) {
 function _buildIrsaMatData(rows) {
   const MONTHS = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const today  = new Date();
+  const curFY  = today.getMonth() >= 6 ? today.getFullYear() + 1 : today.getFullYear();
 
   const active = rows.filter(r => _rowIsMatActive(r, today));
 
+  // FY view: curFY and curFY+1 (FY27) split into fiscal quarters; future FYs annual.
+  function _fyGroupKey(row) {
+    const fyYear = parseInt(row['FY'].replace('FY', ''), 10);
+    if (fyYear > curFY + 1) return row['FY'];
+    const d = _parseDMY(row['Fecha Fin']);
+    const m = d.getMonth(), y = d.getFullYear();
+    let q, endYear;
+    if (m >= 6) { q = m <= 8 ? 'IQ' : 'IIQ';   endYear = y + 1; }
+    else        { q = m <= 2 ? 'IIIQ' : 'IVQ';  endYear = y; }
+    return `${q}_${endYear}`;
+  }
+
+  function _fyGroupLabel(key) {
+    if (key.startsWith('FY')) return _fyLabel(key);
+    const [q, year] = key.split('_');
+    return `${q} ${String(year).slice(-2)}`;
+  }
+
+  function _fyGroupSort(a, b) {
+    function toNum(k) {
+      if (k.startsWith('FY')) return parseInt(k.replace('FY', '')) * 100;
+      const [q, year] = k.split('_');
+      return (parseInt(year) - 1) * 100 + ({ IQ: 10, IIQ: 20, IIIQ: 30, IVQ: 40 }[q] || 0);
+    }
+    return toNum(a) - toNum(b);
+  }
+
   const fyGroups = {}, calGroups = {};
   active.forEach(r => {
-    const fy        = r['FY'];
+    const fyKey     = _fyGroupKey(r);
     const cal       = String(r['AÑO']);
     const amt       = parseFloat(r['Monto USD']) / 1e6;
     const d         = _parseDMY(r['Fecha Fin']);
@@ -2823,36 +2851,47 @@ function _buildIrsaMatData(rows) {
       date: `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`,
       isBanking,
     };
-    (fyGroups[fy]   = fyGroups[fy]   || []).push(item);
-    (calGroups[cal] = calGroups[cal] || []).push(item);
+    (fyGroups[fyKey] = fyGroups[fyKey] || []).push(item);
+    (calGroups[cal]  = calGroups[cal]  || []).push(item);
   });
 
-  function buildView(groups, isFY) {
-    const keys = Object.keys(groups).sort(isFY
-      ? (a, b) => parseInt(a.replace('FY','')) - parseInt(b.replace('FY',''))
-      : (a, b) => +a - +b
-    );
+  function buildFYView() {
+    const keys = Object.keys(fyGroups).sort(_fyGroupSort);
     if (!keys.length) return { labels: [], banking: [], otras: [], xxiv: [], totals: [], detail: [] };
-
-    const allKeys = [];
-    if (isFY) {
-      const s = parseInt(keys[0].replace('FY',''));
-      const e = parseInt(keys[keys.length-1].replace('FY',''));
-      for (let y = s; y <= e; y++) allKeys.push(`FY${y}`);
-    } else {
-      for (let y = +keys[0]; y <= +keys[keys.length-1]; y++) allKeys.push(String(y));
-    }
-
     const labels = [], banking = [], otras = [], xxiv = [], totals = [], detail = [];
-    allKeys.forEach(k => {
-      const items      = groups[k] || [];
+    keys.forEach(k => {
+      const items      = fyGroups[k] || [];
       const bankItems  = items.filter(i =>  i.isBanking);
       const xxivItems  = items.filter(i => !i.isBanking && i.name === 'ON XXIV');
       const otrasItems = items.filter(i => !i.isBanking && i.name !== 'ON XXIV');
       const bankAmt    = +bankItems.reduce( (s, i) => s + i.amt, 0).toFixed(1);
       const xxivAmt    = +xxivItems.reduce( (s, i) => s + i.amt, 0).toFixed(1);
       const otrasAmt   = +otrasItems.reduce((s, i) => s + i.amt, 0).toFixed(1);
-      labels.push(isFY ? _fyLabel(k) : k);
+      labels.push(_fyGroupLabel(k));
+      banking.push(bankAmt);
+      otras.push(otrasAmt);
+      xxiv.push(xxivAmt);
+      totals.push(+(bankAmt + otrasAmt + xxivAmt).toFixed(1));
+      detail.push(items);
+    });
+    return { labels, banking, otras, xxiv, totals, detail };
+  }
+
+  function buildCalView() {
+    const keys = Object.keys(calGroups).sort((a, b) => +a - +b);
+    if (!keys.length) return { labels: [], banking: [], otras: [], xxiv: [], totals: [], detail: [] };
+    const allKeys = [];
+    for (let y = +keys[0]; y <= +keys[keys.length-1]; y++) allKeys.push(String(y));
+    const labels = [], banking = [], otras = [], xxiv = [], totals = [], detail = [];
+    allKeys.forEach(k => {
+      const items      = calGroups[k] || [];
+      const bankItems  = items.filter(i =>  i.isBanking);
+      const xxivItems  = items.filter(i => !i.isBanking && i.name === 'ON XXIV');
+      const otrasItems = items.filter(i => !i.isBanking && i.name !== 'ON XXIV');
+      const bankAmt    = +bankItems.reduce( (s, i) => s + i.amt, 0).toFixed(1);
+      const xxivAmt    = +xxivItems.reduce( (s, i) => s + i.amt, 0).toFixed(1);
+      const otrasAmt   = +otrasItems.reduce((s, i) => s + i.amt, 0).toFixed(1);
+      labels.push(k);
       banking.push(bankAmt);
       otras.push(otrasAmt);
       xxiv.push(xxivAmt);
@@ -2863,8 +2902,8 @@ function _buildIrsaMatData(rows) {
   }
 
   return {
-    fy:  buildView(fyGroups,  true),
-    cal: buildView(calGroups, false),
+    fy:  buildFYView(),
+    cal: buildCalView(),
   };
 }
 
@@ -2960,10 +2999,10 @@ function _buildCresudMatData(rows) {
 
   const active = rows.filter(r => _rowIsMatActive(r, today));
 
-  // For FY view: current FY splits into fiscal quarters; future FYs group annually.
+  // For FY view: curFY and curFY+1 (FY27) split into fiscal quarters; future FYs annual.
   function _fyGroupKey(row) {
     const fyYear = parseInt(row['FY'].replace('FY', ''), 10);
-    if (fyYear > curFY) return row['FY'];
+    if (fyYear > curFY + 1) return row['FY'];
     const d = _parseDMY(row['Fecha Fin']);
     const m = d.getMonth(), y = d.getFullYear();
     let q, endYear;
@@ -5376,6 +5415,7 @@ function _curvasApplyFilters() {
 
   _curvasSortRows();
   _curvasRenderTable();
+  _curvasRenderCharts();
 
   const cnt = document.getElementById('curvas-count-label');
   if (cnt) cnt.textContent = `${_curvasFiltered.length} bonos`;
@@ -5553,12 +5593,12 @@ function _curvasSetArgMoneda(m, btn) {
   _curvasArgMoneda = m;
   document.querySelectorAll('.curvas-moneda-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
-  _curvasBuildScatter('arg', _curvasAllRows.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
+  _curvasBuildScatter('arg', _curvasFiltered.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
 }
 
 function _curvasRenderCharts() {
-  _curvasBuildScatter('arg', _curvasAllRows.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
-  _curvasBuildScatter('ny',  _curvasAllRows.filter(r => r['Ley'] === 'NY'));
+  _curvasBuildScatter('arg', _curvasFiltered.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
+  _curvasBuildScatter('ny',  _curvasFiltered.filter(r => r['Ley'] === 'NY'));
 }
 
 function _curvasBuildScatter(type, rows) {
@@ -5613,6 +5653,7 @@ function _curvasBuildScatter(type, rows) {
       borderWidth: 1.5,
       borderDash: [5, 4],
       pointRadius: 0,
+      pointHoverRadius: 0,
       fill: false,
       tension: 0,
       order: 1,
@@ -5625,6 +5666,11 @@ function _curvasBuildScatter(type, rows) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      animation: false,
+      interaction: {
+        mode: 'nearest',
+        intersect: true,
+      },
       plugins: {
         legend: {
           position: 'bottom',
