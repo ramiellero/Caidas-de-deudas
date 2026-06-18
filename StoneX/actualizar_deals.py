@@ -1009,7 +1009,6 @@ def main():
     print(f"Repo: {REPO_GIT}")
     print(f"Archivo: {CSV_WEB}")
 
-<<<<<<< HEAD
     def git(args, **kwargs):
         result = subprocess.run(
             ["git"] + args,
@@ -1052,14 +1051,6 @@ def main():
         print("Error en git push — revisá credenciales o conexión.")
     else:
         print("Push exitoso.")
-=======
-    os.system("git add .")
-    os.system('git commit -m "update deals automatico"')
-
-    os.system("git pull --rebase origin main")
-
-    os.system("git push origin main")
->>>>>>> f4eb8a3 (ajustes parser y git)
 
 if __name__ == "__main__":
     main()
