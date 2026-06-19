@@ -83,6 +83,30 @@ def numero_para_web(x):
     except:
         return x
     
+# ==========================================
+# GIT PULL
+# ==========================================
+
+import subprocess
+
+def git(args, **kwargs):
+    result = subprocess.run(
+        ["git"] + args,
+        cwd=str(REPO_GIT),
+        capture_output=True,
+        text=True,
+        **kwargs,
+    )
+
+    if result.stdout.strip():
+        print(result.stdout.strip())
+
+    if result.stderr.strip():
+        print("[stderr]", result.stderr.strip())
+
+    return result.returncode
+
+    
 # =========================================================
 # OUTLOOK / STONEX
 # =========================================================
@@ -659,6 +683,12 @@ def actualizar_csv(texto):
         sep=";"
     )
 
+    final.to_csv(
+    CSV_DIFUSION_WEB,
+    index=False,
+    encoding="utf-8-sig"
+)
+
     # ==========================================
     # CSV PARA WEB
     # ==========================================
@@ -981,6 +1011,13 @@ def actualizar_difusion(texto):
 def main():
     CARPETA.mkdir(parents=True, exist_ok=True)
 
+    print("\nActualizando repo...")
+    rc_pull = git(["pull", "--rebase", "origin", "main"])
+
+    if rc_pull != 0:
+        print("Error en git pull --rebase")
+        return
+
     mail = buscar_mail_stonex()
 
     if not mail:
@@ -1007,48 +1044,39 @@ def main():
 
     print("\nSubiendo cambios a GitHub...")
     print(f"Repo: {REPO_GIT}")
-    print(f"Archivo: {CSV_WEB}")
 
-    def git(args, **kwargs):
-        result = subprocess.run(
-            ["git"] + args,
-            cwd=str(REPO_GIT),
-            capture_output=True,
-            text=True,
-            **kwargs,
-        )
-        if result.stdout.strip():
-            print(result.stdout.strip())
-        if result.stderr.strip():
-            print("[stderr]", result.stderr.strip())
-        if result.returncode != 0:
-            print(f"[ERROR] git {' '.join(args)} salió con código {result.returncode}")
-        return result.returncode
 
-    rc_add = git(["add", str(CSV_WEB)])
+    # Agregar todos los archivos modificados
+    rc_add = git([
+    "add",
+    str(CSV_WEB)
+    ])
     if rc_add != 0:
-        print("Error en git add — abortando push.")
+        print("Error en git add")
         return
 
-    # Verificar si hay cambios staged antes de commitear
+    # Verificar si hay algo para commitear
     status = subprocess.run(
         ["git", "diff", "--cached", "--name-only"],
         cwd=str(REPO_GIT),
         capture_output=True,
         text=True,
     )
+
     if not status.stdout.strip():
-        print("Sin cambios en el CSV — nada que commitear ni pushear.")
+        print("Sin cambios para commitear.")
         return
 
-    rc_commit = git(["commit", "-m", "update deals: emisiones StoneX"])
+    # Commit
+    rc_commit = git(["commit", "-m", "update deals automatico"])
     if rc_commit != 0:
-        print("Error en git commit — abortando push.")
+        print("Error en git commit")
         return
 
-    rc_push = git(["push"])
+    # Push
+    rc_push = git(["push", "origin", "main"])
     if rc_push != 0:
-        print("Error en git push — revisá credenciales o conexión.")
+        print("Error en git push")
     else:
         print("Push exitoso.")
 
