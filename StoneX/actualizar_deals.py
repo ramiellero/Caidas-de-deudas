@@ -1076,12 +1076,14 @@ def main():
     print("\nSubiendo cambios a GitHub...")
     print(f"Repo: {REPO_GIT}")
 
-
-    # Agregar todos los archivos modificados
+    # Agregar archivos que queremos subir
     rc_add = git([
-    "add",
-    str(CSV_WEB)
+        "add",
+        str(CSV_WEB),
+        str(CSV_OUTPUT),
+        str(CSV_DIFUSION)
     ])
+
     if rc_add != 0:
         print("Error en git add")
         return
@@ -1104,6 +1106,7 @@ def main():
         print("Error en git commit")
         return
 
+    # Traer cambios remotos
     rc_pull = git(["pull", "--rebase", "origin", "main"])
     if rc_pull != 0:
         print("Error en git pull --rebase")
