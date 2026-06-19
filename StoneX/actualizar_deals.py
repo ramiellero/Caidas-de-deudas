@@ -27,7 +27,6 @@ CSV_OUTPUT = CARPETA / "deals.csv"
 CSV_DIFUSION = CARPETA / "difusion.csv"
 
 CSV_WEB = REPO_GIT / "emisiones_obligaciones_negociables.csv"
-CSV_DIFUSION_WEB = REPO_GIT / "operaciones_difusion.csv"
 SCREENSHOT = CARPETA / "screenshot_stonex.png"
 
 ASUNTO_BUSCADO = "AGENDA DE EMISIONES"
@@ -683,11 +682,6 @@ def actualizar_csv(texto):
         sep=";"
     )
 
-    final.to_csv(
-    CSV_DIFUSION_WEB,
-    index=False,
-    encoding="utf-8-sig"
-)
 
     # ==========================================
     # CSV PARA WEB
@@ -742,6 +736,40 @@ def actualizar_difusion(texto):
 
     if "Operaciones en difusión" not in texto:
         print("No encontré sección difusión")
+
+        if CSV_DIFUSION.exists():
+
+            final = pd.read_csv(
+                CSV_DIFUSION,
+                sep=";",
+                dtype=str
+            ).fillna("")
+
+            hoy = pd.Timestamp.today().normalize()
+
+            fechas_lic = final[
+                "FECHA LICITACIÓN"
+            ].apply(
+                fecha_licitacion_a_fecha
+            )
+
+            final = final[
+                fechas_lic.isna()
+                |
+                (fechas_lic >= hoy)
+            ]
+
+            final.to_csv(
+                CSV_DIFUSION,
+                index=False,
+                encoding="utf-8-sig",
+                sep=";"
+            )
+
+            print(
+                f"Difusión depurada. Total filas: {len(final)}"
+            )
+
         return
 
     bloque = texto.split(
@@ -987,6 +1015,16 @@ def actualizar_difusion(texto):
         fecha_licitacion_a_fecha
     )
 
+    print("\nHOY:", hoy)
+
+    print("\nFECHAS LIC:")
+    print(
+        pd.DataFrame({
+            "texto": final["FECHA LICITACIÓN"],
+            "fecha": fechas_lic
+        })
+    )
+
     final = final[
         fechas_lic.isna()
         |
@@ -1010,13 +1048,6 @@ def actualizar_difusion(texto):
 
 def main():
     CARPETA.mkdir(parents=True, exist_ok=True)
-
-    print("\nActualizando repo...")
-    rc_pull = git(["pull", "--rebase", "origin", "main"])
-
-    if rc_pull != 0:
-        print("Error en git pull --rebase")
-        return
 
     mail = buscar_mail_stonex()
 
@@ -1071,6 +1102,11 @@ def main():
     rc_commit = git(["commit", "-m", "update deals automatico"])
     if rc_commit != 0:
         print("Error en git commit")
+        return
+
+    rc_pull = git(["pull", "--rebase", "origin", "main"])
+    if rc_pull != 0:
+        print("Error en git pull --rebase")
         return
 
     # Push
