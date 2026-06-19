@@ -291,13 +291,13 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - **Auto-expiry**: filas con `Fecha Fin <= hoy` se excluyen automáticamente; la timeline se actualiza sola con el paso del tiempo
 - **Posicionamiento**: eventos distribuidos uniformemente de izq a der, `left = 5 + i × (90 / (n–1)) %`; alternancia arriba/abajo por índice par/impar
 - **Badges IRSA** en `#irsa-tl-cap`: texto via `_tipoLabel(r['MONEDA'])` (e.g. "Cable", "MEP S/MULC"); color: S/MULC → `#5B8DB8`, resto → `#1D4B6E`; reemplazó el texto hardcodeado "HD" / "HD s/MULC" y la lógica `TC < 0.99`
-- **Badges IRSA** en `#irsa-tl-full`: texto via `_tipoLabel(r['Moneda'])` desde `irsa_deuda_total.csv`; misma lógica de color
+- **Badges IRSA** en `#irsa-tl-full`: texto via `_tipoLabel(r['Moneda'])` desde `irsa_deuda_total.csv`; misma lógica de color para eventos de capital; eventos de interés también muestran el tipo de moneda (e.g. "Cable", "MEP") en lugar de "Intereses" — badge azul claro `#7AAFC8`
 - **Eventos de interés agrupados**: filas consecutivas de tipo `Intereses` con la misma `Fecha Fin` se muestran como un solo evento (e.g. XXII+XXIII en Jul 2026); se suman los montos y se concatenan las tasas ("5,75/7,25%")
 - **Eventos de capital**: filas `Intereses + Capital` siempre generan un evento individual (nunca se agrupan)
 - **Formato de montos**: `_fmtM(n)` → divide por 1e6, fija a 1 decimal, cambia punto decimal por coma (e.g. 19218167 → "19,2M")
 - **Parsing de montos CSV**: `_parseNum(s)` elimina puntos de miles y reemplaza coma decimal por punto (formato europeo "19.218.167,92") — solo para `irsa_deuda_total.csv`. Los montos en `cresud_completo.csv` son floats planos ("12609341.91") y se parsean con `parseFloat()` directamente
 - **Tasa en CSVs de Cresud**: formato punto decimal ("6.00%") — igual que IRSA ahora (ambos usan punto desde el cambio de schema)
-- **Badges Cresud** (`_cresudCapBadge`, `_cresudFullBadge`): texto via `_tipoLabel()` para todos los tipos excepto "Prefi" (banking) y "DL"; colores: Prefi → `#1A3D2A`, DL → `#6BBF8A` (texto oscuro `#0F172A`), S/MULC → `#4A8C60`, resto → `#1A3D2A`
+- **Badges Cresud** (`_cresudCapBadge`, `_cresudFullBadge`): texto via `_tipoLabel()` para todos los tipos excepto "Prefi" (banking) y "DL"; colores: Prefi → `#1A3D2A`, DL → `#6BBF8A` (texto oscuro `#0F172A`), S/MULC → `#4A8C60`, resto → `#1A3D2A`; eventos de interés en timeline full usan `_cresudFullBadge(...).badge` para mostrar el tipo de moneda en lugar de "Intereses" — badge azul claro `#7AAFC8`
 - **Badge DL**: requiere `badgeTextColor = '#0F172A'` en `_tlEvHtml` porque el verde claro (#6BBF8A) no contrasta con texto blanco
 - **Full timeline Cresud**: fuente dual — `cresud_completo.csv` para ONs con schedule de intereses, `cresud_deuda.csv` para prefinanciaciones bancarias (BBVA, Ciudad) que no tienen cupones en el CSV completo; se mergean y reordenan por fecha
 - **Columna ON en Cresud**: en `cresud_completo.csv` es `Clase` (e.g. "XLIV"); en `cresud_deuda.csv` es `Concepto`
@@ -306,6 +306,7 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - IRSA intereses: `#7AAFC8` (azul claro)
 - Cresud intereses: `#7AAFC8` (mismo azul, consistencia visual)
 - Clase `.tl-int` aplica estilos reducidos (fuente y stem más chicos) para eventos de interés
+- **Badge text**: los eventos de interés muestran el tipo de moneda del instrumento (e.g. "Cable", "MEP", "MEP S/MULC") en lugar del texto genérico "Intereses". IRSA usa `_tipoLabel(ev.rows[0]['Moneda'])`; Cresud usa `_cresudFullBadge(ev.rows[0]['Moneda']).badge`. El color del badge (`#7AAFC8`) y el fondo de la tarjeta (`.tl-int`) permanecen sin cambio para mantener la distinción visual respecto a eventos de capital.
 
 ## Flujo de trabajo
 - **Ver cambios**: el dashboard se sirve vía HTTP (GitHub Pages u otro host) — refrescar el browser tras cada commit
