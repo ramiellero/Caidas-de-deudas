@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -473,36 +474,15 @@
     }
     .currency-row {
       display: flex;
-      align-items: center;
-      gap: 28px;
+      justify-content: center;
       margin-top: 12px;
     }
     .currency-pie-wrap {
       position: relative;
-      width: 180px;
-      height: 180px;
+      width: 280px;
+      height: 280px;
       flex-shrink: 0;
     }
-    .currency-legend {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .currency-legend-item {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 12px;
-    }
-    .currency-legend-dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .currency-legend-name { color: #334155; }
-    .currency-legend-pct  { font-weight: 700; color: #0F172A; margin-left: 6px; font-variant-numeric: tabular-nums; }
-    .currency-legend-val  { font-size: 10.5px; color: #94A3B8; margin-left: 4px; }
 
     /* ── Timeline ─────────────────────────────────────────── */
     .tl-section { margin-top: 30px; }
@@ -747,10 +727,7 @@
       .kpi-value { font-size: 20px; }
 
       /* Currency breakdown */
-      .currency-row { flex-direction: column; align-items: flex-start; gap: 14px; }
-      .currency-pie-wrap { width: 130px !important; height: 130px !important; }
-      .currency-legend { width: 100%; }
-      .currency-legend-item { gap: 8px; }
+      .currency-pie-wrap { width: 220px !important; height: 220px !important; }
 
       /* Mat-table — ya scrolleable desde 900px; volver a auto para que las
          columnas ocultas no dejen huecos con table-layout:fixed */
@@ -1673,7 +1650,6 @@
         <div class="currency-pie-wrap">
           <canvas id="irsaPieChart"></canvas>
         </div>
-        <div class="currency-legend"></div>
       </div>
     </div>
 
@@ -1809,7 +1785,6 @@
         <div class="currency-pie-wrap">
           <canvas id="cresudPieChart"></canvas>
         </div>
-        <div class="currency-legend"></div>
       </div>
     </div>
 
@@ -3260,7 +3235,8 @@ initCurvasSection();
 ════════════════════════════════════════════════════════ */
 _irsaPieTotal = 0;
 _irsaPieChart = new Chart(document.getElementById('irsaPieChart'), {
-  type: 'doughnut',
+  type: 'pie',
+  plugins: [ChartDataLabels],
   data: {
     labels: [],
     datasets: [{
@@ -3274,12 +3250,25 @@ _irsaPieChart = new Chart(document.getElementById('irsaPieChart'), {
     responsive: true,
     maintainAspectRatio: false,
     animation: false,
-    cutout: '62%',
+    layout: { padding: 50 },
     plugins: {
       legend: { display: false },
       tooltip: { ...TOOLTIP, callbacks: {
         label: c => ` ${c.label}: ${c.parsed.toFixed(1)}M (${(c.parsed / _irsaPieTotal * 100).toFixed(1)}%)`,
       }},
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        offset: 8,
+        color: ctx => ctx.dataset.backgroundColor[ctx.dataIndex],
+        font: { size: 12, weight: '700', family: 'Inter, sans-serif' },
+        textAlign: 'center',
+        formatter: (value, ctx) => {
+          const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+          const pct = total > 0 ? Math.round(value / total * 100) : 0;
+          return ctx.chart.data.labels[ctx.dataIndex] + '\n' + pct + '%';
+        },
+      },
     },
   },
 });
@@ -3291,7 +3280,8 @@ _irsaPieChart = new Chart(document.getElementById('irsaPieChart'), {
 ════════════════════════════════════════════════════════ */
 _cresudPieTotal = 0;
 _cresudPieChart = new Chart(document.getElementById('cresudPieChart'), {
-  type: 'doughnut',
+  type: 'pie',
+  plugins: [ChartDataLabels],
   data: {
     labels: [],
     datasets: [{
@@ -3305,12 +3295,25 @@ _cresudPieChart = new Chart(document.getElementById('cresudPieChart'), {
     responsive: true,
     maintainAspectRatio: false,
     animation: false,
-    cutout: '62%',
+    layout: { padding: 50 },
     plugins: {
       legend: { display: false },
       tooltip: { ...TOOLTIP, callbacks: {
         label: c => ` ${c.label}: ${c.parsed.toFixed(1)}M (${(c.parsed / _cresudPieTotal * 100).toFixed(1)}%)`,
       }},
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        offset: 8,
+        color: ctx => ctx.dataset.backgroundColor[ctx.dataIndex],
+        font: { size: 12, weight: '700', family: 'Inter, sans-serif' },
+        textAlign: 'center',
+        formatter: (value, ctx) => {
+          const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+          const pct = total > 0 ? Math.round(value / total * 100) : 0;
+          return ctx.chart.data.labels[ctx.dataIndex] + '\n' + pct + '%';
+        },
+      },
     },
   },
 });
@@ -3375,18 +3378,6 @@ function _updateIrsaPie(allCapRows) {
   _irsaPieChart.data.datasets[0].data              = values;
   _irsaPieChart.data.datasets[0].backgroundColor   = labels.map(l => _pieColor(l, IRSA_PIE_COLORS));
   _irsaPieChart.update();
-  const pct = v => total > 0 ? (v / total * 100).toFixed(1).replace('.', ',') + '%' : '0,0%';
-  const container = document.querySelector('#page-irsa .currency-legend');
-  if (container) {
-    container.innerHTML = labels.map((l, i) =>
-      `<div class="currency-legend-item">` +
-        `<div class="currency-legend-dot" style="background:${_pieColor(l, IRSA_PIE_COLORS)};"></div>` +
-        `<span class="currency-legend-name">${l}</span>` +
-        `<span class="currency-legend-pct">${pct(values[i])}</span>` +
-        `<span class="currency-legend-val">USD ${values[i].toFixed(0)}M</span>` +
-      `</div>`
-    ).join('');
-  }
 }
 
 function _updateCresudPie(allCapRows) {
@@ -3397,18 +3388,6 @@ function _updateCresudPie(allCapRows) {
   _cresudPieChart.data.datasets[0].data             = values;
   _cresudPieChart.data.datasets[0].backgroundColor  = labels.map(l => _pieColor(l, CRESUD_PIE_COLORS));
   _cresudPieChart.update();
-  const pct = v => total > 0 ? (v / total * 100).toFixed(1).replace('.', ',') + '%' : '0,0%';
-  const container = document.querySelector('#page-cresud .currency-legend');
-  if (container) {
-    container.innerHTML = labels.map((l, i) =>
-      `<div class="currency-legend-item">` +
-        `<div class="currency-legend-dot" style="background:${_pieColor(l, CRESUD_PIE_COLORS)};"></div>` +
-        `<span class="currency-legend-name">${l}</span>` +
-        `<span class="currency-legend-pct">${pct(values[i])}</span>` +
-        `<span class="currency-legend-val">USD ${values[i].toFixed(0)}M</span>` +
-      `</div>`
-    ).join('');
-  }
 }
 
 // ── Outstanding column ────────────────────────────────────────────────────────
