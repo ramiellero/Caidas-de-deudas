@@ -1,0 +1,75 @@
+
+[2026-06-10] === Iniciando scraper ===
+[BUSCA] desde ID 24526  (last_id=24525)
+  [OK] https://cdn1.portfoliopersonal.com/Attachs/24526.pdf  (521 KB)
+
+[2026-06-10] === Iniciando scraper ===
+[BUSCA] desde ID 24526  (last_id=24525)
+  [OK] https://cdn1.portfoliopersonal.com/Attachs/24526.pdf  (521 KB)
+
+[2026-06-10] === Iniciando scraper ===
+[BUSCA] desde ID 24526  (last_id=24525)
+  [OK] https://cdn1.portfoliopersonal.com/Attachs/24526.pdf  (521 KB)
+  [SKIP] ID 24526 → informe diario (sin tabla de Bonos Corporativos en p.12-13)
+  [OK] https://cdn1.portfoliopersonal.com/Attachs/24527.pdf  (1005 KB)
+
+[PARSE] ID 24527
+  [PDF] 25 páginas
+  -> 101 bonos extraidos
+  [CSV] curvas_on.csv  (101 bonos, fecha 10/06/2026)
+  [ID] Guardado last_id = 24527
+
+[OK] Listo. Próximo ID a probar: 24528
+
+[2026-06-12] === Iniciando scraper ===
+  [OK] https://cdn1.portfoliopersonal.com/Attachs/24531.pdf  (1013 KB)
+
+[PARSE] ID 24531
+  [PDF] 25 páginas
+  -> 97 bonos extraidos
+  [CSV] curvas_on.csv  (97 bonos, fecha 12/06/2026)
+  [ID] Guardado last_id = 24531
+
+[OK] Listo. Próximo ID a probar: 24532
+
+[2026-06-17] === Iniciando scraper ===
+[BUSCA] desde ID 24532  (last_id=24531)
+  [OK] https://cdn1.portfoliopersonal.com/Attachs/24532.pdf  (1507 KB)
+  [SKIP] ID 24532 → informe diario (sin tabla de Bonos Corporativos en p.12-13)
+  [OK] https://cdn1.portfoliopersonal.com/Attachs/24533.pdf  (1019 KB)
+
+[PARSE] ID 24533
+  [PDF] 25 páginas
+  -> 97 bonos extraidos
+  [CSV] curvas_on.csv  (97 bonos, fecha 17/06/2026)
+  [ID] Guardado last_id = 24533
+
+[OK] Listo. Próximo ID a probar: 24534
+
+[2026-06-19] === Iniciando scraper ===
+[BUSCA] desde ID 24534  (last_id=24533)
+  [OK] https://cdn1.portfoliopersonal.com/Attachs/24534.pdf  (668 KB)
+  [SKIP] ID 24534 → informe diario (sin tabla de Bonos Corporativos en p.12-13)
+  [OK] https://cdn1.portfoliopersonal.com/Attachs/24535.pdf  (1010 KB)
+
+[PARSE] ID 24535
+  [PDF] 25 páginas
+  -> 97 bonos extraidos
+  [CSV] curvas_on.csv  (97 bonos, fecha 19/06/2026)
+  [ID] Guardado last_id = 24535
+
+[OK] Listo. Próximo ID a probar: 24536
+
+[2026-06-22] === Iniciando scraper ===
+[BUSCA] desde ID 24536  (last_id=24535)
+  [OK] https://cdn1.portfoliopersonal.com/Attachs/24536.pdf  (548 KB)
+  [SKIP] ID 24536 → informe diario (sin tabla de Bonos Corporativos en p.12-13)
+  [OK] https://cdn1.portfoliopersonal.com/Attachs/24537.pdf  (1013 KB)
+
+[PARSE] ID 24537
+  [PDF] 25 páginas
+  -> 97 bonos extraidos
+  [CSV] curvas_on.csv  (97 bonos, fecha 22/06/2026)
+  [ID] Guardado last_id = 24537
+
+[OK] Listo. Próximo ID a probar: 24538
