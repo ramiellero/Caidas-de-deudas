@@ -78,7 +78,7 @@ Vencimientos de capital de IRSA. Columnas: `AÑO, FY, MONEDA, Periodo, Compañí
 - Incluye un descubierto en ARS (Cohen, vencido 30/01/2026) — se filtra automáticamente
 - `MONEDA`: tipo explícito de liquidación del instrumento — valores: `"Cable"` (HD puro), `"MEP"` (HD MEP), `"MEP S/MULC"` (HD sin MULC), `"CABLE S/MULC"`, `"DL"` (dólar linked), `"ARS"`. Reemplaza la columna `Detalle` y la lógica anterior de `TC < 0.99`
 - `Monto Webcast`: monto nominal en moneda original (antes llamado `Monto MO`)
-- `Monto USD`: equivalente USD ajustado por brecha para instrumentos S/MULC
+- `Monto USD`: equivalente USD. Para instrumentos S/MULC el frontend **ignora este campo** y recalcula dinámicamente con `Monto Webcast × brecha_sesión` via `_rowUsdAmt(r)`. Para instrumentos con acceso MULC, `Monto USD = Monto Webcast`
 - `Outstanding`: capital remanente del instrumento en moneda original (usado para calcular la columna Outstanding en la tabla de detalle)
 - `Tasa`: formato punto decimal ("8.75%") — igual que Cresud; reemplaza el formato anterior con coma ("8,75%")
 - Columna clave para nombre del ON en la timeline: `Concepto` (e.g. "XIV", "XXIV")
@@ -253,6 +253,8 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - `_irsaCapCsvText` / `_cresudCapCsvText` — texto original del CSV (base para descarga)
 - `_irsaPieChart` / `_cresudPieChart` — referencias a los Chart.js de pie
 - `_irsaPieTotal` / `_cresudPieTotal` — totales dinámicos usados en el callback de tooltip del pie
+- `_brechaMEP` — brecha MEP / Dólar Oficial (default `1.0`); editable por sesión vía strip UI
+- `_brechaCC` — brecha CCL/Cable / Dólar Oficial (default `1.0`); editable por sesión vía strip UI
 
 **Funciones principales**:
 - `_buildIrsaExtraRow(nombre, fi, ff, monto, tasa, moneda)` — construye objeto compatible con `irsa_deuda.csv`; usa `MONEDA: isUsd ? 'HD' : 'ARS'`, `Monto USD='0'` para ARS (reemplazó el campo `TC`)
@@ -272,6 +274,36 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - `submitDescubierto()` — valida fechas y monto, construye fila, llama rebuild
 - `removeDescubierto(empresa, idx)` — splice del array y rebuild
 - `downloadDescCsv()` — serializa extra rows al formato CSV de cada empresa y descarga el archivo actualizado
+
+### Brecha S/MULC (session-editable)
+
+Permite ajustar el tipo de cambio implícito de los instrumentos sin acceso al MULC para reflejar el costo económico real en términos de dólares a tipo oficial.
+
+**Concepto**: la brecha es el cociente entre el tipo de cambio de liquidación del instrumento (MEP o CCL/Cable) y el Dólar Oficial. Un instrumento `MEP S/MULC` con brecha 1.05 implica que el costo económico en USD equivalente oficial es el 105% del nominal.
+
+**Fórmula**: `Monto USD efectivo = Monto Webcast × brecha`  
+(para instrumentos S/MULC — los demás usan `Monto USD` del CSV directamente)
+
+**UI**: strip compacto `.brecha-strip` debajo del header de cada sección (IRSA y Cresud), antes del toggle de vista del maturity chart. Dos inputs:
+- `MEP / Oficial` (`.inp-brecha-mep`) — para instrumentos `MEP S/MULC`
+- `CCL / Oficial` (`.inp-brecha-cc`) — para instrumentos `CABLE S/MULC`
+
+Los dos strips (IRSA y Cresud) están sincronizados: cambiar uno actualiza el otro y recalcula ambas secciones.
+
+**Alcance del recálculo** al cambiar la brecha:
+- Maturity wall (barras y tooltips) — vía `_buildIrsaMatData` / `_buildCresudMatData`
+- Tabla de detalle (columna Capital y Outstanding) — vía `_renderIrsaTableBase` / `_renderCresudTableBase`
+- Pie chart de moneda — vía `_computePieDataFromRows`
+- Timeline capital-only — vía `_renderIrsaCapTimeline` / `_renderCresudCapTimeline`
+- Full timeline banking — vía `_renderCresudFullTimeline` (rama Prefi)
+
+**Lo que NO cambia** con la brecha: KPIs de tasa y vida promedio ponderada (siguen usando `Monto Webcast` como peso, que es la convención del Excel interno).
+
+**Funciones**:
+- `_rowUsdAmt(r)` — helper centralizado; detecta `r['MONEDA'].includes('S/MULC')` y aplica `_brechaCC` o `_brechaMEP` según si incluye `'CABLE'`. Para el resto: `parseFloat(r['Monto USD'])`.
+- `_applyBrechaInputs(src)` — `onchange` de los inputs; detecta qué campo cambió por clase CSS, actualiza el global correspondiente, sincroniza todos los inputs del mismo tipo en la página, y llama `_rebuildIrsa()` + `_rebuildCresud()`.
+
+**Persistencia**: solo de sesión — los valores se resetean a `1.0` al refrescar. El CSV no se ve afectado ni se descarga con la brecha aplicada.
 
 **Maturity wall IRSA — dataset 3**: se agregó un tercer dataset "Deuda Bancaria" (color `#4A7A9B`, índice 0) delante de "ONs" (otras, índice 1) y "ONs" (xxiv, índice 2). El plugin de anotación `irsaMatPlugin` usa `m0/m1/m2` y elige la barra más alta para el label de total.
 
@@ -603,7 +635,7 @@ El dashboard **debe verse bien tanto en desktop como en mobile** (celulares y ta
 - **Cache CDN de GitHub Pages**: el CDN de GitHub Pages cachea los archivos CSV y puede demorar varios minutos en reflejar cambios pusheados. Para evitar este problema, todos los `fetch()` de CSVs usan el helper `_csvFetch(name)` que agrega `?v=YYYYMMDD` (fecha del día) como parámetro anti-cache. Si se agrega un nuevo `fetch()` de CSV, usar siempre `_csvFetch()` en lugar de `fetch()` directamente.
 - Los CSV de los maturity walls son la fuente de verdad — editarlos es suficiente para actualizar esos charts
 - **Criterio de valuación de montos**: los CSVs de vencimientos (`irsa_deuda.csv`, `cresud_deuda.csv`) muestran el valor económico ajustado por brecha de tipo de cambio para instrumentos HD s/MULC (MEP/cable) — `Monto USD` puede diferir del nominal para estos instrumentos. Los CSVs completos (`irsa_deuda_total.csv`, `cresud_completo.csv`) muestran el valor nominal (par value) sin ajuste de brecha. Por eso los montos de capital en el timeline "Solo Capital" (fuente: CSV de vencimientos) pueden diferir de los del timeline "+ Intereses" (fuente: CSV completo) exactamente cuando el instrumento es HD s/MULC. Esto es intencional: cada timeline refleja la perspectiva de su CSV fuente.
-- **Clasificación S/MULC en IRSA**: desde el cambio de schema de `irsa_deuda.csv`, la columna `MONEDA` reemplazó a `TC` como fuente de verdad para identificar instrumentos HD s/MULC. La clasificación se hace con `MONEDA.includes('S/MULC')` en lugar de `TC < 0.99`. La columna `TC` fue eliminada del CSV.
+- **Clasificación S/MULC en IRSA y Cresud**: la columna `MONEDA` (en `irsa_deuda.csv` y `cresud_deuda.csv`) es la fuente de verdad. La clasificación se hace con `MONEDA.includes('S/MULC')`. La columna `TC` fue eliminada del CSV. El monto efectivo USD de estos instrumentos se calcula en runtime via `_rowUsdAmt(r)` aplicando la brecha de sesión (`_brechaMEP` o `_brechaCC`) sobre el nominal (`Monto Webcast`), ignorando el `Monto USD` del CSV para S/MULC.
 - Los demás datos financieros siguen embebidos en el HTML/JS hasta que se migren
 - Montos expresados en millones de USD (MM USD) salvo aclaración
 - Año fiscal de IRSA/Cresud: julio–junio (FY termina en junio)

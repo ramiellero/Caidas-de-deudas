@@ -190,6 +190,25 @@
     .kpi-box-sm .kpi-value { font-size: 15px; letter-spacing: -0.01em; }
     .kpi-box-sm { padding: 10px 14px; }
 
+    /* Brecha S/MULC strip */
+    .brecha-strip {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      padding: 7px 12px; margin-bottom: 10px;
+      background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px;
+      font-size: 12px; color: #64748B;
+    }
+    .brecha-strip .brecha-title {
+      font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.6px; color: #94A3B8;
+    }
+    .brecha-strip label { display: flex; align-items: center; gap: 5px; font-weight: 500; color: #475569; }
+    .brecha-strip input[type="number"] {
+      width: 72px; padding: 3px 6px;
+      border: 1px solid #CBD5E1; border-radius: 4px;
+      font-size: 12px; color: #0F172A; background: #fff;
+    }
+    .brecha-strip .brecha-note { font-size: 10.5px; color: #94A3B8; margin-left: auto; }
+
     /* SGR foto — two-tier KPI layout */
     .sgr-kpi-primary { padding: 14px 18px; }
     .sgr-kpi-primary .kpi-label { font-size: 12px; }
@@ -1581,6 +1600,12 @@
       Perfil de Vencimientos — Capital
       <span class="usd-note">(USD Millones)</span>
     </div>
+    <div class="brecha-strip">
+      <span class="brecha-title">Brecha S/MULC</span>
+      <label>MEP / Oficial <input class="inp-brecha-mep" type="number" value="1.000" step="0.001" min="0.5" max="5" onchange="_applyBrechaInputs(this)"></label>
+      <label>CCL / Oficial <input class="inp-brecha-cc"  type="number" value="1.000" step="0.001" min="0.5" max="5" onchange="_applyBrechaInputs(this)"></label>
+      <span class="brecha-note">Aplicado a instrumentos S/MULC sobre su nominal</span>
+    </div>
     <div class="view-toggle">
       <button class="toggle-btn active-irsa" onclick="setIrsaMatView('fy',this)">Año Fiscal</button>
       <button class="toggle-btn"             onclick="setIrsaMatView('cal',this)">Año Calendario</button>
@@ -1709,6 +1734,12 @@
     <div class="section-label" style="color:#1A3D2A; border-bottom:2px solid #1A3D2A;">
       Perfil de Vencimientos — Capital
       <span class="usd-note">(USD Millones)</span>
+    </div>
+    <div class="brecha-strip">
+      <span class="brecha-title">Brecha S/MULC</span>
+      <label>MEP / Oficial <input class="inp-brecha-mep" type="number" value="1.000" step="0.001" min="0.5" max="5" onchange="_applyBrechaInputs(this)"></label>
+      <label>CCL / Oficial <input class="inp-brecha-cc"  type="number" value="1.000" step="0.001" min="0.5" max="5" onchange="_applyBrechaInputs(this)"></label>
+      <span class="brecha-note">Aplicado a instrumentos S/MULC sobre su nominal</span>
     </div>
     <div class="view-toggle">
       <button class="toggle-btn active-cresud" onclick="setCresudMatView('fy',this)">Año Fiscal</button>
@@ -2363,7 +2394,7 @@ function _computePieDataFromRows(rows) {
   active.forEach(r => {
     const isArs  = r['Moneda'] === 'ARS';
     const label  = isArs ? 'ARS' : (r['Concepto 2'] === 'Bancaria' ? 'MEP' : _tipoLabel(r['MONEDA'] || ''));
-    const amt    = parseFloat(r['Monto USD']) / 1e6;
+    const amt    = _rowUsdAmt(r) / 1e6;
     if (!isNaN(amt) && amt > 0) buckets[label] = (buckets[label] || 0) + amt;
   });
   const entries = Object.entries(buckets).sort((a, b) => b[1] - a[1]);
@@ -2403,7 +2434,7 @@ function _renderIrsaCapTimeline(rows) {
     const date      = MESES[fd.getMonth()] + ' ' + fd.getFullYear();
     const isBanking = r['Concepto 2'] === 'Bancaria';
     const name      = isBanking ? r['Concepto'] : 'ON ' + r['Concepto'];
-    const monto     = parseFloat(r['Monto USD']) || 0;
+    const monto     = _rowUsdAmt(r);
     const isMulc    = !isBanking && !!(r['MONEDA'] && r['MONEDA'].includes('S/MULC'));
     const color     = isMulc ? '#5B8DB8' : '#1D4B6E';
     const badge     = isBanking ? 'Desc.' : _tipoLabel(r['MONEDA']);
@@ -2529,7 +2560,7 @@ function _renderCresudCapTimeline(capRows, onMoneda) {
     const fd   = _parseDMY(r['Fecha Fin']);
     const date = MESES[fd.getMonth()] + ' ' + fd.getFullYear();
     const name = r['Concepto 2'] === 'Bancaria' ? 'Prefi' : ('ON ' + r['Concepto']);
-    const monto = parseFloat(r['Monto USD']) || 0;
+    const monto = _rowUsdAmt(r);
     const tasa  = r['Tasa'].replace('.', ',');
     const b     = _cresudCapBadge(r, onMoneda);
     html += _tlEvHtml(left, name, date, _fmtM(monto), tasa, b.badge, b.color, b.opacity, i % 2 === 0, false, b.textColor || null);
@@ -2582,7 +2613,7 @@ function _renderCresudFullTimeline(capRows, fullRows) {
     if (ev.isBanking) {
       const r = ev.rows[0];
       name  = 'Prefi';
-      amt   = _fmtM(parseFloat(r['Monto USD']) || 0);
+      amt   = _fmtM(_rowUsdAmt(r));
       rate  = r['Tasa'].replace('.', ',');
       b     = { badge: 'Prefi', color: '#1A3D2A', opacity: '0.4' };
       isInt = false;
@@ -2793,8 +2824,30 @@ function _fyLabel(fyStr) {
   return year === curFY ? `IVQ ${yy}` : `FY ${yy}`;
 }
 
-// Helper: monto base en USD de una fila (USD directo o ARS convertido con TC manual)
-function _rowUsdAmt(r) { return parseFloat(r['Monto USD']) || 0; }
+// ── Brecha S/MULC (session-editable) ─────────────────────────────────────────
+let _brechaMEP = 1.0;   // MEP / Dólar Oficial
+let _brechaCC  = 1.0;   // CCL (Cable) / Dólar Oficial
+
+function _applyBrechaInputs(src) {
+  if (src.classList.contains('inp-brecha-mep')) _brechaMEP = parseFloat(src.value) || 1;
+  else                                           _brechaCC  = parseFloat(src.value) || 1;
+  document.querySelectorAll('.inp-brecha-mep').forEach(el => el.value = _brechaMEP.toFixed(3));
+  document.querySelectorAll('.inp-brecha-cc') .forEach(el => el.value = _brechaCC .toFixed(3));
+  if (_irsaCapRows.length)   _rebuildIrsa();
+  if (_cresudCapRows.length) _rebuildCresud();
+}
+
+// Helper: monto base en USD de una fila.
+// Para instrumentos S/MULC aplica la brecha de sesión sobre el nominal (Monto Webcast).
+// Para el resto usa Monto USD del CSV (idéntico al nominal en instrumentos con acceso MULC).
+function _rowUsdAmt(r) {
+  const moneda = (r['MONEDA'] || '').toUpperCase();
+  if (moneda.includes('S/MULC')) {
+    const webcast = parseFloat(r['Monto Webcast']) || 0;
+    return webcast * (moneda.includes('CABLE') ? _brechaCC : _brechaMEP);
+  }
+  return parseFloat(r['Monto USD']) || 0;
+}
 // Helper: ¿la fila aporta al maturity wall? USD siempre; ARS solo si tiene USD equiv > 0
 function _rowIsMatActive(r, today) {
   const ff = _parseDMY(r['Fecha Fin']);
@@ -2840,12 +2893,7 @@ function _buildIrsaMatData(rows) {
   // Quarter keys that should always appear even if empty:
   // current quarter of curFY + all quarters of curFY+1
   const _ALL_Q = ['IQ','IIQ','IIIQ','IVQ'];
-  const _cm = today.getMonth(), _cy = today.getFullYear();
-  let _curQKey;
-  if (_cm >= 6) { _curQKey = _cm <= 8 ? `IQ_${_cy+1}` : `IIQ_${_cy+1}`; }
-  else          { _curQKey = _cm <= 2 ? `IIIQ_${_cy}` : `IVQ_${_cy}`; }
   const _expectedQKeys = [
-    ..._ALL_Q.map(q => `${q}_${curFY}`  ).filter(k => _fyGroupSort(k, _curQKey) >= 0),
     ..._ALL_Q.map(q => `${q}_${curFY+1}`)
   ];
 
@@ -2853,7 +2901,7 @@ function _buildIrsaMatData(rows) {
   active.forEach(r => {
     const fyKey     = _fyGroupKey(r);
     const cal       = String(r['AÑO']);
-    const amt       = parseFloat(r['Monto USD']) / 1e6;
+    const amt       = _rowUsdAmt(r) / 1e6;
     const d         = _parseDMY(r['Fecha Fin']);
     const isBanking = r['Concepto 2'] === 'Bancaria';
     const item = {
@@ -3063,7 +3111,7 @@ function _buildCresudMatData(rows) {
   active.forEach(r => {
     const fyKey     = _fyGroupKey(r);
     const cal       = String(r['AÑO']);
-    const amt       = parseFloat(r['Monto USD']) / 1e6;
+    const amt       = _rowUsdAmt(r) / 1e6;
     const d         = _parseDMY(r['Fecha Fin']);
     const isBanking = r['Concepto 2'] === 'Bancaria';
     const item = {
@@ -3373,7 +3421,7 @@ function _computeOutstandingMap(rows) {
     const d = _parseDMY(r['Fecha Fin']);
     if (d <= today) return;
     const concepto = r['Concepto'];
-    const amt = parseFloat(r['Monto USD']) || 0;
+    const amt = _rowUsdAmt(r);
     if (amt <= 0) return;
     if (!byConcepto[concepto]) byConcepto[concepto] = [];
     byConcepto[concepto].push({ d, amt });
@@ -3440,7 +3488,7 @@ function _renderCresudTableBase() {
     const tasaDisp   = (r['Tasa'] || '0.00%').replace('.', ',');
     const d          = _parseDMY(r['Fecha Fin']);
     const dateStr    = `${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`;
-    const capitalM   = (parseFloat(r['Monto USD']) / 1e6).toFixed(1);
+    const capitalM   = (_rowUsdAmt(r) / 1e6).toFixed(1);
     const fyYear     = parseInt(r['FY'].replace('FY', ''));
     const fyLbl      = fyYear === curFY
       ? `IVQ FY${String(fyYear).slice(-2)}`
@@ -3481,7 +3529,7 @@ function _renderIrsaTableBase() {
     const tasaDisp   = (r['Tasa'] || '0.00%').replace('.', ',');
     const d          = _parseDMY(r['Fecha Fin']);
     const dateStr    = `${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`;
-    const capitalM   = (parseFloat(r['Monto USD']) / 1e6).toFixed(1);
+    const capitalM   = (_rowUsdAmt(r) / 1e6).toFixed(1);
     const fyYear     = parseInt(r['FY'].replace('FY', ''));
     const fyLbl      = fyYear === curFY
       ? `IVQ FY${String(fyYear).slice(-2)}`
@@ -3527,7 +3575,7 @@ function _updateIrsaTable(allCapRows) {
     if (rr['Moneda'] === 'ARS' && parseFloat(rr['Monto USD']) > 0) return true;
     return false;
   });
-  const total  = active.reduce((s, rr) => s + parseFloat(rr['Monto USD']) / 1e6, 0);
+  const total  = active.reduce((s, rr) => s + _rowUsdAmt(rr) / 1e6, 0);
   const footTd = table.querySelector('tfoot td.num');
   if (footTd) footTd.textContent = total.toFixed(1).replace('.', ',');
   _applyOutstandingCol('irsa-mat-table', _computeOutstandingMap(allCapRows));
@@ -3566,7 +3614,7 @@ function _updateCresudTable(allCapRows) {
     if (rr['Moneda'] === 'ARS' && parseFloat(rr['Monto USD']) > 0) return true;
     return false;
   });
-  const total  = active.reduce((s, rr) => s + parseFloat(rr['Monto USD']) / 1e6, 0);
+  const total  = active.reduce((s, rr) => s + _rowUsdAmt(rr) / 1e6, 0);
   const footTd = table.querySelector('tfoot td.num');
   if (footTd) footTd.textContent = total.toFixed(1).replace('.', ',');
   _applyOutstandingCol('cresud-mat-table', _computeOutstandingMap(allCapRows));
