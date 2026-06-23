@@ -734,7 +734,19 @@ def actualizar_difusion(texto):
     print("ACTUALIZANDO DIFUSION")
     print("======================")
 
-    if "Operaciones en difusión" not in texto:
+    texto_lower = texto.lower()
+
+    if "operaciones en difusión" in texto_lower:
+        bloque = texto[
+            texto_lower.index("operaciones en difusión"):
+        ]
+
+    elif "operaciones de terceros" in texto_lower:
+        bloque = texto[
+            texto_lower.index("operaciones de terceros"):
+        ]
+
+    else:
         print("No encontré sección difusión")
 
         if CSV_DIFUSION.exists():
@@ -771,11 +783,7 @@ def actualizar_difusion(texto):
             )
 
         return
-
-    bloque = texto.split(
-        "Operaciones en difusión",
-        1
-    )[1]
+    
 
     patron = re.compile(
         rf"(?P<fecha_lic>{DIA})\s+"
