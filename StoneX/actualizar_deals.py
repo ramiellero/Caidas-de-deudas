@@ -1105,12 +1105,10 @@ def main():
     if rc_commit != 0:
         print("Error en git commit")
         return
-
-    # Traer cambios remotos
-    rc_pull = git(["pull", "--rebase", "origin", "main"])
-    if rc_pull != 0:
-        print("Error en git pull --rebase")
-        return
+    
+    # Limpiar archivos temporales para que no bloqueen el pull
+    git(["restore", str(SCREENSHOT)])
+    git(["restore", str(TXT_OUTPUT)])
 
     # Push
     rc_push = git(["push", "origin", "main"])
