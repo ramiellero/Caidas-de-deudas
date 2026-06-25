@@ -2147,7 +2147,7 @@
 
       <!-- Header: fecha del informe -->
       <div class="curvas-header-bar">
-        <span>Bonos Corporativos (USD) — Índice PPI</span>
+        <span>Deuda Corporativa USD — IAMC</span>
         <strong id="curvas-fecha-label">—</strong>
         <span id="curvas-count-label" style="margin-left:auto;color:#94A3B8;"></span>
       </div>
@@ -2165,14 +2165,6 @@
           </select>
         </div>
         <div class="deals-filter-group">
-          <span class="deals-filter-label">Moneda</span>
-          <select class="deals-filter-input" id="curvas-f-moneda" onchange="_curvasApplyFilters()">
-            <option value="">Todas</option>
-            <option value="MEP">MEP</option>
-            <option value="CCL">CCL</option>
-          </select>
-        </div>
-        <div class="deals-filter-group">
           <span class="deals-filter-label">Ley</span>
           <select class="deals-filter-input" id="curvas-f-ley" onchange="_curvasApplyFilters()">
             <option value="">Todas</option>
@@ -2180,27 +2172,17 @@
             <option value="NY">Nueva York</option>
           </select>
         </div>
-        <div class="deals-filter-group">
-          <span class="deals-filter-label">Fix LP</span>
-          <input type="text" class="deals-filter-input" id="curvas-f-fixlp" placeholder="Ej: AA, BBB+…" oninput="_curvasApplyFilters()">
-        </div>
         <button class="deals-clear-btn" onclick="_curvasClearFilters()">Limpiar</button>
       </div>
 
       <!-- Scatter charts -->
       <div class="curvas-charts-grid">
         <div class="curvas-chart-card">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-            <div class="curvas-chart-title" style="margin-bottom:0">Ley Argentina &mdash; TIR vs. MD</div>
-            <div class="curvas-moneda-toggle">
-              <button id="curvas-arg-btn-mep" class="curvas-moneda-btn active" onclick="_curvasSetArgMoneda('MEP',this)">MEP</button>
-              <button id="curvas-arg-btn-ccl" class="curvas-moneda-btn"        onclick="_curvasSetArgMoneda('CCL',this)">CCL</button>
-            </div>
-          </div>
+          <div class="curvas-chart-title">Ley Argentina &mdash; YTM vs. DM</div>
           <div class="curvas-chart-wrap"><canvas id="curvas-chart-arg"></canvas></div>
         </div>
         <div class="curvas-chart-card">
-          <div class="curvas-chart-title">Ley Nueva York &mdash; TIR vs. MD</div>
+          <div class="curvas-chart-title">Ley Nueva York &mdash; YTM vs. DM</div>
           <div class="curvas-chart-wrap"><canvas id="curvas-chart-ny"></canvas></div>
         </div>
       </div>
@@ -2215,17 +2197,16 @@
               <th onclick="_curvasSortBy('Industria')">Industria</th>
               <th onclick="_curvasSortBy('Cupon')">Cupón</th>
               <th onclick="_curvasSortBy('Vencimiento')">Vencimiento</th>
-              <th class="no-sort">Ley · Moneda</th>
-              <th onclick="_curvasSortBy('Precio_Clean_MEP')" style="text-align:right">Precio Clean<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(MEP)</span></th>
-              <th onclick="_curvasSortBy('TIR')" style="text-align:right">TIR</th>
-              <th onclick="_curvasSortBy('TNA')" style="text-align:right">TNA</th>
-              <th onclick="_curvasSortBy('MD')" style="text-align:right">MD</th>
-              <th onclick="_curvasSortBy('Monto_Circ')" style="text-align:right">Monto<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(US$ M)</span></th>
-              <th onclick="_curvasSortBy('Calificacion')">Fix LP</th>
+              <th class="no-sort">Ley</th>
+              <th onclick="_curvasSortBy('Precio_Clean')" style="text-align:right">Precio<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(%)</span></th>
+              <th onclick="_curvasSortBy('YTM')" style="text-align:right">YTM</th>
+              <th onclick="_curvasSortBy('CY')" style="text-align:right">CY</th>
+              <th onclick="_curvasSortBy('DM')" style="text-align:right">DM</th>
+              <th onclick="_curvasSortBy('Monto_Emitido')" style="text-align:right">Monto<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(US$ M)</span></th>
             </tr>
           </thead>
           <tbody id="curvas-tbody">
-            <tr><td colspan="12" class="deals-empty">Cargando…</td></tr>
+            <tr><td colspan="11" class="deals-empty">Cargando…</td></tr>
           </tbody>
         </table>
       </div>
@@ -5395,22 +5376,20 @@ let _curvasSortAscending = true;
 
 // Normaliza nombres de industria con artefactos de encoding del PDF
 function _curvasNormIndustria(s) {
+  // El scraper ya escribe valores canónicos; passthrough con normalización mínima
   if (!s) return '';
-  const sl = s.toLowerCase();
-  if (sl.includes('petr'))     return 'Petróleo & Gas';
-  if (sl.includes('materiale')) return 'Materiales Básicos';
-  if (sl.includes('alimento'))  return 'Alimentos y Bebidas';
-  if (sl.includes('construcc')) return 'Construcción';
-  if (sl.includes('aerol'))     return 'Aerolíneas';
   return s;
 }
 
+const _CURVAS_MON_EN = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
 function _curvasParseFecha(s) {
-  // "DD/MM/YYYY"
+  // "DD-Mon-YYYY" (ej: "17-Jan-2034") — formato del scraper IAMC
   if (!s) return null;
-  const p = s.split('/');
+  const p = s.split('-');
   if (p.length !== 3) return null;
-  return new Date(+p[2], +p[1] - 1, +p[0]);
+  const mon = _CURVAS_MON_EN[p[1].toLowerCase().slice(0,3)];
+  if (mon === undefined) return null;
+  return new Date(+p[2], mon, +p[0]);
 }
 
 async function initCurvasSection() {
@@ -5428,32 +5407,29 @@ async function initCurvasSection() {
       const r = {};
       headers.forEach((h, j) => r[h.trim()] = (cells[j] || '').trim());
       // Excluir bonos sin precio clean
-      if (!r['Precio_Clean_MEP'] || r['Precio_Clean_MEP'] === '-') continue;
+      if (!r['Precio_Clean'] || r['Precio_Clean'] === '-') continue;
       // Excluir San Miguel (reestructurado)
       if (r['Emisor'] && r['Emisor'].toLowerCase().includes('san miguel')) continue;
-      // Excluir TIR < 0% (outliers de precio, ensucian el gráfico)
-      if (parseFloat(r['TIR']) < 0) continue;
-      // Excluir MEP con TIR > 10% (distressed / posible reestructuración)
-      if (r['Moneda'] === 'MEP' && parseFloat(r['TIR']) > 10) continue;
-      // Excluir outliers CCL: TIR > 13%
-      if (r['Moneda'] === 'CCL' && parseFloat(r['TIR']) > 13) continue;
+      // Excluir YTM < 0% (outliers de precio)
+      if (parseFloat(r['YTM']) < 0) continue;
+      // Excluir outliers: YTM > 20% (distressed)
+      if (parseFloat(r['YTM']) > 20) continue;
       r._industria = _curvasNormIndustria(r['Industria']);
       r._venc      = _curvasParseFecha(r['Vencimiento']);
-      r._tir       = parseFloat(r['TIR'])  || null;
-      r._tna       = parseFloat(r['TNA'])  || null;
-      r._md        = parseFloat(r['MD'])   || null;
-      r._cupon     = parseFloat(r['Cupon']) || null;
-      r._monto     = parseFloat(r['Monto_Circ']) || null;
-      r._precio    = parseFloat(r['Precio_Clean_MEP']) || null;
+      r._ytm       = parseFloat(r['YTM'])    || null;
+      r._cy        = parseFloat(r['CY'])     || null;
+      r._dm        = parseFloat(r['DM'])     || null;
+      r._cupon     = parseFloat(r['Cupon'])  || null;
+      r._monto     = parseFloat(r['Monto_Emitido']) || null;
+      r._precio    = parseFloat(r['Precio_Clean'])  || null;
       rows.push(r);
     }
     _curvasAllRows = rows;
 
     // Fecha del informe
     const fecha = rows[0] && rows[0]['Fecha'] ? rows[0]['Fecha'] : '—';
-    const id    = rows[0] && rows[0]['ID'] ? rows[0]['ID'] : '';
     const lbl = document.getElementById('curvas-fecha-label');
-    if (lbl) lbl.textContent = `Informe ${id} · ${fecha}`;
+    if (lbl) lbl.textContent = `Informe ${fecha}`;
 
     // Poblar dropdown de industrias
     const industrias = [...new Set(rows.map(r => r._industria).filter(Boolean))].sort();
@@ -5476,16 +5452,12 @@ async function initCurvasSection() {
 function _curvasApplyFilters() {
   const emisor   = (document.getElementById('curvas-f-emisor')   ?.value || '').toLowerCase();
   const industria= (document.getElementById('curvas-f-industria') ?.value || '');
-  const moneda   = (document.getElementById('curvas-f-moneda')   ?.value || '');
   const ley      = (document.getElementById('curvas-f-ley')      ?.value || '');
-  const fixlp    = (document.getElementById('curvas-f-fixlp')    ?.value || '').toLowerCase();
 
   _curvasFiltered = _curvasAllRows.filter(r => {
-    if (emisor    && !r['Emisor'].toLowerCase().includes(emisor))        return false;
-    if (industria && r._industria !== industria)                         return false;
-    if (moneda    && r['Moneda'] !== moneda)                             return false;
-    if (ley       && r['Ley'] !== ley)                                   return false;
-    if (fixlp     && !(r['Calificacion'] || '').toLowerCase().includes(fixlp)) return false;
+    if (emisor    && !r['Emisor'].toLowerCase().includes(emisor)) return false;
+    if (industria && r._industria !== industria)                  return false;
+    if (ley       && r['Ley'] !== ley)                            return false;
     return true;
   });
 
@@ -5514,15 +5486,13 @@ function _curvasSortRows() {
   const asc = _curvasSortAscending;
   _curvasFiltered.sort((a, b) => {
     let va, vb;
-    if (col === 'Vencimiento') {
-      va = a._venc ? a._venc.getTime() : Infinity;
-      vb = b._venc ? b._venc.getTime() : Infinity;
-    } else if (col === 'TIR')           { va = a._tir   ?? Infinity; vb = b._tir   ?? Infinity; }
-    else if   (col === 'TNA')           { va = a._tna   ?? Infinity; vb = b._tna   ?? Infinity; }
-    else if   (col === 'MD')            { va = a._md    ?? Infinity; vb = b._md    ?? Infinity; }
-    else if   (col === 'Cupon')         { va = a._cupon ?? Infinity; vb = b._cupon ?? Infinity; }
-    else if   (col === 'Monto_Circ')    { va = a._monto ?? Infinity; vb = b._monto ?? Infinity; }
-    else if   (col === 'Precio_Clean_MEP') { va = a._precio ?? Infinity; vb = b._precio ?? Infinity; }
+    if      (col === 'Vencimiento')  { va = a._venc  ? a._venc.getTime() : Infinity; vb = b._venc  ? b._venc.getTime() : Infinity; }
+    else if (col === 'YTM')          { va = a._ytm   ?? Infinity; vb = b._ytm   ?? Infinity; }
+    else if (col === 'CY')           { va = a._cy    ?? Infinity; vb = b._cy    ?? Infinity; }
+    else if (col === 'DM')           { va = a._dm    ?? Infinity; vb = b._dm    ?? Infinity; }
+    else if (col === 'Cupon')        { va = a._cupon ?? Infinity; vb = b._cupon ?? Infinity; }
+    else if (col === 'Monto_Emitido'){ va = a._monto ?? Infinity; vb = b._monto ?? Infinity; }
+    else if (col === 'Precio_Clean') { va = a._precio ?? Infinity; vb = b._precio ?? Infinity; }
     else { va = (a[col] || '').toLowerCase(); vb = (b[col] || '').toLowerCase(); }
     if (va < vb) return asc ? -1 : 1;
     if (va > vb) return asc ?  1 : -1;
@@ -5535,7 +5505,7 @@ function _curvasUpdateSortHeaders() {
     th.classList.remove('sort-asc', 'sort-desc');
   });
   const ths = document.querySelectorAll('#curvas-table thead th');
-  const colMap = ['Ticker','Emisor','Industria','Cupon','Vencimiento',null,'Precio_Clean_MEP','TIR','TNA','MD','Monto_Circ','Calificacion'];
+  const colMap = ['Ticker','Emisor','Industria','Cupon','Vencimiento',null,'Precio_Clean','YTM','CY','DM','Monto_Emitido'];
   colMap.forEach((c, i) => {
     if (c === _curvasSortCol && ths[i]) {
       ths[i].classList.add(_curvasSortAscending ? 'sort-asc' : 'sort-desc');
@@ -5543,13 +5513,9 @@ function _curvasUpdateSortHeaders() {
   });
 }
 
-const _CURVAS_IRSA   = new Set(['IRCLO','IRCJO','IRCFO','IRCOO','IRCPO']);
-const _CURVAS_CRESUD = new Set(['CS44O','CS45O']);
+function _curvasIsIrsa(ticker)   { return ticker.startsWith('IRC'); }
+function _curvasIsCresud(ticker) { return /^CS\d/.test(ticker); }
 
-function _curvasMonedaBadge(moneda) {
-  const cls = moneda === 'CCL' ? 'curvas-badge-ccl' : 'curvas-badge-mep';
-  return `<span class="deals-badge ${cls}">${moneda}</span>`;
-}
 function _curvasLeyBadge(ley) {
   const cls = ley === 'NY' ? 'curvas-badge-ny' : 'curvas-badge-arg';
   return `<span class="deals-badge ${cls}">${ley === 'NY' ? 'NY' : 'Arg'}</span>`;
@@ -5572,23 +5538,21 @@ function _curvasRenderTable() {
     return;
   }
   const html = _curvasFiltered.map(r => {
-    const isIrsa   = _CURVAS_IRSA.has(r['Ticker']);
-    const isCresud = _CURVAS_CRESUD.has(r['Ticker']);
-    const rowCls   = isIrsa ? 'curvas-irsa' : isCresud ? 'curvas-cresud' : '';
-    const precio   = r['Precio_Clean_MEP'] ? `US$${(+r['Precio_Clean_MEP']).toFixed(1)}` : '—';
+    const rowCls = _curvasIsIrsa(r['Ticker']) ? 'curvas-irsa' : _curvasIsCresud(r['Ticker']) ? 'curvas-cresud' : '';
+    const cupon  = r['Cupon'] ? (+r['Cupon']).toFixed(2) + '%' : '—';
+    const precio = r['Precio_Clean'] ? (+r['Precio_Clean']).toFixed(1) : '—';
     return `<tr class="${rowCls}">
       <td class="curvas-ticker">${_escHtml(r['Ticker'])}</td>
       <td class="curvas-emisor">${_escHtml(r['Emisor'])}</td>
       <td>${_escHtml(r._industria)}</td>
-      <td>${_escHtml(r['Cupon'])}</td>
+      <td>${cupon}</td>
       <td>${_escHtml(r['Vencimiento'])}</td>
-      <td>${_curvasLeyBadge(r['Ley'])} ${_curvasMonedaBadge(r['Moneda'])}</td>
+      <td>${_curvasLeyBadge(r['Ley'])}</td>
       <td class="num">${precio}</td>
-      <td class="num">${_curvasFmtPct(r._tir)}</td>
-      <td class="num">${_curvasFmtPct(r._tna)}</td>
-      <td class="num">${_curvasFmtNum(r._md, 1)}</td>
-      <td class="num">${r['Monto_Circ'] || '—'}</td>
-      <td>${_escHtml(r['Calificacion'] || '—')}</td>
+      <td class="num">${_curvasFmtPct(r._ytm)}</td>
+      <td class="num">${_curvasFmtPct(r._cy)}</td>
+      <td class="num">${_curvasFmtNum(r._dm, 1)}</td>
+      <td class="num">${r._monto ? r._monto.toFixed(0) : '—'}</td>
     </tr>`;
   }).join('');
   tbody.innerHTML = html;
@@ -5596,8 +5560,7 @@ function _curvasRenderTable() {
 }
 
 function _curvasClearFilters() {
-  const ids = ['curvas-f-emisor','curvas-f-industria','curvas-f-moneda','curvas-f-ley','curvas-f-fixlp'];
-  ids.forEach(id => {
+  ['curvas-f-emisor','curvas-f-industria','curvas-f-ley'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -5663,17 +5626,9 @@ function _curvasTrendPoints(points) {
 
 let _curvasChartArg = null;
 let _curvasChartNY  = null;
-let _curvasArgMoneda = 'MEP';
-
-function _curvasSetArgMoneda(m, btn) {
-  _curvasArgMoneda = m;
-  document.querySelectorAll('.curvas-moneda-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  _curvasBuildScatter('arg', _curvasFiltered.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
-}
 
 function _curvasRenderCharts() {
-  _curvasBuildScatter('arg', _curvasFiltered.filter(r => r['Ley'] === 'Arg' && r['Moneda'] === _curvasArgMoneda));
+  _curvasBuildScatter('arg', _curvasFiltered.filter(r => r['Ley'] === 'Arg'));
   _curvasBuildScatter('ny',  _curvasFiltered.filter(r => r['Ley'] === 'NY'));
 }
 
@@ -5688,14 +5643,14 @@ function _curvasBuildScatter(type, rows) {
   // Agrupar por sector
   const sectorMap = {};
   rows.forEach(r => {
-    const md  = r._md;
-    const tir = r._tir;
-    if (md === null || tir === null || isNaN(md) || isNaN(tir)) return;
+    const dm  = r._dm;
+    const ytm = r._ytm;
+    if (dm === null || ytm === null || isNaN(dm) || isNaN(ytm)) return;
     const sector = r._industria || 'Otros';
     if (!sectorMap[sector]) sectorMap[sector] = [];
     sectorMap[sector].push({
-      x: md,
-      y: tir,
+      x: dm,
+      y: ytm,
       ticker:      r['Ticker'],
       emisor:      r['Emisor'],
       cupon:       r['Cupon'],
@@ -5772,8 +5727,8 @@ function _curvasBuildScatter(type, rows) {
                 `Sector: ${d.sector}`,
                 `Cupón: ${d.cupon}`,
                 `Vencimiento: ${d.vencimiento}`,
-                `TIR: ${d.y.toFixed(1)}%`,
-                `MD: ${d.x.toFixed(2)}`,
+                `YTM: ${d.y.toFixed(1)}%`,
+                `DM: ${d.x.toFixed(2)}`,
               ];
             },
           },
@@ -5790,7 +5745,7 @@ function _curvasBuildScatter(type, rows) {
         x: {
           title: {
             display: true,
-            text: 'MD (Duración Modificada)',
+            text: 'DM (Duración Modificada)',
             font: { size: 11 },
             color: '#64748B',
           },
@@ -5801,7 +5756,7 @@ function _curvasBuildScatter(type, rows) {
         y: {
           title: {
             display: true,
-            text: 'TIR Efectiva (%)',
+            text: 'YTM (%)',
             font: { size: 11 },
             color: '#64748B',
           },

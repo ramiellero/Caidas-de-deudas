@@ -19,9 +19,9 @@ plazo_mora_mercado.csv                  # Mora por plazo de garantía del mercad
 Total_sgr.csv                           # Ranking de 42 SGRs con mora (feb-26)
 foto_sgr.csv                            # Histórico mensual de posición IRSA en cada SGR (Periodo, SGR, Aporte, Posicion, Weight, P&L, Mora, TIR) — se agrega una fila por SGR por mes; el frontend toma el período más reciente
 emisiones_obligaciones_negociables.csv  # Registro semanal de emisiones de ONs del mercado argentino
-curvas_on.csv                           # Tabla de bonos corporativos USD del informe diario PPI — generado por scraper_curvas.py; se sobreescribe con el informe más reciente
-curvas_last_id.txt                      # ID del último informe PPI descargado exitosamente (e.g. "24520")
-scraper_curvas.py                       # Scraper diario: descarga PDF del informe PPI, extrae tabla de páginas 12-13, guarda curvas_on.csv
+curvas_on.csv                           # Tabla de bonos corporativos USD del informe diario IAMC — generado por scraper_curvas.py; se sobreescribe con el informe más reciente
+curvas_last_id.txt                      # Legado PPI (ya no se usa; conservado para historial)
+scraper_curvas.py                       # Scraper diario: descarga PDF del informe IAMC, extrae páginas 1-2 (Ley NY) y 5-13 (Ley Arg), guarda curvas_on.csv
 cartera_monedas.csv                     # Composición por moneda por SGR (guardado, no usado aún)
 composicion_carteras.csv                # Composición por tipo de activo por SGR (guardado, no usado aún)
 CLAUDE.md                               # Este archivo
@@ -350,59 +350,55 @@ Los dos strips (IRSA y Cresud) están sincronizados: cambiar uno actualiza el ot
 - **No hay build step** — editar archivos y hacer commit directamente
 
 ### Curvas ONs (sub-tab dentro de Deals)
-Vista de curva de rendimientos de bonos corporativos USD del mercado argentino. Fuente: informe diario de Portfolio Personal Inversiones (PPI).
+Vista de curva de rendimientos de bonos corporativos USD del mercado argentino. Fuente: informe diario IAMC "Informe Diario Deuda Corporativa".
 
 **Scraper** (`scraper_curvas.py`):
-- Descarga el PDF del informe PPI desde `https://cdn1.portfoliopersonal.com/Attachs/{id}.pdf`
-- IDs secuenciales (e.g. 24520 → 24521); se publica en días hábiles
-- Extrae la tabla "Bonos Corporativos (Dólares) Índice" de las páginas 12–13 con `pdfplumber`
-- Guarda `curvas_on.csv` (sobreescribe) y actualiza `curvas_last_id.txt`
-- Uso: `python scraper_curvas.py` (auto-detecta siguiente ID) o `--id XXXXX` para forzar
-- Requiere: `pip install pdfplumber requests`
+- Scrapea `https://www.iamc.com.ar/curvarendimientoobligacionesnegociables/` para obtener el link del informe más reciente
+- Extrae la URL del PDF (patrón `iamcweb.prod.ingecloud.com/TempFiles/{uuid}.pdf`) de la página del informe
+- Parsea con `pdfplumber`: páginas 1-2 (Ley NY, índices 0-1) y páginas 5-13 (Ley Arg, índices 4-12)
+- Guarda `curvas_on.csv` (sobreescribe); `curvas_last_id.txt` ya no se usa
+- Uso: `python scraper_curvas.py` (informe más reciente) o `--fecha DD-MM-YYYY` para forzar
+- Requiere: `pip install pdfplumber requests beautifulsoup4`
+- Sector asignado por prefijo de ticker via `_SECTOR_RULES` en el scraper; emisor: EMISOR_MAP con fallback al texto raw del PDF
 
-**`curvas_on.csv`** — columnas: `Fecha, ID, Ticker, Emisor, Industria, Cupon, Vencimiento, Prox_Cupon, Calificacion, Ley, Moneda, Precio_Dirty_MEP, Precio_Clean_MEP, TIR, TNA, CY, MD, Canje_CCL, Precio_Dirty_Moneda, Fecha_Rescate, Precio_Rescate, YTW, Lamina_Min, Monto_Circ, Precio_Clean_BBG, TIR_BBG`
-- `Moneda`: `MEP` o `CCL`
+**`curvas_on.csv`** — columnas: `Fecha, Ticker, Emisor, Industria, Ley, Cupon, Vencimiento, Prox_Cupon, Precio_Clean, YTM, CY, DM, CX, WAL, Monto_Emitido, ADTV_ARS, Cierre_ARS, Accr_Int, VT, VR, Estructura, Frec_Cupon, Cuotas_Capital, Frec_Capital, Prox_Capital`
 - `Ley`: `Arg` (ley argentina) o `NY` (ley Nueva York)
-- `TIR` / `TNA`: número decimal sin `%` (e.g. `6.5` = 6.5%)
-- `MD`: duración modificada decimal (e.g. `2.3`)
-- `Precio_Clean_MEP`: precio limpio en USD; filas sin precio se excluyen del frontend
+- `YTM` / `CY`: número decimal sin `%` (e.g. `6.5` = 6.5%)
+- `DM`: duración modificada decimal
+- `Precio_Clean`: precio limpio en % del par; filas sin precio se excluyen del frontend
+- `Monto_Emitido`: monto emitido en millones USD
+- `ADTV_ARS`: volumen diario promedio 20 ruedas en millones ARS
+- Vencimiento: formato `DD-Mon-YYYY` (e.g. `17-Jan-2034`)
 
 **Filtros de datos aplicados al parsear** (`initCurvasSection`):
-- Se descartan filas sin `Precio_Clean_MEP` (vacío o `-`)
-- Se descarta **San Miguel** (SNSBO) — reestructurado
-- Se descartan bonos con **TIR < 0%** — outliers de precio (aplicado globalmente antes de cualquier otro filtro de TIR)
-- Se descartan bonos **MEP con TIR > 10%** — distressed / posible reestructuración
-- Se descartan bonos **CCL con TIR > 13%** — outliers de precio
+- Se descartan filas sin `Precio_Clean` (vacío o `-`)
+- Se descarta **San Miguel** — reestructurado
+- Se descartan bonos con **YTM < 0%** — outliers de precio
+- Se descartan bonos con **YTM > 20%** — distressed
 
 **Scatter charts** (dos paneles side-by-side, separados por **jurisdicción legal**):
-- **Panel izquierdo**: bonos de **Ley Argentina** — con toggle MEP / CCL en la esquina del card; estado: `_curvasArgMoneda` ('MEP' por defecto)
-- **Panel derecho**: bonos de **Ley Nueva York** — muestra todas las monedas (MEP + CCL)
-- Eje X: `MD` (Duración Modificada), mínimo fijo en 0
-- Eje Y: `TIR` efectiva (%)
+- **Panel izquierdo**: bonos de **Ley Argentina**
+- **Panel derecho**: bonos de **Ley Nueva York**
+- Eje X: `DM` (Duración Modificada), mínimo fijo en 0
+- Eje Y: `YTM` (%)
 - Color por sector (`_CURVAS_SECTOR_COLORS`): Real Estate `#1D4B6E`, Finanzas `#7C3AED`, Petróleo & Gas `#B45309`, Telecomunicaciones `#0891B2`, Electricidad `#D97706`, Agroindustria `#16A34A`, Construcción `#DC2626`, Alimentos y Bebidas `#DB2777`, Materiales Básicos `#64748B`, Aerolíneas `#0369A1`
-- Tooltip al hover: Ticker, Emisor, Sector, Cupón, Vencimiento, TIR, MD; la línea de tendencia no genera tooltip (filtrada con `filter: item => item.dataset.label !== '_trend'`)
-- Usan `_curvasFiltered` — responden dinámicamente a todos los filtros de la UI (Emisor, Industria, Moneda, Ley, Fix LP); `_curvasApplyFilters()` llama `_curvasRenderCharts()` al final
+- Tooltip al hover: Ticker, Emisor, Sector, Cupón, Vencimiento, YTM, DM
+- No hay toggle MEP/CCL (fuente IAMC no distingue moneda de liquidación)
 - IDs canvas: `curvas-chart-arg`, `curvas-chart-ny`
-- Instancias: `_curvasChartArg`, `_curvasChartNY` — destruidas con `Chart.getChart(canvas)` antes de cada render (más robusto que depender de la variable local; evita el error "canvas already in use" al cambiar el toggle)
-- Se renderizan al cargar datos (`initCurvasSection`) y al activar el tab (`setDealsView`)
-- Toggle MEP/CCL del panel izquierdo: función `_curvasSetArgMoneda(m, btn)` — actualiza `_curvasArgMoneda` y reconstruye solo el chart Arg; CSS: `.curvas-moneda-toggle`, `.curvas-moneda-btn`, `.curvas-moneda-btn.active` (fondo `#1D4B6E`)
-- **Línea de tendencia**: regresión polinómica grado 2 (y = a + b·x + c·x²) calculada sobre todos los puntos del chart; función `_curvasTrendPoints(points)` — implementa mínimos cuadrados con eliminación gaussiana y pivoteo parcial sobre sistema 3×3; genera 80 puntos; requiere mínimo 4 puntos o devuelve []; se agrega como dataset `type:'line'` con `label:'_trend'`, línea gris punteada (`#475569`, `borderDash:[5,4]`), excluida de leyenda y tooltip
+- **Línea de tendencia**: regresión polinómica grado 2 via `_curvasTrendPoints(points)`
 
-**Tabla** (11 columnas, sortable): Ticker · Emisor · Industria · Cupón · Vencimiento · Ley·Moneda (no-sort) · Precio Clean (MEP) · TIR · TNA · MD · Monto (US$ M)
-- Filas IRSA (IRCLO, IRCJO, IRCFO, IRCOO, IRCPO): fondo `#EBF2F8`
-- Filas Cresud (CS44O, CS45O): fondo `#EBF4EE`
-- Definidos en `_CURVAS_IRSA` y `_CURVAS_CRESUD` (Sets de tickers)
+**Tabla** (11 columnas, sortable): Ticker · Emisor · Industria · Cupón · Vencimiento · Ley · Precio (%) · YTM · CY · DM · Monto (US$ M)
+- Filas IRSA: detectadas con `_curvasIsIrsa(ticker)` → `ticker.startsWith('IRC')` → fondo `#EBF2F8`
+- Filas Cresud: detectadas con `_curvasIsCresud(ticker)` → `/^CS\d/.test(ticker)` → fondo `#EBF4EE`
 
-**Filtros de UI**: Emisor (texto libre) · Industria (dropdown dinámico) · Moneda (MEP/CCL) · Ley (Arg/NY) · Limpiar
-
-**Industrias normalizadas** (`_curvasNormIndustria`): el PDF genera artefactos de encoding para caracteres acentuados; la función normaliza prefijos a nombres canónicos (e.g. `"Petr..."` → `"Petróleo & Gas"`, `"Aerol..."` → `"Aerolíneas"`, etc.)
+**Filtros de UI**: Emisor (texto libre) · Industria (dropdown dinámico) · Ley (Arg/NY) · Limpiar
 
 **Globals de estado**:
 - `_curvasAllRows` — todas las filas válidas del CSV (post-filtros de parseo)
 - `_curvasFiltered` — subconjunto tras filtros de UI
 - `_curvasSortCol` / `_curvasSortAscending` — estado de sort de la tabla
 
-**Flujo de actualización**: correr `python scraper_curvas.py` en días hábiles → commit de `curvas_on.csv` + `curvas_last_id.txt` → el frontend toma los datos nuevos automáticamente al refrescar.
+**Flujo de actualización**: correr `python scraper_curvas.py` en días hábiles (a las 10 hs toma el informe del día anterior) → commit de `curvas_on.csv` → el frontend toma los datos nuevos automáticamente al refrescar.
 
 ### Deals (color: `#0F4C75` azul petróleo)
 Sección de emisiones de ONs del mercado argentino. Fuente: `emisiones_obligaciones_negociables.csv`. Para agregar datos nuevos: solo hay que appendear filas al CSV y hacer commit; el frontend no requiere cambios.
@@ -601,7 +597,7 @@ No es necesario tocar el JS — el frontend toma el período más alto automáti
 | SGR — Mercado: ranking SGRs | `Total_sgr.csv` — dinámico |
 | SGR — KPI foto (Aporte, Posición, Weight, P&L, Mora) | `foto_sgr.csv` — dinámico; histórico multi-período; siempre muestra el mes más reciente por SGR |
 | Deals — tabla de emisiones (filas, filtros, subtotales) | `emisiones_obligaciones_negociables.csv` — dinámico |
-| Deals — Curvas ONs: scatter MEP + scatter CCL + tabla | `curvas_on.csv` — dinámico; generado por `scraper_curvas.py` |
+| Deals — Curvas ONs: scatter Ley Arg + scatter Ley NY + tabla | `curvas_on.csv` — dinámico; generado por `scraper_curvas.py` (fuente IAMC) |
 
 ## Diseño responsive (mobile + desktop)
 
