@@ -360,6 +360,9 @@ Vista de curva de rendimientos de bonos corporativos USD del mercado argentino. 
 - Uso: `python scraper_curvas.py` (informe más reciente) o `--fecha DD-MM-YYYY` para forzar
 - Requiere: `pip install pdfplumber requests beautifulsoup4`
 - Sector asignado por prefijo de ticker via `_SECTOR_RULES` en el scraper; emisor: EMISOR_MAP con fallback al texto raw del PDF
+- **IRSA** (`IRC*`) y **Cresud** (`CS*`) clasificados ambos como `Real Estate` (no Agroindustria)
+- **SSL corporativo**: la red IRSACORP hace inspección SSL; el helper `_get(url)` del scraper intenta primero con verificación SSL y, si falla por `SSLError`, reintenta con `verify=False`. Esto solo ocurre en la red corporativa — en GitHub Actions funciona con verificación normal.
+- **GitHub Actions** (`.github/workflows/scraper-curvas.yml`): requiere `pip install pdfplumber requests beautifulsoup4` — las tres dependencias. Si falta `beautifulsoup4` el job falla con `ModuleNotFoundError` al importar.
 
 **`curvas_on.csv`** — columnas: `Fecha, Ticker, Emisor, Industria, Ley, Cupon, Vencimiento, Prox_Cupon, Precio_Clean, YTM, CY, DM, CX, WAL, Monto_Emitido, ADTV_ARS, Cierre_ARS, Accr_Int, VT, VR, Estructura, Frec_Cupon, Cuotas_Capital, Frec_Capital, Prox_Capital`
 - `Ley`: `Arg` (ley argentina) o `NY` (ley Nueva York)
