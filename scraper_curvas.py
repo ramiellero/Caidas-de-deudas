@@ -30,15 +30,25 @@ import pdfplumber
 import requests
 from bs4 import BeautifulSoup
 
-BASE_DIR   = Path(__file__).parent
-CSV_OUT    = BASE_DIR / "curvas_on.csv"
-LOG_FILE   = BASE_DIR / "scraper_curvas.log"
+BASE_DIR    = Path(__file__).parent
+CSV_OUT     = BASE_DIR / "curvas_on.csv"
+LOG_FILE    = BASE_DIR / "scraper_curvas.log"
+LOOKUP_CSV  = BASE_DIR / "curvas_moneda_lookup.csv"
 
 IAMC_LISTING = "https://www.iamc.com.ar/curvarendimientoobligacionesnegociables/"
 HTTP_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 
+def _get(url, **kwargs):
+    """requests.get con fallback a verify=False para redes con proxy SSL corporativo."""
+    try:
+        return requests.get(url, headers=HTTP_HEADERS, **kwargs)
+    except requests.exceptions.SSLError:
+        import urllib3
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        return requests.get(url, headers=HTTP_HEADERS, verify=False, **kwargs)
+
 FIELDNAMES = [
-    "Fecha", "Ticker", "Emisor", "Industria", "Ley",
+    "Fecha", "Ticker", "Emisor", "Industria", "Ley", "Moneda",
     "Cupon", "Vencimiento", "Prox_Cupon",
     "Precio_Clean", "YTM", "CY", "DM", "CX", "WAL",
     "Monto_Emitido", "ADTV_ARS",
@@ -168,7 +178,7 @@ def _get_all_listing_dates():
     Ordenadas por fecha descendente.
     """
     try:
-        r = requests.get(IAMC_LISTING, headers=HTTP_HEADERS, timeout=20)
+        r = _get(IAMC_LISTING, timeout=20)
         r.raise_for_status()
     except Exception as e:
         log(f"  [!!] Error descargando listado IAMC: {e}")
@@ -222,7 +232,7 @@ def get_pdf_url(informe_url):
     Patrón: iamcweb.prod.ingecloud.com/TempFiles/{uuid}.pdf
     """
     try:
-        r = requests.get(informe_url, headers=HTTP_HEADERS, timeout=20)
+        r = _get(informe_url, timeout=20)
         r.raise_for_status()
     except Exception as e:
         log(f"  [!!] Error descargando página del informe: {e}")
@@ -238,7 +248,7 @@ def get_pdf_url(informe_url):
 
 def fetch_pdf(pdf_url):
     try:
-        r = requests.get(pdf_url, headers=HTTP_HEADERS, timeout=60)
+        r = _get(pdf_url, timeout=60)
         if r.status_code == 200 and r.content[:4] == b'%PDF':
             log(f"  [OK] PDF descargado  ({len(r.content)//1024} KB)")
             return r.content
@@ -561,14 +571,26 @@ def extract_rows_from_pdf(pdf_bytes, debug=False):
 
     return rows
 
+# ── Moneda lookup ─────────────────────────────────────────────────────────────
+
+def load_moneda_lookup():
+    """Lee curvas_moneda_lookup.csv → dict Ticker → Moneda."""
+    if not LOOKUP_CSV.exists():
+        return {}
+    with open(LOOKUP_CSV, encoding='utf-8') as f:
+        return {row['Ticker']: row['Moneda'] for row in csv.DictReader(f)}
+
+
 # ── Guardar CSV ───────────────────────────────────────────────────────────────
 
 def save_csv(rows, report_date_str):
+    lookup = load_moneda_lookup()
     with open(CSV_OUT, 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=FIELDNAMES, extrasaction='ignore')
         w.writeheader()
         for r in rows:
-            r['Fecha'] = report_date_str
+            r['Fecha']  = report_date_str
+            r['Moneda'] = lookup.get(r['Ticker'], '')
             w.writerow(r)
     log(f"  [CSV] {CSV_OUT.name}  ({len(rows)} bonos, fecha {report_date_str})")
 
