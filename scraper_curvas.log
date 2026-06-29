@@ -187,3 +187,52 @@
   [p12] Ley Arg: 14 bonos
   [p13] Ley Arg: 10 bonos
   [CSV] curvas_on.csv  (184 bonos, fecha 24-06-2026)
+
+[2026-06-25] === Iniciando scraper IAMC ===
+[BUSCA] Informe más reciente en listado IAMC...
+  [!!] Error descargando listado IAMC: HTTPSConnectionPool(host='www.iamc.com.ar', port=443): Max retries exceeded with url: /curvarendimientoobligacionesnegociables/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)')))
+[--] No se pudo obtener el listado IAMC.
+
+[2026-06-25] === Iniciando scraper IAMC ===
+[BUSCA] Informe más reciente en listado IAMC...
+[INFO] Informe: 24-06-2026  →  https://www.iamc.com.ar/Informe/InformeDiarioDeudaCorporativa24062026/
+[PDF] https://iamcweb.prod.ingecloud.com/TempFiles/66744337-3cc1-4a02-85e3-7cf384f7ce0d.pdf
+  [OK] PDF descargado  (6824 KB)
+  [PDF] 20 páginas
+  [p1] Ley NY: 19 bonos
+  [p2] Ley NY: 19 bonos
+  [p5] Ley Arg: 20 bonos
+  [p6] Ley Arg: 19 bonos
+  [p7] Ley Arg: 16 bonos
+  [p8] Ley Arg: 20 bonos
+  [p9] Ley Arg: 19 bonos
+  [p10] Ley Arg: 12 bonos
+  [p11] Ley Arg: 16 bonos
+  [p12] Ley Arg: 14 bonos
+  [p13] Ley Arg: 10 bonos
+[TOTAL] 184 bonos extraídos
+  [CSV] curvas_on.csv  (184 bonos, fecha 24-06-2026)
+
+[OK] Listo.
+
+[2026-06-29] === Iniciando scraper IAMC ===
+[BUSCA] Informe más reciente en listado IAMC...
+[INFO] Informe: 26-06-2026  →  https://www.iamc.com.ar/Informe/InformeDiarioDeudaCorporativa26062026/
+[PDF] https://iamcweb.prod.ingecloud.com/TempFiles/967c6f29-9a1f-4ea1-a832-a31943ebd01a.pdf
+  [OK] PDF descargado  (6851 KB)
+  [PDF] 20 páginas
+  [p1] Ley NY: 20 bonos
+  [p2] Ley NY: 18 bonos
+  [p5] Ley Arg: 18 bonos
+  [p6] Ley Arg: 21 bonos
+  [p7] Ley Arg: 15 bonos
+  [p8] Ley Arg: 22 bonos
+  [p9] Ley Arg: 17 bonos
+  [p10] Ley Arg: 12 bonos
+  [p11] Ley Arg: 17 bonos
+  [p12] Ley Arg: 14 bonos
+  [p13] Ley Arg: 9 bonos
+[TOTAL] 183 bonos extraídos
+  [CSV] curvas_on.csv  (183 bonos, fecha 26-06-2026)
+
+[OK] Listo.
