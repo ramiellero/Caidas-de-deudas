@@ -1,5 +1,6 @@
 ﻿FECHA;EMISOR;MONEDA;TASA;TASA/MARGEN;PLAZO (en meses);VN;CALIFICACIÓN
 30/06/2026;BONAR 2028 (AO28);USD Mep;Fija;6,00%;28.0;266.0;SC
+30/06/2026;BONAR 2028 (AO28);USD Mep;Fija;6,00%;28.0;100.0;SC
 30/06/2026;Banco Mariva – III;USD Mep;Fija;6,00%;12.0;46.5;A-1 (Moody´s)
 30/06/2026;Pluspetrol (Ley NY) – 7;USD Int;Fija;7,55%;135.0;450.0;BB (Fitch Ratings) / B1 (Moody´s)
 26/06/2026;Plaza Logística – 5;USD Mep;Fija;6,50%;36.0;20.0;AA (Fix SCR)
