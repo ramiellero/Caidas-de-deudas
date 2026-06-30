@@ -1118,6 +1118,13 @@ def main():
     git(["restore", str(SCREENSHOT)])
     git(["restore", str(TXT_OUTPUT)])
 
+    # Pull para incorporar commits remotos (e.g. scraper-curvas) antes de pushear
+    rc_pull = git(["pull", "--rebase", "origin", "main"])
+    if rc_pull != 0:
+        print("Error en git pull --rebase; abortando push")
+        git(["rebase", "--abort"])
+        return
+
     # Push
     rc_push = git(["push", "origin", "main"])
     if rc_push != 0:

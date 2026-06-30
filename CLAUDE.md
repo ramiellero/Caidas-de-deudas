@@ -629,6 +629,14 @@ El dashboard **debe verse bien tanto en desktop como en mobile** (celulares y ta
 - Los Chart.js bars siguen siendo responsivos (Chart.js lo maneja solo con `maintainAspectRatio: false`)
 - Los popovers de Call Option se posicionan con `position: fixed` — funcionan en mobile pero pueden no ser ideales en pantallas muy chicas
 
+## Workflow de scrapers — dos operadores
+
+El repo tiene dos scrapers con operadores distintos:
+- **`scraper_curvas.py`** (curvas ONs IAMC): corre vía GitHub Actions automáticamente (lun-vie 10am ART), y también puede correrse manualmente con `python scraper_curvas.py`.
+- **`StoneX/actualizar_deals.py`** (emisiones de ONs): lo corre un compañero de trabajo desde su propio directorio local (Windows + Outlook). No tiene GitHub Actions — es manual, semanal.
+
+**Git pull antes de push en `actualizar_deals.py`**: el script hace `git pull --rebase origin main` antes de `git push`. Esto es necesario porque cuando el compañero corre el script, el repo local puede estar detrás de `origin/main` (e.g., commits del scraper de curvas o commits manuales pusheados en el ínterin). Sin el pull, el push falla con "non-fast-forward" silenciosamente.
+
 ## Notas importantes
 - El dashboard se sirve vía HTTP (GitHub Pages), por lo que `fetch()` funciona para leer los CSVs
 - **Cache CDN de GitHub Pages**: el CDN de GitHub Pages cachea los archivos CSV y puede demorar varios minutos en reflejar cambios pusheados. Para evitar este problema, todos los `fetch()` de CSVs usan el helper `_csvFetch(name)` que agrega `?v=YYYYMMDD` (fecha del día) como parámetro anti-cache. Si se agrega un nuevo `fetch()` de CSV, usar siempre `_csvFetch()` en lugar de `fetch()` directamente.

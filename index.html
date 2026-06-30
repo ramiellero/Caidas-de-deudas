@@ -2172,6 +2172,16 @@
             <option value="NY">Nueva York</option>
           </select>
         </div>
+        <div class="deals-filter-group">
+          <span class="deals-filter-label">Moneda</span>
+          <select class="deals-filter-input" id="curvas-f-moneda" onchange="_curvasApplyFilters()">
+            <option value="">Todas</option>
+            <option value="USD Mep">USD Mep</option>
+            <option value="USD Cable">USD Cable</option>
+            <option value="USD Linked">USD Linked</option>
+            <option value="ARS">ARS</option>
+          </select>
+        </div>
         <button class="deals-clear-btn" onclick="_curvasClearFilters()">Limpiar</button>
       </div>
 
@@ -2198,6 +2208,7 @@
               <th onclick="_curvasSortBy('Cupon')">Cupón</th>
               <th onclick="_curvasSortBy('Vencimiento')">Vencimiento</th>
               <th class="no-sort">Ley</th>
+              <th onclick="_curvasSortBy('Moneda')">Moneda</th>
               <th onclick="_curvasSortBy('Precio_Clean')" style="text-align:right">Precio<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(%)</span></th>
               <th onclick="_curvasSortBy('YTM')" style="text-align:right">YTM</th>
               <th onclick="_curvasSortBy('CY')" style="text-align:right">CY</th>
@@ -2206,7 +2217,7 @@
             </tr>
           </thead>
           <tbody id="curvas-tbody">
-            <tr><td colspan="11" class="deals-empty">Cargando…</td></tr>
+            <tr><td colspan="12" class="deals-empty">Cargando…</td></tr>
           </tbody>
         </table>
       </div>
@@ -5453,11 +5464,13 @@ function _curvasApplyFilters() {
   const emisor   = (document.getElementById('curvas-f-emisor')   ?.value || '').toLowerCase();
   const industria= (document.getElementById('curvas-f-industria') ?.value || '');
   const ley      = (document.getElementById('curvas-f-ley')      ?.value || '');
+  const moneda   = (document.getElementById('curvas-f-moneda')   ?.value || '');
 
   _curvasFiltered = _curvasAllRows.filter(r => {
     if (emisor    && !r['Emisor'].toLowerCase().includes(emisor)) return false;
     if (industria && r._industria !== industria)                  return false;
     if (ley       && r['Ley'] !== ley)                            return false;
+    if (moneda    && r['Moneda'] !== moneda)                      return false;
     return true;
   });
 
@@ -5505,7 +5518,7 @@ function _curvasUpdateSortHeaders() {
     th.classList.remove('sort-asc', 'sort-desc');
   });
   const ths = document.querySelectorAll('#curvas-table thead th');
-  const colMap = ['Ticker','Emisor','Industria','Cupon','Vencimiento',null,'Precio_Clean','YTM','CY','DM','Monto_Emitido'];
+  const colMap = ['Ticker','Emisor','Industria','Cupon','Vencimiento',null,'Moneda','Precio_Clean','YTM','CY','DM','Monto_Emitido'];
   colMap.forEach((c, i) => {
     if (c === _curvasSortCol && ths[i]) {
       ths[i].classList.add(_curvasSortAscending ? 'sort-asc' : 'sort-desc');
@@ -5533,7 +5546,7 @@ function _curvasRenderTable() {
   const tbody = document.getElementById('curvas-tbody');
   if (!tbody) return;
   if (!_curvasFiltered.length) {
-    tbody.innerHTML = '<tr><td colspan="11" class="deals-empty">Sin resultados para los filtros aplicados.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="12" class="deals-empty">Sin resultados para los filtros aplicados.</td></tr>';
     _curvasUpdateSortHeaders();
     return;
   }
@@ -5548,6 +5561,7 @@ function _curvasRenderTable() {
       <td>${cupon}</td>
       <td>${_escHtml(r['Vencimiento'])}</td>
       <td>${_curvasLeyBadge(r['Ley'])}</td>
+      <td>${r['Moneda'] ? `<span class="deals-badge ${_dealsMonedaBadge(r['Moneda'])[0]}">${_escHtml(r['Moneda'])}</span>` : '—'}</td>
       <td class="num">${precio}</td>
       <td class="num">${_curvasFmtPct(r._ytm)}</td>
       <td class="num">${_curvasFmtPct(r._cy)}</td>
@@ -5560,7 +5574,7 @@ function _curvasRenderTable() {
 }
 
 function _curvasClearFilters() {
-  ['curvas-f-emisor','curvas-f-industria','curvas-f-ley'].forEach(id => {
+  ['curvas-f-emisor','curvas-f-industria','curvas-f-ley','curvas-f-moneda'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
