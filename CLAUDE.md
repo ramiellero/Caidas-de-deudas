@@ -16,13 +16,14 @@ garantias_sector_sgr.csv               # Exposición por sector por SGR
 mora_sobre_garantias.csv               # Mora/Garantías mensual por SGR (jun-25 → feb-26): POTENCIAR, GARANTIZAR, INTEGRA, BIND, Promedio
 mora_mercado.csv                        # Mora mensual del mercado SGR (feb-25 → feb-26)
 plazo_mora_mercado.csv                  # Mora por plazo de garantía del mercado
-Total_sgr.csv                           # Ranking de 42 SGRs con mora (feb-26)
+Total_sgr.csv                           # Ranking de 42 SGRs con mora (mensual, se appendea)
+fondo_de_riesgo.csv                     # Ranking SGRs por Fondo de Riesgo (Valor de Mercado) — snapshot único, se sobreescribe completo cada actualización
 foto_sgr.csv                            # Histórico mensual de posición IRSA en cada SGR (Periodo, SGR, Aporte, Posicion, Weight, P&L, Mora, TIR) — se agrega una fila por SGR por mes; el frontend toma el período más reciente
 emisiones_obligaciones_negociables.csv  # Registro semanal de emisiones de ONs del mercado argentino
 curvas_on.csv                           # Tabla de bonos corporativos USD del informe diario IAMC — generado por scraper_curvas.py; se sobreescribe con el informe más reciente
 curvas_last_id.txt                      # Legado PPI (ya no se usa; conservado para historial)
 scraper_curvas.py                       # Scraper diario: descarga PDF del informe IAMC, extrae páginas 1-2 (Ley NY) y 5-13 (Ley Arg), guarda curvas_on.csv
-cartera_monedas.csv                     # Composición por moneda por SGR (guardado, no usado aún)
+cartera_monedas.csv                     # Composición por moneda (USD/ARS) por SGR — usado en chart "Composición por Moneda" de SGR > Mercado
 composicion_carteras.csv                # Composición por tipo de activo por SGR (guardado, no usado aún)
 CLAUDE.md                               # Este archivo
 ```
@@ -457,10 +458,12 @@ Sección de emisiones de ONs del mercado argentino. Fuente: `emisiones_obligacio
 - `.deals-badge-usdint/usdmep/usdcable/ars/dl/uva/other` — colores por tipo de moneda
 - **Mobile (≤ 600px)**: tabla → cards por fila (`display: block` en `tr/td`); `td[data-label]::before` muestra la etiqueta; `.deals-fecha` actúa de header (fondo `#F8FAFC`); `.deals-emisor` es nombre prominente
 
-### SGR (color por vehículo: Potenciar `#166534`, Garantizar `#1D4B6E`, Integra `#6D28D9`, Bind `#B45309`)
+### SGR (color por vehículo: Potenciar `#166534`, Garantizar `#1D4B6E`, Integra `#6D28D9`, Bind `#B45309`, Acindar Pymes `#0F766E`)
 Sección accesible desde la pestaña **SGR** en la nav.
 
-**Selector de vehículo** (pills): Potenciar · Garantizar · Integra · Bind Garantías · Mercado. Cada opción cambia el header (color de fondo) y el contenido de forma dinámica.
+**Selector de vehículo** (pills): Potenciar · Garantizar · Integra · Bind Garantías · Acindar Pymes · Mercado. Cada opción cambia el header (color de fondo) y el contenido de forma dinámica.
+
+**Acindar Pymes**: vehículo agregado en mayo-26 (IRSA está por aportar). A diferencia de los otros 4 vehículos, su `Mora` en `_sgrMoraEvolucion` (chart "Mora/Garantías" individual y "Mora del Mercado SGR" en Mercado) **no** viene de una columna propia en `mora_sobre_garantias.csv` — se deriva automáticamente del ranking mensual `Total_sgr.csv` (ver función de enriquecimiento en `initSgrSection`, justo después de parsear `Total_sgr.csv`, que matchea por `_sgrDateToYYYYMM(fecha)` contra `SGR_META.acindar.totalLabel`). El resto de sus datos (Stock de Garantías, Mora por Antigüedad, Garantías por Sector, Composición por Moneda, foto KPIs) sí requieren mantenimiento manual mes a mes igual que los demás vehículos.
 
 **Vista individual** (Potenciar / Garantizar / Integra / Bind):
 - **KPI fila primaria** (`.sgr-foto-kpi-row`, `.sgr-kpi-primary`): Aporte, Posición, Weight, P&L, Mora — fuente: `foto_sgr.csv`; el frontend muestra siempre el registro más reciente por SGR (la tarjeta TIR sin benef. fue eliminada)
@@ -486,6 +489,8 @@ Sección accesible desde la pestaña **SGR** en la nav.
 - Tendencia de mora: las 4 SGRs como líneas en sus colores + Promedio Mercado (naranja, 3px, dashed) — fuente: `mora_sobre_garantias.csv`
 - Mora por plazo de garantía (barras horizontales); fuente: `plazo_mora_mercado.csv`
 - Ranking de 42 SGRs por mora (barras horizontales, 20px/barra, scrolleable); vehículos IRSA resaltados en `#166534`; fuente: `Total_sgr.csv`; label de fecha en el título hardcodeado en HTML ("feb-26")
+- Ranking SGRs por Fondo de Riesgo (FDR/Valor de Mercado, barras horizontales); fuente: `fondo_de_riesgo.csv` — snapshot único sin columna de fecha (se sobreescribe completo en cada actualización, no se appendea); vehículos IRSA resaltados igual que el ranking de mora
+- Composición por Moneda del mercado (USD/ARS/UVA por SGR); fuente: `cartera_monedas.csv`
 
 **Colores dinámicos**: el header de la sección cambia de gradiente al seleccionar cada vehículo. Los KPI boxes (`.sgr-kpi`) actualizan `background`, `borderColor` y `borderLeftColor` vía JS al cambiar de SGR.
 
@@ -496,15 +501,17 @@ Sección accesible desde la pestaña **SGR** en la nav.
 - `_sgrAntiguedadData` — `{ csvLabel: [{plazo, mora}] }`
 - `_sgrSectorData`     — `{ csvLabel: [{sector, weight}] }` (sin sectores con weight=0)
 - `_sgrMoraMercado`    — `[{fecha, mora}]`
-- `_sgrMoraEvolucion`  — `[{fecha, potenciar, garantizar, integra, bind, promedio}]` — valores en % (e.g. 0.7 = 0.7%)
+- `_sgrMoraEvolucion`  — `[{fecha, potenciar, garantizar, integra, bind, acindar, promedio}]` — valores en % (e.g. 0.7 = 0.7%); `acindar` no viene del CSV, se calcula en runtime desde `_sgrTotalSgrAllData` (ver nota Acindar Pymes arriba)
 - `_sgrPlazoMercado`   — `[{plazo, mora}]`
 - `_sgrTotalSgr`       — `[{sgr, mora}]`
+- `_sgrTotalSgrAllData` — `{ 'YYYY-MM': [{sgr, mora, rawFecha}] }` — todas las filas de `Total_sgr.csv` agrupadas por mes (clave via `_sgrDateToYYYYMM`); fuente para derivar la mora de Acindar Pymes
+- `_sgrFdrData`        — `[{sgr, valor}]` parseado de `fondo_de_riesgo.csv`, para el ranking por Fondo de Riesgo
 - `_sgrFotoData`       — `{ 'POTENCIAR': {periodo, aporte, posicion, weight, pnl, mora, tir, rendCartera, rendNeto, tirConBenef}, ... }` — keyed por `fotoLabel`; solo el registro más reciente por SGR (seleccionado durante el parse de `foto_sgr.csv`)
-- `_sgrActiveSgr`      — key activa ('potenciar' | 'garantizar' | 'integra' | 'bind' | 'mercado')
+- `_sgrActiveSgr`      — key activa ('potenciar' | 'garantizar' | 'integra' | 'bind' | 'acindar' | 'mercado')
 
 **Instancias de Chart.js**:
 - `_sgrMoraChartInst`, `_sgrGarantiasChartInst`, `_sgrAntiguedadChartInst`, `_sgrSectorChartInst`
-- `_sgrMktMoraChartInst`, `_sgrMktPlazoChartInst`, `_sgrMktRankChartInst`
+- `_sgrMktMoraChartInst`, `_sgrMktPlazoChartInst`, `_sgrMktRankChartInst`, `_sgrMktFdrChartInst`, `_sgrMktComposicionChartInst`, `_sgrMktMonedaChartInst`
 - Todas se destruyen y recrean al cambiar de vehículo via `_sgrDestroy(inst)`
 
 **Funciones principales**:
@@ -518,9 +525,9 @@ Sección accesible desde la pestaña **SGR** en la nav.
 - `_sgrPalette(color, n)` — retorna n colores de la paleta del SGR
 
 **Mapeo de nombres por fuente** (definido en `SGR_META`):
-- `csvLabel`: clave usada en `garantia_sgr.csv`, `mora_antiguedad.csv`, `garantias_sector_sgr.csv` (e.g. "Bind Garantias")
-- `totalLabel`: clave usada en `Total_sgr.csv` (e.g. "GARANTIAS BIND S.G.R.")
-- `fotoLabel`: clave usada en `foto_sgr.csv` — mayúsculas sin sufijo (e.g. "BIND")
+- `csvLabel`: clave usada en `garantia_sgr.csv`, `mora_antiguedad.csv`, `garantias_sector_sgr.csv` (e.g. "Bind Garantias", "Acindar Pymes")
+- `totalLabel`: clave usada en `Total_sgr.csv` y `fondo_de_riesgo.csv` (e.g. "GARANTIAS BIND S.G.R.", "ACINDAR PYMES S.G.R.")
+- `fotoLabel`: clave usada en `foto_sgr.csv` — mayúsculas sin sufijo (e.g. "BIND", "ACINDAR")
 
 ### `foto_sgr.csv` — esquema histórico y lógica de carga
 
@@ -529,7 +536,7 @@ Sección accesible desde la pestaña **SGR** en la nav.
 Periodo,SGR,Aporte,Posicion,Weight,P&L,Mora,TIR,Rendimiento Cartera,Rend. Neto c/benef,TIR c/benef
 ```
 - `Periodo`: formato `YYYY-MM` (e.g. `2026-03`) — clave de ordenamiento; ordena correctamente como string
-- `SGR`: nombre en mayúsculas, sin sufijo — debe coincidir con `fotoLabel` en `SGR_META` (e.g. `POTENCIAR`, `GARANTIZAR`, `INTEGRA`, `BIND`)
+- `SGR`: nombre en mayúsculas, sin sufijo — debe coincidir con `fotoLabel` en `SGR_META` (e.g. `POTENCIAR`, `GARANTIZAR`, `INTEGRA`, `BIND`, `ACINDAR`)
 - `Aporte` / `Posicion` / `P&L`: valores enteros o decimales en ARS MM
 - `Weight`: fracción decimal (e.g. `0.87398` para 87.4%)
 - `Mora` / `TIR`: fracción decimal (e.g. `0.007` para 0.7%, `0.444` para 44.4%)
@@ -574,8 +581,11 @@ No es necesario tocar el JS — el frontend toma el período más alto automáti
 - `nav-sep` — separador visual entre Debt Profile y SGR en la nav
 
 **Datos no usados aún** (guardados en repo para uso futuro):
-- `cartera_monedas.csv` — split USD/ARS por SGR
 - `composicion_carteras.csv` — composición por tipo de activo por SGR
+
+**`fondo_de_riesgo.csv`** — `SGR,Valor_Mercado`. Snapshot único (sin columna de fecha) usado para el chart "Ranking SGRs por Fondo de Riesgo" en la vista Mercado; se sobreescribe completo en cada actualización mensual (no se appendea como los demás CSVs de SGR). `SGR` debe coincidir con `totalLabel` en `SGR_META` (e.g. "GARANTIAS BIND S.G.R.").
+
+**`cartera_monedas.csv`** — `Fecha,Moneda,Potenciar,Garantizar,Integra,BIND,ACINDAR`. Composición por moneda (USD/ARS) por SGR, usada en el chart "Composición por Moneda" de la vista Mercado. Una fila por moneda por fecha; valores son fracciones decimales por SGR (e.g. `0.29` = 29%). Columna `ACINDAR` agregada en mayo-26 cuando se incorporó ese vehículo (vale `0` en períodos anteriores a su alta).
 
 ## Qué es dinámico vs hardcodeado
 

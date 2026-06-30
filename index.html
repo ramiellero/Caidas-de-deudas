@@ -1851,6 +1851,7 @@
       <button class="sgr-pill"        data-sgr="garantizar" onclick="selectSgr('garantizar')">Garantizar</button>
       <button class="sgr-pill"        data-sgr="integra"    onclick="selectSgr('integra')">Integra</button>
       <button class="sgr-pill"        data-sgr="bind"       onclick="selectSgr('bind')">Bind Garantías</button>
+      <button class="sgr-pill"        data-sgr="acindar"    onclick="selectSgr('acindar')">Acindar Pymes</button>
       <div class="sgr-pill-sep"></div>
       <button class="sgr-pill"        data-sgr="mercado"    onclick="selectSgr('mercado')">Mercado</button>
     </div>
@@ -3979,6 +3980,7 @@ const SGR_META = {
   garantizar: { label: 'Garantizar',     entity: 'IRSA',   csvLabel: 'Garantizar',     totalLabel: 'GARANTIZAR S.G.R.',      fotoLabel: 'GARANTIZAR', color: '#1D4B6E', bgLight: '#eff6ff', borderLight: '#bfdbfe' },
   integra:    { label: 'Integra',        entity: 'FIBESA', csvLabel: 'Integra',        totalLabel: 'INTEGRA PYMES S.G.R.',   fotoLabel: 'INTEGRA',    color: '#6D28D9', bgLight: '#f5f3ff', borderLight: '#ddd6fe' },
   bind:       { label: 'Bind Garantías', entity: 'FIBESA', csvLabel: 'Bind Garantias', totalLabel: 'GARANTIAS BIND S.G.R.', fotoLabel: 'BIND',       color: '#B45309', bgLight: '#fffbeb', borderLight: '#fde68a' },
+  acindar:    { label: 'Acindar Pymes',  entity: 'IRSA',   csvLabel: 'Acindar Pymes',  totalLabel: 'ACINDAR PYMES S.G.R.',  fotoLabel: 'ACINDAR',    color: '#0F766E', bgLight: '#f0fdfa', borderLight: '#99f6e4' },
 };
 
 const SGR_HEADER_BG = {
@@ -3986,6 +3988,7 @@ const SGR_HEADER_BG = {
   garantizar: 'linear-gradient(135deg, #1D4B6E 0%, #0f2840 100%)',
   integra:    'linear-gradient(135deg, #5b21b6 0%, #3730a3 100%)',
   bind:       'linear-gradient(135deg, #b45309 0%, #78350f 100%)',
+  acindar:    'linear-gradient(135deg, #0F766E 0%, #134e4a 100%)',
   mercado:    'linear-gradient(135deg, #374151 0%, #1f2937 100%)',
 };
 
@@ -4126,6 +4129,14 @@ async function initSgrSection() {
       _sgrTotalSgrAllData[yyyymm].push({ sgr: r['SGR'], mora: parseFloat(r['Mora']), rawFecha: r['Fecha'] || '' });
     });
 
+    // Acindar Pymes — sin columna propia en mora_sobre_garantias.csv; toma la mora
+    // del ranking mensual (Total_sgr.csv) por SGR para alimentar el chart de evolución
+    _sgrMoraEvolucion.forEach(r => {
+      const yyyymm = _sgrDateToYYYYMM(r.fecha);
+      const row = (_sgrTotalSgrAllData[yyyymm] || []).find(x => x.sgr === SGR_META.acindar.totalLabel);
+      r.acindar = row ? +(row.mora * 100).toFixed(1) : null;
+    });
+
     // foto_sgr.csv — histórico multi-período: guarda todos los períodos por SGR
     // Formato Periodo: YYYY-MM — ordena correctamente como string
     const _fotoPeriosSet = new Set();
@@ -4177,6 +4188,7 @@ async function initSgrSection() {
         garantizar: parseFloat(r['Garantizar'] || 0),
         integra:    parseFloat(r['Integra']    || 0),
         bind:       parseFloat(r['BIND']       || 0),
+        acindar:    parseFloat(r['ACINDAR']    || 0),
       });
     });
 
@@ -4309,6 +4321,7 @@ const _SGR_PALETTES = {
   '#1D4B6E': ['#0f2840','#1D4B6E','#1e40af','#2563eb','#3b82f6','#60a5fa','#93c5fd'],
   '#6D28D9': ['#3730a3','#4f46e5','#6D28D9','#7c3aed','#8b5cf6','#a78bfa','#c4b5fd'],
   '#B45309': ['#78350f','#92400e','#B45309','#d97706','#f59e0b','#fbbf24','#fde68a'],
+  '#0F766E': ['#134e4a','#0f766e','#0d9488','#14b8a6','#2dd4bf','#5eead4','#99f6e4'],
 };
 function _sgrPalette(color, n) {
   const base = _SGR_PALETTES[color] || ['#374151','#4b5563','#6b7280','#9ca3af','#d1d5db'];
@@ -4366,7 +4379,7 @@ function _sgrRenderMoraChart(meta) {
   const ctx = document.getElementById('sgr-mora-chart');
   if (!ctx || !_sgrMoraEvolucion.length) return;
 
-  const colMap = { potenciar: 'potenciar', garantizar: 'garantizar', integra: 'integra', bind: 'bind' };
+  const colMap = { potenciar: 'potenciar', garantizar: 'garantizar', integra: 'integra', bind: 'bind', acindar: 'acindar' };
   const col = colMap[_sgrActiveSgr];
 
   const labels = _sgrMoraEvolucion.map(r => r.fecha);
@@ -4557,6 +4570,7 @@ function _sgrRenderMktMora() {
     { key: 'garantizar', label: 'Garantizar',     color: '#1D4B6E' },
     { key: 'integra',    label: 'Integra',        color: '#6D28D9' },
     { key: 'bind',       label: 'Bind Garantías', color: '#B45309' },
+    { key: 'acindar',    label: 'Acindar Pymes',  color: '#0F766E' },
   ];
 
   const datasets = sgrLines.map(s => ({
@@ -4856,8 +4870,8 @@ function _sgrRenderMktMoneda() {
   const ctx = document.getElementById('sgr-mkt-moneda-chart');
   if (!ctx || !_sgrMonedaData.length) return;
 
-  const sgrLabels = ['Potenciar', 'Garantizar', 'Integra', 'BIND'];
-  const sgrKeys   = ['potenciar', 'garantizar', 'integra', 'bind'];
+  const sgrLabels = ['Potenciar', 'Garantizar', 'Integra', 'BIND', 'Acindar'];
+  const sgrKeys   = ['potenciar', 'garantizar', 'integra', 'bind', 'acindar'];
 
   const MONEDA_COLORS = { 'USD': '#166534', 'ARS': '#1D4B6E' };
 
