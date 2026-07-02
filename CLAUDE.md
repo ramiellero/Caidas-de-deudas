@@ -4,28 +4,46 @@
 Dashboard web estático (single HTML file) que visualiza el perfil de vencimientos de deuda de **IRSA** y **Cresud**, e inversiones en SGR (Sociedades de Garantía Recíproca). Período de referencia: IIQ FY2026.
 
 ## Estructura del proyecto
+
+Los CSVs de datos están organizados en carpetas que reflejan las pestañas (tabs) del dashboard. `index.html` fetchea cada CSV con su ruta relativa a la carpeta (e.g. `_csvFetch('IRSA/irsa_deuda.csv')`). Las referencias a estos archivos en el resto de este documento usan solo el nombre del archivo por brevedad — la carpeta real está indicada en el árbol de abajo.
+
 ```
 index.html                              # Toda la aplicación: HTML + CSS + JS en un único archivo
-irsa_deuda.csv                          # Vencimientos de capital de IRSA (fuente principal de KPIs IRSA)
-irsa_deuda_total.csv                    # Schedule completo IRSA: capital + intereses por período
-cresud_deuda.csv                        # Vencimientos de capital de Cresud (fuente principal de KPIs Cresud)
-cresud_completo.csv                     # Schedule completo Cresud: capital + intereses por período
-garantia_sgr.csv                        # Stock de garantías históricas por SGR (Garantías, FDR, Apalancamiento)
-mora_antiguedad.csv                     # Distribución de mora por antigüedad por SGR
-garantias_sector_sgr.csv               # Exposición por sector por SGR
-mora_sobre_garantias.csv               # Mora/Garantías mensual por SGR (jun-25 → feb-26): POTENCIAR, GARANTIZAR, INTEGRA, BIND, Promedio
-mora_mercado.csv                        # Mora mensual del mercado SGR (feb-25 → feb-26)
-plazo_mora_mercado.csv                  # Mora por plazo de garantía del mercado
-Total_sgr.csv                           # Ranking de 42 SGRs con mora (mensual, se appendea)
-fondo_de_riesgo.csv                     # Ranking SGRs por Fondo de Riesgo (Valor de Mercado) — snapshot único, se sobreescribe completo cada actualización
-foto_sgr.csv                            # Histórico mensual de posición IRSA en cada SGR (Periodo, SGR, Aporte, Posicion, Weight, P&L, Mora, TIR) — se agrega una fila por SGR por mes; el frontend toma el período más reciente
-emisiones_obligaciones_negociables.csv  # Registro semanal de emisiones de ONs del mercado argentino
-curvas_on.csv                           # Tabla de bonos corporativos USD del informe diario IAMC — generado por scraper_curvas.py; se sobreescribe con el informe más reciente
-curvas_last_id.txt                      # Legado PPI (ya no se usa; conservado para historial)
-scraper_curvas.py                       # Scraper diario: descarga PDF del informe IAMC, extrae páginas 1-2 (Ley NY) y 5-13 (Ley Arg), guarda curvas_on.csv
-cartera_monedas.csv                     # Composición por moneda (USD/ARS) por SGR — usado en chart "Composición por Moneda" de SGR > Mercado
-composicion_carteras.csv                # Composición por tipo de activo por SGR (guardado, no usado aún)
 CLAUDE.md                               # Este archivo
+emisiones_obligaciones_negociables.csv  # Registro semanal de emisiones de ONs del mercado argentino — permanece en la raíz porque el script del compañero (StoneX/actualizar_deals.py) escribe acá directo
+vercel.json                             # Config de deploy Vercel
+
+IRSA/
+  irsa_deuda.csv                        # Vencimientos de capital de IRSA (fuente principal de KPIs IRSA)
+  irsa_deuda_total.csv                  # Schedule completo IRSA: capital + intereses por período
+
+Cresud/
+  cresud_deuda.csv                      # Vencimientos de capital de Cresud (fuente principal de KPIs Cresud)
+  cresud_completo.csv                   # Schedule completo Cresud: capital + intereses por período
+
+SGR/
+  garantia_sgr.csv                      # Stock de garantías históricas por SGR (Garantías, FDR, Apalancamiento)
+  mora_antiguedad.csv                   # Distribución de mora por antigüedad por SGR
+  garantias_sector_sgr.csv              # Exposición por sector por SGR
+  mora_sobre_garantias.csv              # Mora/Garantías mensual por SGR (jun-25 → feb-26): POTENCIAR, GARANTIZAR, INTEGRA, BIND, Promedio
+  mora_mercado.csv                      # Mora mensual del mercado SGR (feb-25 → feb-26)
+  plazo_mora_mercado.csv                # Mora por plazo de garantía del mercado
+  Total_sgr.csv                         # Ranking de 42 SGRs con mora (mensual, se appendea)
+  fondo_de_riesgo.csv                   # Ranking SGRs por Fondo de Riesgo (Valor de Mercado) — snapshot único, se sobreescribe completo cada actualización
+  foto_sgr.csv                          # Histórico mensual de posición IRSA en cada SGR (Periodo, SGR, Aporte, Posicion, Weight, P&L, Mora, TIR) — se agrega una fila por SGR por mes; el frontend toma el período más reciente
+  cartera_monedas.csv                   # Composición por moneda (USD/ARS) por SGR — usado en chart "Composición por Moneda" de SGR > Mercado
+  composicion_carteras.csv              # Composición por tipo de activo por SGR (guardado, no usado aún)
+
+Deals/
+  curvas_on.csv                         # Tabla de bonos corporativos USD del informe diario IAMC — generado por scraper_curvas.py; se sobreescribe con el informe más reciente
+  curvas_last_id.txt                    # Legado PPI (ya no se usa; conservado para historial)
+  curvas_moneda_lookup.csv              # Lookup persistente Ticker → Moneda usado por enrich_curvas_moneda.py
+  scraper_curvas.py                     # Scraper diario: descarga PDF del informe IAMC, extrae páginas 1-2 (Ley NY) y 5-13 (Ley Arg), guarda curvas_on.csv
+  scraper_curvas.log                    # Log de ejecuciones del scraper
+  run_scraper_curvas.bat                # Wrapper para la tarea programada de Windows
+  enrich_curvas_moneda.py               # Script one-time de enriquecimiento (ya corrido; conservado para referencia)
+
+StoneX/                                 # Scripts del compañero que carga emisiones semanalmente — no tocar rutas (ver StoneX/CLAUDE.md)
 ```
 
 ## Arquitectura del archivo `index.html`

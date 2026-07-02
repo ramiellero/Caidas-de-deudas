@@ -17,7 +17,7 @@ extrae la tabla de Bonos Corporativos USD (páginas 12-13) y actualiza
 
 ```powershell
 cd "c:\Users\rellero\OneDrive - IRSACORP\Downloads\Dashboard Caídas de Deudas"
-python scraper_curvas.py --commit
+python Deals\scraper_curvas.py --commit
 ```
 
 El flag `--commit` hace el `git push` automáticamente al terminar.
@@ -26,13 +26,13 @@ Sin `--commit`, solo actualiza los archivos localmente.
 ### Forzar un ID específico
 
 ```powershell
-python scraper_curvas.py --id 24525 --commit
+python Deals\scraper_curvas.py --id 24525 --commit
 ```
 
 ### Ver qué está haciendo (debug)
 
 ```powershell
-python scraper_curvas.py --id 24525 --debug
+python Deals\scraper_curvas.py --id 24525 --debug
 ```
 
 Imprime el texto raw de las páginas 12-13. Útil para diagnosticar filas no parseadas.
@@ -44,7 +44,7 @@ Imprime el texto raw de las páginas 12-13. Útil para diagnosticar filas no par
 ### Ver el log
 
 ```powershell
-Get-Content "scraper_curvas.log" -Tail 30
+Get-Content "Deals\scraper_curvas.log" -Tail 30
 ```
 
 Cada ejecución empieza con `[YYYY-MM-DD] === Iniciando scraper ===`.
@@ -61,7 +61,7 @@ Get-ScheduledTaskInfo -TaskName "Scraper Curvas ONs PPI" | Select-Object LastRun
 ### Ver el ID descargado
 
 ```powershell
-Get-Content curvas_last_id.txt
+Get-Content Deals\curvas_last_id.txt
 ```
 
 ---
@@ -124,7 +124,7 @@ tocar el scraper.
 Los IDs son secuenciales. Si se sabe que el informe del lunes fue el 24520:
 
 ```powershell
-python scraper_curvas.py --id 24520
+python Deals\scraper_curvas.py --id 24520
 ```
 
 Esto sobreescribe `curvas_on.csv` y actualiza `curvas_last_id.txt`.
@@ -142,7 +142,7 @@ Para encontrar el ID correcto cuando no se sabe cuál es:
 |---|---|
 | Nombre | `Scraper Curvas ONs PPI` |
 | Horario | Diariamente a las 09:00 |
-| Comando | `cmd.exe /c run_scraper_curvas.bat` |
+| Comando | `cmd.exe /c Deals\run_scraper_curvas.bat` |
 | StartWhenAvailable | Sí — corre si la PC estaba apagada |
 | RunOnlyIfNetworkAvailable | Sí |
 

@@ -22,7 +22,7 @@ from pathlib import Path
 
 BASE_DIR      = Path(__file__).parent
 CURVAS_CSV    = BASE_DIR / "curvas_on.csv"
-EMISIONES_CSV = BASE_DIR / "emisiones_obligaciones_negociables.csv"
+EMISIONES_CSV = BASE_DIR.parent / "emisiones_obligaciones_negociables.csv"
 LOOKUP_CSV    = BASE_DIR / "curvas_moneda_lookup.csv"
 
 MES_ES = {

@@ -2479,8 +2479,8 @@ function _renderIrsaFullTimeline(rows) {
 async function initIrsaTimeline() {
   try {
     const [capText, fullText] = await Promise.all([
-      _csvFetch('irsa_deuda.csv'),
-      _csvFetch('irsa_deuda_total.csv'),
+      _csvFetch('IRSA/irsa_deuda.csv'),
+      _csvFetch('IRSA/irsa_deuda_total.csv'),
     ]);
     _irsaCapRows = _parseIrsaCsv(capText);
     _irsaCapCsvText = capText;
@@ -2615,8 +2615,8 @@ function _renderCresudFullTimeline(capRows, fullRows) {
 async function initCresudTimeline() {
   try {
     const [capText, fullText] = await Promise.all([
-      _csvFetch('cresud_deuda.csv'),
-      _csvFetch('cresud_completo.csv'),
+      _csvFetch('Cresud/cresud_deuda.csv'),
+      _csvFetch('Cresud/cresud_completo.csv'),
     ]);
     const capRows  = _parseIrsaCsv(capText);
     const fullRows = _parseIrsaCsv(fullText);
@@ -2976,7 +2976,7 @@ const irsaMatPlugin = {
 
 async function initIrsaMatChart() {
   try {
-    const text = await _csvFetch('irsa_deuda.csv');
+    const text = await _csvFetch('IRSA/irsa_deuda.csv');
     _irsaCapRows = _parseIrsaCsv(text);
     _irsaCapCsvText = text;
     irsaMatData = _buildIrsaMatData([..._irsaCapRows, ..._irsaExtraRows]);
@@ -3172,7 +3172,7 @@ const cresudMatPlugin = {
 
 async function initCresudMatChart() {
   try {
-    const text = await _csvFetch('cresud_deuda.csv');
+    const text = await _csvFetch('Cresud/cresud_deuda.csv');
     _cresudCapRows = _parseIrsaCsv(text);
     _cresudCapCsvText = text;
     cresudMatData = _buildCresudMatData([..._cresudCapRows, ..._cresudExtraRows]);
@@ -4054,17 +4054,17 @@ function _sgrDestroy(inst) {
 async function initSgrSection() {
   try {
     const [garantiasTxt, antiguedadTxt, sectorTxt, moraMktTxt, plazoTxt, totalTxt, moraEvolTxt, fotoTxt, composicionTxt, monedaTxt, fdrTxt] = await Promise.all([
-      _csvFetch('garantia_sgr.csv'),
-      _csvFetch('mora_antiguedad.csv'),
-      _csvFetch('garantias_sector_sgr.csv'),
-      _csvFetch('mora_mercado.csv'),
-      _csvFetch('plazo_mora_mercado.csv'),
-      _csvFetch('Total_sgr.csv'),
-      _csvFetch('mora_sobre_garantias.csv'),
-      _csvFetch('foto_sgr.csv'),
-      _csvFetch('composicion_carteras.csv'),
-      _csvFetch('cartera_monedas.csv'),
-      _csvFetch('fondo_de_riesgo.csv'),
+      _csvFetch('SGR/garantia_sgr.csv'),
+      _csvFetch('SGR/mora_antiguedad.csv'),
+      _csvFetch('SGR/garantias_sector_sgr.csv'),
+      _csvFetch('SGR/mora_mercado.csv'),
+      _csvFetch('SGR/plazo_mora_mercado.csv'),
+      _csvFetch('SGR/Total_sgr.csv'),
+      _csvFetch('SGR/mora_sobre_garantias.csv'),
+      _csvFetch('SGR/foto_sgr.csv'),
+      _csvFetch('SGR/composicion_carteras.csv'),
+      _csvFetch('SGR/cartera_monedas.csv'),
+      _csvFetch('SGR/fondo_de_riesgo.csv'),
     ]);
 
     // garantia_sgr.csv
@@ -4174,6 +4174,7 @@ async function initSgrSection() {
         garantizar: parseFloat(r['Garantizar'] || 0),
         integra:    parseFloat(r['Integra']    || 0),
         bind:       parseFloat(r['BIND']       || 0),
+        acindar:    parseFloat(r['ACINDAR']    || 0),
       });
     });
 
@@ -4786,8 +4787,8 @@ function _sgrRenderMktComposicion() {
   const ctx = document.getElementById('sgr-mkt-composicion-chart');
   if (!ctx || !_sgrComposicionData.length) return;
 
-  const sgrLabels = ['Potenciar', 'Garantizar', 'Integra', 'BIND'];
-  const sgrKeys   = ['potenciar', 'garantizar', 'integra', 'bind'];
+  const sgrLabels = ['Potenciar', 'Garantizar', 'Integra', 'BIND', 'Acindar'];
+  const sgrKeys   = ['potenciar', 'garantizar', 'integra', 'bind', 'acindar'];
 
   const CAT_COLORS = {
     'Tit. Nac. + Lebac': '#1D4B6E',
@@ -5419,7 +5420,7 @@ function _curvasParseFecha(s) {
 
 async function initCurvasSection() {
   try {
-    const text = await _csvFetch('curvas_on.csv').catch(() => null);
+    const text = await _csvFetch('Deals/curvas_on.csv').catch(() => null);
     if (!text) return;
     const lines = text.split('\n');
     if (lines.length < 2) return;
