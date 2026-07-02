@@ -366,13 +366,26 @@ def cumple_monto(moneda, vn):
 
 
 def extraer_resultados(texto):
-    parte = texto.split("Resultados", 1)[1] if "Resultados" in texto else texto
+    # pdfplumber sometimes drops or reorders the "Resultados" title.
+    # The table header is a more stable anchor for the actual results block.
+    if "Tasa / Precio de Corte" in texto:
+        parte = texto.split("Tasa / Precio de Corte", 1)[1]
+    elif "Resultados" in texto:
+        parte = texto.split("Resultados", 1)[1]
+    else:
+        parte = texto
 
     if "Licita hoy" in parte:
         parte = parte.split("Licita hoy", 1)[0]
 
+    if "OPERACIONES DE TERCEROS" in parte:
+        parte = parte.split("OPERACIONES DE TERCEROS", 1)[0]
+
     if "Operaciones en difusión" in parte:
         parte = parte.split("Operaciones en difusión", 1)[0]
+
+    if "Operaciones en Difusión" in parte:
+        parte = parte.split("Operaciones en Difusión", 1)[0]
 
     return parte
 
@@ -483,7 +496,7 @@ def parsear_resultados_generico(resultados):
         r"(?P<cupon>TAMAR\+\d+(?:,\d+)?%|T\+\d+(?:,\d+)?|\d{1,2},\d{2,3}%|0,00%)\s+"
         r"(?P<duration>[\d,]+)\s+"
         r"(?P<maturity>\d+)\s+"
-        r"(?P<ultima>\d{2}/\d{2}/\d{4})\s+"
+        r"(?P<ultima>\d{1,2}/\d{1,2}/\d{4})\s+"
         r"(?P<rating>.*)$"
     )
 
