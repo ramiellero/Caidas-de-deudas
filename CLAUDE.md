@@ -342,7 +342,7 @@ Los dos strips (IRSA y Cresud) están sincronizados: cambiar uno actualiza el ot
 - **Badge text**: los eventos de interés muestran el tipo de moneda del instrumento (e.g. "Cable", "MEP", "MEP S/MULC") en lugar del texto genérico "Intereses". IRSA usa `_tipoLabel(ev.rows[0]['Moneda'])`; Cresud usa `_cresudFullBadge(ev.rows[0]['Moneda']).badge`. El color del badge (`#7AAFC8`) y el fondo de la tarjeta (`.tl-int`) permanecen sin cambio para mantener la distinción visual respecto a eventos de capital.
 
 ## Flujo de trabajo
-- **Ver cambios**: el dashboard se sirve vía HTTP (GitHub Pages u otro host) — refrescar el browser tras cada commit
+- **Ver cambios**: el dashboard está deployado en Vercel — refrescar el browser tras cada commit (Vercel redespliega en segundos)
 - **Actualizar datos de maturity walls**: editar el CSV correspondiente y hacer commit; el chart se recalcula automáticamente al cargar la página
 - **Actualizar timeline IRSA**: editar `irsa_deuda.csv` (capital) o `irsa_deuda_total.csv` (capital+intereses) y hacer commit; la timeline se regenera automáticamente
 - **Actualizar IRSA (ON nueva)**: agregar filas en `irsa_deuda.csv` (capital) y `irsa_deuda_total.csv` (schedule de intereses); tabla, KPIs, maturity wall, pie chart y timelines se recalculan solos — sin tocar `index.html`. Agregar también entrada en `callData` si el instrumento tiene call option.
@@ -364,6 +364,8 @@ Vista de curva de rendimientos de bonos corporativos USD del mercado argentino. 
 - **IRSA** (`IRC*`) y **Cresud** (`CS*`) clasificados ambos como `Real Estate` (no Agroindustria)
 - **SSL corporativo**: la red IRSACORP hace inspección SSL; el helper `_get(url)` del scraper intenta primero con verificación SSL y, si falla por `SSLError`, reintenta con `verify=False`. Esto solo ocurre en la red corporativa — en GitHub Actions funciona con verificación normal.
 - **GitHub Actions** (`.github/workflows/scraper-curvas.yml`): requiere `pip install pdfplumber requests beautifulsoup4` — las tres dependencias. Si falta `beautifulsoup4` el job falla con `ModuleNotFoundError` al importar.
+- **Permisos del workflow**: el workflow declara `permissions: contents: write`. Sin esto, el `GITHUB_TOKEN` tiene solo permisos de lectura por defecto (desde 2023) y el `git push` del bot falla silenciosamente.
+- **Integración con Vercel**: el push del bot al repo dispara automáticamente un redeploy en Vercel vía webhook de GitHub. No se requiere configuración adicional — cada commit nuevo al branch `main` actualiza el sitio.
 
 **`curvas_on.csv`** — columnas: `Fecha, Ticker, Emisor, Industria, Ley, Cupon, Vencimiento, Prox_Cupon, Precio_Clean, YTM, CY, DM, CX, WAL, Monto_Emitido, ADTV_ARS, Cierre_ARS, Accr_Int, VT, VR, Estructura, Frec_Cupon, Cuotas_Capital, Frec_Capital, Prox_Capital`
 - `Ley`: `Arg` (ley argentina) o `NY` (ley Nueva York)
@@ -648,8 +650,8 @@ El repo tiene dos scrapers con operadores distintos:
 **Git pull antes de push en `actualizar_deals.py`**: el script hace `git pull --rebase origin main` antes de `git push`. Esto es necesario porque cuando el compañero corre el script, el repo local puede estar detrás de `origin/main` (e.g., commits del scraper de curvas o commits manuales pusheados en el ínterin). Sin el pull, el push falla con "non-fast-forward" silenciosamente.
 
 ## Notas importantes
-- El dashboard se sirve vía HTTP (GitHub Pages), por lo que `fetch()` funciona para leer los CSVs
-- **Cache CDN de GitHub Pages**: el CDN de GitHub Pages cachea los archivos CSV y puede demorar varios minutos en reflejar cambios pusheados. Para evitar este problema, todos los `fetch()` de CSVs usan el helper `_csvFetch(name)` que agrega `?v=YYYYMMDD` (fecha del día) como parámetro anti-cache. Si se agrega un nuevo `fetch()` de CSV, usar siempre `_csvFetch()` en lugar de `fetch()` directamente.
+- El dashboard está deployado en **Vercel** (no GitHub Pages). Se sirve vía HTTP y `fetch()` funciona para leer los CSVs. Vercel redespliega automáticamente en cada push al branch `main`.
+- **Cache CDN de Vercel**: Vercel puede cachear assets estáticos en el edge CDN. Todos los `fetch()` de CSVs usan el helper `_csvFetch(name)` que agrega `?v=YYYYMMDD` (fecha del día) como parámetro anti-cache. Si se agrega un nuevo `fetch()` de CSV, usar siempre `_csvFetch()` en lugar de `fetch()` directamente.
 - Los CSV de los maturity walls son la fuente de verdad — editarlos es suficiente para actualizar esos charts
 - **Criterio de valuación de montos**: los CSVs de vencimientos (`irsa_deuda.csv`, `cresud_deuda.csv`) muestran el valor económico ajustado por brecha de tipo de cambio para instrumentos HD s/MULC (MEP/cable) — `Monto USD` puede diferir del nominal para estos instrumentos. Los CSVs completos (`irsa_deuda_total.csv`, `cresud_completo.csv`) muestran el valor nominal (par value) sin ajuste de brecha. Por eso los montos de capital en el timeline "Solo Capital" (fuente: CSV de vencimientos) pueden diferir de los del timeline "+ Intereses" (fuente: CSV completo) exactamente cuando el instrumento es HD s/MULC. Esto es intencional: cada timeline refleja la perspectiva de su CSV fuente.
 - **Clasificación S/MULC en IRSA y Cresud**: la columna `MONEDA` (en `irsa_deuda.csv` y `cresud_deuda.csv`) es la fuente de verdad. La clasificación se hace con `MONEDA.includes('S/MULC')`. La columna `TC` fue eliminada del CSV. El monto efectivo USD de estos instrumentos se calcula en runtime via `_rowUsdAmt(r)` aplicando la brecha de sesión (`_brechaMEP` o `_brechaCC`) sobre el nominal (`Monto Webcast`), ignorando el `Monto USD` del CSV para S/MULC.
