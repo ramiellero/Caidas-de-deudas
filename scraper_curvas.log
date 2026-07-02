@@ -236,3 +236,25 @@
   [CSV] curvas_on.csv  (183 bonos, fecha 26-06-2026)
 
 [OK] Listo.
+
+[2026-07-02] === Iniciando scraper IAMC ===
+[BUSCA] Informe más reciente en listado IAMC...
+[INFO] Informe: 01-07-2026  →  https://www.iamc.com.ar/Informe/InformeDiarioDeudaCorporativa01072026/
+[PDF] https://iamcweb.prod.ingecloud.com/TempFiles/32d0dbd4-9e27-44c0-bd9b-fa9fc48dc748.pdf
+  [OK] PDF descargado  (6841 KB)
+  [PDF] 20 páginas
+  [p1] Ley NY: 19 bonos
+  [p2] Ley NY: 18 bonos
+  [p5] Ley Arg: 19 bonos
+  [p6] Ley Arg: 19 bonos
+  [p7] Ley Arg: 15 bonos
+  [p8] Ley Arg: 18 bonos
+  [p9] Ley Arg: 17 bonos
+  [p10] Ley Arg: 16 bonos
+  [p11] Ley Arg: 16 bonos
+  [p12] Ley Arg: 15 bonos
+  [p13] Ley Arg: 8 bonos
+[TOTAL] 180 bonos extraídos
+  [CSV] curvas_on.csv  (180 bonos, fecha 01-07-2026)
+
+[OK] Listo.
