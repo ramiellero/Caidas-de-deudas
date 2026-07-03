@@ -88,6 +88,18 @@ def numero_para_web(x):
 
 import subprocess
 
+GIT_REMOTE = "origin"
+GIT_BRANCH = "main"
+GIT_FILES = [
+    CSV_WEB,
+    CSV_OUTPUT,
+    CSV_DIFUSION,
+]
+GIT_TEMP_FILES = [
+    SCREENSHOT,
+    TXT_OUTPUT,
+]
+
 def git(args, **kwargs):
     result = subprocess.run(
         ["git"] + args,
@@ -104,6 +116,101 @@ def git(args, **kwargs):
         print("[stderr]", result.stderr.strip())
 
     return result.returncode
+
+
+def git_result(args, **kwargs):
+    result = subprocess.run(
+        ["git"] + args,
+        cwd=str(REPO_GIT),
+        capture_output=True,
+        text=True,
+        **kwargs,
+    )
+
+    if result.stdout.strip():
+        print(result.stdout.strip())
+
+    if result.stderr.strip():
+        print("[stderr]", result.stderr.strip())
+
+    return result
+
+
+def git_path(path):
+    return os.path.relpath(Path(path), REPO_GIT).replace(os.sep, "/")
+
+
+def git_is_non_fast_forward(result):
+    text = f"{result.stdout}\n{result.stderr}".lower()
+    return "non-fast-forward" in text or "fetch first" in text
+
+
+def git_sync_or_abort():
+    print("\nSincronizando repo con origin/main...")
+
+    rc_fetch = git(["fetch", GIT_REMOTE, GIT_BRANCH])
+    if rc_fetch != 0:
+        print("Error en git fetch; abortando actualización")
+        return False
+
+    rc_rebase = git(["rebase", f"{GIT_REMOTE}/{GIT_BRANCH}"])
+    if rc_rebase != 0:
+        print("Error en git rebase; abortando actualización")
+        git(["rebase", "--abort"])
+        return False
+
+    return True
+
+
+def git_restore_temp_files():
+    rc = 0
+    for path in GIT_TEMP_FILES:
+        restore_rc = git(["restore", git_path(path)])
+        if restore_rc != 0:
+            rc = restore_rc
+    return rc
+
+
+def git_has_staged_csv_changes():
+    status = subprocess.run(
+        ["git", "diff", "--cached", "--name-only", "--"] + [git_path(p) for p in GIT_FILES],
+        cwd=str(REPO_GIT),
+        capture_output=True,
+        text=True,
+    )
+    return bool(status.stdout.strip())
+
+
+def git_push_with_retry():
+    push_result = git_result(["push", GIT_REMOTE, GIT_BRANCH])
+    if push_result.returncode == 0:
+        print("Push exitoso.")
+        return True
+
+    if not git_is_non_fast_forward(push_result):
+        print("Error en git push")
+        return False
+
+    print("Push rechazado. Reintentando con fetch + rebase...")
+
+    rc_fetch = git(["fetch", GIT_REMOTE, GIT_BRANCH])
+    if rc_fetch != 0:
+        print("Error en git fetch luego del push rechazado")
+        return False
+
+    rc_rebase = git(["rebase", f"{GIT_REMOTE}/{GIT_BRANCH}"])
+    if rc_rebase != 0:
+        print("Error en git rebase luego del push rechazado")
+        git(["rebase", "--abort"])
+        return False
+
+    push_result_2 = git_result(["push", GIT_REMOTE, GIT_BRANCH])
+    if push_result_2.returncode != 0:
+        print("Error en git push luego del segundo intento")
+        return False
+
+    print("Push exitoso.")
+    return True
 
     
 # =========================================================
@@ -1070,6 +1177,9 @@ def actualizar_difusion(texto):
 def main():
     CARPETA.mkdir(parents=True, exist_ok=True)
 
+    if not git_sync_or_abort():
+        return
+
     mail = buscar_mail_stonex()
 
     if not mail:
@@ -1092,58 +1202,42 @@ def main():
     # GIT PUSH
     # ==========================================
 
-    import subprocess
-
     print("\nSubiendo cambios a GitHub...")
     print(f"Repo: {REPO_GIT}")
 
-    # Agregar archivos que queremos subir
+    # Limpiar archivos temporales antes del commit
+    rc_restore = git_restore_temp_files()
+    if rc_restore != 0:
+        print("Error restaurando archivos temporales")
+        return
+
+    # Agregar únicamente los archivos que queremos subir
     rc_add = git([
         "add",
-        str(CSV_WEB),
-        str(CSV_OUTPUT),
-        str(CSV_DIFUSION)
-    ])
+        "--",
+    ] + [git_path(p) for p in GIT_FILES])
 
     if rc_add != 0:
         print("Error en git add")
         return
 
     # Verificar si hay algo para commitear
-    status = subprocess.run(
-        ["git", "diff", "--cached", "--name-only"],
-        cwd=str(REPO_GIT),
-        capture_output=True,
-        text=True,
-    )
-
-    if not status.stdout.strip():
+    if not git_has_staged_csv_changes():
         print("Sin cambios para commitear.")
         return
 
     # Commit
-    rc_commit = git(["commit", "-m", "update deals automatico"])
+    rc_commit = git([
+        "commit",
+        "-m",
+        "update deals automatico",
+        "--",
+    ] + [git_path(p) for p in GIT_FILES])
     if rc_commit != 0:
         print("Error en git commit")
         return
-    
-    # Limpiar archivos temporales para que no bloqueen el pull
-    git(["restore", str(SCREENSHOT)])
-    git(["restore", str(TXT_OUTPUT)])
 
-    # Pull para incorporar commits remotos (e.g. scraper-curvas) antes de pushear
-    rc_pull = git(["pull", "--rebase", "origin", "main"])
-    if rc_pull != 0:
-        print("Error en git pull --rebase; abortando push")
-        git(["rebase", "--abort"])
-        return
-
-    # Push
-    rc_push = git(["push", "origin", "main"])
-    if rc_push != 0:
-        print("Error en git push")
-    else:
-        print("Push exitoso.")
+    git_push_with_retry()
 
 if __name__ == "__main__":
     main()
