@@ -1,6 +1,7 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
 3-jul-26,EDESA – 3,ARS,TAMAR,"6,00%",12,"19824,10",A1 (Fix SCR)
 3-jul-26,EDESA – 4,USD Mep,Fija,"8,50%",24,"11,00",A+ (Fix SCR)
+3-jul-26,Edenor – 11,USD Cable,Fija,"7,50%",36,"213,50",A+ (Fix SCR) / AA- (S&P)
 30-jun-26,BONAR 2028 (AO28),USD Mep,Fija,"6,00%",28,"266,00",SC
 30-jun-26,BONAR 2028 (AO28),USD Mep,Fija,"6,00%",28,"100,00",SC
 30-jun-26,Banco Mariva – III,USD Mep,Fija,"6,00%",12,"46,50",A-1 (Moody´s)
