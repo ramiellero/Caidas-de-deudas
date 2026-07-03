@@ -1033,6 +1033,7 @@
 
     /* ── Deals Section ── */
     .nav-tab.active[data-co="deals"] { color: #0F4C75; border-bottom-color: #0F4C75; }
+    .nav-tab.active[data-co="padron"] { color: #334155; border-bottom-color: #334155; }
 
     .deals-filters {
       display: flex;
@@ -1474,8 +1475,9 @@
     <div class="nav-parent active open" id="nav-dp-parent" onclick="toggleDebtProfile()">
       Debt Profile <span class="nav-chevron">▾</span>
     </div>
-    <div class="nav-tab" data-co="deals" onclick="switchTab('deals')">Deals</div>
-    <div class="nav-tab" data-co="sgr"   onclick="switchTab('sgr')">SGR</div>
+    <div class="nav-tab" data-co="deals"  onclick="switchTab('deals')">Deals</div>
+    <div class="nav-tab" data-co="sgr"    onclick="switchTab('sgr')">SGR</div>
+    <div class="nav-tab" data-co="padron" onclick="switchTab('padron')">Padrón</div>
     <button class="nav-logout" onclick="_logout()" title="Cerrar sesión">Salir</button>
   </div>
   <div class="nav-sub open" id="nav-sub-dp">
@@ -2227,6 +2229,79 @@
 
   </div><!-- /content -->
 </div><!-- /page-deals -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     PADRÓN Section
+══════════════════════════════════════════════════════ -->
+<div id="page-padron" class="page">
+
+  <!-- Slide header -->
+  <div class="slide-header" style="background: linear-gradient(135deg, #334155 0%, #1E293B 100%);">
+    <div class="logo-box">IRSA</div>
+    <span class="header-title">Padrón de Tenedores</span>
+    <div class="header-date">Al <span class="header-today"></span></div>
+  </div>
+
+  <div class="content">
+
+    <!-- Selector de emisor -->
+    <div class="sgr-selector">
+      <button class="sgr-pill active" data-padron-co="irsa"   onclick="selectPadronIssuer('irsa')">IRSA</button>
+      <button class="sgr-pill"        data-padron-co="cresud" onclick="selectPadronIssuer('cresud')">Cresud</button>
+    </div>
+
+    <!-- Controles de consulta -->
+    <div class="deals-filters" id="padron-filters-bar">
+
+      <div class="deals-filter-group">
+        <span class="deals-filter-label">Fecha</span>
+        <input type="date" class="deals-filter-input" id="padron-f-fecha">
+      </div>
+
+      <div class="deals-filter-group">
+        <span class="deals-filter-label">Issuer Code</span>
+        <input type="text" class="deals-filter-input" id="padron-f-issuer" placeholder="Pendiente de asignar" style="width:140px">
+      </div>
+
+      <div class="deals-filter-group">
+        <span class="deals-filter-label">Buscar tenedor</span>
+        <input type="text" class="deals-filter-input wide" id="padron-f-buscar" placeholder="Nombre o CUIT…" oninput="_padronFilter(this.value)">
+      </div>
+
+      <button class="deals-clear-btn" id="padron-consultar-btn" onclick="consultarPadron()" style="background:#334155;color:#fff;border-color:#334155;">Consultar</button>
+
+    </div><!-- /padron-filters -->
+
+    <!-- Estado (loading / error) -->
+    <div id="padron-status" style="display:none; padding: 30px 0; text-align:center; color:#64748B; font-size:13px;"></div>
+
+    <!-- Summary row -->
+    <div class="deals-summary-row" id="padron-summary-row"></div>
+
+    <!-- Tabla de resultados -->
+    <div class="deals-table-wrap" id="padron-table-wrap" style="display:none;">
+      <table class="deals-table" id="padron-table">
+        <thead>
+          <tr>
+            <th onclick="_padronSortBy('investorName')">Tenedor</th>
+            <th onclick="_padronSortBy('investorType')">Tipo</th>
+            <th onclick="_padronSortBy('investorTaxpayerIdentifier')">Documento</th>
+            <th onclick="_padronSortBy('instrumentDescription')">Instrumento</th>
+            <th onclick="_padronSortBy('holding')">Holding</th>
+            <th onclick="_padronSortBy('address')">Dirección</th>
+            <th onclick="_padronSortBy('countrySubdivision')">Provincia</th>
+            <th onclick="_padronSortBy('country')">País</th>
+          </tr>
+        </thead>
+        <tbody id="padron-tbody">
+          <tr><td colspan="8" class="deals-empty">Elegí emisor, fecha y códigos, y presioná Consultar.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /page-padron -->
 
 
 <!-- ══════════════════════════════════════════════════════
@@ -3221,6 +3296,7 @@ initCresudTimeline();
 initSgrSection();
 initDealsSection();
 initCurvasSection();
+initPadronSection();
 
 
 /* ════════════════════════════════════════════════════════
@@ -5928,6 +6004,165 @@ function _dealsRenderTable() {
 
 function _escHtml(s) {
   return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ══════════════════════════════════════════════════════
+   PADRÓN — tenedores vía API BYMA (/api/padron)
+══════════════════════════════════════════════════════ */
+const PADRON_ISSUERS = { irsa: '', cresud: '' }; // TODO: completar issuerCode reales de BYMA
+let _padronActiveCo = 'irsa';
+let _padronRows = [];
+let _padronSortCol = null;
+let _padronSortAsc = true;
+let _padronFilterText = '';
+
+function selectPadronIssuer(co) {
+  _padronActiveCo = co;
+  document.querySelectorAll('#page-padron .sgr-pill').forEach(p => p.classList.remove('active'));
+  document.querySelector(`#page-padron .sgr-pill[data-padron-co="${co}"]`).classList.add('active');
+  document.getElementById('padron-f-issuer').value = PADRON_ISSUERS[co] || '';
+}
+
+function _padronSetStatus(html) {
+  const el = document.getElementById('padron-status');
+  if (!html) { el.style.display = 'none'; el.innerHTML = ''; return; }
+  el.style.display = 'block';
+  el.innerHTML = html;
+}
+
+async function consultarPadron() {
+  const fecha = document.getElementById('padron-f-fecha').value;
+  const issuerCode = document.getElementById('padron-f-issuer').value.trim();
+
+  if (!fecha || !issuerCode) {
+    _padronSetStatus('Completá Fecha e Issuer Code antes de consultar.');
+    document.getElementById('padron-table-wrap').style.display = 'none';
+    document.getElementById('padron-summary-row').innerHTML = '';
+    return;
+  }
+
+  document.getElementById('padron-consultar-btn').disabled = true;
+  document.getElementById('padron-table-wrap').style.display = 'none';
+  document.getElementById('padron-summary-row').innerHTML = '';
+  _padronSetStatus('Consultando…');
+
+  try {
+    await _padronFetch(fecha, issuerCode, null, 0);
+  } finally {
+    document.getElementById('padron-consultar-btn').disabled = false;
+  }
+}
+
+async function _padronFetch(fecha, issuerCode, uuid, attempt) {
+  const MAX_ATTEMPTS = 15;
+  if (attempt >= MAX_ATTEMPTS) {
+    _padronSetStatus('El reporte está tardando más de lo esperado. Probá de nuevo en unos minutos.');
+    return;
+  }
+
+  let url = `/api/padron?issuerCode=${encodeURIComponent(issuerCode)}&balanceDate=${encodeURIComponent(fecha)}`;
+  if (uuid) url += `&uuid=${encodeURIComponent(uuid)}`;
+
+  let data;
+  try {
+    const resp = await fetch(url);
+    data = await resp.json();
+  } catch (e) {
+    _padronSetStatus('Error de red consultando el padrón: ' + e.message);
+    return;
+  }
+
+  if (data.status === 'pending') {
+    _padronSetStatus('Procesando… (' + (attempt + 1) + ')');
+    await new Promise(r => setTimeout(r, 2000));
+    return _padronFetch(fecha, issuerCode, data.uuid, attempt + 1);
+  }
+
+  if (data.status === 'error') {
+    _padronSetStatus('Error: ' + _escHtml(data.message || 'desconocido'));
+    return;
+  }
+
+  _padronRows = data.rows || [];
+  _padronSortCol = null;
+  _padronFilterText = '';
+  document.getElementById('padron-f-buscar').value = '';
+  _padronSetStatus(_padronRows.length === 0 ? 'Sin resultados para los parámetros ingresados.' : '');
+  _padronRenderSummary();
+  _padronRenderTable();
+}
+
+function _padronRenderSummary() {
+  const row = document.getElementById('padron-summary-row');
+  if (_padronRows.length === 0) { row.innerHTML = ''; return; }
+
+  const totalHolding = _padronRows.reduce((s, r) => s + (parseFloat(r.holding) || 0), 0);
+  const instrumentos = new Set(_padronRows.map(r => r.instrumentDescription)).size;
+
+  row.innerHTML =
+    `<div class="deals-summary-card total"><span class="deals-summary-label">Tenedores</span><span class="deals-summary-value">${_padronRows.length.toLocaleString('es-AR')}</span></div>` +
+    `<div class="deals-summary-card"><span class="deals-summary-label">Holding total</span><span class="deals-summary-value">${totalHolding.toLocaleString('es-AR')}</span></div>` +
+    `<div class="deals-summary-card"><span class="deals-summary-label">Instrumentos</span><span class="deals-summary-value">${instrumentos}</span></div>`;
+}
+
+function _padronFilter(text) {
+  _padronFilterText = (text || '').toLowerCase();
+  _padronRenderTable();
+}
+
+function _padronSortBy(col) {
+  if (_padronSortCol === col) { _padronSortAsc = !_padronSortAsc; }
+  else { _padronSortCol = col; _padronSortAsc = true; }
+  _padronRenderTable();
+}
+
+function _padronRenderTable() {
+  const wrap = document.getElementById('padron-table-wrap');
+  const tbody = document.getElementById('padron-tbody');
+
+  let rows = _padronRows;
+  if (_padronFilterText) {
+    rows = rows.filter(r =>
+      (r.investorName || '').toLowerCase().includes(_padronFilterText) ||
+      (r.investorTaxpayerIdentifier || '').toLowerCase().includes(_padronFilterText)
+    );
+  }
+
+  if (_padronSortCol) {
+    const col = _padronSortCol;
+    rows = rows.slice().sort((a, b) => {
+      let va = a[col], vb = b[col];
+      if (col === 'holding') { va = parseFloat(va) || 0; vb = parseFloat(vb) || 0; }
+      else { va = (va || '').toString(); vb = (vb || '').toString(); }
+      if (va < vb) return _padronSortAsc ? -1 : 1;
+      if (va > vb) return _padronSortAsc ? 1 : -1;
+      return 0;
+    });
+  }
+
+  if (rows.length === 0) {
+    wrap.style.display = _padronRows.length === 0 ? 'none' : 'block';
+    tbody.innerHTML = `<tr><td colspan="8" class="deals-empty">Sin resultados.</td></tr>`;
+    return;
+  }
+
+  wrap.style.display = 'block';
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td class="deals-emisor">${_escHtml(r.investorName)}</td>
+      <td>${_escHtml(r.investorType)}</td>
+      <td>${_escHtml(r.investorRegisterIdType)} ${_escHtml(r.investorTaxpayerIdentifier)}</td>
+      <td>${_escHtml(r.instrumentDescription)}</td>
+      <td class="deals-vn">${(parseFloat(r.holding) || 0).toLocaleString('es-AR')}</td>
+      <td>${_escHtml(r.address)}</td>
+      <td>${_escHtml(r.countrySubdivision)}</td>
+      <td>${_escHtml(r.country)}</td>
+    </tr>`).join('');
+}
+
+function initPadronSection() {
+  document.getElementById('padron-f-fecha').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('padron-f-issuer').value = PADRON_ISSUERS[_padronActiveCo] || '';
 }
 
 // Fecha dinámica en el header

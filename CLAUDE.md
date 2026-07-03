@@ -13,6 +13,9 @@ CLAUDE.md                               # Este archivo
 emisiones_obligaciones_negociables.csv  # Registro semanal de emisiones de ONs del mercado argentino — permanece en la raíz porque el script del compañero (StoneX/actualizar_deals.py) escribe acá directo
 vercel.json                             # Config de deploy Vercel
 
+api/
+  padron.js                             # Vercel Serverless Function — proxy a la API de Custodia BYMA (holdings/tenedores). Ver sección "Padrón" abajo
+
 IRSA/
   irsa_deuda.csv                        # Vencimientos de capital de IRSA (fuente principal de KPIs IRSA)
   irsa_deuda_total.csv                  # Schedule completo IRSA: capital + intereses por período
@@ -607,6 +610,27 @@ No es necesario tocar el JS — el frontend toma el período más alto automáti
 
 **`cartera_monedas.csv`** — `Fecha,Moneda,Potenciar,Garantizar,Integra,BIND,ACINDAR`. Composición por moneda (USD/ARS) por SGR, usada en el chart "Composición por Moneda" de la vista Mercado. Una fila por moneda por fecha; valores son fracciones decimales por SGR (e.g. `0.29` = 29%). Columna `ACINDAR` agregada en mayo-26 cuando se incorporó ese vehículo (vale `0` en períodos anteriores a su alta).
 
+### Padrón (color: `#334155` slate)
+Sección accesible desde la pestaña **Padrón** en la nav. Muestra el listado de tenedores de IRSA/Cresud consultando en vivo la **API de Custodia BYMA** (`GET /holdings`) — a diferencia del resto del dashboard, esta tab no lee CSVs locales sino que pega a una API externa autenticada.
+
+**Por qué hay un backend**: la API de BYMA requiere un Bearer token OAuth2 (Okta, client-credentials) y es asincrónica (primera respuesta `409` + `uuid`, hay que reconsultar con header `X-UUID`). Llamarla directo desde el JS del browser expondría el token y probablemente choque con CORS. Por eso `index.html` no habla con BYMA directamente — habla con `api/padron.js` (Vercel Serverless Function, mismo origen), que hace de proxy: obtiene el token server-side, resuelve el polling, parsea el CSV de respuesta (`;`-delimited) y devuelve JSON.
+
+**`api/padron.js`** — contrato: `GET /api/padron?issuerCode=XXXX&balanceDate=YYYY-MM-DD&uuid=(opcional)`
+- Responde `{status:'pending', uuid}` si BYMA todavía no generó el reporte (no hace polling bloqueante dentro de la función, para no chocar con el timeout de Vercel); el frontend reintenta pasando el `uuid` recibido.
+- Responde `{status:'ready', columns, rows}` con el CSV ya parseado a JSON cuando está listo.
+- Responde `{status:'error', message}` ante cualquier falla (token, red, parámetros faltantes, etc.).
+- El token se cachea en memoria a nivel de módulo mientras la instancia serverless esté "warm" (chequea el `exp` del JWT antes de reusar).
+- **Env vars requeridas en el dashboard de Vercel** (no se commitean al repo): `BYMA_OKTA_TOKEN_URL`, `BYMA_CLIENT_ID`, `BYMA_CLIENT_SECRET`, `BYMA_SCOPE`, `BYMA_API_BASE`.
+
+**Frontend** (`index.html`):
+- Selector de emisor (pills IRSA/Cresud, mismo patrón visual que `.sgr-pill`), input de Fecha, input de Issuer Code (editable — ver nota de pendientes abajo) y botón "Consultar". La consulta es **on-demand** (no se dispara sola al cargar la página como el resto de las tabs), porque pega a una API externa con latencia.
+- `PADRON_ISSUERS` — objeto `{irsa: '', cresud: ''}` en el JS; **pendiente completar** con los `issuerCode` reales de BYMA para IRSA y Cresud (no se conocían al momento de implementar esta tab). Mientras tanto el input de Issuer Code queda editable a mano.
+- `consultarPadron()` → `_padronFetch(fecha, issuerCode, uuid, attempt)` — hace polling recursivo cada ~2s contra `/api/padron`, hasta 15 intentos (~30s), mostrando el estado en `#padron-status`.
+- `_padronRenderTable()` / `_padronRenderSummary()` / `_padronSortBy(col)` / `_padronFilter(text)` — reusan las clases CSS `.deals-table` / `.deals-summary-card` (mismo look que la tabla de Deals); el filtro de texto y el sort son client-side sobre los datos ya traídos, sin re-llamar la API.
+- Columnas mostradas: Tenedor, Tipo, Documento, Instrumento, Holding, Dirección, Provincia, País (subconjunto del diccionario de datos completo de BYMA — ver dictionary en la doc de la API si se necesitan más columnas).
+
+**Pendiente para que la tab funcione en producción**: cargar las 5 env vars de BYMA en Vercel y completar `PADRON_ISSUERS` con los `issuerCode` reales de IRSA y Cresud.
+
 ## Qué es dinámico vs hardcodeado
 
 | Componente | Fuente |
@@ -631,6 +655,7 @@ No es necesario tocar el JS — el frontend toma el período más alto automáti
 | SGR — KPI foto (Aporte, Posición, Weight, P&L, Mora) | `foto_sgr.csv` — dinámico; histórico multi-período; siempre muestra el mes más reciente por SGR |
 | Deals — tabla de emisiones (filas, filtros, subtotales) | `emisiones_obligaciones_negociables.csv` — dinámico |
 | Deals — Curvas ONs: scatter Ley Arg + scatter Ley NY + tabla | `curvas_on.csv` — dinámico; generado por `scraper_curvas.py` (fuente IAMC) |
+| Padrón — tabla de tenedores | API de Custodia BYMA vía `api/padron.js` — dinámico, consulta on-demand (no carga sola al iniciar la página) |
 
 ## Diseño responsive (mobile + desktop)
 
@@ -678,3 +703,4 @@ El repo tiene dos scrapers con operadores distintos:
 - Año fiscal de IRSA/Cresud: julio–junio (FY termina en junio)
 - El archivo original se llamaba `dashboard (1).html` y fue renombrado a `index.html`
 - Encoding de los CSV: UTF-8 (los archivos originales tenían corrupción de encoding que fue corregida al guardarlos)
+- **Tab Padrón / API BYMA**: requiere que las env vars `BYMA_OKTA_TOKEN_URL`, `BYMA_CLIENT_ID`, `BYMA_CLIENT_SECRET`, `BYMA_SCOPE`, `BYMA_API_BASE` estén configuradas en el proyecto de Vercel (Settings → Environment Variables) — nunca commitear estos valores al repo. Los `issuerCode` de IRSA y Cresud todavía no están cargados en `PADRON_ISSUERS` (`index.html`); completar ahí cuando se consigan.
