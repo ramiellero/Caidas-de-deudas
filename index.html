@@ -3296,7 +3296,6 @@ initCresudTimeline();
 initSgrSection();
 initDealsSection();
 initCurvasSection();
-initPadronSection();
 
 
 /* ════════════════════════════════════════════════════════
@@ -6164,6 +6163,8 @@ function initPadronSection() {
   document.getElementById('padron-f-fecha').value = new Date().toISOString().slice(0, 10);
   document.getElementById('padron-f-issuer').value = PADRON_ISSUERS[_padronActiveCo] || '';
 }
+
+initPadronSection();
 
 // Fecha dinámica en el header
 (function() {
