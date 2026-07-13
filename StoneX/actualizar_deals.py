@@ -94,10 +94,8 @@ GIT_FILES = [
     CSV_WEB,
     CSV_OUTPUT,
     CSV_DIFUSION,
-]
-GIT_TEMP_FILES = [
-    SCREENSHOT,
     TXT_OUTPUT,
+    SCREENSHOT,
 ]
 
 def git(args, **kwargs):
@@ -162,16 +160,7 @@ def git_sync_or_abort():
     return True
 
 
-def git_restore_temp_files():
-    rc = 0
-    for path in GIT_TEMP_FILES:
-        restore_rc = git(["restore", git_path(path)])
-        if restore_rc != 0:
-            rc = restore_rc
-    return rc
-
-
-def git_has_staged_csv_changes():
+def git_has_staged_file_changes():
     status = subprocess.run(
         ["git", "diff", "--cached", "--name-only", "--"] + [git_path(p) for p in GIT_FILES],
         cwd=str(REPO_GIT),
@@ -578,6 +567,173 @@ def fila_excluida(row_text):
     return False
 
 
+def _find_first_marker(texto, markers):
+    texto_lower = texto.lower()
+    positions = [
+        texto_lower.index(marker.lower())
+        for marker in markers
+        if marker.lower() in texto_lower
+    ]
+    return min(positions) if positions else None
+
+
+def extraer_bloque_difusion(texto):
+    # "Difusion" in the dashboard means pending operations: today's auctions
+    # plus the forward-looking "Operaciones en Difusion" section.
+    pos = _find_first_marker(texto, [
+        "Licita hoy",
+        "Operaciones en difusión",
+        "Operaciones en Difusión",
+        "Operaciones en difusiÃ³n",
+        "Operaciones en DifusiÃ³n",
+    ])
+
+    if pos is not None:
+        return texto[pos:]
+
+    pos = _find_first_marker(texto, [
+        "OPERACIONES DE TERCEROS",
+        "Operaciones de terceros",
+    ])
+
+    if pos is not None:
+        return texto[pos:]
+
+    return ""
+
+
+def normalizar_bloque_difusion(bloque):
+    lines = bloque.splitlines()
+    out = []
+    pending_prefix = []
+    pending_rating = ""
+    tipo_pat = r"(?:Tasa|Margen|TIR|TEM|Precio|Book building|Por Adhesión)"
+    rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
+    rating_line_pat = rf"^{rating_grade}\s+\([^)]+\)(?:\s*/\s*{rating_grade}(?:\s+\([^)]+\))?)*$"
+
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+
+        starts_instrument = re.match(r"^(ON |Títulos de Deuda)", stripped)
+        starts_date = re.match(DIA, stripped)
+        is_rating_line = re.match(rating_line_pat, stripped)
+
+        if is_rating_line and not pending_prefix:
+            pending_rating = stripped
+            continue
+
+        if starts_instrument and not starts_date:
+            if pending_prefix:
+                out.extend(pending_prefix)
+            pending_prefix = [stripped]
+            continue
+
+        if pending_prefix and not starts_date:
+            pending_prefix.append(stripped)
+            continue
+
+        if pending_prefix and starts_date:
+            prefix = limpiar_texto_celda(" ".join(pending_prefix))
+            line = re.sub(
+                rf"^({DIA})\s+",
+                lambda m: f"{m.group(1)} {prefix} ",
+                stripped,
+                count=1
+            )
+            out.append(line)
+            pending_prefix = []
+            continue
+
+        if pending_rating and starts_date:
+            line = re.sub(
+                rf"\s+({tipo_pat})\s+({DIA}|A informar)\s*$",
+                lambda m: f" {pending_rating} {m.group(1)} {m.group(2)}",
+                stripped,
+                count=1
+            )
+            pending_rating = ""
+            out.append(line)
+            continue
+
+        if pending_rating:
+            out.append(pending_rating)
+            pending_rating = ""
+
+        out.append(line)
+
+    if pending_prefix:
+        out.extend(pending_prefix)
+    if pending_rating:
+        out.append(pending_rating)
+
+    return "\n".join(out)
+
+
+def _difusion_rating(reg_limpio):
+    rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
+    rating_pat = rf"{rating_grade}\s+\([^)]+\)"
+    m_rating = re.search(
+        rf"\b({rating_pat}(?:\s*/\s*(?:{rating_pat}|{rating_grade}))*|SC|A informar)",
+        reg_limpio
+    )
+    return m_rating.group(1) if m_rating else ""
+
+
+def _difusion_emisor(reg):
+    s = limpiar_texto_celda(reg)
+
+    s = re.sub(DIA, " ", s, flags=re.I)
+
+    rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
+    rating_pat = rf"{rating_grade}\s+\([^)]+\)"
+    s = re.sub(
+        rf"\b{rating_pat}(?:\s*/\s*(?:{rating_pat}|{rating_grade}))*",
+        " ",
+        s
+    )
+    s = re.sub(
+        r"\s*/\s*(?:AAA|AA[+-]?|A1\+?|A-1|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)\b",
+        " ",
+        s
+    )
+
+    s = re.sub(r"Monto Máximo Disponible", " ", s, flags=re.I)
+    s = re.sub(r"del Programa\)", " ", s, flags=re.I)
+
+    emisor = re.split(
+        r"\s+-?\s*(?:USD|\$)\s*[\d\.]",
+        s,
+        maxsplit=1
+    )[0]
+    emisor = re.split(
+        r"\s+(?:USD\s+Mep|USD\s+Cable|USD\s+Linked|ARS|UVA)\b",
+        emisor,
+        maxsplit=1
+    )[0]
+
+    emisor = re.sub(r"\s+(VDFA|VDFB|VDFC|CP)\b.*$", "", emisor)
+    emisor = re.sub(r"^ON\s+", "", emisor, flags=re.I)
+    emisor = re.sub(r"^Títulos de Deuda del\s+", "", emisor, flags=re.I)
+    emisor = re.sub(r"\(Integra.*", "", emisor, flags=re.I)
+    emisor = re.sub(r"\(Pyme\)", "", emisor, flags=re.I)
+    emisor = re.sub(r"\[Ley NY\]", "", emisor)
+    emisor = re.sub(r"\[Bono SVS\]", "", emisor)
+    emisor = re.sub(r"Garantizadas?\s+", "", emisor, flags=re.I)
+    emisor = re.sub(r"\s+-\s*(?:[IVXLCDM]+|\d+)\s*$", "", emisor)
+    emisor = re.sub(r"\s+(?:VDFA|VDFB|VDFC|CP|[IVXLCDM]+)\s*$", "", emisor)
+    emisor = re.sub(r"\s+", " ", emisor).strip(" -")
+
+    if emisor == "Banco de Servicios y":
+        emisor = "Banco de Servicios y Transacciones"
+
+    if emisor == "Pyme CNV 3D":
+        emisor = "Pyme CNV 3D LATINOAMERICA S.A."
+
+    return limpiar_texto_celda(emisor)
+
+
 # =========================================================
 # PARSER GENERAL
 # =========================================================
@@ -854,19 +1010,9 @@ def actualizar_difusion(texto):
     print("ACTUALIZANDO DIFUSION")
     print("======================")
 
-    texto_lower = texto.lower()
+    bloque = extraer_bloque_difusion(texto)
 
-    if "operaciones en difusión" in texto_lower:
-        bloque = texto[
-            texto_lower.index("operaciones en difusión"):
-        ]
-
-    elif "operaciones de terceros" in texto_lower:
-        bloque = texto[
-            texto_lower.index("operaciones de terceros"):
-        ]
-
-    else:
+    if not bloque:
         print("No encontré sección difusión")
 
         if CSV_DIFUSION.exists():
@@ -903,12 +1049,14 @@ def actualizar_difusion(texto):
             )
 
         return
+
+    bloque = normalizar_bloque_difusion(bloque)
     
 
     patron = re.compile(
         rf"(?P<fecha_lic>{DIA})\s+"
         rf"(?P<reg>(?:ON |Títulos de Deuda).*?)\s+"
-        rf"(?P<tipo>Tasa|Margen|Book building)\s+"
+        rf"(?P<tipo>Tasa|Margen|TIR|TEM|Precio|Book building|Por Adhesión)\s+"
         rf"(?P<fecha_liq>{DIA}|A informar)",
         re.DOTALL
     )
@@ -938,6 +1086,9 @@ def actualizar_difusion(texto):
         elif "USD Linked" in reg:
             moneda = "USD Linked"
 
+        elif "UVA" in reg:
+            moneda = "UVA"
+
         elif "ARS" in reg or "-ARS" in reg:
             moneda = "ARS"
 
@@ -948,69 +1099,7 @@ def actualizar_difusion(texto):
         # EMISOR
         # -------------------------
 
-        lineas = [
-            x.strip()
-            for x in reg.splitlines()
-            if x.strip()
-        ]
-
-        partes = []
-
-        for l in lineas:
-
-            if l in [
-                "USD Mep",
-                "USD Cable",
-                "USD Linked",
-                "ARS",
-                "-ARS"
-            ]:
-                break
-
-            if re.fullmatch(r"[IVXLCDM]+", l):
-                continue
-
-            if re.fullmatch(r"\d+", l):
-                continue
-
-            if re.fullmatch(r"\d{2}/\d{2}/\d{4}", l):
-                break
-
-            m_usd = re.split(
-                r"(?:-USD|\$)",
-                l,
-                maxsplit=1
-            )
-
-            if len(m_usd) > 1:
-
-                texto_limpio = m_usd[0].strip()
-
-                if texto_limpio:
-                    partes.append(texto_limpio)
-
-                break
-
-            if re.search(r"^(USD|\$)\s*[\d\.]+", l):
-                break
-
-            if l in ["TAMAR+Mg", "A licitar"]:
-                break
-
-            partes.append(l)
-
-        emisor = " ".join(partes)
-
-        emisor = re.sub(r"^ON\s+", "", emisor, flags=re.I)
-        emisor = re.sub(r"^Títulos de Deuda del\s+", "", emisor, flags=re.I)
-        emisor = re.sub(r"\(Integra.*", "", emisor, flags=re.I)
-        emisor = re.sub(r"\(Pyme\)", "", emisor, flags=re.I)
-        emisor = re.sub(r"\[Ley NY\]", "", emisor)
-        emisor = re.sub(r"\[Bono SVS\]", "", emisor)
-        emisor = re.sub(r"Garantizadas?\s+", "", emisor, flags=re.I)
-        emisor = re.sub(r"-(?:[IVXLCDM]+)$", "", emisor)
-
-        emisor = limpiar_texto_celda(emisor)
+        emisor = _difusion_emisor(reg)
 
 
         # -------------------------
@@ -1020,7 +1109,7 @@ def actualizar_difusion(texto):
         plazo = ""
 
         m_plazo = re.search(
-            r"\s(\d{3,4})\s+\d{2}/\d{2}/\d{4}",
+            r"\s(\d{2,4})\s+\d{1,2}/\d{1,2}/\d{4}",
             reg_limpio
         )
 
@@ -1036,25 +1125,19 @@ def actualizar_difusion(texto):
         # TASA
         # -------------------------
 
-        tasa = (
-            "TAMAR+Mg"
-            if moneda == "ARS"
-            else "Fija"
-        )
+        tipo_licitacion = m.group("tipo")
+        if tipo_licitacion == "TEM":
+            tasa = "TEM"
+        elif moneda == "ARS":
+            tasa = "TAMAR+Mg"
+        else:
+            tasa = "Fija"
 
         # -------------------------
         # RATING
         # -------------------------
 
-        rating = ""
-
-        m_rating = re.search(
-            r"(AAA.*?\)|AA.*?\)|A1\+.*?\)|A-1.*?\)|A1.*?\)|SC|A informar)",
-            reg_limpio
-        )
-
-        if m_rating:
-            rating = m_rating.group(1)
+        rating = _difusion_rating(reg_limpio)
 
         filas.append({
             "FECHA LICITACIÓN": fecha_lic,
@@ -1072,6 +1155,10 @@ def actualizar_difusion(texto):
         columns=COLUMNAS_DIFUSION
     )
 
+    print(f"\nFilas difusión detectadas en reporte: {len(df_nuevo)}")
+    if len(df_nuevo):
+        print(df_nuevo)
+
     if CSV_DIFUSION.exists():
         df_existente = pd.read_csv(
             CSV_DIFUSION,
@@ -1084,6 +1171,14 @@ def actualizar_difusion(texto):
 
     df_existente = df_existente.fillna("")
     df_nuevo = df_nuevo.fillna("")
+
+    if len(df_nuevo):
+        fechas_nuevas = set(
+            df_nuevo["FECHA LICITACIÓN"].astype(str)
+        )
+        df_existente = df_existente[
+            ~df_existente["FECHA LICITACIÓN"].astype(str).isin(fechas_nuevas)
+        ]
 
     df_existente["KEY"] = (
         df_existente["FECHA LICITACIÓN"].astype(str)
@@ -1115,6 +1210,10 @@ def actualizar_difusion(texto):
         df_existente.drop(columns=["KEY"], errors="ignore"),
         df_agregar.drop(columns=["KEY"], errors="ignore")
     ])
+
+    final = final[
+        ~final["EMISOR"].fillna("").astype(str).str.match(r"^\s*FF\b", case=False)
+    ]
 
     final["KEY"] = (
     final["FECHA LICITACIÓN"].fillna("").astype(str)
@@ -1205,12 +1304,6 @@ def main():
     print("\nSubiendo cambios a GitHub...")
     print(f"Repo: {REPO_GIT}")
 
-    # Limpiar archivos temporales antes del commit
-    rc_restore = git_restore_temp_files()
-    if rc_restore != 0:
-        print("Error restaurando archivos temporales")
-        return
-
     # Agregar únicamente los archivos que queremos subir
     rc_add = git([
         "add",
@@ -1222,7 +1315,7 @@ def main():
         return
 
     # Verificar si hay algo para commitear
-    if not git_has_staged_csv_changes():
+    if not git_has_staged_file_changes():
         print("Sin cambios para commitear.")
         return
 
