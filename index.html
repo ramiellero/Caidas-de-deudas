@@ -2087,6 +2087,7 @@
     <div class="deals-view-tabs">
       <button class="deals-view-tab active" id="deals-tab-tabla"   onclick="setDealsView('tabla',   this)">Tabla</button>
       <button class="deals-view-tab"        id="deals-tab-volumen" onclick="setDealsView('volumen', this)">Volumen de emisiones</button>
+      <button class="deals-view-tab"        id="deals-tab-bajo"    onclick="setDealsView('bajo',    this)">ON bajo impacto</button>
       <button class="deals-view-tab"        id="deals-tab-difusion" onclick="setDealsView('difusion', this)">Difusión</button>
       <button class="deals-view-tab"        id="deals-tab-curvas"  onclick="setDealsView('curvas',  this)">Curvas ONs</button>
     </div>
@@ -2120,6 +2121,29 @@
         <!-- populated by JS: one card per currency -->
       </div>
     </div><!-- /deals-view-volumen -->
+
+    <!-- View: ON bajo impacto -->
+    <div id="deals-view-bajo" style="display:none;">
+      <div class="deals-table-wrap">
+        <table class="deals-table" id="deals-bajo-table">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Emisor</th>
+              <th>Moneda</th>
+              <th>Tasa</th>
+              <th>Tasa / Margen</th>
+              <th>Plazo<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(meses)</span></th>
+              <th>VN</th>
+              <th>Calificaci&oacute;n</th>
+            </tr>
+          </thead>
+          <tbody id="deals-bajo-tbody">
+            <tr><td colspan="8" class="deals-empty">Cargando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /deals-view-bajo -->
 
     <!-- View: Difusión -->
     <div id="deals-view-difusion" style="display:none;">
@@ -5082,6 +5106,8 @@ document.addEventListener('click', function(e) {
 let _dealsAllRows   = [];   // all parsed rows
 let _dealsFiltered  = [];   // after filters
 let _difusionAllRows = [];
+let _dealsLowRows = [];
+let _dealsLowFiltered = [];
 let _dealsSortCol   = 'FECHA';
 let _dealsSortAsc   = false; // most recent first by default
 let _dealsVolChartInsts = {}; // currency key -> Chart.js instance
@@ -5158,6 +5184,47 @@ function _dealsSetDefaultDates() {
   document.getElementById('deals-f-hasta').value = hasta;
 }
 
+function _dealsParseRowsFromCsv(text) {
+  if (!text) return [];
+
+  const lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+  if (!lines.length || !lines[0].trim()) return [];
+
+  if (lines[0].charCodeAt(0) === 0xFEFF) lines[0] = lines[0].slice(1);
+
+  const rawHeaders = _parseCsvLine(lines[0]).map(h => h.trim());
+  const rows = [];
+  const _col = (row, ...candidates) => {
+    for (const c of candidates) {
+      if (row[c] !== undefined) return row[c];
+    }
+    return '';
+  };
+
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+    const vals = _parseCsvLine(line);
+    const row = {};
+    rawHeaders.forEach((h, idx) => row[h] = (vals[idx] || '').trim());
+
+    row._fecha  = _dealsParseDate(row['FECHA']);
+    row._emisor = row['EMISOR'] || '';
+    row._moneda = _dealsNormMoneda(row['MONEDA']);
+    if (row._moneda.toLowerCase() === 'resultado pendiente') continue;
+    row._tasa   = row['TASA'] || '';
+    row._margen = _col(row, 'TASA/MARGEN', 'TASA_MARGEN') || '';
+    row._plazo  = parseInt(_col(row, 'PLAZO (en meses)', 'PLAZO_MESES', 'PLAZO'), 10) || 0;
+    row._vnRaw  = _dealsParseVN(_col(row, 'VN'));
+    row._calif  = _col(row, 'CALIFICACI\u00d3N', 'CALIFICACIÃ“N', 'CALIFICACION') || '';
+    row._margenNum = _dealsParseTasaNum(row._margen);
+
+    rows.push(row);
+  }
+
+  return rows;
+}
+
 // ── CSV init ──────────────────────────────────────────
 async function initDealsSection() {
   try {
@@ -5206,11 +5273,24 @@ async function initDealsSection() {
     _dealsApplyFilters();
     _dealsApplyFilters();
 
+    initBajoImpactoSection();
     initDifusionSection();
 
   } catch(e) {
     console.error('Deals: error loading CSV', e);
     document.getElementById('deals-tbody').innerHTML =
+      '<tr><td colspan="8" class="deals-empty">Error cargando datos.</td></tr>';
+  }
+}
+
+async function initBajoImpactoSection() {
+  try {
+    const text = await _csvFetch('emisiones_on_bajo_impacto.csv').catch(() => '');
+    _dealsLowRows = _dealsParseRowsFromCsv(text);
+    _dealsApplyLowFilters();
+  } catch(e) {
+    console.error('Deals bajo impacto: error loading CSV', e);
+    document.getElementById('deals-bajo-tbody').innerHTML =
       '<tr><td colspan="8" class="deals-empty">Error cargando datos.</td></tr>';
   }
 }
@@ -5348,7 +5428,39 @@ function _dealsApplyFilters() {
   _dealsRenderSummary();
   _dealsRenderVolumeChart();
   _dealsRenderTable();
+  _dealsApplyLowFilters();
   _dealsUpdateSortHeaders();
+}
+
+function _dealsApplyLowFilters() {
+  const tbody = document.getElementById('deals-bajo-tbody');
+  if (!tbody) return;
+
+  const desde  = document.getElementById('deals-f-desde').value;
+  const hasta  = document.getElementById('deals-f-hasta').value;
+  const moneda = document.getElementById('deals-f-moneda').value.toLowerCase();
+  const tasa   = document.getElementById('deals-f-tasa').value.toLowerCase();
+  const emisor = document.getElementById('deals-f-emisor').value.toLowerCase().trim();
+  const calif  = document.getElementById('deals-f-calif').value.toLowerCase().trim();
+
+  _dealsLowFiltered = _dealsLowRows.filter(r => {
+    if (desde && r._fecha && r._fecha < new Date(desde + 'T00:00:00')) return false;
+    if (hasta && r._fecha && r._fecha > new Date(hasta + 'T23:59:59'))  return false;
+    if (moneda && r._moneda.toLowerCase() !== moneda) return false;
+    if (tasa   && r._tasa.toLowerCase()   !== tasa)   return false;
+    if (emisor && !r._emisor.toLowerCase().includes(emisor)) return false;
+    if (calif  && !r._calif.toLowerCase().includes(calif))   return false;
+    return true;
+  });
+
+  _dealsLowFiltered.sort((a, b) => {
+    const da = a._fecha ? a._fecha.getTime() : 0;
+    const db = b._fecha ? b._fecha.getTime() : 0;
+    if (da !== db) return db - da;
+    return (a._emisor || '').localeCompare(b._emisor || '');
+  });
+
+  _dealsRenderLowTable();
 }
 
 function _dealsClearFilters() {
@@ -5451,10 +5563,12 @@ const _DEALS_VOL_COLORS = {
 function setDealsView(mode, btn) {
   const volView    = document.getElementById('deals-view-volumen');
   const tblView    = document.getElementById('deals-view-tabla');
+  const bajoView   = document.getElementById('deals-view-bajo');
   const difView    = document.getElementById('deals-view-difusion');
   const curvasView = document.getElementById('deals-view-curvas');
   tblView.style.display    = mode === 'tabla'    ? '' : 'none';
   volView.style.display    = mode === 'volumen'  ? '' : 'none';
+  bajoView.style.display   = mode === 'bajo'     ? '' : 'none';
   difView.style.display    = mode === 'difusion' ? '' : 'none';
   curvasView.style.display = mode === 'curvas'   ? '' : 'none';
 
@@ -5995,6 +6109,32 @@ function _dealsRenderTable() {
       <td class="deals-plazo" data-label="Plazo">${r._plazo || '—'}</td>
       <td class="deals-vn" data-label="VN">${_dealsFmtVN(r._vnRaw)}</td>
       <td data-label="Calificación" style="color:#64748B;font-size:11.5px;">${_escHtml(r._calif)}</td>
+    </tr>`;
+  }).join('');
+
+  tbody.innerHTML = rows;
+}
+
+function _dealsRenderLowTable() {
+  const tbody = document.getElementById('deals-bajo-tbody');
+  if (!tbody) return;
+
+  if (!_dealsLowFiltered.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="deals-empty">Sin ON de bajo impacto en los &uacute;ltimos 30 d&iacute;as.</td></tr>';
+    return;
+  }
+
+  const rows = _dealsLowFiltered.map(r => {
+    const [badgeCls, badgeTxt] = _dealsMonedaBadge(r._moneda);
+    return `<tr>
+      <td class="deals-fecha">${_dealsFmtDate(r._fecha)}</td>
+      <td class="deals-emisor">${_escHtml(r._emisor)}</td>
+      <td data-label="Moneda"><span class="deals-badge ${badgeCls}">${_escHtml(badgeTxt)}</span></td>
+      <td data-label="Tasa">${_escHtml(r._tasa)}</td>
+      <td data-label="Tasa/Margen">${_escHtml(r._margen)}</td>
+      <td class="deals-plazo" data-label="Plazo">${r._plazo || 'â€”'}</td>
+      <td class="deals-vn" data-label="VN">${_dealsFmtVN(r._vnRaw)}</td>
+      <td data-label="Calificaci&oacute;n" style="color:#64748B;font-size:11.5px;">${_escHtml(r._calif)}</td>
     </tr>`;
   }).join('');
 

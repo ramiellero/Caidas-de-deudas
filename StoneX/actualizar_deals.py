@@ -25,8 +25,10 @@ CARPETA = BASE_DIR
 TXT_OUTPUT = CARPETA / "texto_extraido_stonex.txt"
 CSV_OUTPUT = CARPETA / "deals.csv"
 CSV_DIFUSION = CARPETA / "difusion.csv"
+CSV_BAJO_IMPACTO = CARPETA / "deals_bajo_impacto.csv"
 
 CSV_WEB = REPO_GIT / "emisiones_obligaciones_negociables.csv"
+CSV_WEB_BAJO_IMPACTO = REPO_GIT / "emisiones_on_bajo_impacto.csv"
 SCREENSHOT = CARPETA / "screenshot_stonex.png"
 
 ASUNTO_BUSCADO = "AGENDA DE EMISIONES"
@@ -66,6 +68,8 @@ MESES_WEB = {
     "09": "sep", "10": "oct", "11": "nov", "12": "dic",
 }
 
+MONEDAS_USD = ["USD Mep", "USD Cable", "USD Linked", "USD Int"]
+
 
 def fecha_para_web(fecha):
     try:
@@ -92,7 +96,9 @@ GIT_REMOTE = "origin"
 GIT_BRANCH = "main"
 GIT_FILES = [
     CSV_WEB,
+    CSV_WEB_BAJO_IMPACTO,
     CSV_OUTPUT,
+    CSV_BAJO_IMPACTO,
     CSV_DIFUSION,
     TXT_OUTPUT,
     SCREENSHOT,
@@ -424,14 +430,22 @@ def normalizar_moneda(moneda, emisor=""):
     return str(moneda).strip()
 
 
-def tasa_y_margen(cupon):
+def tasa_y_margen(cupon, aceptar_margen_negativo=False):
     c = str(cupon).upper().strip()
 
     if "A LICITAR" in c or "A INFORMAR" in c or "+MG" in c:
         return "", ""
 
+    if c.startswith("TEM"):
+        m = re.search(r"TEM\s+(\d+(?:,\d+)?)%", c)
+        margen = f"{float(m.group(1).replace(',', '.')):.2f}%".replace(".", ",") if m else ""
+        return "TEM", margen
+
     if "TAMAR" in c or "T+" in c:
-        m = re.search(r"(?:TAMAR\+|T\+)(\d+(?:,\d+)?)", c)
+        if aceptar_margen_negativo:
+            m = re.search(r"(?:TAMAR|T)([+-]\d+(?:,\d+)?)", c)
+        else:
+            m = re.search(r"(?:TAMAR\+|T\+)(\d+(?:,\d+)?)", c)
         if m:
             valor = float(m.group(1).replace(",", "."))
             margen = f"{valor:.2f}%".replace(".", ",")
@@ -452,13 +466,34 @@ def cumple_monto(moneda, vn):
     if vn is None:
         return False
 
-    if moneda in ["USD Mep", "USD Cable", "USD Linked", "USD Int"]:
+    if moneda in MONEDAS_USD:
         return vn > 10
 
     if moneda == "ARS":
         return vn >= 10000
 
     return False
+
+
+def monto_calculable(moneda, vn):
+    if vn is None:
+        return False
+
+    return moneda in MONEDAS_USD or moneda == "ARS"
+
+
+def bajo_impacto_por_monto(moneda, vn):
+    return monto_calculable(moneda, vn) and not cumple_monto(moneda, vn)
+
+
+def pasa_filtro_monto(moneda, vn, modo):
+    if modo == "principal":
+        return cumple_monto(moneda, vn)
+
+    if modo == "bajo_impacto":
+        return bajo_impacto_por_monto(moneda, vn)
+
+    raise ValueError(f"Modo de filtro de monto no soportado: {modo}")
 
 
 def extraer_resultados(texto):
@@ -513,6 +548,8 @@ def normalizar_emisor(emisor):
         if prev not in {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"}:
             s = f"{base} – {clase}"
 
+    s = re.sub(r"\s*(?:-|\u2013|â€“)\s*$", "", s).strip()
+
     return s
 
 
@@ -565,6 +602,91 @@ def fila_excluida(row_text):
         return True
 
     return False
+
+
+def _linea_empieza_fila(linea):
+    return bool(
+        re.match(
+            rf"^(?:{DIA}|ON |BONAR |\[OFERTA DE CANJE\]|FF |Letras? |Bono )",
+            linea,
+            flags=re.I
+        )
+    )
+
+
+def _separar_nombre_on_de_metricas(linea):
+    m = re.match(
+        r"^(?P<prefix>ON\s+.*?)(?=\s+(?:TAMAR[+-]\d|TEM\s+\d|\d{1,2},\d{2,3}%|Px\s+\d))(?P<rest>.*)$",
+        linea,
+        flags=re.I
+    )
+
+    if not m:
+        return None, None
+
+    return limpiar_texto_celda(m.group("prefix")), limpiar_texto_celda(m.group("rest"))
+
+
+def _rearmar_on_partida(prefix, data_line, suffix=""):
+    suffix = limpiar_texto_celda(suffix)
+
+    m_liq = list(re.finditer(DIA, data_line, flags=re.I))
+    if m_liq:
+        ultimo = m_liq[-1]
+        trailing = limpiar_texto_celda(data_line[ultimo.end():])
+        if trailing and not _linea_empieza_fila(trailing):
+            suffix = limpiar_texto_celda(f"{suffix} {trailing}")
+            data_line = data_line[:ultimo.end()]
+
+    nombre = limpiar_texto_celda(f"{prefix} {suffix}")
+
+    return re.sub(
+        rf"({DIA})\s+",
+        lambda m: f"{m.group(1)} {nombre} - ",
+        data_line,
+        count=1,
+        flags=re.I
+    )
+
+
+def _preprocesar_on_partidas(resultados):
+    lines = [
+        limpiar_texto_celda(line)
+        for line in str(resultados).splitlines()
+        if limpiar_texto_celda(line)
+    ]
+
+    out = []
+    i = 0
+
+    while i < len(lines):
+        line = lines[i]
+
+        prefix, rest = _separar_nombre_on_de_metricas(line)
+        if prefix and re.search(DIA, rest, flags=re.I):
+            out.append(_rearmar_on_partida(prefix, rest))
+            i += 1
+            continue
+
+        if line.startswith("ON ") and i + 1 < len(lines):
+            next_line = lines[i + 1]
+            if re.search(DIA, next_line, flags=re.I) and re.search(
+                r"\b(?:USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS)\b",
+                next_line
+            ):
+                suffix = ""
+                skip = 2
+                if i + 2 < len(lines) and not _linea_empieza_fila(lines[i + 2]):
+                    suffix = lines[i + 2]
+                    skip = 3
+                out.append(_rearmar_on_partida(line, next_line, suffix))
+                i += skip
+                continue
+
+        out.append(line)
+        i += 1
+
+    return "\n".join(out)
 
 
 def _find_first_marker(texto, markers):
@@ -738,10 +860,20 @@ def _difusion_emisor(reg):
 # PARSER GENERAL
 # =========================================================
 
-def parsear_resultados_generico(resultados):
+def parsear_resultados_generico(resultados, modo_monto="principal"):
     filas = []
 
+    if modo_monto == "bajo_impacto":
+        resultados = _preprocesar_on_partidas(resultados)
+
     texto = limpiar_texto_celda(resultados)
+    cupon_pat = (
+        r"TAMAR[+-]\d+(?:,\d+)?%|T[+-]\d+(?:,\d+)?|"
+        r"TAMAR\+\d+(?:,\d+)?%|T\+\d+(?:,\d+)?|"
+        r"TEM\s+\d+(?:,\d+)?%|\d{1,2},\d{2,3}%|0,00%"
+        if modo_monto == "bajo_impacto"
+        else r"TAMAR\+\d+(?:,\d+)?%|T\+\d+(?:,\d+)?|\d{1,2},\d{2,3}%|0,00%"
+    )
 
     patron_fila = re.compile(
         rf"(?P<lic>{DIA})\s+"
@@ -756,11 +888,11 @@ def parsear_resultados_generico(resultados):
         r"-?(?P<moneda>USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS)\s+"
         r"(?P<vn>(?:USD|\$)\s*[\d\.]+)"
         r"(?:\s+\([^)]*\))?\s+"
-        r"(?P<cupon>TAMAR\+\d+(?:,\d+)?%|T\+\d+(?:,\d+)?|\d{1,2},\d{2,3}%|0,00%)\s+"
-        r"(?P<duration>[\d,]+)\s+"
-        r"(?P<maturity>\d+)\s+"
-        r"(?P<ultima>\d{1,2}/\d{1,2}/\d{4})\s+"
-        r"(?P<rating>.*)$"
+        rf"(?P<cupon>{cupon_pat})\s+"
+        rf"(?P<duration>[\d,]+)\s+"
+        rf"(?P<maturity>\d+)\s+"
+        rf"(?P<ultima>\d{{1,2}}/\d{{1,2}}/\d{{4}})\s+"
+        rf"(?P<rating>.*)$"
     )
 
     for fila in patron_fila.finditer(texto):
@@ -793,11 +925,12 @@ def parsear_resultados_generico(resultados):
                 detalle.group("vn")
             )
 
-            if not cumple_monto(moneda, vn):
+            if not pasa_filtro_monto(moneda, vn, modo_monto):
                 continue
 
             tasa, margen = tasa_y_margen(
-                detalle.group("cupon")
+                detalle.group("cupon"),
+                aceptar_margen_negativo=modo_monto == "bajo_impacto"
             )
 
             if not tasa or margen == "":
@@ -1003,6 +1136,149 @@ def actualizar_csv(texto):
 
     print("\nTotal filas:")
     print(len(final))
+
+
+def ordenar_deals_por_fecha(df):
+    df = df.copy()
+
+    if df.empty:
+        return df
+
+    df["FECHA_ORD"] = pd.to_datetime(
+        df["FECHA"],
+        format="%d/%m/%Y",
+        errors="coerce"
+    )
+
+    return df.sort_values(
+        ["FECHA_ORD", "EMISOR"],
+        ascending=[False, True]
+    ).drop(columns=["FECHA_ORD"])
+
+
+def filtrar_ultimos_dias(df, dias=30):
+    if df.empty:
+        return df.copy()
+
+    fechas = pd.to_datetime(
+        df["FECHA"],
+        format="%d/%m/%Y",
+        errors="coerce"
+    )
+
+    hoy = pd.Timestamp.today().normalize()
+    desde = hoy - pd.Timedelta(days=dias)
+
+    return df[
+        fechas.notna()
+        & (fechas >= desde)
+        & (fechas <= hoy)
+    ].copy()
+
+
+def guardar_csv_web_deals(df, path):
+    final_web = df.copy()
+
+    final_web["FECHA"] = final_web["FECHA"].apply(
+        fecha_para_web
+    )
+
+    final_web["VN"] = final_web["VN"].apply(
+        numero_para_web
+    )
+
+    final_web["PLAZO (en meses)"] = final_web["PLAZO (en meses)"].apply(
+        lambda x: str(int(float(x))) if pd.notna(x) else ""
+    )
+
+    final_web.to_csv(
+        path,
+        index=False,
+        encoding="utf-8-sig"
+    )
+
+
+def actualizar_bajo_impacto(texto):
+
+    print("\n==============================")
+    print("ACTUALIZANDO ON BAJO IMPACTO")
+    print("==============================")
+
+    resultados = extraer_resultados(texto)
+    filas = parsear_resultados_generico(
+        resultados,
+        modo_monto="bajo_impacto"
+    )
+    df_nuevo = pd.DataFrame(filas, columns=COLUMNAS)
+
+    if CSV_BAJO_IMPACTO.exists():
+        try:
+            df_existente = pd.read_csv(CSV_BAJO_IMPACTO, sep=";")
+        except pd.errors.EmptyDataError:
+            df_existente = pd.DataFrame(columns=COLUMNAS)
+    else:
+        df_existente = pd.DataFrame(columns=COLUMNAS)
+
+    df_existente = normalizar_y_deduplicar(df_existente)
+
+    if df_nuevo.empty:
+        print("\nNo se detectaron ON de bajo impacto nuevas en Resultados.")
+        final = df_existente
+        df_agregar = pd.DataFrame(columns=COLUMNAS)
+    else:
+        df_nuevo = normalizar_y_deduplicar(df_nuevo)
+
+        df_existente["KEY"] = crear_key(df_existente)
+        df_nuevo["KEY"] = crear_key(df_nuevo)
+
+        df_agregar = df_nuevo[
+            ~df_nuevo["KEY"].isin(set(df_existente["KEY"]))
+        ]
+
+        final = pd.concat([
+            df_existente.drop(columns=["KEY"], errors="ignore"),
+            df_agregar.drop(columns=["KEY"], errors="ignore")
+        ], ignore_index=True)
+
+        final = normalizar_y_deduplicar(final)
+
+    if final.empty:
+        final = final[COLUMNAS].copy()
+    else:
+        final = final[
+            final.apply(
+                lambda r: bajo_impacto_por_monto(r["MONEDA"], r["VN"]),
+                axis=1
+            )
+        ]
+
+    final = ordenar_deals_por_fecha(final)
+
+    final.to_csv(
+        CSV_BAJO_IMPACTO,
+        index=False,
+        encoding="utf-8-sig",
+        sep=";"
+    )
+
+    ultimos_30 = ordenar_deals_por_fecha(
+        filtrar_ultimos_dias(final, dias=30)
+    )
+
+    guardar_csv_web_deals(
+        ultimos_30,
+        CSV_WEB_BAJO_IMPACTO
+    )
+
+    print("\nDetectadas bajo impacto en reporte:")
+    print(len(df_nuevo))
+
+    print("\nNuevas ON bajo impacto agregadas:")
+    print(len(df_agregar))
+
+    print("\nTabla web ultimos 30 dias:")
+    print(CSV_WEB_BAJO_IMPACTO)
+    print("Filas:", len(ultimos_30))
 
 def actualizar_difusion(texto):
 
@@ -1295,6 +1571,7 @@ def main():
     texto = abrir_y_extraer_texto(link_stonex)
 
     actualizar_csv(texto)
+    actualizar_bajo_impacto(texto)
     actualizar_difusion(texto)
 
     # ==========================================
