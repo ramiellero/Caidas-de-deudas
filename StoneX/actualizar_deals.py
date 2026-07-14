@@ -424,6 +424,8 @@ def normalizar_moneda(moneda, emisor=""):
         return "USD Cable"
     if "usd linked" in t:
         return "USD Linked"
+    if "uva" in t:
+        return "UVA"
     if "ars" in t:
         return "ARS"
 
@@ -472,6 +474,9 @@ def cumple_monto(moneda, vn):
     if moneda == "ARS":
         return vn >= 10000
 
+    if moneda == "UVA":
+        return vn >= 10000
+
     return False
 
 
@@ -479,7 +484,7 @@ def monto_calculable(moneda, vn):
     if vn is None:
         return False
 
-    return moneda in MONEDAS_USD or moneda == "ARS"
+    return moneda in MONEDAS_USD or moneda in ["ARS", "UVA"]
 
 
 def bajo_impacto_por_monto(moneda, vn):
@@ -874,6 +879,16 @@ def parsear_resultados_generico(resultados, modo_monto="principal"):
         if modo_monto == "bajo_impacto"
         else r"TAMAR\+\d+(?:,\d+)?%|T\+\d+(?:,\d+)?|\d{1,2},\d{2,3}%|0,00%"
     )
+    moneda_pat = (
+        r"USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS|UVA"
+        if modo_monto == "bajo_impacto"
+        else r"USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS"
+    )
+    vn_pat = (
+        r"(?:USD|\$|UVA)\s*[\d\.]+"
+        if modo_monto == "bajo_impacto"
+        else r"(?:USD|\$)\s*[\d\.]+"
+    )
 
     patron_fila = re.compile(
         rf"(?P<lic>{DIA})\s+"
@@ -885,8 +900,8 @@ def parsear_resultados_generico(resultados, modo_monto="principal"):
 
     patron_detalle = re.compile(
         r"(?P<prefix>(?:ON|BONAR).*?)\s+"
-        r"-?(?P<moneda>USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS)\s+"
-        r"(?P<vn>(?:USD|\$)\s*[\d\.]+)"
+        rf"-?(?P<moneda>{moneda_pat})\s+"
+        rf"(?P<vn>{vn_pat})"
         r"(?:\s+\([^)]*\))?\s+"
         rf"(?P<cupon>{cupon_pat})\s+"
         rf"(?P<duration>[\d,]+)\s+"

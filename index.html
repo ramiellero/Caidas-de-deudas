@@ -5172,6 +5172,19 @@ function _dealsMonedaBadge(m) {
   return ['deals-badge-other', m];
 }
 
+function _dealsLowMonedaLabel(m) {
+  const v = (m || '').trim().toLowerCase();
+  if (v === 'ars') return 'Pesos';
+  if (v === 'uva') return 'UVA';
+  if (v === 'usd mep') return 'USD MEP';
+  return m || '';
+}
+
+function _dealsLowMonedaBadge(m) {
+  const [cls] = _dealsMonedaBadge(m);
+  return [cls, _dealsLowMonedaLabel(m)];
+}
+
 function _dealsSetDefaultDates() {
   const today = new Date();
   const hastaDate = new Date(today);
@@ -6125,7 +6138,7 @@ function _dealsRenderLowTable() {
   }
 
   const rows = _dealsLowFiltered.map(r => {
-    const [badgeCls, badgeTxt] = _dealsMonedaBadge(r._moneda);
+    const [badgeCls, badgeTxt] = _dealsLowMonedaBadge(r._moneda);
     return `<tr>
       <td class="deals-fecha">${_dealsFmtDate(r._fecha)}</td>
       <td class="deals-emisor">${_escHtml(r._emisor)}</td>
