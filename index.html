@@ -2410,7 +2410,8 @@ let _irsaPieChart, _cresudPieChart;
 let _irsaPieTotal = 651.6, _cresudPieTotal = 391.3;
 
 // ── Cache-busting fetch helper (breaks CDN cache once per day) ───────────────
-const _CSV_V = (() => { const d = new Date(); return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`; })();
+const _CSV_BUILD = '20260714-bst-low';
+const _CSV_V = (() => { const d = new Date(); return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}-${_CSV_BUILD}`; })();
 function _csvFetch(name) { return fetch(name + '?v=' + _CSV_V).then(r => r.text()); }
 
 // ── IRSA Timeline (dynamic from CSV) ─────────────────────────────────────────
