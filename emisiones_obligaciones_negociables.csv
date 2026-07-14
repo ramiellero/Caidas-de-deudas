@@ -1,4 +1,6 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
+15-jul-26,Banco de Servicios y Transacciones – XXIX,USD Mep,Fija,"5,00%",12,"20,50",A1 (Fix SCR) / A-1 (Moody´s)
+14-jul-26,Banco de Valores – 4,USD Mep,Fija,"4,25%",12,"20,00",A-1 (Moody´s)
 3-jul-26,EDESA – 3,ARS,TAMAR,"6,00%",12,"19824,10",A1 (Fix SCR)
 3-jul-26,EDESA – 4,USD Mep,Fija,"8,50%",24,"11,00",A+ (Fix SCR)
 3-jul-26,Edenor – 11,USD Cable,Fija,"7,50%",36,"213,50",A+ (Fix SCR) / AA- (S&P)

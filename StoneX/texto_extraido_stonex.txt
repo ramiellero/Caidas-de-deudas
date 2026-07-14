@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 18-06-2026
+Licitaciones Primarias 14-07-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 10:50 AM
+28 hace unos minutos
 View Full
 REGRESAR
 
@@ -61,147 +61,24 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 Page 1
 
-1
-8
-de junio de 2026
-
-Este
-informe
-se
-provee
-solamente
-para
-su
-información
-y
-no
-representa
-una
-oferta
-para
-comprar
-o
-vender
-instrumentos
-.
-Se
-recomienda
-a
-los
-interesados
-contactar
-a
-la
-entidad
-con
-la
-que
-operan,
-o
-a
-la
-entidad
-que
-le
-proveyó
-este
-informe
-si
-desean
-más
-información
-.
-La
-información
-en
-este
-reporte
-se
-obtuvo
-de
-fuentes
-que
-StoneX
-Securities
-S
-.
-A
-.
-cree
-que
-son
-confiables,
-pero
-StoneX
-no
-garantiza
-que
-la
-información
-sea
-correcta
-o
-completa
-.
-Cualquier
-opinión
-o
-estimación
-contenida
-en
-este
-reporte
-representa
-el
-juicio
-actual
-de
-StoneX
-y
-está
-sujeto
-a
-cambios
-sin
-previo
-aviso
-.
-StoneX
-Securities
-S
-.
-A
-.
-o
-sus
-vinculadas
-podrían
-proveer
-consejo
-respecto
-a
-adquirir,
-mantener
-o
-vender
-los
-instrumentos
-nombrados
-en
-este
-informe
-.
-
+14de julio de 2026
+Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
+ informe
+sideseanmásinformación.LainformaciónenestereporteseobtuvodefuentesqueStoneXSecuritiesS.A.creequesonconfiables,peroStoneXnogarantizaquelainformaciónseacorrectaocompleta.Cualquier
+ opinión
+oestimacióncontenidaenestereporterepresentael
+ juicio
+actualdeStoneXyestásujetoacambiossinprevioaviso.StoneXSecuritiesS.A.osusvinculadaspodríanproveerconsejorespectoaadquirir,mantenero
+ vender
+losinstrumentosnombradosenesteinforme.
 Presentation Heading  |
 1
 
 Page 2
 
-Resultados
-
 Tasa / Precio de Corte
- Tasa 
-Tamar TIR Proyectada
+ Tasa Tamar 
+TIR Proyectada
  Spread TNA30d - 
 Tamar
  TNA (30días)
@@ -213,287 +90,118 @@ Licitación
  Moneda
  VN
  Cupón
- Duration 
-(Meses)
+ Duration (Meses)
  Maturity 
 (días)
  Última Fecha de 
 Pago
  Calificación
- Tipo de 
-Licitación
+ Tipo de Licitación
  Fecha de 
 Liquidación
- TAMAR+5,95%
- 21,3750%
- 31,03%
- 5,96%
  27,33%
- mié, 17 jun.
- FF Moni Mobile
- XVIII
+ 21,9375%
+ 30,40%
+ 4,90%
+ 26,84%
+ lun, 13 jul.
+ FF Creditech S.A.
+ VII
  VDFA
  ARS
- $ 6.733.099.000
- (20%; T+595; 45%)
- 5,27
- 333
- 17/05/2027
- A1+ (Fix SCR)
- Margen
- jue, 18 jun.
- TAMAR+0,00%
- 21,3750%
- 21,54%
--1,71%
- 19,67%
- mié, 17 jun.
- FF Moni Mobile
- XVIII
- VDFB
- ARS
- $ 470.987.000
- (21%; T+0; 46%)
- 12,34
- 392
- 15/07/2027
- BBB (Fix SCR)
- Margen
- jue, 18 jun.
- 7,50%
--7,64%--
- mié, 17 jun.
- ON Sidersa (Integra en efectivo y/o en 
-especie)-II
- USD Mep
- USD 50.000.000
- 7,50%
- 32,93
- 1096
- 19/06/2029
- A+ (Fix SCR)
- Tasa
- vie, 19 jun.
- TAMAR+7,00%
- 21,3750%
- 31,54%
- 6,35%
- 27,73%
- mié, 17 jun.
- ON Crédito Directo (integra en efectivo 
-y/o en especie)-XXXI
- ARS
- $ 12.702.713.110
- TAMAR+7,00%
- 8,98
- 365
- 19/06/2027
- A2 (Fix SCR)
- Margen
- vie, 19 jun.
-Presentation Heading  |
-
-Page 3
-
-Licita hoy
-
-OPERACIONES DE TERCEROS
- 
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity 
-(días)
- Última Fecha de 
-Pago
- Rating
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
- jue, 18 jun.
- ON Mastellone Hermanos
--2
- USD Mep
- A licitar
- 22,54
- 731
- 22/06/2028
- A (Moody´s)
- Tasa
- lun, 22 jun.
- jue, 18 jun.
- ON Mastellone Hermanos
--3
- ARS
- TAMAR+Mg
- 10,94
- 365
- 22/06/2027
- A-1 (Moody´s)
- Margen
- lun, 22 jun.
- jue, 18 jun.
- ON Toyota Financial Services
--39
- ARS
- TAMAR+Mg
- 15,49
- 639
- 22/03/2028
- AA+ (Fix SCR)
- Margen
- lun, 22 jun.
- jue, 18 jun.
- ON Toyota Financial Services
--40
- ARS
- TEM A licitar
- 12,00
- 365
- 22/06/2027
- A1+ (Fix SCR)
- Tasa
- lun, 22 jun.
- jue, 18 jun.
- ON Toyota Financial Services
--41
- UVA
- A licitar
- 19,88
- 731
- 22/06/2028
- AA+ (Fix SCR)
- Tasa
- lun, 22 jun.
- jue, 18 jun.
- ON Garantizada Yacopini Mirai 
-(Pyme)
- I
- $ 500.000.000
--ARS
- $ 500.000.000
- TAMAR+Mg
- 11,19
- 365
- 22/06/2027
- SC
- Margen
- lun, 22 jun.
- jue, 18 jun.
- [OFERTA DE CONVERSIÓN] TZV26 
-x Letra del Tesoro Nacional 
-Vinculada al Dólar [Reapertura]
- D31L6
--USD linked
- 0,00%
- 1,25
- 38
- 31/07/2026
- SC
- Precio
- mar, 23 jun.
- jue, 18 jun.
- [OFERTA DE CONVERSIÓN] TZV26 
-x Bono del Tesoro Nacional 
-Vinculada al Dólar [Reapertura]
- TZVD8
--USD linked
- 0,00%
- 29,79
- 906
- 15/12/2028
- SC
- Precio
- mar, 23 jun.
- USD 60.000.000
- USD 60.000.000
- $10.000.000.000 (amp. h/ 
-$30.000.000.000)
- $10.000.000.000 (amp. h/ 
-$30.000.000.000)
- Hasta el Monto Máximo 
-Autorizado por la Normativa 
-Vigente
- Hasta el Monto Máximo 
-Autorizado por la Normativa 
-Vigente
-Presentation Heading  |
-
-Page 4
-
-Operaciones en difusión
-
-STONEX
- Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity 
-(días)
- Última Fecha de 
-Pago
- Rating
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
- vie, 19 jun.
- FF Centrocard Créditos
- VIII
- VDFA
- ARS
- $ 5.250.000.000
- (25%; T+100; 45%)
- 5,76
- 338
- 26/05/2027
+ $ 9.160.000.000
+ (20%; T+100; 45%)
+ 5,46
+ 331
+ 10/6/2027
  AAA (Moody´s)
  TIR
- lun, 22 jun.
- vie, 19 jun.
- FF Centrocard Créditos
- VIII
+ mar, 14 jul.
+ 32,52%
+ 21,9375%
+ 34,41%
+ 8,00%
+ 29,94%
+ lun, 13 jul.
+ FF Creditech S.A.
+ VII
  VDFB
  ARS
  $ 700.000.000
- (26%; T+200; 46%)
- 12,50
- 399
- 26/07/2027
- A (Moody´s)
+ (22%; T+100; 47%)
+ 11,12
+ 361
+ 10/7/2027
+ A- (Moody´s)
  TIR
- lun, 22 jun.
- vie, 19 jun.
- FF Centrocard Créditos
- VIII
+ mar, 14 jul.
+ 37,20%
+ 21,9375%
+ 37,05%
+ 10,00%
+ 31,94%
+ lun, 13 jul.
+ FF Creditech S.A.
+ VII
  VDFC
  ARS
- $ 1.050.000.000
+ $ 2.190.000.000
  30,00%
- 16,95
- 673
- 25/04/2028
- B- (Moody´s)
+ 14,13
+ 514
+ 10/12/2027
+ B (Moody´s)
  TIR
- lun, 22 jun.
- OPERACIONES DE TERCEROS
- 
+ mar, 14 jul.
+ 5,00%
+-5,09%--
+ lun, 13 jul.
+ ON Banco de Servicios y Transacciones (Integra en 
+efectivo y/o en especie)-XXIX
+ USD Mep
+ USD 20.518.672
+ 5,00%
+ 11,91
+ 369
+ 19/7/2027
+ A1 (Fix SCR) / A-1 
+(Moody´s)
+ Tasa
+ mié, 15 jul.
+ 6,00%
+-6,14%--
+ lun, 13 jul.
+ ON Banco de Servicios y Transacciones
+-XXX
+ UVA
+ UVA 4.191.519
+ 6,00%
+ 20,14
+ 731
+ 15/7/2028
+ A+ (Fix SCR) / A 
+(Moody´s)
+ Tasa
+ mié, 15 jul.
+ 4,25%
+-4,29%--
+ lun, 13 jul.
+ ON Banco de Valores
+-4
+ USD Mep
+ USD 20.000.000
+ 4,25%
+ 12,07
+ 371
+ 20/7/2027
+ A-1 (Moody´s)
+ Tasa
+ mar, 14 jul.
+Presentation Heading  |
+Resultados
+
+Page 3
+
 Fecha de 
 Licitación
  Emisión
@@ -505,8 +213,7 @@ Licitación
  Cupón
  Duration 
 (meses)
- Maturity 
-(días)
+ Maturity (días)
  Última Fecha de 
 Pago
  Rating
@@ -514,36 +221,362 @@ Pago
 Licitación
  Fecha de 
 Liquidación
- vie, 19 jun.
- ON Garantizada Georgalos Hnos. 
-(Pyme)
- II
- USD 2.000.000 (amp. h/  
-USD 4.000.000)-ARS
- USD 2.000.000 (amp. h/  
-USD 4.000.000)
+ mar, 14 jul.
+ ON Pyme CNV Garantizada 3D 
+LATINOAMERICA S.A.
+ I
+ $ 1.000.000.000
+-ARS
+ $ 1.000.000.000
  TAMAR+Mg
- 20,24
- 792
- 23/08/2028
+ 16,78
+ 915
+ 16/1/2029
  SC
  Margen
- mar, 23 jun.
- vie, 19 jun.
- ON Banco Santander Argentina
--$50.000.000.000 (amp. h/ 
-$200.000.000.000)
- XXXII
- ARS
- $50.000.000.000 (amp. h/ 
-$200.000.000.000)
+ jue, 16 jul.
+ mar, 14 jul.
+ ON Vista Energy
+-XXXII
+ USD Cable
+ A licitar
+ 17,32
+ 549
+ 16/1/2028
+ AAA (Fix SCR) / AAA 
+(Moody´s)
+ Tasa
+ jue, 16 jul.
+ mar, 14 jul.
+ ON Vista Energy
+-XXXIII
+ USD Mep
+ A licitar
+ 33,32
+ 1096
+ 16/7/2029
+ AAA (Fix SCR) / AAA 
+(Moody´s)
+ Tasa
+ jue, 16 jul.
+ mar, 14 jul.
+ ON Rombo Cía. Financiera
+ 67
+-ARS
  TAMAR+Mg
- 10,98
- 365
- 23/06/2027
- A1+ (Fix SCR)
+ 10,94
+ 457
+ 17/10/2027
+ AA (Fix SCR)
  Margen
- mar, 23 jun.
- $ 7.000.000.000
+ vie, 17 jul.
+ mar, 14 jul.
+ ON Rombo Cía. Financiera
+ 68
+-ARS
+ TEM A licitar
+ 9,01
+ 274
+ 17/4/2027
+ A1+ (Fix SCR)
+ TEM
+ vie, 17 jul.
+ $ 10.000.000.000 (amp. h/ 
+$ 60.000.000.000)
+ $ 10.000.000.000 (amp. h/ 
+$ 60.000.000.000)
+ USD 75.000.000 (amp. h/ 
+Monto Máximo Disponible 
+del Programa)
+ USD 75.000.000 (amp. h/ 
+Monto Máximo Disponible 
+del Programa)
+Presentation Heading  |
+Licita hoy
+
+Page 4
+
+STONEX
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity (días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ jue, 16 jul.
+ FF Fiducar
+ XXXIV
+ VDFA
+ ARS
+ $ 6.074.575.903
+ (20%; T+100; 45%)
+ 7,46
+ 374
+ 26/7/2027
+ AAA (Moody´s)
+ TIR
+ vie, 17 jul.
+ jue, 16 jul.
+ FF Fiducar
+ XXXIV
+ VDFB
+ ARS
+ $ 614.282.957
+ (21%; T+200; 46%)
+ 13,73
+ 437
+ 27/9/2027
+ A (Moody´s)
+ TIR
+ vie, 17 jul.
+ OPERACIONES DE TERCEROS
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity (días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ mié, 15 jul.
+ Letra del Tesoro Nacional Capitalizable 
+en Pesos [Reapertura]
+ S30N6
+ ARS
+ TEM 2,30%
+ 4,47
+ 136
+ 30/11/2026
+ SC
+ Precio
+ vie, 17 jul.
+ mié, 15 jul.
+ Bono del Tesoro Nacional Cero Cupón 
+con Ajuste por CER [Reapertura]
+ TZXM8
+ CER
+ 0,00%
+ 20,48
+ 623
+ 31/3/2028
+ SC
+ Precio
+ vie, 17 jul.
+ mié, 15 jul.
+ Bono del Tesoro Nacional en Pesos a 
+Tasa TAMAR [Reapertura]
+ TMG28
+ ARS
+ TAMAR TEM + 6,90%
+ 25,51
+ 776
+ 31/8/2028
+ SC
+ Precio
+ vie, 17 jul.
+ mié, 15 jul.
+ Letra del Tesoro Nacional Cero Cupón 
+Vinculada al Dólar [Reapertura]
+ D31G6
+ USD linked
+ 0,00%
+ 1,48
+ 45
+ 31/8/2026
+ SC
+ Precio
+ vie, 17 jul.
+ mié, 15 jul.
+ Letra del Tesoro Nacional Cero Cupón 
+Vinculada al Dólar [Nueva]
+ D10Y7
+ USD linked
+ 0,00%
+ 9,76
+ 297
+ 10/5/2027
+ SC
+ Precio
+ vie, 17 jul.
+ mié, 15 jul.
+ Bono del Tesoro Nacional Cero Cupón 
+Vinculado al Dólar [Reapertura]
+ TZVD8
+ USD linked
+ 0,00%
+ 29,00
+ 882
+ 15/12/2028
+ SC
+ Precio
+ vie, 17 jul.
+ mié, 15 jul.
+ BONAR 2029 [Nuevo]
+ AO29
+ USD 2.000.000.000
+ USD Mep
+ USD 2.000.000.000
+ 6,00%
+ 35,83
+ 1202
+ 31/10/2029
+ SC
+ Precio
+ vie, 17 jul.
+ jue, 16 jul.
+ BONAR 2029 [Nuevo - Segunda vuelta]
+ AO29
+ USD 150.000.000
+ USD Mep
+ USD 150.000.000
+ 6,00%
+ 35,83
+ 1202
+ 31/10/2029
+ SC
+ Precio
+ vie, 17 jul.
+ Hasta el Monto Máximo 
+Autorizado por la 
+Normativa Vigente
+ Hasta el Monto Máximo 
+Autorizado por la 
+Normativa Vigente
+ $ 10.718.873.485
+Presentation Heading  |
+Operaciones en Difusión
+
+Page 5
+
+OPERACIONES DE TERCEROS
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity (días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ jue, 16 jul.
+ Letras de Tesorería de la Provincia del 
+Chaco [Reapertura]-2
+ ARS
+ 38.00%
+ 0,92
+ 28
+ 14/8/2026
+ B (Fix SCR)
+ Precio
+ vie, 17 jul.
+ jue, 16 jul.
+ Letras de Tesorería de la Provincia del 
+Chaco [Reapertura]-6
+ ARS
+ 26.00%
+ 2,07
+ 63
+ 18/9/2026
+ B (Fix SCR)
+ Precio
+ vie, 17 jul.
+ jue, 16 jul.
+ Letras de Tesorería de la Provincia del 
+Chaco [Nueva]-9
+ ARS
+ A licitar
+ 2,99
+ 91
+ 16/10/2026
+ B (Fix SCR)
+ Tasa
+ vie, 17 jul.
+ jue, 16 jul.
+ Letras de Tesorería de la Provincia del 
+Chaco [Nueva]-10
+ ARS
+ TAMAR+Mg
+ 5,98
+ 182
+ 15/1/2027
+ B (Fix SCR)
+ Margen
+ vie, 17 jul.
+ jue, 16 jul.
+ Letras de Tesorería de la Provincia del 
+Chaco [Nueva]-11
+ ARS
+ TAMAR+Mg
+ 11,97
+ 364
+ 16/7/2027
+ B (Fix SCR)
+ Margen
+ vie, 17 jul.
+ jue, 16 jul.
+ FF Coppel
+ I
+ VDFA
+ ARS
+ $ 4.701.663.747
+ (20%; TAMAR+100; 45%)
+ 5,59
+ 312
+ 25/5/2027
+ ML A-1 (Moody´s)
+ TIR
+ vie, 17 jul.
+ jue, 16 jul.
+ FF Coppel
+ I
+ VDFB
+ ARS
+ $ 535.802.137
+ (21%; TAMAR+200; 46%)
+ 12,70
+ 437
+ 27/9/2027
+ BB+ (Moody´s)
+ TIR
+ vie, 17 jul.
+ $ 5.237.465.884
+ $ 140.000.000.000
+ $ 140.000.000.000
+Presentation Heading  |
+Operaciones en Difusión
 
 Carga del documento completada. Está en la página 1.
