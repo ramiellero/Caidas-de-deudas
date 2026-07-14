@@ -1171,7 +1171,7 @@ def ordenar_deals_por_fecha(df):
     ).drop(columns=["FECHA_ORD"])
 
 
-def filtrar_ultimos_dias(df, dias=30):
+def filtrar_ultimos_dias(df, dias=30, dias_adelante=30):
     if df.empty:
         return df.copy()
 
@@ -1183,11 +1183,12 @@ def filtrar_ultimos_dias(df, dias=30):
 
     hoy = pd.Timestamp.today().normalize()
     desde = hoy - pd.Timedelta(days=dias)
+    hasta = hoy + pd.Timedelta(days=dias_adelante)
 
     return df[
         fechas.notna()
         & (fechas >= desde)
-        & (fechas <= hoy)
+        & (fechas <= hasta)
     ].copy()
 
 
