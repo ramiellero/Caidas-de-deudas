@@ -1217,7 +1217,7 @@ def guardar_csv_web_deals(df, path):
 def actualizar_bajo_impacto(texto):
 
     print("\n==============================")
-    print("ACTUALIZANDO ON BAJO IMPACTO")
+    print("ACTUALIZANDO ON < 10MM")
     print("==============================")
 
     resultados = extraer_resultados(texto)
@@ -1238,7 +1238,7 @@ def actualizar_bajo_impacto(texto):
     df_existente = normalizar_y_deduplicar(df_existente)
 
     if df_nuevo.empty:
-        print("\nNo se detectaron ON de bajo impacto nuevas en Resultados.")
+        print("\nNo se detectaron ON < 10MM nuevas en Resultados.")
         final = df_existente
         df_agregar = pd.DataFrame(columns=COLUMNAS)
     else:
@@ -1286,10 +1286,10 @@ def actualizar_bajo_impacto(texto):
         CSV_WEB_BAJO_IMPACTO
     )
 
-    print("\nDetectadas bajo impacto en reporte:")
+    print("\nDetectadas ON < 10MM en reporte:")
     print(len(df_nuevo))
 
-    print("\nNuevas ON bajo impacto agregadas:")
+    print("\nNuevas ON < 10MM agregadas:")
     print(len(df_agregar))
 
     print("\nTabla web ultimos 30 dias:")

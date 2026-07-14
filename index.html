@@ -2087,7 +2087,7 @@
     <div class="deals-view-tabs">
       <button class="deals-view-tab active" id="deals-tab-tabla"   onclick="setDealsView('tabla',   this)">Tabla</button>
       <button class="deals-view-tab"        id="deals-tab-volumen" onclick="setDealsView('volumen', this)">Volumen de emisiones</button>
-      <button class="deals-view-tab"        id="deals-tab-bajo"    onclick="setDealsView('bajo',    this)">ON bajo impacto</button>
+      <button class="deals-view-tab"        id="deals-tab-bajo"    onclick="setDealsView('bajo',    this)">ON &lt; 10MM</button>
       <button class="deals-view-tab"        id="deals-tab-difusion" onclick="setDealsView('difusion', this)">Difusión</button>
       <button class="deals-view-tab"        id="deals-tab-curvas"  onclick="setDealsView('curvas',  this)">Curvas ONs</button>
     </div>
@@ -2122,7 +2122,7 @@
       </div>
     </div><!-- /deals-view-volumen -->
 
-    <!-- View: ON bajo impacto -->
+    <!-- View: ON < 10MM -->
     <div id="deals-view-bajo" style="display:none;">
       <div class="deals-table-wrap">
         <table class="deals-table" id="deals-bajo-table">
@@ -2410,7 +2410,7 @@ let _irsaPieChart, _cresudPieChart;
 let _irsaPieTotal = 651.6, _cresudPieTotal = 391.3;
 
 // ── Cache-busting fetch helper (breaks CDN cache once per day) ───────────────
-const _CSV_BUILD = '20260714-bst-low';
+const _CSV_BUILD = '20260714-on-lt-10mm';
 const _CSV_V = (() => { const d = new Date(); return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}-${_CSV_BUILD}`; })();
 function _csvFetch(name) { return fetch(name + '?v=' + _CSV_V).then(r => r.text()); }
 
@@ -5303,7 +5303,7 @@ async function initBajoImpactoSection() {
     _dealsLowRows = _dealsParseRowsFromCsv(text);
     _dealsApplyLowFilters();
   } catch(e) {
-    console.error('Deals bajo impacto: error loading CSV', e);
+    console.error('Deals ON < 10MM: error loading CSV', e);
     document.getElementById('deals-bajo-tbody').innerHTML =
       '<tr><td colspan="8" class="deals-empty">Error cargando datos.</td></tr>';
   }
@@ -6134,7 +6134,7 @@ function _dealsRenderLowTable() {
   if (!tbody) return;
 
   if (!_dealsLowFiltered.length) {
-    tbody.innerHTML = '<tr><td colspan="8" class="deals-empty">Sin ON de bajo impacto en los &uacute;ltimos 30 d&iacute;as.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" class="deals-empty">Sin ON &lt; 10MM en los &uacute;ltimos 30 d&iacute;as.</td></tr>';
     return;
   }
 
