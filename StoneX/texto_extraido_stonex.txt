@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 14-07-2026
+Licitaciones Primarias 15-07-2026
 Por:
 Mercado de Capitales Stonex
-28 hace unos minutos
+Hoy 11:00 AM
 View Full
 REGRESAR
 
@@ -59,9 +59,10 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 --- FRAME 2 ---
 
+4
 Page 1
 
-14de julio de 2026
+15de julio de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
  informe
 sideseanmásinformación.LainformaciónenestereporteseobtuvodefuentesqueStoneXSecuritiesS.A.creequesonconfiables,peroStoneXnogarantizaquelainformaciónseacorrectaocompleta.Cualquier
@@ -99,250 +100,94 @@ Pago
  Tipo de Licitación
  Fecha de 
 Liquidación
- 27,33%
+ TAMAR+3,00%
  21,9375%
- 30,40%
- 4,90%
- 26,84%
- lun, 13 jul.
- FF Creditech S.A.
- VII
- VDFA
- ARS
- $ 9.160.000.000
- (20%; T+100; 45%)
- 5,46
- 331
- 10/6/2027
- AAA (Moody´s)
- TIR
+ 27,04%
+ 2,24%
+ 24,18%
  mar, 14 jul.
- 32,52%
- 21,9375%
- 34,41%
- 8,00%
- 29,94%
- lun, 13 jul.
- FF Creditech S.A.
- VII
- VDFB
- ARS
- $ 700.000.000
- (22%; T+100; 47%)
- 11,12
- 361
- 10/7/2027
- A- (Moody´s)
- TIR
- mar, 14 jul.
- 37,20%
- 21,9375%
- 37,05%
- 10,00%
- 31,94%
- lun, 13 jul.
- FF Creditech S.A.
- VII
- VDFC
- ARS
- $ 2.190.000.000
- 30,00%
- 14,13
- 514
- 10/12/2027
- B (Moody´s)
- TIR
- mar, 14 jul.
- 5,00%
--5,09%--
- lun, 13 jul.
- ON Banco de Servicios y Transacciones (Integra en 
-efectivo y/o en especie)-XXIX
- USD Mep
- USD 20.518.672
- 5,00%
- 11,91
- 369
- 19/7/2027
- A1 (Fix SCR) / A-1 
-(Moody´s)
- Tasa
- mié, 15 jul.
- 6,00%
--6,14%--
- lun, 13 jul.
- ON Banco de Servicios y Transacciones
--XXX
- UVA
- UVA 4.191.519
- 6,00%
- 20,14
- 731
- 15/7/2028
- A+ (Fix SCR) / A 
-(Moody´s)
- Tasa
- mié, 15 jul.
- 4,25%
--4,29%--
- lun, 13 jul.
- ON Banco de Valores
--4
- USD Mep
- USD 20.000.000
- 4,25%
- 12,07
- 371
- 20/7/2027
- A-1 (Moody´s)
- Tasa
- mar, 14 jul.
-Presentation Heading  |
-Resultados
-
-Page 3
-
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity (días)
- Última Fecha de 
-Pago
- Rating
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
- mar, 14 jul.
- ON Pyme CNV Garantizada 3D 
-LATINOAMERICA S.A.
+ ON Pyme CNV Garantizada 3D LATINOAMERICA 
+S.A.
  I
- $ 1.000.000.000
 -ARS
  $ 1.000.000.000
- TAMAR+Mg
- 16,78
+ TAMAR+3,00%
+ 16,60
  915
  16/1/2029
  SC
  Margen
  jue, 16 jul.
+ 3,75%
+-3,77%--
  mar, 14 jul.
  ON Vista Energy
 -XXXII
  USD Cable
- A licitar
- 17,32
+ USD 75.000.000
+ 3,75%
+ 17,76
  549
  16/1/2028
- AAA (Fix SCR) / AAA 
-(Moody´s)
+ AAA (Fix SCR) / 
+AAA (Moody´s)
  Tasa
  jue, 16 jul.
+ 5,00%
+-5,06%--
  mar, 14 jul.
  ON Vista Energy
 -XXXIII
  USD Mep
- A licitar
- 33,32
+ USD 75.000.000
+ 5,00%
+ 33,96
  1096
  16/7/2029
- AAA (Fix SCR) / AAA 
-(Moody´s)
+ AAA (Fix SCR) / 
+AAA (Moody´s)
  Tasa
  jue, 16 jul.
+ TAMAR+4,50%
+ 21,9375%
+ 29,17%
+ 3,94%
+ 25,87%
  mar, 14 jul.
  ON Rombo Cía. Financiera
  67
 -ARS
- TAMAR+Mg
- 10,94
+ $ 17.063.737.777
+ TAMAR+4,50%
+ 10,89
  457
  17/10/2027
  AA (Fix SCR)
  Margen
  vie, 17 jul.
+ TEM 2,15%
+ 21,9375%
+ 29,08%
+ 3,86%
+ 25,80%
  mar, 14 jul.
  ON Rombo Cía. Financiera
  68
 -ARS
- TEM A licitar
+ $ 4.557.500.000
+ TEM 2,15%
  9,01
  274
  17/4/2027
  A1+ (Fix SCR)
  TEM
  vie, 17 jul.
- $ 10.000.000.000 (amp. h/ 
-$ 60.000.000.000)
- $ 10.000.000.000 (amp. h/ 
-$ 60.000.000.000)
- USD 75.000.000 (amp. h/ 
-Monto Máximo Disponible 
-del Programa)
- USD 75.000.000 (amp. h/ 
-Monto Máximo Disponible 
-del Programa)
 Presentation Heading  |
-Licita hoy
+Resultados
 
-Page 4
+Page 3
 
-STONEX
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity (días)
- Última Fecha de 
-Pago
- Rating
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
- jue, 16 jul.
- FF Fiducar
- XXXIV
- VDFA
- ARS
- $ 6.074.575.903
- (20%; T+100; 45%)
- 7,46
- 374
- 26/7/2027
- AAA (Moody´s)
- TIR
- vie, 17 jul.
- jue, 16 jul.
- FF Fiducar
- XXXIV
- VDFB
- ARS
- $ 614.282.957
- (21%; T+200; 46%)
- 13,73
- 437
- 27/9/2027
- A (Moody´s)
- TIR
- vie, 17 jul.
- OPERACIONES DE TERCEROS
+OPERACIONES DE TERCEROS
 Fecha de 
 Licitación
  Emisión
@@ -447,32 +292,18 @@ Vinculado al Dólar [Reapertura]
  SC
  Precio
  vie, 17 jul.
- jue, 16 jul.
- BONAR 2029 [Nuevo - Segunda vuelta]
- AO29
- USD 150.000.000
- USD Mep
- USD 150.000.000
- 6,00%
- 35,83
- 1202
- 31/10/2029
- SC
- Precio
- vie, 17 jul.
  Hasta el Monto Máximo 
-Autorizado por la 
-Normativa Vigente
+Autorizado por la Normativa 
+Vigente
  Hasta el Monto Máximo 
-Autorizado por la 
-Normativa Vigente
- $ 10.718.873.485
+Autorizado por la Normativa 
+Vigente
 Presentation Heading  |
-Operaciones en Difusión
+Licita hoy
 
-Page 5
+Page 4
 
-OPERACIONES DE TERCEROS
+STONEX
 Fecha de 
 Licitación
  Emisión
@@ -492,6 +323,65 @@ Pago
 Licitación
  Fecha de 
 Liquidación
+ jue, 16 jul.
+ FF Fiducar
+ XXXIV
+ VDFA
+ ARS
+ $ 6.074.575.903
+ (20%; T+100; 45%)
+ 7,46
+ 374
+ 26/7/2027
+ AAA (Moody´s)
+ TIR
+ vie, 17 jul.
+ jue, 16 jul.
+ FF Fiducar
+ XXXIV
+ VDFB
+ ARS
+ $ 614.282.957
+ (21%; T+200; 46%)
+ 13,73
+ 437
+ 27/9/2027
+ A (Moody´s)
+ TIR
+ vie, 17 jul.
+ OPERACIONES DE TERCEROS
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity (días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ jue, 16 jul.
+ BONAR 2029 [Nuevo - Segunda vuelta]
+ AO29
+ USD 150.000.000
+ USD Mep
+ USD 150.000.000
+ 6,00%
+ 35,83
+ 1202
+ 31/10/2029
+ SC
+ Precio
+ vie, 17 jul.
  jue, 16 jul.
  Letras de Tesorería de la Provincia del 
 Chaco [Reapertura]-2
@@ -553,7 +443,7 @@ Chaco [Nueva]-11
  VDFA
  ARS
  $ 4.701.663.747
- (20%; TAMAR+100; 45%)
+ (20%; T+100; 45%)
  5,59
  312
  25/5/2027
@@ -566,14 +456,62 @@ Chaco [Nueva]-11
  VDFB
  ARS
  $ 535.802.137
- (21%; TAMAR+200; 46%)
+ (21%; T+200; 46%)
  12,70
  437
  27/9/2027
  BB+ (Moody´s)
  TIR
  vie, 17 jul.
+ jue, 16 jul.
+ ON Latamly S.A.
+ II
+ $2.000.000.000 (amp. h/ 
+$4.300.000.000)-ARS
+ $2.000.000.000 (amp. h/ 
+$4.300.000.000)
+ TAMAR+Mg
+ 11,71
+ 731
+ 17/7/2028
+ SC
+ Margen
+ vie, 17 jul.
+ jue, 16 jul.
+ ON SION S.A.
+ IV
+ $3.000.000.000 (amp. h/ 
+$5.000.000.000)-ARS
+ $3.000.000.000 (amp. h/ 
+$5.000.000.000)
+ (i) Max (29%; T+Mg) para el primer 
+servicio;
+ (ii) T+Mg para los siguientes servicios
+ 8,41
+ 274
+ 17/4/2027
+ ML A-2 (Moody´s)
+ Margen
+ vie, 17 jul.
+ lun, 20 jul.
+ ON Petroquímica Comodoro Rivadavia 
+& Luz de Tres Picos [Ley NY]-USD 350.000.000 (amp. h/ 
+Monto Máximo del Programa)
+ 1
+ USD Cable
+ USD 350.000.000 (amp. h/ 
+Monto Máximo del Programa)
+ A licitar
+ A informar
+ A informar
+ Venc. a los 8 
+años
+ B (S&P) / B (Fitch 
+Ratings)
+ Book Building
+ A informar
  $ 5.237.465.884
+ $ 10.718.873.485
  $ 140.000.000.000
  $ 140.000.000.000
 Presentation Heading  |

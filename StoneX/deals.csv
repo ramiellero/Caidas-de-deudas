@@ -1,4 +1,7 @@
 ﻿FECHA;EMISOR;MONEDA;TASA;TASA/MARGEN;PLAZO (en meses);VN;CALIFICACIÓN
+17/07/2026;Rombo Cía. Financiera 67;ARS;TAMAR;4,50%;15.0;17063.7;AA (Fix SCR)
+16/07/2026;Vista Energy – XXXII;USD Cable;Fija;3,75%;18.0;75.0;AAA (Fix SCR) / AAA (Moody´s)
+16/07/2026;Vista Energy – XXXIII;USD Mep;Fija;5,00%;36.0;75.0;AAA (Fix SCR) / AAA (Moody´s)
 15/07/2026;Banco de Servicios y Transacciones – XXIX;USD Mep;Fija;5,00%;12.0;20.5;A1 (Fix SCR) / A-1 (Moody´s)
 14/07/2026;Banco de Valores – 4;USD Mep;Fija;4,25%;12.0;20.0;A-1 (Moody´s)
 03/07/2026;EDESA – 3;ARS;TAMAR;6,00%;12.0;19824.1;A1 (Fix SCR)
