@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 15-07-2026
+Licitaciones Primarias 16-07-2026
 Por:
 Mercado de Capitales Stonex
-Ayer 11:00 AM
+Hoy 12:12 PM
 View Full
 REGRESAR
 
@@ -61,7 +61,7 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 Page 1
 
-15de julio de 2026
+16 de julio de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
  informe
 sideseanmásinformación.LainformaciónenestereporteseobtuvodefuentesqueStoneXSecuritiesS.A.creequesonconfiables,peroStoneXnogarantizaquelainformaciónseacorrectaocompleta.Cualquier
@@ -77,8 +77,8 @@ Presentation Heading  |
 Page 2
 
 Tasa / Precio de Corte
- Tasa Tamar 
-TIR Proyectada
+ Tasa 
+Tamar TIR Proyectada
  Spread TNA30d - 
 Tamar
  TNA (30días)
@@ -90,127 +90,28 @@ Licitación
  Moneda
  VN
  Cupón
- Duration (Meses)
+ Duration 
+(Meses)
  Maturity 
 (días)
  Última Fecha de 
 Pago
  Calificación
- Tipo de Licitación
- Fecha de 
-Liquidación
- TAMAR+3,00%
- 21,9375%
- 27,04%
- 2,24%
- 24,18%
- mar, 14 jul.
- ON Pyme CNV Garantizada 3D LATINOAMERICA 
-S.A.
- I
--ARS
- $ 1.000.000.000
- TAMAR+3,00%
- 16,60
- 915
- 16/1/2029
- SC
- Margen
- jue, 16 jul.
- 3,75%
--3,77%--
- mar, 14 jul.
- ON Vista Energy
--XXXII
- USD Cable
- USD 75.000.000
- 3,75%
- 17,76
- 549
- 16/1/2028
- AAA (Fix SCR) / 
-AAA (Moody´s)
- Tasa
- jue, 16 jul.
- 5,00%
--5,06%--
- mar, 14 jul.
- ON Vista Energy
--XXXIII
- USD Mep
- USD 75.000.000
- 5,00%
- 33,96
- 1096
- 16/7/2029
- AAA (Fix SCR) / 
-AAA (Moody´s)
- Tasa
- jue, 16 jul.
- TAMAR+4,50%
- 21,9375%
- 29,17%
- 3,94%
- 25,87%
- mar, 14 jul.
- ON Rombo Cía. Financiera
- 67
--ARS
- $ 17.063.737.777
- TAMAR+4,50%
- 10,89
- 457
- 17/10/2027
- AA (Fix SCR)
- Margen
- vie, 17 jul.
- TEM 2,15%
- 21,9375%
- 29,08%
- 3,86%
- 25,80%
- mar, 14 jul.
- ON Rombo Cía. Financiera
- 68
--ARS
- $ 4.557.500.000
- TEM 2,15%
- 9,01
- 274
- 17/4/2027
- A1+ (Fix SCR)
- TEM
- vie, 17 jul.
-Presentation Heading  |
-Resultados
-
-Page 3
-
-OPERACIONES DE TERCEROS
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity (días)
- Última Fecha de 
-Pago
- Rating
  Tipo de 
 Licitación
  Fecha de 
 Liquidación
+ Px 119,40 
+22,4375%
+ 25,59%
+ 0,57%
+ 23,00%
  mié, 15 jul.
- Letra del Tesoro Nacional Capitalizable 
-en Pesos [Reapertura]
+ Letra del Tesoro Nacional Capitalizable en Pesos 
+[Reapertura]
  S30N6
- ARS
+-ARS
+ $ 1.995.646.000.000
  TEM 2,30%
  4,47
  136
@@ -218,11 +119,14 @@ en Pesos [Reapertura]
  SC
  Precio
  vie, 17 jul.
+ Px 96,60 
+-8,07%--
  mié, 15 jul.
- Bono del Tesoro Nacional Cero Cupón 
-con Ajuste por CER [Reapertura]
+ Bono del Tesoro Nacional Cero Cupón con Ajuste 
+por CER [Reapertura]
  TZXM8
- CER
+-CER
+ $ 1.115.622.000.000
  0,00%
  20,48
  623
@@ -230,11 +134,17 @@ con Ajuste por CER [Reapertura]
  SC
  Precio
  vie, 17 jul.
+ Px 103,80 
+22,4375%
+ 34,57%
+ 7,62%
+ 30,06%
  mié, 15 jul.
- Bono del Tesoro Nacional en Pesos a 
-Tasa TAMAR [Reapertura]
+ Bono del Tesoro Nacional en Pesos a Tasa 
+TAMAR [Reapertura]
  TMG28
- ARS
+-ARS
+ $ 604.538.000.000
  TAMAR TEM + 6,90%
  25,51
  776
@@ -242,11 +152,14 @@ Tasa TAMAR [Reapertura]
  SC
  Precio
  vie, 17 jul.
+ Px 99,09 
+-7,77%--
  mié, 15 jul.
- Letra del Tesoro Nacional Cero Cupón 
-Vinculada al Dólar [Reapertura]
+ Letra del Tesoro Nacional Cero Cupón Vinculada 
+al Dólar [Reapertura]
  D31G6
- USD linked
+-USD linked
+ USD 178.000.000
  0,00%
  1,48
  45
@@ -254,11 +167,14 @@ Vinculada al Dólar [Reapertura]
  SC
  Precio
  vie, 17 jul.
+ Px 97,50 
+-3,16%--
  mié, 15 jul.
- Letra del Tesoro Nacional Cero Cupón 
-Vinculada al Dólar [Nueva]
+ Letra del Tesoro Nacional Cero Cupón Vinculada 
+al Dólar [Nueva]
  D10Y7
- USD linked
+-USD linked
+ USD 604.000.000
  0,00%
  9,76
  297
@@ -266,11 +182,14 @@ Vinculada al Dólar [Nueva]
  SC
  Precio
  vie, 17 jul.
+ Px 81,10 
+-9,08%--
  mié, 15 jul.
- Bono del Tesoro Nacional Cero Cupón 
-Vinculado al Dólar [Reapertura]
+ Bono del Tesoro Nacional Cero Cupón Vinculado 
+al Dólar [Reapertura]
  TZVD8
- USD linked
+-USD linked
+ USD 186.000.000
  0,00%
  29,00
  882
@@ -278,12 +197,13 @@ Vinculado al Dólar [Reapertura]
  SC
  Precio
  vie, 17 jul.
+ Px 94,30 
+-8,29%--
  mié, 15 jul.
  BONAR 2029 [Nuevo]
  AO29
- USD 2.000.000.000
  USD Mep
- USD 2.000.000.000
+ USD 499.000.000
  6,00%
  35,83
  1202
@@ -291,16 +211,10 @@ Vinculado al Dólar [Reapertura]
  SC
  Precio
  vie, 17 jul.
- Hasta el Monto Máximo 
-Autorizado por la Normativa 
-Vigente
- Hasta el Monto Máximo 
-Autorizado por la Normativa 
-Vigente
 Presentation Heading  |
-Licita hoy
+Resultados
 
-Page 4
+Page 3
 
 STONEX
 Fecha de 
@@ -314,7 +228,8 @@ Licitación
  Cupón
  Duration 
 (meses)
- Maturity (días)
+ Maturity 
+(días)
  Última Fecha de 
 Pago
  Rating
@@ -348,6 +263,22 @@ Liquidación
  A (Moody´s)
  TIR
  vie, 17 jul.
+ jue, 16 jul.
+ ON Sion (Pyme)
+ IV
+ $3.000.000.000 (amp. h/ 
+$5.000.000.000)-ARS
+ $3.000.000.000 (amp. h/ 
+$5.000.000.000)
+ (i) Max (29%; T+Mg) para el primer 
+servicio;
+ (ii) T+Mg para los siguientes servicios
+ 8,41
+ 274
+ 17/4/2027
+ ML A-2 (Moody´s)
+ Margen
+ vie, 17 jul.
  OPERACIONES DE TERCEROS
 Fecha de 
 Licitación
@@ -360,7 +291,8 @@ Licitación
  Cupón
  Duration 
 (meses)
- Maturity (días)
+ Maturity 
+(días)
  Última Fecha de 
 Pago
  Rating
@@ -379,7 +311,7 @@ Liquidación
  1202
  31/10/2029
  SC
- Precio
+ Por Adhesión
  vie, 17 jul.
  jue, 16 jul.
  Letras de Tesorería de la Provincia del 
@@ -476,22 +408,49 @@ $4.300.000.000)
  SC
  Margen
  vie, 17 jul.
- jue, 16 jul.
- ON SION S.A.
- IV
- $3.000.000.000 (amp. h/ 
-$5.000.000.000)-ARS
- $3.000.000.000 (amp. h/ 
-$5.000.000.000)
- (i) Max (29%; T+Mg) para el primer 
-servicio;
- (ii) T+Mg para los siguientes servicios
- 8,41
- 274
- 17/4/2027
- ML A-2 (Moody´s)
- Margen
+ $ 5.237.465.884
+ $ 10.718.873.485
+ $ 140.000.000.000
+ $ 140.000.000.000
+Presentation Heading  |
+Licita hoy
+
+Page 4
+
+OPERACIONES DE TERCEROS
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
  vie, 17 jul.
+ ON Garantizada Recard (Pyme)
+ II
+ $ 1.000.000.000
+-ARS
+ $ 1.000.000.000
+ TAMAR+Mg
+ 12,86
+ 731
+ 21/7/2028
+ SC
+ Margen
+ mar, 21 jul.
  lun, 20 jul.
  ON Petroquímica Comodoro Rivadavia 
 & Luz de Tres Picos [Ley NY]-USD 350.000.000 (amp. h/ 
@@ -509,10 +468,43 @@ años
 Ratings)
  Book Building
  A informar
- $ 5.237.465.884
- $ 10.718.873.485
- $ 140.000.000.000
- $ 140.000.000.000
+ mar, 21 jul.
+ ON Banco BBVA Argentina
+-48
+ USD Cable
+ A licitar
+ 17,53
+ 640
+ 24/4/2028
+ AAA (Fix SCR)
+ Tasa
+ vie, 24 jul.
+ mar, 21 jul.
+ ON Banco BBVA (Integra en efectivo 
+y/o en especie)-49
+ USD Mep
+ A licitar
+ 11,85
+ 365
+ 24/7/2027
+ A1+ (Fix SCR)
+ Tasa
+ vie, 24 jul.
+ mar, 21 jul.
+ ON Banco BBVA (Integra en efectivo 
+y/o en especie)-50
+ USD Mep
+ A licitar
+ 22,71
+ 731
+ 24/7/2028
+ AAA (Fix SCR)
+ Tasa
+ vie, 24 jul.
+ USD 20.000.000 (amp. h/ 
+Monto Máximo del Programa)
+ USD 20.000.000 (amp. h/ 
+Monto Máximo del Programa)
 Presentation Heading  |
 Operaciones en Difusión
 
