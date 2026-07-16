@@ -78,7 +78,7 @@ def fecha_para_web(fecha):
     except:
         return fecha
 
-DIA = r"(?:lun|mar|mié|jue|vie),\s+\d{1,2}\s+\w{3}\."
+DIA = r"(?:lun|mar|mi(?:é|Ã©)|jue|vie),\s+\d{1,2}\s+\w{3}\."
 
 def numero_para_web(x):
     try:
@@ -743,7 +743,7 @@ def normalizar_bloque_difusion(bloque):
         if not stripped:
             continue
 
-        starts_instrument = re.match(r"^(ON |Títulos de Deuda)", stripped)
+        starts_instrument = re.match(r"^(ON |BONAR |Títulos de Deuda)", stripped)
         starts_date = re.match(DIA, stripped)
         is_rating_line = re.match(rating_line_pat, stripped)
 
@@ -798,14 +798,93 @@ def normalizar_bloque_difusion(bloque):
     return "\n".join(out)
 
 
+def _fix_text_artifacts(s):
+    replacements = {
+        "ķ": "í",
+        "į": "á",
+        "ń": "ñ",
+        "“": "´",
+        "Ã©": "é",
+        "Ã³": "ó",
+        "Ã¡": "á",
+        "Ã­": "í",
+        "Ãº": "ú",
+        "Ã±": "ñ",
+    }
+    for bad, good in replacements.items():
+        s = s.replace(bad, good)
+    return s
+
+
+def linealizar_filas_difusion(bloque):
+    lines = [
+        _fix_text_artifacts(limpiar_texto_celda(line))
+        for line in str(bloque).splitlines()
+        if limpiar_texto_celda(line)
+    ]
+
+    tipo_pat = re.compile(
+        r"^(Tasa|Margen|TIR|TEM|Precio|Book Building|Book building|Por Adhesión)$",
+        re.I
+    )
+    rows = []
+    i = 0
+
+    while i < len(lines):
+        if not re.match(DIA, lines[i], flags=re.I):
+            i += 1
+            continue
+
+        fecha_lic = lines[i]
+        body = []
+        j = i + 1
+
+        while j < len(lines):
+            tipo_match = tipo_pat.match(lines[j])
+            next_is_liq = (
+                j + 1 < len(lines)
+                and (
+                    re.match(DIA, lines[j + 1], flags=re.I)
+                    or lines[j + 1].lower() == "a informar"
+                )
+            )
+
+            if tipo_match and next_is_liq:
+                rows.append(
+                    limpiar_texto_celda(
+                        f"{fecha_lic} {' '.join(body)} {lines[j]} {lines[j + 1]}"
+                    )
+                )
+                i = j + 2
+                break
+
+            if j > i + 1 and re.match(DIA, lines[j], flags=re.I):
+                break
+
+            body.append(lines[j])
+            j += 1
+        else:
+            i += 1
+            continue
+
+        if j < len(lines) and not (tipo_match and next_is_liq):
+            i += 1
+
+    return "\n".join(rows)
+
+
 def _difusion_rating(reg_limpio):
-    rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
-    rating_pat = rf"{rating_grade}\s+\([^)]+\)"
+    rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A-2|A2|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
+    rating_pat = rf"(?:ML\s+)?{rating_grade}\s+\([^)]+\)"
     m_rating = re.search(
-        rf"\b({rating_pat}(?:\s*/\s*(?:{rating_pat}|{rating_grade}))*|SC|A informar)",
+        rf"\b({rating_pat}(?:\s*/\s*(?:{rating_pat}|{rating_grade}))*|SC)",
         reg_limpio
     )
-    return m_rating.group(1) if m_rating else ""
+    if m_rating:
+        return m_rating.group(1)
+
+    m_pending = re.search(r"\b(A informar)\b", reg_limpio)
+    return m_pending.group(1) if m_pending else ""
 
 
 def _difusion_emisor(reg):
@@ -813,24 +892,25 @@ def _difusion_emisor(reg):
 
     s = re.sub(DIA, " ", s, flags=re.I)
 
-    rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
-    rating_pat = rf"{rating_grade}\s+\([^)]+\)"
+    rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A-2|A2|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
+    rating_pat = rf"(?:ML\s+)?{rating_grade}\s+\([^)]+\)"
     s = re.sub(
         rf"\b{rating_pat}(?:\s*/\s*(?:{rating_pat}|{rating_grade}))*",
         " ",
         s
     )
     s = re.sub(
-        r"\s*/\s*(?:AAA|AA[+-]?|A1\+?|A-1|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)\b",
+        r"\s*/\s*(?:AAA|AA[+-]?|A1\+?|A-1|A-2|A2|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)\b",
         " ",
         s
     )
 
     s = re.sub(r"Monto Máximo Disponible", " ", s, flags=re.I)
+    s = re.sub(r"Monto Máximo del Programa", " ", s, flags=re.I)
     s = re.sub(r"del Programa\)", " ", s, flags=re.I)
 
     emisor = re.split(
-        r"\s+-?\s*(?:USD|\$)\s*[\d\.]",
+        r"\s*-?\s*(?:USD|\$)\s*[\d\.]",
         s,
         maxsplit=1
     )[0]
@@ -1342,13 +1422,17 @@ def actualizar_difusion(texto):
 
         return
 
-    bloque = normalizar_bloque_difusion(bloque)
+    bloque_lineal = linealizar_filas_difusion(bloque)
+    if bloque_lineal:
+        bloque = bloque_lineal
+    else:
+        bloque = normalizar_bloque_difusion(bloque)
     
 
     patron = re.compile(
         rf"(?P<fecha_lic>{DIA})\s+"
-        rf"(?P<reg>(?:ON |Títulos de Deuda).*?)\s+"
-        rf"(?P<tipo>Tasa|Margen|TIR|TEM|Precio|Book building|Por Adhesión)\s+"
+        rf"(?P<reg>(?:ON |BONAR |Títulos de Deuda).*?)\s+"
+        rf"(?P<tipo>Tasa|Margen|TIR|TEM|Precio|Book Building|Book building|Por Adhesión)\s+"
         rf"(?P<fecha_liq>{DIA}|A informar)",
         re.DOTALL
     )
@@ -1412,6 +1496,9 @@ def actualizar_difusion(texto):
 
         if "Venc. entre los 8 y 10 años" in reg:
             plazo = 108
+
+        if re.search(r"Venc\.\s*a\s+los\s+8\s+años", reg, flags=re.I):
+            plazo = 96
 
         # -------------------------
         # TASA
