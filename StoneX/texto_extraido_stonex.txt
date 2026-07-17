@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 16-07-2026
+Licitaciones Primarias 17-07-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 12:12 PM
+42 hace unos minutos
 View Full
 REGRESAR
 
@@ -61,7 +61,7 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 Page 1
 
-16 de julio de 2026
+17 de julio de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
  informe
 sideseanmásinformación.LainformaciónenestereporteseobtuvodefuentesqueStoneXSecuritiesS.A.creequesonconfiables,peroStoneXnogarantizaquelainformaciónseacorrectaocompleta.Cualquier
@@ -101,142 +101,11 @@ Pago
 Licitación
  Fecha de 
 Liquidación
- Px 119,40 
-22,4375%
- 25,59%
- 0,57%
- 23,00%
- mié, 15 jul.
- Letra del Tesoro Nacional Capitalizable en Pesos 
-[Reapertura]
- S30N6
--ARS
- $ 1.995.646.000.000
- TEM 2,30%
- 4,47
- 136
- 30/11/2026
- SC
- Precio
- vie, 17 jul.
- Px 96,60 
--8,07%--
- mié, 15 jul.
- Bono del Tesoro Nacional Cero Cupón con Ajuste 
-por CER [Reapertura]
- TZXM8
--CER
- $ 1.115.622.000.000
- 0,00%
- 20,48
- 623
- 31/3/2028
- SC
- Precio
- vie, 17 jul.
- Px 103,80 
-22,4375%
- 34,57%
- 7,62%
- 30,06%
- mié, 15 jul.
- Bono del Tesoro Nacional en Pesos a Tasa 
-TAMAR [Reapertura]
- TMG28
--ARS
- $ 604.538.000.000
- TAMAR TEM + 6,90%
- 25,51
- 776
- 31/8/2028
- SC
- Precio
- vie, 17 jul.
- Px 99,09 
--7,77%--
- mié, 15 jul.
- Letra del Tesoro Nacional Cero Cupón Vinculada 
-al Dólar [Reapertura]
- D31G6
--USD linked
- USD 178.000.000
- 0,00%
- 1,48
- 45
- 31/8/2026
- SC
- Precio
- vie, 17 jul.
- Px 97,50 
--3,16%--
- mié, 15 jul.
- Letra del Tesoro Nacional Cero Cupón Vinculada 
-al Dólar [Nueva]
- D10Y7
--USD linked
- USD 604.000.000
- 0,00%
- 9,76
- 297
- 10/5/2027
- SC
- Precio
- vie, 17 jul.
- Px 81,10 
--9,08%--
- mié, 15 jul.
- Bono del Tesoro Nacional Cero Cupón Vinculado 
-al Dólar [Reapertura]
- TZVD8
--USD linked
- USD 186.000.000
- 0,00%
- 29,00
- 882
- 15/12/2028
- SC
- Precio
- vie, 17 jul.
- Px 94,30 
--8,29%--
- mié, 15 jul.
- BONAR 2029 [Nuevo]
- AO29
- USD Mep
- USD 499.000.000
- 6,00%
- 35,83
- 1202
- 31/10/2029
- SC
- Precio
- vie, 17 jul.
-Presentation Heading  |
-Resultados
-
-Page 3
-
-STONEX
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity 
-(días)
- Última Fecha de 
-Pago
- Rating
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
+ 27,97%
+ 22,6250%
+ 31,67%
+ 5,20%
+ 27,83%
  jue, 16 jul.
  FF Fiducar
  XXXIV
@@ -244,12 +113,17 @@ Liquidación
  ARS
  $ 6.074.575.903
  (20%; T+100; 45%)
- 7,46
+ 7,01
  374
  26/7/2027
  AAA (Moody´s)
  TIR
  vie, 17 jul.
+ 29,42%
+ 22,6250%
+ 32,69%
+ 6,00%
+ 28,62%
  jue, 16 jul.
  FF Fiducar
  XXXIV
@@ -257,54 +131,36 @@ Liquidación
  ARS
  $ 614.282.957
  (21%; T+200; 46%)
- 13,73
+ 13,80
  437
  27/9/2027
  A (Moody´s)
  TIR
  vie, 17 jul.
+ TAMAR+7,00%
+ 22,6250%
+ 33,06%
+ 6,28%
+ 28,90%
  jue, 16 jul.
  ON Sion (Pyme)
  IV
- $3.000.000.000 (amp. h/ 
-$5.000.000.000)-ARS
- $3.000.000.000 (amp. h/ 
-$5.000.000.000)
- (i) Max (29%; T+Mg) para el primer 
-servicio;
- (ii) T+Mg para los siguientes servicios
+-ARS
+ $ 3.536.000.000
+ (i) Max (29%; T+700) para el primer servicio;
+ (ii) T+700 para los siguientes servicios
  8,41
  274
  17/4/2027
  ML A-2 (Moody´s)
  Margen
  vie, 17 jul.
- OPERACIONES DE TERCEROS
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity 
-(días)
- Última Fecha de 
-Pago
- Rating
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
+ Px 94,30 
+-8,29%--
  jue, 16 jul.
  BONAR 2029 [Nuevo - Segunda vuelta]
  AO29
- USD 150.000.000
- USD Mep
+-USD Mep
  USD 150.000.000
  6,00%
  35,83
@@ -313,32 +169,50 @@ Liquidación
  SC
  Por Adhesión
  vie, 17 jul.
+ Px 116,69 
+22,6250%
+ 28,41%
+ 2,65%
+ 25,27%
  jue, 16 jul.
- Letras de Tesorería de la Provincia del 
-Chaco [Reapertura]-2
+ Letras de Tesorería de la Provincia del Chaco 
+[Reapertura]-2
  ARS
- 38.00%
+ $ 44.351.695.435
+ 38,00%
  0,92
  28
  14/8/2026
  B (Fix SCR)
  Precio
  vie, 17 jul.
+ Px 102,47 
+22,6250%
+ 28,34%
+ 2,59%
+ 25,22%
  jue, 16 jul.
- Letras de Tesorería de la Provincia del 
-Chaco [Reapertura]-6
+ Letras de Tesorería de la Provincia del Chaco 
+[Reapertura]-6
  ARS
- 26.00%
+ $ 22.669.866.939
+ 26,00%
  2,07
  63
  18/9/2026
  B (Fix SCR)
  Precio
  vie, 17 jul.
+ 25,75%
+ 22,6250%
+ 28,65%
+ 2,83%
+ 25,46%
  jue, 16 jul.
- Letras de Tesorería de la Provincia del 
-Chaco [Nueva]-9
+ Letras de Tesorería de la Provincia del Chaco 
+[Nueva]-9
  ARS
+ $ 1.585.871.999
  A licitar
  2,99
  91
@@ -346,28 +220,45 @@ Chaco [Nueva]-9
  B (Fix SCR)
  Tasa
  vie, 17 jul.
+ TAMAR+6,00%
+ 22,6250%
+ 30,68%
+ 4,43%
+ 27,06%
  jue, 16 jul.
- Letras de Tesorería de la Provincia del 
-Chaco [Nueva]-10
+ Letras de Tesorería de la Provincia del Chaco 
+[Nueva]-10
  ARS
- TAMAR+Mg
+ $ 905.900.000
+ TAMAR+6,00%
  5,98
  182
  15/1/2027
  B (Fix SCR)
  Margen
  vie, 17 jul.
+ TAMAR+6,50%
+ 22,6250%
+ 28,64%
+ 2,83%
+ 25,45%
  jue, 16 jul.
- Letras de Tesorería de la Provincia del 
-Chaco [Nueva]-11
+ Letras de Tesorería de la Provincia del Chaco 
+[Nueva]-11
  ARS
- TAMAR+Mg
+ $ 45.500.000
+ TAMAR+6,50%
  11,97
  364
  16/7/2027
  B (Fix SCR)
  Margen
  vie, 17 jul.
+ 27,30%
+ 22,6250%
+ 31,70%
+ 5,23%
+ 27,85%
  jue, 16 jul.
  FF Coppel
  I
@@ -381,6 +272,11 @@ Chaco [Nueva]-11
  ML A-1 (Moody´s)
  TIR
  vie, 17 jul.
+ 21,00%
+ 22,6250%
+ 24,66%
+-0,38%
+ 22,24%
  jue, 16 jul.
  FF Coppel
  I
@@ -388,34 +284,33 @@ Chaco [Nueva]-11
  ARS
  $ 535.802.137
  (21%; T+200; 46%)
- 12,70
+ 12,72
  437
  27/9/2027
  BB+ (Moody´s)
  TIR
  vie, 17 jul.
+ TAMAR-1,00%
+ 22,6250%
+ 23,44%
+-1,38%
+ 21,25%
  jue, 16 jul.
  ON Latamly S.A.
  II
- $2.000.000.000 (amp. h/ 
-$4.300.000.000)-ARS
- $2.000.000.000 (amp. h/ 
-$4.300.000.000)
- TAMAR+Mg
- 11,71
+-ARS
+ $ 4.300.000.000
+ TAMAR-1,00%
+ 12,03
  731
  17/7/2028
  SC
  Margen
  vie, 17 jul.
- $ 5.237.465.884
- $ 10.718.873.485
- $ 140.000.000.000
- $ 140.000.000.000
 Presentation Heading  |
-Licita hoy
+Resultados
 
-Page 4
+Page 3
 
 OPERACIONES DE TERCEROS
 Fecha de 
@@ -451,9 +346,35 @@ Liquidación
  SC
  Margen
  mar, 21 jul.
+Presentation Heading  |
+Licita hoy
+
+Page 4
+
+OPERACIONES DE TERCEROS
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
  lun, 20 jul.
- ON Petroquímica Comodoro Rivadavia 
-& Luz de Tres Picos [Ley NY]-USD 350.000.000 (amp. h/ 
+ ON Petroquímica Comodoro Rivadavia & 
+Luz de Tres Picos [Ley NY]-USD 350.000.000 (amp. h/ 
 Monto Máximo del Programa)
  1
  USD Cable
@@ -480,8 +401,8 @@ Ratings)
  Tasa
  vie, 24 jul.
  mar, 21 jul.
- ON Banco BBVA (Integra en efectivo 
-y/o en especie)-49
+ ON Banco BBVA (Integra en efectivo y/o 
+en especie)-49
  USD Mep
  A licitar
  11,85
@@ -491,8 +412,8 @@ y/o en especie)-49
  Tasa
  vie, 24 jul.
  mar, 21 jul.
- ON Banco BBVA (Integra en efectivo 
-y/o en especie)-50
+ ON Banco BBVA (Integra en efectivo y/o 
+en especie)-50
  USD Mep
  A licitar
  22,71
@@ -500,6 +421,54 @@ y/o en especie)-50
  24/7/2028
  AAA (Fix SCR)
  Tasa
+ vie, 24 jul.
+ mar, 21 jul.
+ Letras del Tesoro de la Provincia de 
+Buenos Aires a Descuento [Reapertura]
+ LBG26
+ $4.000.000.000 (ampliables)
+-ARS
+ $4.000.000.000 (ampliables)
+ 0,00%
+ 0,95
+ 29
+ 21/8/2026
+ B (Moody´s)
+ Precio
+ jue, 23 jul.
+ mar, 21 jul.
+ Letras del Tesoro de la Provincia de 
+Buenos Aires a Descuento [Nueva]-$3.000.000.000 (ampliables)-ARS
+ $3.000.000.000 (ampliables)
+ 0,00%
+ 2,07
+ 63
+ 24/9/2026
+ B (Moody´s)
+ Precio
+ jue, 23 jul.
+ mar, 21 jul.
+ Letras del Tesoro de la Provincia de 
+Buenos Aires Capitalizable [Nueva]-$3.000.000.000 (ampliables)-ARS
+ $3.000.000.000 (ampliables)
+ TEM A licitar
+ 3,91
+ 119
+ 19/11/2026
+ B (Moody´s)
+ TEM
+ jue, 23 jul.
+ mié, 22 jul.
+ FF Individual Prosegur Digital Gold
+-USD 500.000
+ CP
+ USD
+ USD 500.000
+ 0,00%
+ 1826
+ 24/7/2031
+ SC
+ Precio
  vie, 24 jul.
  USD 20.000.000 (amp. h/ 
 Monto Máximo del Programa)
