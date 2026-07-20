@@ -973,7 +973,7 @@ def parsear_resultados_generico(resultados, modo_monto="principal"):
     patron_fila = re.compile(
         rf"(?P<lic>{DIA})\s+"
         rf"(?P<body>(?:ON|BONAR|\[OFERTA DE CANJE\]\s+ON).*?)\s+"
-        rf"(?P<tipo>Tasa|Margen|Precio|Book building|Por Adhesión)\s+"
+        rf"(?P<tipo>Tasa|Margen|TIR|TEM|Precio|Book building|Por Adhesión)\s+"
         rf"(?P<liq>{DIA})",
         re.DOTALL
     )
@@ -1035,8 +1035,16 @@ def parsear_resultados_generico(resultados, modo_monto="principal"):
                 detalle.group("rating")
             )
 
+            rating = re.split(
+                rf"\s+(?:Tasa|Margen|TIR|TEM|Precio|Book building|Por Adhesión)\s+"
+                rf"(?={DIA}|A informar\b)",
+                rating,
+                maxsplit=1,
+                flags=re.I
+            )[0].strip()
+
             rating = re.sub(
-                r"\s+(Tasa|Margen|Precio|Book building|Por Adhesión)$",
+                r"\s+(Tasa|Margen|TIR|TEM|Precio|Book building|Por Adhesión)$",
                 "",
                 rating
             ).strip()
