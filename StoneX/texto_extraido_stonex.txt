@@ -9,10 +9,11 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 17-07-2026
+Licitaciones Primarias 20-07-2026
 Por:
 Mercado de Capitales Stonex
-July 17, 11:18 AM
+Hoy 10:21 AM
+View Full
 REGRESAR
 
 Este material debe interpretarse como comentario de mercado y representa las opiniones y puntos de vista del autor, y no constituye asesoramiento personalizado asociado con ninguna cuenta específica.
@@ -58,4 +59,801 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 --- FRAME 2 ---
 
-Abriendo documento 100%Carga del documento en curso.
+Page 1
+
+20 de julio de 2026
+Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
+ informe
+sideseanmásinformación.LainformaciónenestereporteseobtuvodefuentesqueStoneXSecuritiesS.A.creequesonconfiables,peroStoneXnogarantizaquelainformaciónseacorrectaocompleta.Cualquier
+ opinión
+oestimacióncontenidaenestereporterepresentael
+ juicio
+actualdeStoneXyestásujetoacambiossinprevioaviso.StoneXSecuritiesS.A.osusvinculadaspodríanproveerconsejorespectoaadquirir,mantenero
+ vender
+losinstrumentosnombradosenesteinforme.
+Presentation Heading  |
+1
+
+Page 2
+
+Tasa / Precio de Corte
+ Tasa 
+Tamar TIR Proyectada
+ Spread TNA30d - 
+Tamar
+ TNA (30días)
+ Fecha de 
+Licitación
+ Emisión
+ Serie
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(Meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Calificación
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ 27,33%
+ 21,9375%
+ 30,40%
+ 4,90%
+ 26,84%
+ lun, 13 jul.
+ FF Creditech S.A.
+ VII
+ VDFA
+ ARS
+ $ 9.160.000.000
+ (20%; T+100; 45%)
+ 5,46
+ 331
+ 10/6/2027
+ AAA (Moody´s)
+ TIR
+ mar, 14 jul.
+ 32,52%
+ 21,9375%
+ 34,41%
+ 8,00%
+ 29,94%
+ lun, 13 jul.
+ FF Creditech S.A.
+ VII
+ VDFB
+ ARS
+ $ 700.000.000
+ (22%; T+100; 47%)
+ 11,12
+ 361
+ 10/7/2027
+ A- (Moody´s)
+ TIR
+ mar, 14 jul.
+ 37,20%
+ 21,9375%
+ 37,05%
+ 10,00%
+ 31,94%
+ lun, 13 jul.
+ FF Creditech S.A.
+ VII
+ VDFC
+ ARS
+ $ 2.190.000.000
+ 30,00%
+ 14,13
+ 514
+ 10/12/2027
+ B (Moody´s)
+ TIR
+ mar, 14 jul.
+ 5,00%
+-5,09%--
+ lun, 13 jul.
+ ON Banco de Servicios y Transacciones (Integra 
+en efectivo y/o en especie)-XXIX
+ USD Mep
+ USD 20.518.672
+ 5,00%
+ 11,91
+ 369
+ 19/7/2027
+ A1 (Fix SCR) / A-1 
+(Moody´s)
+ Tasa
+ mié, 15 jul.
+ 6,00%
+-6,14%--
+ lun, 13 jul.
+ ON Banco de Servicios y Transacciones
+-XXX
+ UVA
+ UVA 4.191.519
+ 6,00%
+ 20,14
+ 731
+ 15/7/2028
+ A+ (Fix SCR) / A 
+(Moody´s)
+ Tasa
+ mié, 15 jul.
+ 4,25%
+-4,29%--
+ lun, 13 jul.
+ ON Banco de Valores
+-4
+ USD Mep
+ USD 20.000.000
+ 4,25%
+ 12,07
+ 371
+ 20/7/2027
+ A-1 (Moody´s)
+ Tasa
+ mar, 14 jul.
+ TAMAR+3,00%
+ 21,9375%
+ 27,04%
+ 2,24%
+ 24,18%
+ mar, 14 jul.
+ ON Pyme CNV Garantizada 3D 
+LATINOAMERICA S.A.
+ I
+-ARS
+ $ 1.000.000.000
+ TAMAR+3,00%
+ 16,60
+ 915
+ 16/1/2029
+ SC
+ Margen
+ jue, 16 jul.
+ 3,75%
+-3,77%--
+ mar, 14 jul.
+ ON Vista Energy
+-XXXII
+ USD Cable
+ USD 75.000.000
+ 3,75%
+ 17,76
+ 549
+ 16/1/2028
+ AAA (Fix SCR) / 
+AAA (Moody´s)
+ Tasa
+ jue, 16 jul.
+ 5,00%
+-5,06%--
+ mar, 14 jul.
+ ON Vista Energy
+-XXXIII
+ USD Mep
+ USD 75.000.000
+ 5,00%
+ 33,96
+ 1096
+ 16/7/2029
+ AAA (Fix SCR) / 
+AAA (Moody´s)
+ Tasa
+ jue, 16 jul.
+ TAMAR+4,50%
+ 21,9375%
+ 29,17%
+ 3,94%
+ 25,87%
+ mar, 14 jul.
+ ON Rombo Cía. Financiera
+ 67
+-ARS
+ $ 17.063.737.777
+ TAMAR+4,50%
+ 10,89
+ 457
+ 17/10/2027
+ AA (Fix SCR)
+ Margen
+ vie, 17 jul.
+ TEM 2,15%
+ 21,9375%
+ 29,08%
+ 3,86%
+ 25,80%
+ mar, 14 jul.
+ ON Rombo Cía. Financiera
+ 68
+-ARS
+ $ 4.557.500.000
+ TEM 2,15%
+ 9,01
+ 274
+ 17/4/2027
+ A1+ (Fix SCR)
+ TEM
+ vie, 17 jul.
+ Px 119,40 
+22,4375%
+ 25,59%
+ 0,57%
+ 23,00%
+ mié, 15 jul.
+ Letra del Tesoro Nacional Capitalizable en 
+Pesos [Reapertura]
+ S30N6
+-ARS
+ $ 1.995.646.000.000
+ TEM 2,30%
+ 4,47
+ 136
+ 30/11/2026
+ SC
+ Precio
+ vie, 17 jul.
+ Px 96,60 
+-8,07%--
+ mié, 15 jul.
+ Bono del Tesoro Nacional Cero Cupón con 
+Ajuste por CER [Reapertura]
+ TZXM8
+-CER
+ $ 1.115.622.000.000
+ 0,00%
+ 20,48
+ 623
+ 31/3/2028
+ SC
+ Precio
+ vie, 17 jul.
+ Px 103,80 
+22,4375%
+ 34,57%
+ 7,62%
+ 30,06%
+ mié, 15 jul.
+ Bono del Tesoro Nacional en Pesos a Tasa 
+TAMAR [Reapertura]
+ TMG28
+-ARS
+ $ 604.538.000.000
+ TAMAR TEM + 6,90%
+ 25,51
+ 776
+ 31/8/2028
+ SC
+ Precio
+ vie, 17 jul.
+ Px 99,09 
+-7,77%--
+ mié, 15 jul.
+ Letra del Tesoro Nacional Cero Cupón 
+Vinculada al Dólar [Reapertura]
+ D31G6
+-USD linked
+ USD 178.000.000
+ 0,00%
+ 1,48
+ 45
+ 31/8/2026
+ SC
+ Precio
+ vie, 17 jul.
+ Px 97,50 
+-3,16%--
+ mié, 15 jul.
+ Letra del Tesoro Nacional Cero Cupón 
+Vinculada al Dólar [Nueva]
+ D10Y7
+-USD linked
+ USD 604.000.000
+ 0,00%
+ 9,76
+ 297
+ 10/5/2027
+ SC
+ Precio
+ vie, 17 jul.
+Presentation Heading  |
+Resultados de la semana
+
+Page 3
+
+Tasa / Precio de Corte
+ Tasa 
+Tamar TIR Proyectada
+ Spread TNA30d - 
+Tamar
+ TNA (30días)
+ Fecha de 
+Licitación
+ Emisión
+ Serie
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(Meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Calificación
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ Px 81,10 
+-9,08%--
+ mié, 15 jul.
+ Bono del Tesoro Nacional Cero Cupón 
+Vinculado al Dólar [Reapertura]
+ TZVD8
+-USD linked
+ USD 186.000.000
+ 0,00%
+ 29,00
+ 882
+ 15/12/2028
+ SC
+ Precio
+ vie, 17 jul.
+ Px 94,30 
+-8,29%--
+ mié, 15 jul.
+ BONAR 2029 [Nuevo]
+ AO29
+-USD Mep
+ USD 499.000.000
+ 6,00%
+ 35,83
+ 1202
+ 31/10/2029
+ SC
+ Precio
+ vie, 17 jul.
+ 27,97%
+ 22,6250%
+ 31,67%
+ 5,20%
+ 27,83%
+ jue, 16 jul.
+ FF Fiducar
+ XXXIV
+ VDFA
+ ARS
+ $ 6.074.575.903
+ (20%; T+100; 45%)
+ 7,01
+ 374
+ 26/7/2027
+ AAA (Moody´s)
+ TIR
+ vie, 17 jul.
+ 29,42%
+ 22,6250%
+ 32,69%
+ 6,00%
+ 28,62%
+ jue, 16 jul.
+ FF Fiducar
+ XXXIV
+ VDFB
+ ARS
+ $ 614.282.957
+ (21%; T+200; 46%)
+ 13,80
+ 437
+ 27/9/2027
+ A (Moody´s)
+ TIR
+ vie, 17 jul.
+ TAMAR+7,00%
+ 22,6250%
+ 33,06%
+ 6,28%
+ 28,90%
+ jue, 16 jul.
+ ON Sion (Pyme)
+ IV
+-ARS
+ $ 3.536.000.000
+ (i) Max (29%; T+700) para el primer 
+servicio;
+ (ii) T+700 para los siguientes servicios
+ 8,41
+ 274
+ 17/4/2027
+ ML A-2 (Moody´s)
+ Margen
+ vie, 17 jul.
+ Px 94,30 
+-8,29%--
+ jue, 16 jul.
+ BONAR 2029 [Nuevo - Segunda vuelta]
+ AO29
+-USD Mep
+ USD 150.000.000
+ 6,00%
+ 35,83
+ 1202
+ 31/10/2029
+ SC
+ Por Adhesión
+ vie, 17 jul.
+ Px 116,69 
+22,6250%
+ 28,41%
+ 2,65%
+ 25,27%
+ jue, 16 jul.
+ Letras de Tesorería de la Provincia del Chaco 
+[Reapertura]-2
+ ARS
+ $ 44.351.695.435
+ 38,00%
+ 0,92
+ 28
+ 14/8/2026
+ B (Fix SCR)
+ Precio
+ vie, 17 jul.
+ Px 102,47 
+22,6250%
+ 28,34%
+ 2,59%
+ 25,22%
+ jue, 16 jul.
+ Letras de Tesorería de la Provincia del Chaco 
+[Reapertura]-6
+ ARS
+ $ 22.669.866.939
+ 26,00%
+ 2,07
+ 63
+ 18/9/2026
+ B (Fix SCR)
+ Precio
+ vie, 17 jul.
+ 25,75%
+ 22,6250%
+ 28,65%
+ 2,83%
+ 25,46%
+ jue, 16 jul.
+ Letras de Tesorería de la Provincia del Chaco 
+[Nueva]-9
+ ARS
+ $ 1.585.871.999
+ 25,75%
+ 2,99
+ 91
+ 16/10/2026
+ B (Fix SCR)
+ Tasa
+ vie, 17 jul.
+ TAMAR+6,00%
+ 22,6250%
+ 30,68%
+ 4,43%
+ 27,06%
+ jue, 16 jul.
+ Letras de Tesorería de la Provincia del Chaco 
+[Nueva]-10
+ ARS
+ $ 905.900.000
+ TAMAR+6,00%
+ 5,98
+ 182
+ 15/1/2027
+ B (Fix SCR)
+ Margen
+ vie, 17 jul.
+ TAMAR+6,50%
+ 22,6250%
+ 28,64%
+ 2,83%
+ 25,45%
+ jue, 16 jul.
+ Letras de Tesorería de la Provincia del Chaco 
+[Nueva]-11
+ ARS
+ $ 45.500.000
+ TAMAR+6,50%
+ 11,97
+ 364
+ 16/7/2027
+ B (Fix SCR)
+ Margen
+ vie, 17 jul.
+ 27,30%
+ 22,6250%
+ 31,70%
+ 5,23%
+ 27,85%
+ jue, 16 jul.
+ FF Coppel
+ I
+ VDFA
+ ARS
+ $ 4.701.663.747
+ (20%; T+100; 45%)
+ 5,59
+ 312
+ 25/5/2027
+ ML A-1 (Moody´s)
+ TIR
+ vie, 17 jul.
+ 21,00%
+ 22,6250%
+ 24,66%
+-0,38%
+ 22,24%
+ jue, 16 jul.
+ FF Coppel
+ I
+ VDFB
+ ARS
+ $ 535.802.137
+ (21%; T+200; 46%)
+ 12,72
+ 437
+ 27/9/2027
+ BB+ (Moody´s)
+ TIR
+ vie, 17 jul.
+ TAMAR-1,00%
+ 22,6250%
+ 23,44%
+-1,38%
+ 21,25%
+ jue, 16 jul.
+ ON Latamly S.A.
+ II
+-ARS
+ $ 4.300.000.000
+ TAMAR-1,00%
+ 12,03
+ 731
+ 17/7/2028
+ SC
+ Margen
+ vie, 17 jul.
+ TAMAR-1,16%
+ 22,6250%
+ 23,25%
+-1,54%
+ 21,09%
+ vie, 17 jul.
+ ON Garantizada Recard (Pyme)
+ II
+-ARS
+ $ 1.000.000.000
+ TAMAR-1,16%
+ 13,02
+ 731
+ 21/7/2028
+ SC
+ Margen
+ mar, 21 jul.
+Presentation Heading  |
+Resultados de la semana
+
+Page 4
+
+STONEX
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ jue, 23 jul.
+ FF Megabono
+ 355
+ VDFA
+ ARS
+ $ 10.447.967.911
+ (20%; T+Mg; 45%)
+ 6,01
+ 332
+ 24/6/2027
+ AAA (Fix SCR)
+ Margen
+ lun, 27 jul.
+ jue, 23 jul.
+ FF Megabono
+ 355
+ VDFB
+ ARS
+ $ 1.243.787.378
+ (25%; T+Mg; 50%)
+ 11,89
+ 393
+ 24/8/2027
+ AA (Fix SCR)
+ Margen
+ lun, 27 jul.
+ OPERACIONES DE TERCEROS
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ mar, 21 jul.
+ ON Petroquímica Comodoro Rivadavia & 
+Luz de Tres Picos [Ley NY]-USD 350.000.000 (amp. h/ 
+Monto Máximo del Programa)
+ 1
+ USD Cable
+ USD 350.000.000 (amp. h/ 
+Monto Máximo del Programa)
+ A licitar
+ A informar
+ A informar
+ Venc. a los 8 
+años
+ B (S&P) / B (Fitch 
+Ratings)
+ Book Building
+ A informar
+ mar, 21 jul.
+ ON Banco BBVA
+-48
+ USD Cable
+ A licitar
+ 17,53
+ 640
+ 24/4/2028
+ AAA (Fix SCR)
+ Tasa
+ vie, 24 jul.
+ mar, 21 jul.
+ ON Banco BBVA (Integra en efectivo y/o 
+en especie)-49
+ USD Mep
+ A licitar
+ 11,85
+ 365
+ 24/7/2027
+ A1+ (Fix SCR)
+ Tasa
+ vie, 24 jul.
+ mar, 21 jul.
+ ON Banco BBVA (Integra en efectivo y/o 
+en especie)-50
+ USD Mep
+ A licitar
+ 22,71
+ 731
+ 24/7/2028
+ AAA (Fix SCR)
+ Tasa
+ vie, 24 jul.
+ mar, 21 jul.
+ Letras del Tesoro de la Provincia de 
+Buenos Aires a Descuento [Reapertura]
+ LBG26
+ $4.000.000.000 (ampliables)
+-ARS
+ $4.000.000.000 (ampliables)
+ 0,00%
+ 0,95
+ 29
+ 21/8/2026
+ B (Moody´s)
+ Precio
+ jue, 23 jul.
+ mar, 21 jul.
+ Letras del Tesoro de la Provincia de 
+Buenos Aires a Descuento [Nueva]-$3.000.000.000 (ampliables)-ARS
+ $3.000.000.000 (ampliables)
+ 0,00%
+ 2,07
+ 63
+ 24/9/2026
+ B (Moody´s)
+ Precio
+ jue, 23 jul.
+ mar, 21 jul.
+ Letras del Tesoro de la Provincia de 
+Buenos Aires Capitalizable [Nueva]-$3.000.000.000 (ampliables)-ARS
+ $3.000.000.000 (ampliables)
+ TEM A licitar
+ 3,91
+ 119
+ 19/11/2026
+ B (Moody´s)
+ TEM
+ jue, 23 jul.
+ mar, 21 jul.
+ [OFERTA DE CONVERSIÓN] D31L6 x 
+Letra del Tesoro Nacional Vinculada al 
+Dólar [Reapertura]
+ D31G6
+-USD Linked
+ 0,00%
+ 1,25
+ 38
+ 31/8/2026
+ SC
+ Precio
+ vie, 24 jul.
+ mar, 21 jul.
+ [OFERTA DE CONVERSIÓN] D31L6 x 
+Bono del Tesoro Nacional Vinculada al 
+Dólar [Reapertura]
+ TZVD8
+-USD Linked
+ 0,00%
+ 28,77
+ 875
+ 15/12/2028
+ SC
+ Precio
+ vie, 24 jul.
+ mié, 22 jul.
+ FF Individual Prosegur Digital Gold
+-USD 500.000
+ CP
+ USD
+ USD 500.000
+ 0,00%
+ 1826
+ 24/7/2031
+ SC
+ Precio
+ vie, 24 jul.
+ Hasta el Monto Máximo 
+Autorizado por la Nomativa 
+Vigente
+ Hasta el Monto Máximo 
+Autorizado por la Nomativa 
+Vigente
+ USD 20.000.000 (amp. h/ 
+Monto Máximo del Programa)
+ USD 20.000.000 (amp. h/ 
+Monto Máximo del Programa)
+ $ 15.682.929.917
+Presentation Heading  |
+Operaciones en Difusión
+
+Carga del documento completada. Está en la página 1.
