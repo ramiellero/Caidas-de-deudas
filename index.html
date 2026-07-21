@@ -2285,7 +2285,10 @@
 
       <div class="deals-filter-group">
         <span class="deals-filter-label">Issuer Code</span>
-        <input type="text" class="deals-filter-input" id="padron-f-issuer" placeholder="Pendiente de asignar" style="width:140px">
+        <select class="deals-filter-input" id="padron-f-issuer" style="width:140px">
+          <option value="IRSA">IRSA</option>
+          <option value="CRES">CRES</option>
+        </select>
       </div>
 
       <div class="deals-filter-group">
@@ -2311,7 +2314,7 @@
             <th onclick="_padronSortBy('investorName')">Tenedor</th>
             <th onclick="_padronSortBy('investorType')">Tipo</th>
             <th onclick="_padronSortBy('investorTaxpayerIdentifier')">Documento</th>
-            <th onclick="_padronSortBy('instrumentDescription')">Instrumento</th>
+            <th onclick="_padronSortBy('cvsaIdentifier')">Instrumento</th>
             <th onclick="_padronSortBy('holding')">Holding</th>
             <th onclick="_padronSortBy('address')">Dirección</th>
             <th onclick="_padronSortBy('countrySubdivision')">Provincia</th>
@@ -6162,7 +6165,7 @@ function _escHtml(s) {
 /* ══════════════════════════════════════════════════════
    PADRÓN — tenedores vía API BYMA (/api/padron)
 ══════════════════════════════════════════════════════ */
-const PADRON_ISSUERS = { irsa: '', cresud: '' }; // TODO: completar issuerCode reales de BYMA
+const PADRON_ISSUERS = { irsa: 'IRSA', cresud: 'CRES' };
 let _padronActiveCo = 'irsa';
 let _padronRows = [];
 let _padronSortCol = null;
@@ -6250,7 +6253,7 @@ function _padronRenderSummary() {
   if (_padronRows.length === 0) { row.innerHTML = ''; return; }
 
   const totalHolding = _padronRows.reduce((s, r) => s + (parseFloat(r.holding) || 0), 0);
-  const instrumentos = new Set(_padronRows.map(r => r.instrumentDescription)).size;
+  const instrumentos = new Set(_padronRows.map(r => r.cvsaIdentifier)).size;
 
   row.innerHTML =
     `<div class="deals-summary-card total"><span class="deals-summary-label">Tenedores</span><span class="deals-summary-value">${_padronRows.length.toLocaleString('es-AR')}</span></div>` +
@@ -6305,7 +6308,7 @@ function _padronRenderTable() {
       <td class="deals-emisor">${_escHtml(r.investorName)}</td>
       <td>${_escHtml(r.investorType)}</td>
       <td>${_escHtml(r.investorRegisterIdType)} ${_escHtml(r.investorTaxpayerIdentifier)}</td>
-      <td>${_escHtml(r.instrumentDescription)}</td>
+      <td>${_escHtml(r.cvsaIdentifier)}</td>
       <td class="deals-vn">${(parseFloat(r.holding) || 0).toLocaleString('es-AR')}</td>
       <td>${_escHtml(r.address)}</td>
       <td>${_escHtml(r.countrySubdivision)}</td>

@@ -1,4 +1,7 @@
-// Vercel Serverless Function — proxy para la API de Custodia BYMA (holdings/tenedores)
+// Vercel Serverless Function — proxy para la API de Custodia BYMA (Custody Issuers, endpoint /holdings)
+// Contrato real (ver página de docs de la API, no solo el openapi.json): GET /holdings.csv/?balanceDate=YYYY-MM-DD&issuerCode=XXXX
+// es ASINCRÓNICA: la primera solicitud dispara la tarea y devuelve un uuid; hay que reconsultar
+// pasando el header X-UUID hasta que la tarea termine, y la respuesta final es CSV.
 // Env vars requeridas (configurar en el dashboard de Vercel, no commitear):
 //   BYMA_OKTA_TOKEN_URL, BYMA_CLIENT_ID, BYMA_CLIENT_SECRET, BYMA_SCOPE, BYMA_API_BASE
 
@@ -89,6 +92,21 @@ module.exports = async (req, res) => {
     if (uuid) headers['X-UUID'] = uuid;
 
     const resp = await fetch(url, { headers });
+
+    // La API BYMA (docs oficiales) es asincrónica: primera respuesta trae un uuid,
+    // hay que reconsultar con X-UUID hasta que la tarea termine.
+    const contentType = resp.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      const data = await resp.json();
+      if (data.uuid) {
+        res.status(200).json({ status: 'pending', uuid: data.uuid });
+        return;
+      }
+      if (!resp.ok) {
+        res.status(200).json({ status: 'error', message: `BYMA API respondió ${resp.status}: ${JSON.stringify(data)}` });
+        return;
+      }
+    }
 
     if (resp.status === 409) {
       const data = await resp.json();

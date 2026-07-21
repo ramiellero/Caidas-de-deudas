@@ -1,0 +1,230 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Custody Issuers",
+    "description": "Esta API ofrece a los emisores la capacidad de consultar información detallada sobre sus instrumentos financieros y los tenedores correspondientes, permitiendo filtrar los datos por una fecha específica.",
+    "version": "1"
+  },
+  "paths": {
+    "/holdings": {
+      "get": {
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "registerType": { "type": "string", "description": "This field indicates the type of record, used in listings to determine types of records such as: 01-" },
+                    "accountGroupingCode": { "type": "string", "description": "Account grouping code. Example: If the account number is '7006/10000' the accountGroupingCode is 700" },
+                    "investorType": { "type": "string", "description": "Investor type (company or individual)." },
+                    "investorName": { "type": "string", "description": "Investor display name." },
+                    "investorRegisterIdType": { "type": "string", "description": "Type of identification associated with the investor's registration." },
+                    "registrationNumber": { "type": "string", "description": "Case number of the legal entity's registration." },
+                    "registrationOrg": { "type": "string", "description": "Place where the legal entity registered." },
+                    "investorTaxpayerIdentifier": { "type": "string", "description": "Tax Identifier. If the investor is Argentinian and the identifier is CUIT, a numerical value must be" },
+                    "addressType": { "type": "string", "description": "Type of address: 1-Main 3-Office 4-Other." },
+                    "address": { "type": "string", "description": "Main address line." },
+                    "filler3": { "type": "string", "description": "Auxiliary field." },
+                    "countrySubdivision": { "type": "string", "description": "countrySubdivision" },
+                    "filler1": { "type": "string", "description": "Auxiliary field." },
+                    "country": { "type": "string", "description": "Country." },
+                    "postalCode": { "type": "string", "description": "Postal code." },
+                    "issuerCode": { "type": "string", "description": "Identifies the institution issuing a proprietary code." },
+                    "accountCompositeNumber": { "type": "string", "description": "Account composite number. Example: If the account number is '7006/10000' the accountCompositeNumber" },
+                    "investorRole": { "type": "string", "description": "Investor role in the account. Can be primary or co-owner." },
+                    "investorCount": { "type": "string", "description": "This field displays the number of investors related to a accountcomposite." },
+                    "cvsaIdentifier": { "type": "string", "description": "Identifier of a security assigned by the CVSA generating identification scheme for financial instrum" },
+                    "flagRestrictedHolding": { "type": "string", "description": "Flag that indicates when a certain holding has restrictions applied" },
+                    "holding": { "type": "string", "description": "Net position of a segregated holding of a single security within the overall position held in the se" },
+                    "filler2": { "type": "string", "description": "Auxiliary field." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-threshold": {
+          "request_second": 1,
+          "request_minute": 5,
+          "request_hour": 10,
+          "request_day": 100,
+          "request_month": 3000,
+          "request_year": 36000,
+          "mb_second": 300,
+          "mb_minute": 600,
+          "mb_hour": 2048,
+          "mb_day": 4096,
+          "mb_month": 63488,
+          "mb_year": 761856,
+          "timeout_milliseconds": 60000,
+          "cache_milliseconds": 3600000,
+          "rows": 100
+        },
+        "parameters": [
+          {
+            "name": "balanceDate",
+            "required": true,
+            "description": "Indicate the date from which you wish to receive the total balances of the accounts that make up your portfolio. Format YYYY-MM-DD",
+            "deprecated": false,
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "issuerCode",
+            "required": true,
+            "description": "Identifies the institution issuing a proprietary code.",
+            "deprecated": false,
+            "in": "query",
+            "schema": { "type": "string", "default": "ARGE" }
+          }
+        ]
+      }
+    },
+    "/holdings/asset-classes": {
+      "get": {
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "Este Método permite generar un listado de tenedores por tipo de instrumentos de un emisor en el sistema de custodia.",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        },
+        "x-threshold": {
+          "request_second": 1,
+          "request_minute": 5,
+          "request_hour": 10,
+          "request_day": 100,
+          "request_month": 3000,
+          "request_year": 36000,
+          "mb_second": 300,
+          "mb_minute": 600,
+          "mb_hour": 2048,
+          "mb_day": 4096,
+          "mb_month": 63488,
+          "mb_year": 761856,
+          "timeout_milliseconds": 60000,
+          "cache_milliseconds": 3600000,
+          "rows": 100
+        },
+        "parameters": [
+          {
+            "name": "assetClassName",
+            "required": true,
+            "description": "Classification type of the financial instrument, as per the CVSA NCSD codification, for example, ADR or CEDEAR.",
+            "deprecated": false,
+            "in": "query",
+            "schema": { "type": "string", "default": "CVSA_BONO" }
+          },
+          {
+            "name": "balanceDate",
+            "required": true,
+            "description": "Indicate the date from which you wish to receive the total balances of the accounts that make up your portfolio. Format YYYY-MM-DD",
+            "deprecated": false,
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "issuerCode",
+            "required": true,
+            "description": "Indicate the identifier of the issuer from whom the data is to be obtained. This parameter is useful for issuers who make inquiries on behalf of more than one agent.",
+            "deprecated": false,
+            "in": "query",
+            "schema": { "type": "string", "default": "ARGE" }
+          }
+        ]
+      }
+    },
+    "/holdings/cvsa-identifier": {
+      "get": {
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "Este Método permite generar un listado de tenedores por código de instrumentos de un emisor en el sistema de custodia.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "registerType": { "type": "string", "description": "This field indicates the type of record, used in listings to determine types of records such as 01-header and 02-body." },
+                    "accountGroupingCode": { "type": "string", "description": "Account grouping code. Example: If the account number is '7006/10000' the accountGroupingCode is 7006." },
+                    "investorType": { "type": "string", "description": "Investor type (company or individual)." },
+                    "investorName": { "type": "string", "description": "Investors display name." },
+                    "investorRegisterIdType": { "type": "string", "description": "Type of identification associated with the investor's registration." },
+                    "registrationNumber": { "type": "string", "description": "Case number of the legal entity's registration." },
+                    "registrationOrg": { "type": "string", "description": "Place where the legal entity registered." },
+                    "investorTaxpayerIdentifier": { "type": "string", "description": "Tax Identifier. If the investor is Argentinian and the identifier is CUIT, a numerical value must be entered." },
+                    "addressType": { "type": "string", "description": "Type of address: 1-Main 3-Office 4-Other." },
+                    "address": { "type": "string", "description": "Main address line." },
+                    "filler3": { "type": "string", "description": "Auxiliary field." },
+                    "countrySubdivision": { "type": "string", "description": "countrySubdivision" },
+                    "filler1": { "type": "string", "description": "Auxiliary field." },
+                    "country": { "type": "string", "description": "Country." },
+                    "postalCode": { "type": "string", "description": "Postal code." },
+                    "issuerCode": { "type": "string", "description": "Identifies the institution issuing a proprietary code." },
+                    "accountCompositeNumber": { "type": "string", "description": "Account composite number. Example: If the account number is '7006/10000' the accountCompositeNumber is 10000." },
+                    "investorRole": { "type": "string", "description": "Investor role in the account. Can be primary or co-owner." },
+                    "investorCount": { "type": "string", "description": "This field displays the number of investors related to a accountcomposite." },
+                    "cvsaIdentifier": { "type": "string", "description": "Identifier of a security assigned by the CVSA generating identification scheme for financial instruments. An alphanumeric code of 1 to 5 characters is assigned for securities while for non-standard instruments their own identifier is maintained" },
+                    "flagRestrictedHolding": { "type": "string", "description": "Flag that indicates when a certain holding has restrictions applied" },
+                    "holding": { "type": "string", "description": "Net position of a segregated holding of a single security within the overall position held in the securities account, for example, sub-balance per status." },
+                    "filler2": { "type": "string", "description": "Auxiliary field." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-threshold": {
+          "request_second": 1,
+          "request_minute": 5,
+          "request_hour": 10,
+          "request_day": 100,
+          "request_month": 3000,
+          "request_year": 36000,
+          "mb_second": 300,
+          "mb_minute": 600,
+          "mb_hour": 2048,
+          "mb_day": 4096,
+          "mb_month": 63488,
+          "mb_year": 761856,
+          "timeout_milliseconds": 60000,
+          "cache_milliseconds": 3600000,
+          "rows": 100
+        },
+        "parameters": [
+          {
+            "name": "balanceDate",
+            "required": true,
+            "description": "Indicate the date from which you wish to receive the total balances of the accounts that make up your portfolio. Format YYYY-MM-DD",
+            "deprecated": false,
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "cvsaIdentifier",
+            "required": true,
+            "description": "Identifier of a security assigned by the CVSA generating identification scheme for financial instruments. An alphanumeric code of 1 to 5 characters is assigned for securities while for non-standard instruments their own identifier is maintained",
+            "deprecated": false,
+            "in": "query",
+            "schema": { "type": "string", "default": "9153" }
+          },
+          {
+            "name": "issuerCode",
+            "required": true,
+            "description": "Indicate the identifier of the issuer from whom the data is to be obtained. This parameter is useful for issuers who make inquiries on behalf of more than one agent.",
+            "deprecated": false,
+            "in": "query",
+            "schema": { "type": "string", "default": "ARGE" }
+          }
+        ]
+      }
+    }
+  },
+  "servers": [
+    { "url": "https://apigw.byma.com.ar/custody-issuers/v1", "description": "Production principal" },
+    { "url": "https://apigw-test.byma.com.ar/custody-issuers/v1", "description": "Staging principal" }
+  ]
+}
