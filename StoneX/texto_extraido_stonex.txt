@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 21-07-2026
+Licitaciones Primarias 22-07-2026
 Por:
 Mercado de Capitales Stonex
-Hoy 10:19 AM
+46 hace unos minutos
 View Full
 REGRESAR
 
@@ -61,7 +61,7 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 Page 1
 
-21de julio de 2026
+22de julio de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
  informe
 sideseanmásinformación.LainformaciónenestereporteseobtuvodefuentesqueStoneXSecuritiesS.A.creequesonconfiables,peroStoneXnogarantizaquelainformaciónseacorrectaocompleta.Cualquier
@@ -75,6 +75,162 @@ Presentation Heading  |
 1
 
 Page 2
+
+Tasa / Precio de Corte
+ Tasa 
+Tamar TIR Proyectada
+ Spread TNA30d - 
+Tamar
+ TNA (30días)
+ Fecha de 
+Licitación
+ Emisión
+ Serie
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(Meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Calificación
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ 3,75%
+-3,79%--
+ mar, 21 jul.
+ ON Banco BBVA
+-48
+ USD Cable
+ USD 42.074.070
+ 3,75%
+ 17,72
+ 549
+ 24/1/2028
+ AAA (Fix SCR)
+ Tasa
+ vie, 24 jul.
+ 3,25%
+-3,28%--
+ mar, 21 jul.
+ ON Banco BBVA (Integra en efectivo y/o en 
+especie)-49
+ USD Mep
+ USD 34.323.771
+ 3,25%
+ 11,90
+ 365
+ 24/7/2027
+ A1+ (Fix SCR)
+ Tasa
+ vie, 24 jul.
+ 5,00%
+-7,59%--
+ mar, 21 jul.
+ ON Banco BBVA (Integra en efectivo y/o en 
+especie)-50
+ USD Mep
+ USD 58.729.484
+ 5,00%
+ 22,92
+ 731
+ 24/7/2028
+ AAA (Fix SCR)
+ Tasa
+ vie, 24 jul.
+ Px 98,13 
+22,8750%
+ 26,84%
+ 1,14%
+ 24,01%
+ mar, 21 jul.
+ Letras del Tesoro de la Provincia de Buenos 
+Aires a Descuento [Reapertura]
+ LBG26
+-ARS
+ $ 278.595.179.504
+ 0,00%
+ 0,95
+ 29
+ 21/8/2026
+ B (Moody´s)
+ Precio
+ jue, 23 jul.
+ Px 95,86 
+22,8750%
+ 27,73%
+ 1,85%
+ 24,73%
+ mar, 21 jul.
+ Letras del Tesoro de la Provincia de Buenos 
+Aires a Descuento [Nueva]--
+ ARS
+ $ 88.620.870.626
+ 0,00%
+ 2,07
+ 63
+ 24/9/2026
+ B (Moody´s)
+ Precio
+ jue, 23 jul.
+ TEM 2,15%
+ 22,8750%
+ 28,70%
+ 2,62%
+ 25,50%
+ mar, 21 jul.
+ Letras del Tesoro de la Provincia de Buenos 
+Aires Capitalizable [Nueva]--
+ ARS
+ $ 11.191.958.399
+ TEM 2,15%
+ 3,91
+ 119
+ 19/11/2026
+ B (Moody´s)
+ TEM
+ jue, 23 jul.
+ Px 99,00 
+-10,28%--
+ mar, 21 jul.
+ [OFERTA DE CONVERSIÓN] D31L6 x Letra del 
+Tesoro Nacional Vinculada al Dólar 
+[Reapertura]
+ D31G6
+-USD Linked
+ USD 1.736.000.000
+ 0,00%
+ 1,25
+ 38
+ 31/8/2026
+ SC
+ Precio
+ vie, 24 jul.
+ Px 80,99 
+-9,08%--
+ mar, 21 jul.
+ [OFERTA DE CONVERSIÓN] D31L6 x Bono del 
+Tesoro Nacional Vinculada al Dólar 
+[Reapertura]
+ TZVD8
+-USD Linked
+ USD 159.000.000
+ 0,00%
+ 28,77
+ 875
+ 15/12/2028
+ SC
+ Precio
+ vie, 24 jul.
+Presentation Heading  |
+Resultados
+
+Page 3
 
 OPERACIONES DE TERCEROS
 Fecha de 
@@ -97,115 +253,40 @@ Pago
 Licitación
  Fecha de 
 Liquidación
- mar, 21 jul.
- ON Banco BBVA
--48
+ mié, 22 jul.
+ ON Petroquímica Comodoro Rivadavia & 
+Luz de Tres Picos [Ley NY]-USD 350.000.000 (amp. h/ 
+Monto Máximo del Programa)
+ 1
  USD Cable
+ USD 350.000.000 (amp. h/ 
+Monto Máximo del Programa)
  A licitar
- 17,70
+ A informar
+ A informar
+ Venc. a los 8 
+años
+ B (S&P) / B (Fitch 
+Ratings)
+ Book Building
+ A informar
+ mié, 22 jul.
+ ON Garantizada Jemersoft S.A.S. (Pyme)
+ I
+ USD 250.000
+-USD Mep
+ USD 250.000
+ A licitar
+ 10,31
  549
  24/1/2028
- AAA (Fix SCR)
- Tasa
- vie, 24 jul.
- mar, 21 jul.
- ON Banco BBVA (Integra en efectivo y/o en 
-especie)-49
- USD Mep
- A licitar
- 11,85
- 365
- 24/7/2027
- A1+ (Fix SCR)
- Tasa
- vie, 24 jul.
- mar, 21 jul.
- ON Banco BBVA (Integra en efectivo y/o en 
-especie)-50
- USD Mep
- A licitar
- 22,71
- 731
- 24/7/2028
- AAA (Fix SCR)
- Tasa
- vie, 24 jul.
- mar, 21 jul.
- Letras del Tesoro de la Provincia de Buenos 
-Aires a Descuento [Reapertura]
- LBG26
- $4.000.000.000 (ampliables)
--ARS
- $4.000.000.000 (ampliables)
- 0,00%
- 0,95
- 29
- 21/8/2026
- B (Moody´s)
- Precio
- jue, 23 jul.
- mar, 21 jul.
- Letras del Tesoro de la Provincia de Buenos 
-Aires a Descuento [Nueva]-$3.000.000.000 (ampliables)-ARS
- $3.000.000.000 (ampliables)
- 0,00%
- 2,07
- 63
- 24/9/2026
- B (Moody´s)
- Precio
- jue, 23 jul.
- mar, 21 jul.
- Letras del Tesoro de la Provincia de Buenos 
-Aires Capitalizable [Nueva]-$3.000.000.000 (ampliables)-ARS
- $3.000.000.000 (ampliables)
- TEM A licitar
- 3,91
- 119
- 19/11/2026
- B (Moody´s)
- TEM
- jue, 23 jul.
- mar, 21 jul.
- [OFERTA DE CONVERSIÓN] D31L6 x Letra 
-del Tesoro Nacional Vinculada al Dólar 
-[Reapertura]
- D31G6
--USD Linked
- 0,00%
- 1,25
- 38
- 31/8/2026
  SC
- Precio
+ Tasa
  vie, 24 jul.
- mar, 21 jul.
- [OFERTA DE CONVERSIÓN] D31L6 x Bono 
-del Tesoro Nacional Vinculada al Dólar 
-[Reapertura]
- TZVD8
--USD Linked
- 0,00%
- 28,77
- 875
- 15/12/2028
- SC
- Precio
- vie, 24 jul.
- Hasta el Monto Máximo 
-Autorizado por la Nomativa 
-Vigente
- Hasta el Monto Máximo 
-Autorizado por la Nomativa 
-Vigente
- USD 20.000.000 (amp. h/ 
-Monto Máximo del Programa)
- USD 20.000.000 (amp. h/ 
-Monto Máximo del Programa)
 Presentation Heading  |
 Licita hoy
 
-Page 3
+Page 4
 
 STONEX
 Fecha de 
@@ -254,6 +335,20 @@ Liquidación
  AA (Fix SCR)
  Margen
  lun, 27 jul.
+ vie, 24 jul.
+ FF Consubond
+ 200
+ $ 14.214.659.148
+ VDF
+ ARS
+ $ 14.214.659.148
+ (20%; T+100; 40%)
+ 2,36
+ 213
+ 25/2/2027
+ AAA (Fix SCR)
+ TIR
+ lun, 27 jul.
  OPERACIONES DE TERCEROS
 Fecha de 
 Licitación
@@ -275,48 +370,6 @@ Pago
 Licitación
  Fecha de 
 Liquidación
- mié, 22 jul.
- ON Petroquímica Comodoro Rivadavia & 
-Luz de Tres Picos [Ley NY]-USD 350.000.000 (amp. h/ 
-Monto Máximo del Programa)
- 1
- USD Cable
- USD 350.000.000 (amp. h/ 
-Monto Máximo del Programa)
- A licitar
- A informar
- A informar
- Venc. a los 8 
-años
- B (S&P) / B (Fitch 
-Ratings)
- Book Building
- A informar
- mié, 22 jul.
- FF Individual Prosegur Digital Gold
--USD 500.000
- CP
- USD Mep
- USD 500.000
- 0,00%
--1826
- 24/7/2031
- SC
- Precio
- vie, 24 jul.
- mié, 22 jul.
- ON Garantizada Jemersoft S.A.S. (Pyme)
- I
- USD 250.000
--USD Mep
- USD 250.000
- A licitar
- 10,31
- 549
- 24/1/2028
- SC
- Tasa
- vie, 24 jul.
  jue, 23 jul.
  Títulos de Deuda Pública de la Provincia de 
 Buenos Aires a Tasa Variable (Integra en 
@@ -341,6 +394,95 @@ efectivo y/o en especie) [Reapertura]--
  A informar
  Precio
  jue, 30 jul.
+ jue, 23 jul.
+ ON Central Puerto
+-USD 30.000.000 (amp. h/ 
+Monto Máximo del Programa)
+ E
+ USD Mep
+ USD 30.000.000 (amp. h/ 
+Monto Máximo del Programa)
+ A licitar
+ 33,90
+ 1096
+ 27/7/2029
+ AAA (Moody´s)
+ Tasa
+ lun, 27 jul.
+ jue, 23 jul.
+ FF Waynimóvil
+ XIV
+ VDFA
+ ARS
+ $ 3.295.626.681
+ (i) 23,13% para el 1er servicio;
+ (ii) (20%; T+100; 45%) para los 
+siguientes servicios
+ 4,70
+ 269
+ 22/4/2027
+ A1 (Fix SCR)
+ Precio
+ lun, 27 jul.
+ jue, 23 jul.
+ FF Waynimóvil
+ XIV
+ VDFB
+ ARS
+ $ 714.323.025
+ (i) 24,13% para el 1er servicio;
+ (ii) (21%; T+200; 46%) para los 
+siguientes servicios
+ 10,40
+ 330
+ 22/6/2027
+ BBB (Fix SCR)
+ Precio
+ lun, 27 jul.
+ jue, 23 jul.
+ FF Waynimóvil
+ XIV
+ VDFC
+ ARS
+ $ 178.580.756
+ (i) 25,13% para el 1er servicio;
+ (ii) (22%; T+300; 47%) para los 
+siguientes servicios
+ 11,80
+ 360
+ 22/7/2027
+ BB (Fix SCR)
+ Precio
+ lun, 27 jul.
+ jue, 23 jul.
+ FF Mercado Crédito
+ LII
+ $ 125.509.491.043
+ VDF
+ ARS
+ $ 106.683.067.386
+ (15%; T+100; 45%)
+ 8,93
+ 353
+ 15/7/2027
+ AAA (Fix SCR)
+ TIR
+ lun, 27 jul.
+ jue, 23 jul.
+ ON Garantizada Cheek S.A. (Pyme)
+ I
+ $ 4.500.000.000 (amp. h/ 
+$7.500.000.000)-ARS
+ $ 4.500.000.000 (amp. h/ 
+$7.500.000.000)
+ TAMAR+Mg
+ 17,63
+ 731
+ 27/7/2028
+ SC
+ Margen
+ lun, 27 jul.
+ $ 4.188.530.462
  $ 15.682.929.917
  $200.000.000.000 (amp. h/ 
 Monto Máximo aprobado 

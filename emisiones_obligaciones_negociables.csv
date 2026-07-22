@@ -1,4 +1,7 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
+24-jul-26,Banco BBVA – 48,USD Cable,Fija,"3,75%",18,"42,10",AAA (Fix SCR)
+24-jul-26,Banco BBVA – 49,USD Mep,Fija,"3,25%",12,"34,30",A1+ (Fix SCR)
+24-jul-26,Banco BBVA – 50,USD Mep,Fija,"5,00%",24,"58,70",AAA (Fix SCR)
 17-jul-26,BONAR 2029 (AO29),USD Mep,Fija,"6,00%",39,"499,00",SC
 17-jul-26,BONAR 2029 (AO29),USD Mep,Fija,"6,00%",39,"150,00",SC
 17-jul-26,Rombo Cía. Financiera 67,ARS,TAMAR,"4,50%",15,"17063,70",AA (Fix SCR)
