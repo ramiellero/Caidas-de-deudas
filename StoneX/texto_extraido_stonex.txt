@@ -9,10 +9,10 @@ Soporte
 Español
 Lista de seguimiento
 Iniciar sesión
-Licitaciones Primarias 22-07-2026
+Licitaciones Primarias 23-07-2026
 Por:
 Mercado de Capitales Stonex
-46 hace unos minutos
+24 hace unos minutos
 View Full
 REGRESAR
 
@@ -61,7 +61,7 @@ El informe/análisis aquí contenido no está dirigido ni destinado a su distrib
 
 Page 1
 
-22de julio de 2026
+23de julio de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
  informe
 sideseanmásinformación.LainformaciónenestereporteseobtuvodefuentesqueStoneXSecuritiesS.A.creequesonconfiables,peroStoneXnogarantizaquelainformaciónseacorrectaocompleta.Cualquier
@@ -101,255 +101,41 @@ Pago
 Licitación
  Fecha de 
 Liquidación
- 3,75%
--3,79%--
- mar, 21 jul.
- ON Banco BBVA
--48
- USD Cable
- USD 42.074.070
- 3,75%
- 17,72
+ 8,00%
+-8,22%--
+ mié, 22 jul.
+ ON Garantizada Jemersoft S.A.S. (Pyme)
+ I
+-USD Mep
+ USD 250.000
+ 8,00%
+ 10,19
  549
  24/1/2028
- AAA (Fix SCR)
- Tasa
- vie, 24 jul.
- 3,25%
--3,28%--
- mar, 21 jul.
- ON Banco BBVA (Integra en efectivo y/o en 
-especie)-49
- USD Mep
- USD 34.323.771
- 3,25%
- 11,90
- 365
- 24/7/2027
- A1+ (Fix SCR)
- Tasa
- vie, 24 jul.
- 5,00%
--7,59%--
- mar, 21 jul.
- ON Banco BBVA (Integra en efectivo y/o en 
-especie)-50
- USD Mep
- USD 58.729.484
- 5,00%
- 22,92
- 731
- 24/7/2028
- AAA (Fix SCR)
- Tasa
- vie, 24 jul.
- Px 98,13 
-22,8750%
- 26,84%
- 1,14%
- 24,01%
- mar, 21 jul.
- Letras del Tesoro de la Provincia de Buenos 
-Aires a Descuento [Reapertura]
- LBG26
--ARS
- $ 278.595.179.504
- 0,00%
- 0,95
- 29
- 21/8/2026
- B (Moody´s)
- Precio
- jue, 23 jul.
- Px 95,86 
-22,8750%
- 27,73%
- 1,85%
- 24,73%
- mar, 21 jul.
- Letras del Tesoro de la Provincia de Buenos 
-Aires a Descuento [Nueva]--
- ARS
- $ 88.620.870.626
- 0,00%
- 2,07
- 63
- 24/9/2026
- B (Moody´s)
- Precio
- jue, 23 jul.
- TEM 2,15%
- 22,8750%
- 28,70%
- 2,62%
- 25,50%
- mar, 21 jul.
- Letras del Tesoro de la Provincia de Buenos 
-Aires Capitalizable [Nueva]--
- ARS
- $ 11.191.958.399
- TEM 2,15%
- 3,91
- 119
- 19/11/2026
- B (Moody´s)
- TEM
- jue, 23 jul.
- Px 99,00 
--10,28%--
- mar, 21 jul.
- [OFERTA DE CONVERSIÓN] D31L6 x Letra del 
-Tesoro Nacional Vinculada al Dólar 
-[Reapertura]
- D31G6
--USD Linked
- USD 1.736.000.000
- 0,00%
- 1,25
- 38
- 31/8/2026
  SC
- Precio
+ Tasa
  vie, 24 jul.
- Px 80,99 
--9,08%--
- mar, 21 jul.
- [OFERTA DE CONVERSIÓN] D31L6 x Bono del 
-Tesoro Nacional Vinculada al Dólar 
-[Reapertura]
- TZVD8
--USD Linked
- USD 159.000.000
- 0,00%
- 28,77
- 875
- 15/12/2028
- SC
- Precio
- vie, 24 jul.
+ Px 99,354 
+-8,57%--
+ mié, 22 jul.
+ ON Petroquímica Comodoro Rivadavia & Luz de 
+Tres Picos [Ley NY]-1
+ USD Cable
+ USD 400.000.000
+ 8,50%
+ 64,84
+ 2922
+ 28/7/2034
+ B (S&P) / B (Fitch 
+Ratings)
+ Book Building
+ mar, 28 jul.
 Presentation Heading  |
 Resultados
 
 Page 3
 
 OPERACIONES DE TERCEROS
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity 
-(días)
- Última Fecha de 
-Pago
- Rating
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
- mié, 22 jul.
- ON Petroquímica Comodoro Rivadavia & 
-Luz de Tres Picos [Ley NY]-USD 350.000.000 (amp. h/ 
-Monto Máximo del Programa)
- 1
- USD Cable
- USD 350.000.000 (amp. h/ 
-Monto Máximo del Programa)
- A licitar
- A informar
- A informar
- Venc. a los 8 
-años
- B (S&P) / B (Fitch 
-Ratings)
- Book Building
- A informar
- mié, 22 jul.
- ON Garantizada Jemersoft S.A.S. (Pyme)
- I
- USD 250.000
--USD Mep
- USD 250.000
- A licitar
- 10,31
- 549
- 24/1/2028
- SC
- Tasa
- vie, 24 jul.
-Presentation Heading  |
-Licita hoy
-
-Page 4
-
-STONEX
-Fecha de 
-Licitación
- Emisión
- Serie
- VN Emisión
- Clase
- Moneda
- VN
- Cupón
- Duration 
-(meses)
- Maturity 
-(días)
- Última Fecha de 
-Pago
- Rating
- Tipo de 
-Licitación
- Fecha de 
-Liquidación
- jue, 23 jul.
- FF Megabono
- 355
- VDFA
- ARS
- $ 10.447.967.911
- (20%; T+Mg; 45%)
- 6,01
- 332
- 24/6/2027
- AAA (Fix SCR)
- Margen
- lun, 27 jul.
- jue, 23 jul.
- FF Megabono
- 355
- VDFB
- ARS
- $ 1.243.787.378
- (25%; T+Mg; 50%)
- 11,89
- 393
- 24/8/2027
- AA (Fix SCR)
- Margen
- lun, 27 jul.
- vie, 24 jul.
- FF Consubond
- 200
- $ 14.214.659.148
- VDF
- ARS
- $ 14.214.659.148
- (20%; T+100; 40%)
- 2,36
- 213
- 25/2/2027
- AAA (Fix SCR)
- TIR
- lun, 27 jul.
- OPERACIONES DE TERCEROS
 Fecha de 
 Licitación
  Emisión
@@ -379,7 +165,7 @@ efectivo y/o en especie) [Reapertura] --
  10,81
  274
  30/4/2027
- A informar
+ BB+ (S&P)
  Precio
  jue, 30 jul.
  jue, 23 jul.
@@ -391,7 +177,7 @@ efectivo y/o en especie) [Reapertura]--
  19,84
  638
  28/4/2028
- A informar
+ BB+ (S&P)
  Precio
  jue, 30 jul.
  jue, 23 jul.
@@ -483,13 +269,181 @@ $7.500.000.000)
  Margen
  lun, 27 jul.
  $ 4.188.530.462
+ $200.000.000.000 (amp. h/ 
+Monto Máximo aprobado 
+remanente)
+ $200.000.000.000 (amp. h/ 
+Monto Máximo aprobado 
+remanente)
+Presentation Heading  |
+Licita hoy
+
+Page 4
+
+STONEX
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ vie, 24 jul.
+ FF Consubond
+ 200
+ $ 14.214.659.148
+ VDF
+ ARS
+ $ 14.214.659.148
+ (20%; T+100; 40%)
+ 2,36
+ 213
+ 25/2/2027
+ AAA (Fix SCR)
+ TIR
+ lun, 27 jul.
+ lun, 27 jul.
+ FF Megabono
+ 355
+ VDFA
+ ARS
+ $ 10.447.967.911
+ (20%; T+Mg; 45%)
+ 6,01
+ 332
+ 24/6/2027
+ AAA (Fix SCR)
+ Margen
+ lun, 27 jul.
+ lun, 27 jul.
+ FF Megabono
+ 355
+ VDFB
+ ARS
+ $ 1.243.787.378
+ (25%; T+Mg; 50%)
+ 11,89
+ 393
+ 24/8/2027
+ AA (Fix SCR)
+ Margen
+ lun, 27 jul.
+ OPERACIONES DE TERCEROS
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity 
+(días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ lun, 27 jul.
+ FF Centrocard Créditos
+ IX
+ $ 16.027.000.000
+ VDF
+ ARS
+ $ 16.027.000.000
+ 28,00%
+ 10,97
+ 636
+ 24/4/2028
+ SC
+ TIR
+ mar, 28 jul.
+ mar, 28 jul.
+ ON Raghsa S.A. [Ley NY]
+-USD 60.000.000 (amp. h/ USD 
+70.000.000)
+ 8
+ USD Cable
+ USD 60.000.000 (amp. h/ USD 
+70.000.000)
+ A licitar
+ A informar
+ A informar
+ Venc. a los 10 
+años
+ A informar
+ Tasa
+ A informar
+ mar, 28 jul.
+ ON Laboratorios Richmond (Integra en 
+efectivo y/o en especie con ON S VIII - Cl A)
+ VIII
+ USD 5.000.000 (amp h/ USD 
+20.000.000)
+ A
+ ARS
+ USD 5.000.000 (amp h/ USD 
+20.000.000)
+ TAMAR+Mg
+ 17,21
+ 731
+ 31/7/2028
+ A- (Fix SCR)
+ Margen
+ vie, 31 jul.
+ mar, 28 jul.
+ ON Laboratorios Richmond (Integra en 
+efectivo y/o en especie con ON S VIII - Cl B)
+ VIII
+ USD 5.000.000 (amp h/ USD 
+20.000.000)
+ B
+ USD Mep
+ USD 5.000.000 (amp h/ USD 
+20.000.000)
+ A licitar
+ 19,46
+ 731
+ 31/7/2028
+ A- (Fix SCR)
+ Tasa
+ vie, 31 jul.
+ mar, 28 jul.
+ ON Laboratorios Richmond (Integra en 
+efectivo y/o en especie con ON S VI - Cl B)
+ VIII
+ USD 3.000.000 (amp h/ USD 
+20.000.000)
+ C
+ USD Linked
+ USD 3.000.000 (amp h/ USD 
+20.000.000)
+ A licitar
+ 20,02
+ 731
+ 31/7/2028
+ A- (Fix SCR)
+ Tasa
+ vie, 31 jul.
  $ 15.682.929.917
- $200.000.000.000 (amp. h/ 
-Monto Máximo aprobado 
-remanente)
- $200.000.000.000 (amp. h/ 
-Monto Máximo aprobado 
-remanente)
 Presentation Heading  |
 Operaciones en Difusión
 
