@@ -2310,21 +2310,10 @@
 
     <!-- Tabla de resultados -->
     <div class="deals-table-wrap" id="padron-table-wrap" style="display:none;">
-      <table class="deals-table" id="padron-table">
-        <thead>
-          <tr>
-            <th onclick="_padronSortBy('investorName')">Tenedor</th>
-            <th onclick="_padronSortBy('investorType')">Tipo</th>
-            <th onclick="_padronSortBy('investorTaxpayerIdentifier')">Documento</th>
-            <th onclick="_padronSortBy('instrumentDescription')">Instrumento</th>
-            <th onclick="_padronSortBy('holding')">Holding</th>
-            <th onclick="_padronSortBy('address')">Dirección</th>
-            <th onclick="_padronSortBy('countrySubdivision')">Provincia</th>
-            <th onclick="_padronSortBy('country')">País</th>
-          </tr>
-        </thead>
+      <table class="deals-table" id="padron-table" style="min-width:2400px">
+        <thead id="padron-thead"></thead>
         <tbody id="padron-tbody">
-          <tr><td colspan="8" class="deals-empty">Elegí emisor, fecha y códigos, y presioná Consultar.</td></tr>
+          <tr><td class="deals-empty" colspan="27">Elegí emisor, fecha y códigos, y presioná Consultar.</td></tr>
         </tbody>
       </table>
       <div id="padron-truncate-note" style="display:none; padding: 8px 4px; color:#64748B; font-size:12px;"></div>
@@ -6286,9 +6275,10 @@ function _padronVisibleRows() {
 
   if (_padronSortCol) {
     const col = _padronSortCol;
+    const colDef = PADRON_COLS.find(c => c.key === col);
     rows = rows.slice().sort((a, b) => {
       let va = a[col], vb = b[col];
-      if (col === 'holding') { va = parseFloat(va) || 0; vb = parseFloat(vb) || 0; }
+      if (colDef && colDef.numeric) { va = parseFloat(va) || 0; vb = parseFloat(vb) || 0; }
       else { va = (va || '').toString(); vb = (vb || '').toString(); }
       if (va < vb) return _padronSortAsc ? -1 : 1;
       if (va > vb) return _padronSortAsc ? 1 : -1;
@@ -6299,28 +6289,46 @@ function _padronVisibleRows() {
   return rows;
 }
 
-const PADRON_EXPORT_COLS = [
-  { key: 'investorName', label: 'Tenedor' },
-  { key: 'tipo',         label: 'Tipo' },
-  { key: 'documento',    label: 'Documento' },
-  { key: 'instrumentDescription', label: 'Instrumento' },
-  { key: 'holding',      label: 'Holding' },
-  { key: 'address',      label: 'Dirección' },
-  { key: 'countrySubdivision', label: 'Provincia' },
-  { key: 'country',      label: 'País' },
+/* Fuente única de columnas: header de tabla, filas y export (CSV/Excel) leen de acá.
+   Cubre el diccionario completo de campos de BYMA /holdings (incluye fillers reservados)
+   más los campos reales observados en el CSV que el openapi.json no documenta
+   (instrumentDescription, countryID, provinceID, nationality). */
+const PADRON_COLS = [
+  { key: 'investorName',             label: 'Tenedor', cls: 'deals-emisor' },
+  { key: 'investorType',             label: 'Tipo Inversor' },
+  { key: 'investorRegisterIdType',   label: 'Tipo Doc.' },
+  { key: 'investorTaxpayerIdentifier', label: 'Nro. Documento' },
+  { key: 'registrationNumber',       label: 'Nro. Registro' },
+  { key: 'registrationOrg',          label: 'Registrado En' },
+  { key: 'investorRole',             label: 'Rol' },
+  { key: 'investorCount',            label: 'Cant. Inversores', numeric: true },
+  { key: 'instrumentDescription',    label: 'Instrumento' },
+  { key: 'cvsaIdentifier',           label: 'Código Instrumento' },
+  { key: 'holding',                  label: 'Holding', numeric: true },
+  { key: 'flagRestrictedHolding',    label: 'Restringido' },
+  { key: 'address',                  label: 'Dirección' },
+  { key: 'addressType',              label: 'Tipo Dirección' },
+  { key: 'countrySubdivision',       label: 'Provincia' },
+  { key: 'country',                  label: 'País' },
+  { key: 'postalCode',               label: 'Cód. Postal' },
+  { key: 'countryID',                label: 'Country ID' },
+  { key: 'provinceID',               label: 'Province ID' },
+  { key: 'nationality',              label: 'Nacionalidad' },
+  { key: 'issuerCode',               label: 'Issuer Code' },
+  { key: 'accountGroupingCode',      label: 'Cód. Agrup. Cuenta' },
+  { key: 'accountCompositeNumber',   label: 'Nro. Cuenta Compuesta' },
+  { key: 'registerType',             label: 'Tipo Registro' },
+  { key: 'filler1',                  label: 'Filler 1' },
+  { key: 'filler2',                  label: 'Filler 2' },
+  { key: 'filler3',                  label: 'Filler 3' },
 ];
 
-function _padronExportRows() {
-  return _padronVisibleRows().map(r => ({
-    investorName: r.investorName || '',
-    tipo: r.investorType || '',
-    documento: `${r.investorRegisterIdType || ''} ${r.investorTaxpayerIdentifier || ''}`.trim(),
-    instrumentDescription: r.instrumentDescription || '',
-    holding: r.holding || '',
-    address: r.address || '',
-    countrySubdivision: r.countrySubdivision || '',
-    country: r.country || '',
-  }));
+function _padronRenderHeader() {
+  const thead = document.getElementById('padron-thead');
+  thead.innerHTML = '<tr>' + PADRON_COLS.map(c => {
+    const cls = c.key === _padronSortCol ? (_padronSortAsc ? ' class="sort-asc"' : ' class="sort-desc"') : '';
+    return `<th${cls} onclick="_padronSortBy('${c.key}')">${_escHtml(c.label)}</th>`;
+  }).join('') + '</tr>';
 }
 
 function _padronExportFilename(ext) {
@@ -6335,12 +6343,12 @@ function _padronCsvField(v) {
 }
 
 function _padronDownloadCsv() {
-  const rows = _padronExportRows();
+  const rows = _padronVisibleRows();
   if (rows.length === 0) { alert('No hay datos de padrón para descargar. Hacé una consulta primero.'); return; }
 
-  const lines = [PADRON_EXPORT_COLS.map(c => _padronCsvField(c.label)).join(',')];
+  const lines = [PADRON_COLS.map(c => _padronCsvField(c.label)).join(',')];
   rows.forEach(r => {
-    lines.push(PADRON_EXPORT_COLS.map(c => _padronCsvField(r[c.key])).join(','));
+    lines.push(PADRON_COLS.map(c => _padronCsvField(r[c.key])).join(','));
   });
 
   const csvText = '﻿' + lines.join('\n') + '\n';
@@ -6354,12 +6362,12 @@ function _padronDownloadCsv() {
 }
 
 function _padronDownloadExcel() {
-  const rows = _padronExportRows();
+  const rows = _padronVisibleRows();
   if (rows.length === 0) { alert('No hay datos de padrón para descargar. Hacé una consulta primero.'); return; }
 
-  const headHtml = '<tr>' + PADRON_EXPORT_COLS.map(c => `<th>${_escHtml(c.label)}</th>`).join('') + '</tr>';
+  const headHtml = '<tr>' + PADRON_COLS.map(c => `<th>${_escHtml(c.label)}</th>`).join('') + '</tr>';
   const bodyHtml = rows.map(r =>
-    '<tr>' + PADRON_EXPORT_COLS.map(c => `<td>${_escHtml(r[c.key])}</td>`).join('') + '</tr>'
+    '<tr>' + PADRON_COLS.map(c => `<td>${_escHtml(r[c.key])}</td>`).join('') + '</tr>'
   ).join('');
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>` +
@@ -6381,11 +6389,13 @@ function _padronRenderTable() {
   const tbody = document.getElementById('padron-tbody');
   const note = document.getElementById('padron-truncate-note');
 
+  _padronRenderHeader();
+
   let rows = _padronVisibleRows();
 
   if (rows.length === 0) {
     wrap.style.display = _padronRows.length === 0 ? 'none' : 'block';
-    tbody.innerHTML = `<tr><td colspan="8" class="deals-empty">Sin resultados.</td></tr>`;
+    tbody.innerHTML = `<tr><td class="deals-empty" colspan="${PADRON_COLS.length}">Sin resultados.</td></tr>`;
     note.style.display = 'none';
     return;
   }
@@ -6394,17 +6404,11 @@ function _padronRenderTable() {
   const visibleRows = rows.slice(0, PADRON_TABLE_ROW_CAP);
 
   wrap.style.display = 'block';
-  tbody.innerHTML = visibleRows.map(r => `
-    <tr>
-      <td class="deals-emisor">${_escHtml(r.investorName)}</td>
-      <td>${_escHtml(r.investorType)}</td>
-      <td>${_escHtml(r.investorRegisterIdType)} ${_escHtml(r.investorTaxpayerIdentifier)}</td>
-      <td>${_escHtml(r.instrumentDescription)}</td>
-      <td class="deals-vn">${(parseFloat(r.holding) || 0).toLocaleString('es-AR')}</td>
-      <td>${_escHtml(r.address)}</td>
-      <td>${_escHtml(r.countrySubdivision)}</td>
-      <td>${_escHtml(r.country)}</td>
-    </tr>`).join('');
+  tbody.innerHTML = visibleRows.map(r => '<tr>' + PADRON_COLS.map(c => {
+    const raw = r[c.key];
+    if (c.numeric) return `<td class="deals-vn">${(parseFloat(raw) || 0).toLocaleString('es-AR')}</td>`;
+    return `<td${c.cls ? ` class="${c.cls}"` : ''}>${_escHtml(raw)}</td>`;
+  }).join('') + '</tr>').join('');
 
   if (totalCount > PADRON_TABLE_ROW_CAP) {
     note.style.display = 'block';
