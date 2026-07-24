@@ -975,7 +975,7 @@ def parsear_resultados_generico(resultados, modo_monto="principal"):
         rf"(?P<body>(?:ON|BONAR|\[OFERTA DE CANJE\]\s+ON).*?)\s+"
         rf"(?P<tipo>Tasa|Margen|TIR|TEM|Precio|Book building|Por Adhesión)\s+"
         rf"(?P<liq>{DIA})",
-        re.DOTALL
+        re.DOTALL | re.I
     )
 
     patron_detalle = re.compile(
