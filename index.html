@@ -6202,7 +6202,8 @@ async function consultarPadron() {
 }
 
 async function _padronFetch(fecha, issuerCode, uuid, attempt) {
-  const MAX_ATTEMPTS = 15;
+  const MAX_ATTEMPTS = 40;   // BYMA puede tardar 30-60s+ en generar el reporte
+  const POLL_DELAY_MS = 3000; // ~120s de ventana total
   if (attempt >= MAX_ATTEMPTS) {
     _padronSetStatus('El reporte está tardando más de lo esperado. Probá de nuevo en unos minutos.');
     return;
@@ -6222,7 +6223,7 @@ async function _padronFetch(fecha, issuerCode, uuid, attempt) {
 
   if (data.status === 'pending') {
     _padronSetStatus('Procesando… (' + (attempt + 1) + ')');
-    await new Promise(r => setTimeout(r, 2000));
+    await new Promise(r => setTimeout(r, POLL_DELAY_MS));
     return _padronFetch(fecha, issuerCode, data.uuid, attempt + 1);
   }
 
