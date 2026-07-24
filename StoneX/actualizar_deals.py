@@ -2,6 +2,8 @@ import re
 import time
 import datetime
 import io
+import sys
+import html as _html
 from pathlib import Path
 
 import pandas as pd
@@ -11,11 +13,31 @@ from playwright.sync_api import sync_playwright
 import os
 
 try:
-    import pdfplumber
     import requests as _requests
-    HAS_PDFPLUMBER = True
 except ImportError:
-    HAS_PDFPLUMBER = False
+    _requests = None
+
+try:
+    import pdfplumber
+except ImportError:
+    _runtime_site = (
+        Path.home()
+        / ".cache"
+        / "codex-runtimes"
+        / "codex-primary-runtime"
+        / "dependencies"
+        / "python"
+        / "Lib"
+        / "site-packages"
+    )
+    if _runtime_site.exists():
+        sys.path.append(str(_runtime_site))
+    try:
+        import pdfplumber
+    except ImportError:
+        pdfplumber = None
+
+HAS_PDFPLUMBER = pdfplumber is not None
 
 BASE_DIR = Path(__file__).resolve().parent
 REPO_GIT = BASE_DIR.parent
@@ -262,6 +284,61 @@ def elegir_link_stonex(links):
     return None
 
 
+def texto_tiene_resultados_parseables(texto):
+    t = limpiar_texto_celda(texto).lower()
+    return (
+        "tasa / precio de corte" in t
+        and "moneda" in t
+        and "maturity" in t
+    )
+
+
+def _extraer_texto_pagina(page):
+    partes = []
+
+    try:
+        partes.append(page.locator("body").inner_text(timeout=2000))
+    except Exception:
+        pass
+
+    for frame in page.frames:
+        try:
+            partes.append(frame.locator("body").inner_text(timeout=1000))
+        except Exception:
+            pass
+
+    return "\n".join(partes)
+
+
+def _buscar_pdf_url_en_dom(page):
+    candidatos = [page.url]
+
+    try:
+        candidatos.append(page.content())
+    except Exception:
+        pass
+
+    for frame in page.frames:
+        candidatos.append(frame.url)
+        try:
+            candidatos.append(frame.content())
+        except Exception:
+            pass
+
+    for texto in candidatos:
+        m = re.search(r"https?://[^\"'<> ]+\.pdf(?:\?[^\"'<> ]*)?", str(texto), flags=re.I)
+        if m:
+            return m.group(0).replace("&amp;", "&")
+
+    return None
+
+
+def _limpiar_pdf_url(url):
+    url = _html.unescape(str(url))
+    url = url.split("#", 1)[0]
+    return url
+
+
 def abrir_y_extraer_texto(url):
     print("\nABRIENDO LINK STONEX:")
     print(url)
@@ -285,13 +362,33 @@ def abrir_y_extraer_texto(url):
                 return
             ct = response.headers.get("content-type", "")
             if "pdf" in ct.lower() or response.url.lower().endswith(".pdf"):
-                pdf_url_capturada = response.url
+                pdf_url_capturada = _limpiar_pdf_url(response.url)
                 print(f"  PDF detectado: {response.url}")
 
         page.on("response", on_response)
 
         page.goto(url, wait_until="networkidle", timeout=60000)
-        time.sleep(5)
+
+        texto_visible = ""
+        for intento in range(45):
+            texto_visible = _extraer_texto_pagina(page)
+
+            if not pdf_url_capturada:
+                pdf_url_capturada = _buscar_pdf_url_en_dom(page)
+                if pdf_url_capturada:
+                    pdf_url_capturada = _limpiar_pdf_url(pdf_url_capturada)
+                    print(f"  PDF detectado en DOM: {pdf_url_capturada}")
+
+            if pdf_url_capturada or texto_tiene_resultados_parseables(texto_visible):
+                break
+
+            if intento == 5:
+                try:
+                    page.get_by_text("View Full", exact=True).click(timeout=3000)
+                except Exception:
+                    pass
+
+            page.wait_for_timeout(2000)
 
         page.screenshot(path=str(SCREENSHOT), full_page=True)
 
@@ -329,10 +426,21 @@ def abrir_y_extraer_texto(url):
     if pdf_url_capturada and HAS_PDFPLUMBER:
         try:
             cookies_dict = {c["name"]: c["value"] for c in cookies_sesion}
-            resp = _requests.get(pdf_url_capturada, cookies=cookies_dict, timeout=30)
-            resp.raise_for_status()
+            if _requests:
+                resp = _requests.get(pdf_url_capturada, cookies=cookies_dict, timeout=30)
+                resp.raise_for_status()
+                pdf_bytes = resp.content
+            else:
+                from urllib.request import Request, build_opener, HTTPCookieProcessor
+                import http.cookiejar
+
+                jar = http.cookiejar.CookieJar()
+                opener = build_opener(HTTPCookieProcessor(jar))
+                req = Request(pdf_url_capturada, headers={"User-Agent": "Mozilla/5.0"})
+                pdf_bytes = opener.open(req, timeout=30).read()
+
             texto_pdf = ""
-            with pdfplumber.open(io.BytesIO(resp.content)) as pdf:
+            with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for pg in pdf.pages:
                     texto_pdf += (pg.extract_text() or "") + "\n"
             if "Resultados" in texto_pdf or "Licitaciones" in texto_pdf:
@@ -342,6 +450,13 @@ def abrir_y_extraer_texto(url):
                 print("PDF descargado pero no contiene sección esperada; usando texto de frames")
         except Exception as e:
             print(f"No pude descargar/parsear PDF ({e}); usando texto de frames")
+
+    if not texto_tiene_resultados_parseables(texto_total):
+        TXT_OUTPUT.write_text(texto_total, encoding="utf-8")
+        raise RuntimeError(
+            "La extraccion de StoneX no contiene una tabla de Resultados parseable; "
+            "abortando para no actualizar CSVs con un informe incompleto."
+        )
 
     TXT_OUTPUT.write_text(texto_total, encoding="utf-8")
     print(f"\nTexto extraído guardado en: {TXT_OUTPUT}")
