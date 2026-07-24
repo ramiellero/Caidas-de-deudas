@@ -2327,6 +2327,7 @@
           <tr><td colspan="8" class="deals-empty">Elegí emisor, fecha y códigos, y presioná Consultar.</td></tr>
         </tbody>
       </table>
+      <div id="padron-truncate-note" style="display:none; padding: 8px 4px; color:#64748B; font-size:12px;"></div>
     </div>
 
   </div><!-- /content -->
@@ -6373,20 +6374,27 @@ function _padronDownloadExcel() {
   URL.revokeObjectURL(url);
 }
 
+const PADRON_TABLE_ROW_CAP = 200;
+
 function _padronRenderTable() {
   const wrap = document.getElementById('padron-table-wrap');
   const tbody = document.getElementById('padron-tbody');
+  const note = document.getElementById('padron-truncate-note');
 
   let rows = _padronVisibleRows();
 
   if (rows.length === 0) {
     wrap.style.display = _padronRows.length === 0 ? 'none' : 'block';
     tbody.innerHTML = `<tr><td colspan="8" class="deals-empty">Sin resultados.</td></tr>`;
+    note.style.display = 'none';
     return;
   }
 
+  const totalCount = rows.length;
+  const visibleRows = rows.slice(0, PADRON_TABLE_ROW_CAP);
+
   wrap.style.display = 'block';
-  tbody.innerHTML = rows.map(r => `
+  tbody.innerHTML = visibleRows.map(r => `
     <tr>
       <td class="deals-emisor">${_escHtml(r.investorName)}</td>
       <td>${_escHtml(r.investorType)}</td>
@@ -6397,6 +6405,13 @@ function _padronRenderTable() {
       <td>${_escHtml(r.countrySubdivision)}</td>
       <td>${_escHtml(r.country)}</td>
     </tr>`).join('');
+
+  if (totalCount > PADRON_TABLE_ROW_CAP) {
+    note.style.display = 'block';
+    note.textContent = `Mostrando ${PADRON_TABLE_ROW_CAP.toLocaleString('es-AR')} de ${totalCount.toLocaleString('es-AR')} resultados. Usá "Descargar CSV" o "Descargar Excel" para ver el listado completo.`;
+  } else {
+    note.style.display = 'none';
+  }
 }
 
 function initPadronSection() {
