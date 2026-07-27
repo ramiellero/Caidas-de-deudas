@@ -6372,7 +6372,7 @@ function _padronDownloadExcel() {
   ).join('');
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>` +
-    `<body><table border="1">${headHtml}${bodyHtml}</table></body></html>`;
+    `<body><table border="1">${headHtml}${bodyHtml}</table></bod` + `y></html>`;
 
   const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
