@@ -6291,8 +6291,10 @@ const PADRON_CLASIF_FALLBACK = '#94A3B8';
    el % de outstanding vigente para que el análisis agregado (resumen por instrumento,
    clasificación) refleje la exposición real remanente. Agregar acá cada ON que amortice. */
 const PADRON_OUTSTANDING_ADJUST = [
-  { pattern: /\bCL\.?\s*XL\b/i,  factor: 0.340, label: 'ON Cresud Clase XL (Serie 40)' },
-  { pattern: /\bCL\.?\s*XIV\b/i, factor: 0.475, label: 'ON IRSA Clase XIV' },
+  // Confirmado contra dato real BYMA: "ON CRESUD CL. 40 VTO21/12/26 U$S CG" (Clase XL en numeración romana)
+  { pattern: /\bCL\.?\s*(40|XL)\b/i,  factor: 0.340, label: 'ON Cresud Clase XL (CL. 40)' },
+  // IRSA Clase XIV — BYMA parece numerar en arábigo igual que Cresud (CL. 14); se acepta también la forma romana por las dudas
+  { pattern: /\bCL\.?\s*(14|XIV)\b/i, factor: 0.475, label: 'ON IRSA Clase XIV (CL. 14)' },
 ];
 
 function _padronOutstandingFactor(instrumentDescription) {
