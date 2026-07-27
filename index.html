@@ -1076,11 +1076,19 @@
       font-size: 11px;
       font-weight: 600;
       color: #334155;
-      margin-bottom: 8px;
+      margin-bottom: 2px;
       text-align: center;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+    .padron-clasif-mini-total {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #64748B;
+      margin-bottom: 8px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
     }
 
     @media (max-width: 900px) {
@@ -2346,12 +2354,6 @@
 
   <div class="content">
 
-    <!-- Selector de emisor -->
-    <div class="sgr-selector">
-      <button class="sgr-pill active" data-padron-co="irsa"   onclick="selectPadronIssuer('irsa')">IRSA</button>
-      <button class="sgr-pill"        data-padron-co="cresud" onclick="selectPadronIssuer('cresud')">Cresud</button>
-    </div>
-
     <!-- Controles de consulta -->
     <div class="deals-filters" id="padron-filters-bar">
 
@@ -2391,26 +2393,23 @@
     <!-- Summary row -->
     <div class="deals-summary-row" id="padron-summary-row"></div>
 
-    <!-- Resumen por Instrumento (Holding) -->
+    <!-- Resumen por Instrumento (Holding ajustado por outstanding) -->
     <div class="sgr-chart-card" id="padron-instrumento-card" style="display:none; margin-bottom:20px;">
-      <div class="sgr-chart-title">Resumen por Instrumento — Holding</div>
-      <div class="grid-2 grid-40-60" style="align-items:start;">
-        <div class="sgr-rank-wrap" style="min-height:260px;">
-          <div id="padron-instrumento-canvas-wrap"><canvas id="padron-instrumento-chart"></canvas></div>
-        </div>
-        <div class="deals-table-wrap">
-          <table class="deals-table" id="padron-instrumento-table">
-            <thead><tr><th>Instrumento</th><th>Holding</th><th>% del Total</th></tr></thead>
-            <tbody id="padron-instrumento-tbody"></tbody>
-          </table>
-        </div>
+      <div class="sgr-chart-title">Resumen por Instrumento — Holding (ajustado por outstanding)</div>
+      <div class="deals-table-wrap">
+        <table class="deals-table" id="padron-instrumento-table">
+          <thead><tr><th>Instrumento</th><th>Holding</th><th>% del Total</th></tr></thead>
+          <tbody id="padron-instrumento-tbody"></tbody>
+          <tfoot id="padron-instrumento-tfoot"></tfoot>
+        </table>
       </div>
+      <div style="font-size:11px;color:#94A3B8;margin-top:8px;">* El holding que informa BYMA es sobre el VN original emitido. Para ONs que ya amortizaron parcialmente (Cresud Clase XL / IRSA Clase XIV) se aplica el % de outstanding vigente antes de sumar.</div>
     </div>
 
-    <!-- Clasificación (propia) — Holding, agregado o por Instrumento -->
+    <!-- Clasificación (propia) — Holding ajustado, agregado o por Instrumento -->
     <div class="sgr-chart-card" id="padron-clasif-card" style="display:none; margin-bottom:20px;">
       <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
-        <div class="sgr-chart-title" style="margin-bottom:0;">Clasificación (propia) — Holding</div>
+        <div class="sgr-chart-title" style="margin-bottom:0;">Clasificación (propia) — Holding (ajustado por outstanding)</div>
         <div class="padron-clasif-toggle">
           <button type="button" id="padron-clasif-btn-agregado" class="active" onclick="_padronSetClasifView('agregado')">Agregado</button>
           <button type="button" id="padron-clasif-btn-instrumento" onclick="_padronSetClasifView('instrumento')">Por Instrumento</button>
@@ -6273,14 +6272,11 @@ function _escHtml(s) {
 /* ══════════════════════════════════════════════════════
    PADRÓN — tenedores vía API BYMA (/api/padron)
 ══════════════════════════════════════════════════════ */
-const PADRON_ISSUERS = { irsa: 'IRSA', cresud: 'CRES' };
-let _padronActiveCo = 'irsa';
 let _padronRows = [];
 let _padronSortCol = null;
 let _padronSortAsc = true;
 let _padronFilterText = '';
 let _padronMapeo = {};
-let _padronInstrumentChartInst = null;
 let _padronSelectedInstruments = null; // null = todos seleccionados; si no, Set de instrumentDescription
 let _padronClasifViewMode = 'agregado'; // 'agregado' | 'instrumento'
 let _padronClasifChartInst = null;
@@ -6289,6 +6285,25 @@ let _padronClasifColorMap = {};
 
 const PADRON_CLASIF_PALETTE = ['#1D4B6E','#7C3AED','#B45309','#0891B2','#16A34A','#DB2777','#0369A1','#D97706','#4338CA','#059669'];
 const PADRON_CLASIF_FALLBACK = '#94A3B8';
+
+/* El "holding" que devuelve BYMA es tenencia sobre el VN ORIGINAL EMITIDO, no sobre el
+   saldo residual (outstanding) — para ONs que ya amortizaron parcialmente hay que aplicar
+   el % de outstanding vigente para que el análisis agregado (resumen por instrumento,
+   clasificación) refleje la exposición real remanente. Agregar acá cada ON que amortice. */
+const PADRON_OUTSTANDING_ADJUST = [
+  { pattern: /\bCL\.?\s*XL\b/i,  factor: 0.340, label: 'ON Cresud Clase XL (Serie 40)' },
+  { pattern: /\bCL\.?\s*XIV\b/i, factor: 0.475, label: 'ON IRSA Clase XIV' },
+];
+
+function _padronOutstandingFactor(instrumentDescription) {
+  const desc = instrumentDescription || '';
+  const hit = PADRON_OUTSTANDING_ADJUST.find(a => a.pattern.test(desc));
+  return hit ? hit.factor : 1;
+}
+
+function _padronAdjHolding(r) {
+  return (parseFloat(r.holding) || 0) * _padronOutstandingFactor(r.instrumentDescription);
+}
 
 function _padronNormName(s) {
   return (s || '')
@@ -6338,13 +6353,6 @@ function _padronHeuristicClasificar(investorType, investorName) {
   }
   if (t === 'J') return 'Corporativo'; // persona jurídica sin keyword específico → cae en el bucket genérico
   return null;
-}
-
-function selectPadronIssuer(co) {
-  _padronActiveCo = co;
-  document.querySelectorAll('#page-padron .sgr-pill').forEach(p => p.classList.remove('active'));
-  document.querySelector(`#page-padron .sgr-pill[data-padron-co="${co}"]`).classList.add('active');
-  document.getElementById('padron-f-issuer').value = PADRON_ISSUERS[co] || '';
 }
 
 function _padronSetStatus(html) {
@@ -6436,94 +6444,50 @@ function _padronRenderSummary() {
   const row = document.getElementById('padron-summary-row');
   if (_padronRows.length === 0) { row.innerHTML = ''; return; }
 
-  const totalHolding = _padronRows.reduce((s, r) => s + (parseFloat(r.holding) || 0), 0);
+  const totalHolding = _padronRows.reduce((s, r) => s + _padronAdjHolding(r), 0);
   const instrumentos = new Set(_padronRows.map(r => r.instrumentDescription)).size;
 
   row.innerHTML =
     `<div class="deals-summary-card total"><span class="deals-summary-label">Tenedores</span><span class="deals-summary-value">${_padronRows.length.toLocaleString('es-AR')}</span></div>` +
-    `<div class="deals-summary-card"><span class="deals-summary-label">Holding total</span><span class="deals-summary-value">${totalHolding.toLocaleString('es-AR')}</span></div>` +
+    `<div class="deals-summary-card"><span class="deals-summary-label">Holding total (ajustado por outstanding)</span><span class="deals-summary-value">${totalHolding.toLocaleString('es-AR')}</span></div>` +
     `<div class="deals-summary-card"><span class="deals-summary-label">Instrumentos</span><span class="deals-summary-value">${instrumentos}</span></div>`;
 }
 
 function _padronRenderInstrumentSummary() {
   const card = document.getElementById('padron-instrumento-card');
-  _padronInstrumentChartInst = _sgrDestroy(_padronInstrumentChartInst);
+  const tbody = document.getElementById('padron-instrumento-tbody');
+  const tfoot = document.getElementById('padron-instrumento-tfoot');
 
   if (_padronRows.length === 0) { card.style.display = 'none'; return; }
   card.style.display = 'block';
 
   const rows = _padronFilteredRows();
-  const tbody = document.getElementById('padron-instrumento-tbody');
 
   if (rows.length === 0) {
     tbody.innerHTML = '<tr><td colspan="3" class="deals-empty">No hay ONs seleccionadas — elegí al menos una en el filtro "ONs a incluir".</td></tr>';
+    tfoot.innerHTML = '';
     return;
   }
 
   const byInstrument = {};
   rows.forEach(r => {
     const key = r.instrumentDescription || '(Sin instrumento)';
-    byInstrument[key] = (byInstrument[key] || 0) + (parseFloat(r.holding) || 0);
+    byInstrument[key] = (byInstrument[key] || 0) + _padronAdjHolding(r);
   });
 
   const sorted = Object.entries(byInstrument).sort((a, b) => b[1] - a[1]);
   const totalHolding = sorted.reduce((s, [, v]) => s + v, 0);
 
-  // Tabla
   tbody.innerHTML = sorted.map(([instrumento, holding]) => {
     const pct = totalHolding > 0 ? (holding / totalHolding * 100) : 0;
     return `<tr><td>${_escHtml(instrumento)}</td><td class="deals-vn">${Math.round(holding).toLocaleString('es-AR')}</td><td class="deals-vn">${pct.toFixed(1)}%</td></tr>`;
   }).join('');
 
-  // Chart (ranking horizontal, una sola serie de magnitud)
-  const ctx = document.getElementById('padron-instrumento-chart');
-  const wrapEl = document.getElementById('padron-instrumento-canvas-wrap');
-  if (wrapEl) wrapEl.style.height = Math.max(260, sorted.length * 26) + 'px';
-  if (!ctx) return;
-
-  const labels = sorted.map(([instrumento]) => instrumento);
-  const data   = sorted.map(([, holding]) => Math.round(holding));
-
-  const instBarLabelPlugin = {
-    id: 'padronInstBarLabels',
-    afterDatasetsDraw(chart) {
-      const { ctx: c, scales: { x } } = chart;
-      chart.getDatasetMeta(0).data.forEach((bar, i) => {
-        const xPos = x.getPixelForValue(data[i]);
-        c.save();
-        c.font = '400 8.5px Inter, sans-serif';
-        c.fillStyle = '#0F172A';
-        c.textAlign = 'left';
-        c.textBaseline = 'middle';
-        c.fillText(data[i].toLocaleString('es-AR'), xPos + 3, bar.y);
-        c.restore();
-      });
-    },
-  };
-
-  _padronInstrumentChartInst = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [{ label: 'Holding', data, backgroundColor: '#334155', borderRadius: 2 }],
-    },
-    plugins: [instBarLabelPlugin],
-    options: {
-      indexAxis: 'y',
-      responsive: true, maintainAspectRatio: false,
-      layout: { padding: { right: 48 } },
-      plugins: {
-        legend: { display: false },
-        tooltip: { ...TOOLTIP, callbacks: {
-          label: c => `${c.label}: ${c.parsed.x.toLocaleString('es-AR')}`,
-        }},
-      },
-      scales: {
-        x: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 9 }, color: '#0F172A' }, beginAtZero: true },
-        y: { grid: { display: false }, ticks: { font: { size: 9 }, color: '#0F172A' } },
-      },
-    },
-  });
+  tfoot.innerHTML = `<tr style="font-weight:700;border-top:2px solid #CBD5E1;">
+    <td>Subtotal (${sorted.length} instrumento${sorted.length === 1 ? '' : 's'} seleccionado${sorted.length === 1 ? '' : 's'})</td>
+    <td class="deals-vn">${Math.round(totalHolding).toLocaleString('es-AR')}</td>
+    <td class="deals-vn">100.0%</td>
+  </tr>`;
 }
 
 /* ── Filtro "ONs a incluir" (multi-select) ────────────────────────────── */
@@ -6634,7 +6598,7 @@ function _padronGroupByClasif(rows) {
   const byClasif = {};
   rows.forEach(r => {
     const key = r.clasificacionPropia || 'Sin Clasificar';
-    byClasif[key] = (byClasif[key] || 0) + (parseFloat(r.holding) || 0);
+    byClasif[key] = (byClasif[key] || 0) + _padronAdjHolding(r);
   });
   return Object.entries(byClasif)
     .filter(([, v]) => v > 0)
@@ -6723,6 +6687,7 @@ function _padronRenderClasifPorInstrumento(rows) {
   grid.innerHTML = instruments.map((inst, i) =>
     `<div class="sgr-chart-card" style="padding:14px;">
       <div class="padron-clasif-mini-title" title="${_escHtml(inst)}">${_escHtml(inst)}</div>
+      <div class="padron-clasif-mini-total" id="padron-clasif-mini-total-${i}"></div>
       <div class="chart-wrap" style="height:150px;"><canvas id="padron-clasif-mini-${i}"></canvas></div>
       <div class="sgr-legend" id="padron-clasif-mini-legend-${i}" style="margin-top:10px;font-size:11px;"></div>
     </div>`
@@ -6733,6 +6698,8 @@ function _padronRenderClasifPorInstrumento(rows) {
     const total  = sorted.reduce((s, [, v]) => s + v, 0);
     const ctx = document.getElementById(`padron-clasif-mini-${i}`);
     const legendEl = document.getElementById(`padron-clasif-mini-legend-${i}`);
+    const totalEl = document.getElementById(`padron-clasif-mini-total-${i}`);
+    if (totalEl) totalEl.textContent = `Total: ${Math.round(total).toLocaleString('es-AR')}`;
     if (!ctx || sorted.length === 0) return;
 
     const labels = sorted.map(([l]) => l);
@@ -6933,7 +6900,6 @@ function _padronRenderTable() {
 
 function initPadronSection() {
   document.getElementById('padron-f-fecha').value = new Date().toISOString().slice(0, 10);
-  document.getElementById('padron-f-issuer').value = PADRON_ISSUERS[_padronActiveCo] || '';
 }
 
 initPadronSection();
