@@ -2403,7 +2403,7 @@
           <tfoot id="padron-instrumento-tfoot"></tfoot>
         </table>
       </div>
-      <div style="font-size:11px;color:#94A3B8;margin-top:8px;">* El holding que informa BYMA es sobre el VN original emitido. Para ONs que ya amortizaron parcialmente (Cresud Clase XL / IRSA Clase XIV) se aplica el % de outstanding vigente antes de sumar.</div>
+      <div style="font-size:11px;color:#94A3B8;margin-top:8px;">* El holding que informa BYMA es sobre el VN original emitido. Para ONs que ya amortizaron parcialmente (Cresud Clase XL / IRSA Clase XIV) se aplica el % de outstanding vigente antes de sumar — ver columna "Holding ajustado (propio)" en la tabla de detalle para el dato fila por fila.</div>
     </div>
 
     <!-- Clasificación (propia) — Holding ajustado, agregado o por Instrumento -->
@@ -6294,7 +6294,7 @@ const PADRON_OUTSTANDING_ADJUST = [
   // Confirmado contra dato real BYMA: "ON CRESUD CL. 40 VTO21/12/26 U$S CG" (Clase XL en numeración romana)
   { pattern: /\bCL\.?\s*(40|XL)\b/i,  factor: 0.340, label: 'ON Cresud Clase XL (CL. 40)' },
   // IRSA Clase XIV — BYMA parece numerar en arábigo igual que Cresud (CL. 14); se acepta también la forma romana por las dudas
-  { pattern: /\bCL\.?\s*(14|XIV)\b/i, factor: 0.475, label: 'ON IRSA Clase XIV (CL. 14)' },
+  { pattern: /\bCL\.?\s*(14|XIV)\b/i, factor: 0.525, label: 'ON IRSA Clase XIV (CL. 14)' },
 ];
 
 function _padronOutstandingFactor(instrumentDescription) {
@@ -6427,6 +6427,7 @@ async function _padronFetch(fecha, issuerCode, uuid, attempt) {
     r.clasificacionPropia = _padronMapeo[_padronNormName(r.investorName)]
       || _padronHeuristicClasificar(r.investorType, r.investorName)
       || 'Sin Clasificar';
+    r.holdingAjustadoPropio = _padronAdjHolding(r);
   });
   _padronSortCol = null;
   _padronFilterText = '';
@@ -6787,6 +6788,7 @@ const PADRON_COLS = [
   { key: 'instrumentDescription',    label: 'Instrumento' },
   { key: 'cvsaIdentifier',           label: 'Código Instrumento' },
   { key: 'holding',                  label: 'Holding', numeric: true },
+  { key: 'holdingAjustadoPropio',    label: 'Holding ajustado (propio)', numeric: true },
   { key: 'flagRestrictedHolding',    label: 'Restringido' },
   { key: 'address',                  label: 'Dirección' },
   { key: 'addressType',              label: 'Tipo Dirección' },
