@@ -1005,6 +1005,83 @@
     .sgr-rank-wrap {
       overflow-y: auto;
     }
+    .padron-on-filter {
+      position: relative;
+    }
+    .padron-on-filter-panel {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      z-index: 20;
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      padding: 10px;
+      min-width: 280px;
+      max-height: 280px;
+      overflow-y: auto;
+      display: none;
+    }
+    .padron-on-filter-panel.open { display: block; }
+    .padron-on-filter-actions {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 8px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .padron-on-filter-actions a {
+      font-size: 11px;
+      color: #334155;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .padron-on-filter-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 2px;
+      font-size: 12px;
+      color: #334155;
+      cursor: pointer;
+    }
+    .padron-on-filter-item input { cursor: pointer; }
+    .padron-clasif-toggle {
+      display: flex;
+      gap: 6px;
+    }
+    .padron-clasif-toggle button {
+      height: 28px;
+      padding: 0 12px;
+      font-size: 11.5px;
+      font-weight: 600;
+      border: 1px solid #E2E8F0;
+      background: #F8FAFC;
+      color: #64748B;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .padron-clasif-toggle button.active {
+      background: #334155;
+      border-color: #334155;
+      color: #fff;
+    }
+    .padron-clasif-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .padron-clasif-mini-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 8px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     @media (max-width: 900px) {
       .sgr-chart-grid { grid-template-columns: 1fr; }
@@ -2296,6 +2373,12 @@
         <input type="text" class="deals-filter-input wide" id="padron-f-buscar" placeholder="Nombre o CUIT…" oninput="_padronFilter(this.value)">
       </div>
 
+      <div class="deals-filter-group padron-on-filter" id="padron-on-filter">
+        <span class="deals-filter-label">ONs a incluir</span>
+        <button type="button" class="deals-clear-btn" id="padron-on-filter-btn" onclick="_padronToggleOnFilterPanel()">ONs: Todos</button>
+        <div class="padron-on-filter-panel" id="padron-on-filter-panel"></div>
+      </div>
+
       <button class="deals-clear-btn" id="padron-consultar-btn" onclick="consultarPadron()" style="background:#334155;color:#fff;border-color:#334155;">Consultar</button>
       <button class="deals-clear-btn" onclick="_padronDownloadCsv()">Descargar CSV</button>
       <button class="deals-clear-btn" onclick="_padronDownloadExcel()">Descargar Excel</button>
@@ -2311,7 +2394,7 @@
     <!-- Resumen por Instrumento (Holding) -->
     <div class="sgr-chart-card" id="padron-instrumento-card" style="display:none; margin-bottom:20px;">
       <div class="sgr-chart-title">Resumen por Instrumento — Holding</div>
-      <div class="grid-40-60" style="align-items:start;">
+      <div class="grid-2 grid-40-60" style="align-items:start;">
         <div class="sgr-rank-wrap" style="min-height:260px;">
           <div id="padron-instrumento-canvas-wrap"><canvas id="padron-instrumento-chart"></canvas></div>
         </div>
@@ -2322,6 +2405,22 @@
           </table>
         </div>
       </div>
+    </div>
+
+    <!-- Clasificación (propia) — Holding, agregado o por Instrumento -->
+    <div class="sgr-chart-card" id="padron-clasif-card" style="display:none; margin-bottom:20px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+        <div class="sgr-chart-title" style="margin-bottom:0;">Clasificación (propia) — Holding</div>
+        <div class="padron-clasif-toggle">
+          <button type="button" id="padron-clasif-btn-agregado" class="active" onclick="_padronSetClasifView('agregado')">Agregado</button>
+          <button type="button" id="padron-clasif-btn-instrumento" onclick="_padronSetClasifView('instrumento')">Por Instrumento</button>
+        </div>
+      </div>
+      <div id="padron-clasif-agregado-wrap" class="grid-2 grid-40-60" style="align-items:center;">
+        <div class="chart-wrap" style="height:260px;"><canvas id="padron-clasif-chart"></canvas></div>
+        <div class="sgr-legend" id="padron-clasif-legend"></div>
+      </div>
+      <div id="padron-clasif-instrumento-wrap" class="padron-clasif-grid" style="display:none;"></div>
     </div>
 
     <!-- Tabla de resultados -->
@@ -6182,9 +6281,21 @@ let _padronSortAsc = true;
 let _padronFilterText = '';
 let _padronMapeo = {};
 let _padronInstrumentChartInst = null;
+let _padronSelectedInstruments = null; // null = todos seleccionados; si no, Set de instrumentDescription
+let _padronClasifViewMode = 'agregado'; // 'agregado' | 'instrumento'
+let _padronClasifChartInst = null;
+let _padronClasifSmallInsts = [];
+let _padronClasifColorMap = {};
+
+const PADRON_CLASIF_PALETTE = ['#1D4B6E','#7C3AED','#B45309','#0891B2','#16A34A','#DB2777','#0369A1','#D97706','#4338CA','#059669'];
+const PADRON_CLASIF_FALLBACK = '#94A3B8';
 
 function _padronNormName(s) {
-  return (s || '').replace(/\s+/g, ' ').trim().toUpperCase();
+  return (s || '')
+    .normalize('NFD').replace(/[̀-ͯ]/g, '') // saca acentos (Ñ→N, Á→A, etc.) para que los patrones no tengan que lidiar con ellos
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
 }
 
 async function initPadronMapeo() {
@@ -6196,6 +6307,37 @@ async function initPadronMapeo() {
   } catch (e) {
     console.error('No se pudo cargar el mapeo de clasificación propia', e);
   }
+}
+
+/* Reglas heurísticas de clasificación propia — fallback para tenedores que no
+   matchean ningún nombre exacto en Padron/mapeo_clasificacion.csv. Corren en
+   orden sobre el nombre normalizado (sin acentos, mayúsculas); gana la primera
+   que matchea. Los patrones específicos van antes que "Corporativo" a propósito:
+   una aseguradora, un banco o una SGR casi siempre también tienen "S.A." en el
+   nombre, así que si el fallback genérico corriera primero los clasificaría mal. */
+const PADRON_CLASIF_RULES = [
+  { label: 'Propio',      test: n => /\bIRSA\b|\bCRESUD\b/.test(n) },
+  { label: 'TTRFP',       test: n => /TORONTO TRUST/.test(n) },
+  { label: 'ETF',         test: n => /\bETF\b/.test(n) },
+  { label: 'SGR',         test: n => /S\.?G\.?R\.?\b/.test(n) },
+  { label: 'FCI',         test: n => /\bBVSA\b|\bBCSA\b|F\.?C\.?I\.?\b/.test(n) },
+  { label: 'Aseguradora', test: n => /ASEGURADORA|\bSEGUROS?\b|CIA\.? DE SEGUROS|COMPANIA DE SEGUROS/.test(n) },
+  { label: 'Caja',        test: n => /\bCAJA\b|\bMUTUAL(ES)?\b|\bCOLEGIO\b/.test(n) },
+  { label: 'Banco',       test: n => /\bBANCO\b|\bBCO\.?\b|\bBANK\b/.test(n) },
+  { label: 'Alyc',        test: n => /\bALYC\b|SOCIEDAD DE BOLSA|AGENTE DE (LIQUIDACION|NEGOCIACION)|\bBURSATIL\b|CAPITAL MARKETS|\bBROKER\b/.test(n) },
+  // Fallback genérico para personas jurídicas: cualquier forma societaria que no matcheó nada más específico arriba
+  { label: 'Corporativo', test: n => /\bS\.?A\.?\b|\bS\.?R\.?L\.?\b|\bS\.?A\.?I\.?C\.?\b|\bS\.?C\.?A\.?\b|SOCIEDAD ANONIMA|SOCIEDAD DE RESPONSABILIDAD LIMITADA/.test(n) },
+];
+
+function _padronHeuristicClasificar(investorType, investorName) {
+  const n = _padronNormName(investorName);
+  const t = (investorType || '').trim().toUpperCase();
+  if (t === 'F') return 'Persona Física';
+  for (const rule of PADRON_CLASIF_RULES) {
+    if (rule.test(n)) return rule.label;
+  }
+  if (t === 'J') return 'Corporativo'; // persona jurídica sin keyword específico → cae en el bucket genérico
+  return null;
 }
 
 function selectPadronIssuer(co) {
@@ -6221,6 +6363,7 @@ async function consultarPadron() {
     document.getElementById('padron-table-wrap').style.display = 'none';
     document.getElementById('padron-summary-row').innerHTML = '';
     document.getElementById('padron-instrumento-card').style.display = 'none';
+    document.getElementById('padron-clasif-card').style.display = 'none';
     return;
   }
 
@@ -6228,6 +6371,7 @@ async function consultarPadron() {
   document.getElementById('padron-table-wrap').style.display = 'none';
   document.getElementById('padron-summary-row').innerHTML = '';
   document.getElementById('padron-instrumento-card').style.display = 'none';
+  document.getElementById('padron-clasif-card').style.display = 'none';
   _padronSetStatus('Consultando…');
 
   try {
@@ -6270,12 +6414,19 @@ async function _padronFetch(fecha, issuerCode, uuid, attempt) {
 
   _padronRows = data.rows || [];
   _padronRows.forEach(r => {
-    r.clasificacionPropia = _padronMapeo[_padronNormName(r.investorName)] || 'Sin Clasificar';
+    r.clasificacionPropia = _padronMapeo[_padronNormName(r.investorName)]
+      || _padronHeuristicClasificar(r.investorType, r.investorName)
+      || 'Sin Clasificar';
   });
   _padronSortCol = null;
   _padronFilterText = '';
+  _padronSelectedInstruments = null; // se re-inicializa a "todos" con el nuevo dataset
+  _padronClasifViewMode = 'agregado';
   document.getElementById('padron-f-buscar').value = '';
   _padronSetStatus(_padronRows.length === 0 ? 'Sin resultados para los parámetros ingresados.' : '');
+  _padronBuildClasifColorMap();
+  _padronBuildOnFilterPanel();
+  _padronSetClasifView('agregado');
   _padronRenderSummary();
   _padronRenderInstrumentSummary();
   _padronRenderTable();
@@ -6301,8 +6452,16 @@ function _padronRenderInstrumentSummary() {
   if (_padronRows.length === 0) { card.style.display = 'none'; return; }
   card.style.display = 'block';
 
+  const rows = _padronFilteredRows();
+  const tbody = document.getElementById('padron-instrumento-tbody');
+
+  if (rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="3" class="deals-empty">No hay ONs seleccionadas — elegí al menos una en el filtro "ONs a incluir".</td></tr>';
+    return;
+  }
+
   const byInstrument = {};
-  _padronRows.forEach(r => {
+  rows.forEach(r => {
     const key = r.instrumentDescription || '(Sin instrumento)';
     byInstrument[key] = (byInstrument[key] || 0) + (parseFloat(r.holding) || 0);
   });
@@ -6311,7 +6470,6 @@ function _padronRenderInstrumentSummary() {
   const totalHolding = sorted.reduce((s, [, v]) => s + v, 0);
 
   // Tabla
-  const tbody = document.getElementById('padron-instrumento-tbody');
   tbody.innerHTML = sorted.map(([instrumento, holding]) => {
     const pct = totalHolding > 0 ? (holding / totalHolding * 100) : 0;
     return `<tr><td>${_escHtml(instrumento)}</td><td class="deals-vn">${Math.round(holding).toLocaleString('es-AR')}</td><td class="deals-vn">${pct.toFixed(1)}%</td></tr>`;
@@ -6365,6 +6523,245 @@ function _padronRenderInstrumentSummary() {
         y: { grid: { display: false }, ticks: { font: { size: 9 }, color: '#0F172A' } },
       },
     },
+  });
+}
+
+/* ── Filtro "ONs a incluir" (multi-select) ────────────────────────────── */
+
+function _padronAllInstruments() {
+  return Array.from(new Set(_padronRows.map(r => r.instrumentDescription || '(Sin instrumento)'))).sort();
+}
+
+function _padronFilteredRows() {
+  if (!_padronSelectedInstruments) return _padronRows;
+  return _padronRows.filter(r => _padronSelectedInstruments.has(r.instrumentDescription || '(Sin instrumento)'));
+}
+
+function _padronBuildOnFilterPanel() {
+  const panel = document.getElementById('padron-on-filter-panel');
+  const instruments = _padronAllInstruments();
+  if (_padronSelectedInstruments === null) {
+    _padronSelectedInstruments = new Set(instruments);
+  }
+
+  panel.innerHTML =
+    `<div class="padron-on-filter-actions">
+      <a onclick="_padronOnFilterSelectAll()">Seleccionar todos</a>
+      <a onclick="_padronOnFilterSelectNone()">Ninguno</a>
+    </div>` +
+    instruments.map(inst => {
+      const checked = _padronSelectedInstruments.has(inst) ? 'checked' : '';
+      const safe = inst.replace(/'/g, "\\'");
+      return `<label class="padron-on-filter-item">
+        <input type="checkbox" ${checked} onchange="_padronOnFilterToggle('${safe}', this.checked)">
+        <span>${_escHtml(inst)}</span>
+      </label>`;
+    }).join('');
+
+  _padronUpdateOnFilterBtnLabel();
+}
+
+function _padronUpdateOnFilterBtnLabel() {
+  const btn = document.getElementById('padron-on-filter-btn');
+  const total = _padronAllInstruments().length;
+  const sel = _padronSelectedInstruments ? _padronSelectedInstruments.size : total;
+  btn.textContent = (sel === total && total > 0) ? `ONs: Todos (${total})` : `ONs: ${sel}/${total}`;
+}
+
+function _padronToggleOnFilterPanel() {
+  document.getElementById('padron-on-filter-panel').classList.toggle('open');
+}
+
+function _padronOnFilterToggle(instrument, checked) {
+  if (checked) _padronSelectedInstruments.add(instrument);
+  else _padronSelectedInstruments.delete(instrument);
+  _padronUpdateOnFilterBtnLabel();
+  _padronRenderInstrumentSummary();
+  _padronRenderClasificacionPie();
+}
+
+function _padronOnFilterSelectAll() {
+  _padronSelectedInstruments = new Set(_padronAllInstruments());
+  _padronBuildOnFilterPanel();
+  _padronRenderInstrumentSummary();
+  _padronRenderClasificacionPie();
+}
+
+function _padronOnFilterSelectNone() {
+  _padronSelectedInstruments = new Set();
+  _padronBuildOnFilterPanel();
+  _padronRenderInstrumentSummary();
+  _padronRenderClasificacionPie();
+}
+
+document.addEventListener('click', function(e) {
+  const filterEl = document.getElementById('padron-on-filter');
+  if (filterEl && !filterEl.contains(e.target)) {
+    document.getElementById('padron-on-filter-panel').classList.remove('open');
+  }
+});
+
+/* ── Clasificación (propia) — pie agregado o por Instrumento ──────────── */
+
+function _padronBuildClasifColorMap() {
+  const labels = Array.from(new Set(_padronRows.map(r => r.clasificacionPropia))).sort((a, b) => {
+    if (a === 'Sin Clasificar') return 1;
+    if (b === 'Sin Clasificar') return -1;
+    return a.localeCompare(b);
+  });
+  _padronClasifColorMap = {};
+  let idx = 0;
+  labels.forEach(l => {
+    if (l === 'Sin Clasificar') { _padronClasifColorMap[l] = PADRON_CLASIF_FALLBACK; }
+    else { _padronClasifColorMap[l] = PADRON_CLASIF_PALETTE[idx % PADRON_CLASIF_PALETTE.length]; idx++; }
+  });
+}
+
+function _padronClasifColor(label) {
+  return _padronClasifColorMap[label] || PADRON_CLASIF_FALLBACK;
+}
+
+function _padronSetClasifView(mode) {
+  _padronClasifViewMode = mode;
+  document.getElementById('padron-clasif-btn-agregado').classList.toggle('active', mode === 'agregado');
+  document.getElementById('padron-clasif-btn-instrumento').classList.toggle('active', mode === 'instrumento');
+  document.getElementById('padron-clasif-agregado-wrap').style.display = mode === 'agregado' ? 'grid' : 'none';
+  document.getElementById('padron-clasif-instrumento-wrap').style.display = mode === 'instrumento' ? 'grid' : 'none';
+  _padronRenderClasificacionPie();
+}
+
+function _padronGroupByClasif(rows) {
+  const byClasif = {};
+  rows.forEach(r => {
+    const key = r.clasificacionPropia || 'Sin Clasificar';
+    byClasif[key] = (byClasif[key] || 0) + (parseFloat(r.holding) || 0);
+  });
+  return Object.entries(byClasif)
+    .filter(([, v]) => v > 0)
+    .sort((a, b) => b[1] - a[1]);
+}
+
+function _padronRenderClasificacionPie() {
+  const card = document.getElementById('padron-clasif-card');
+  if (_padronRows.length === 0) { card.style.display = 'none'; return; }
+  card.style.display = 'block';
+
+  const rows = _padronFilteredRows();
+
+  if (_padronClasifViewMode === 'agregado') {
+    _padronRenderClasifAgregado(rows);
+  } else {
+    _padronRenderClasifPorInstrumento(rows);
+  }
+}
+
+function _padronRenderClasifAgregado(rows) {
+  _padronClasifChartInst = _sgrDestroy(_padronClasifChartInst);
+  _padronClasifSmallInsts.forEach(i => _sgrDestroy(i));
+  _padronClasifSmallInsts = [];
+
+  const ctx = document.getElementById('padron-clasif-chart');
+  const legendEl = document.getElementById('padron-clasif-legend');
+  if (!ctx) return;
+
+  const sorted = _padronGroupByClasif(rows);
+  if (sorted.length === 0) {
+    legendEl.innerHTML = '<div style="color:#94A3B8;font-size:12px;">No hay ONs seleccionadas.</div>';
+    return;
+  }
+
+  const total  = sorted.reduce((s, [, v]) => s + v, 0);
+  const labels = sorted.map(([l]) => l);
+  const data   = sorted.map(([, v]) => v);
+  const colors = labels.map(l => _padronClasifColor(l));
+
+  _padronClasifChartInst = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...TOOLTIP, callbacks: {
+          label: c => `${c.label}: ${c.parsed.toLocaleString('es-AR')} (${(c.parsed / total * 100).toFixed(1)}%)`,
+        }},
+      },
+      cutout: '55%',
+    },
+  });
+
+  legendEl.innerHTML = sorted.map(([label, val]) =>
+    `<div class="sgr-legend-item">
+      <div class="sgr-legend-dot" style="background:${_padronClasifColor(label)};"></div>
+      <span>${_escHtml(label)}</span>
+      <span style="margin-left:auto;font-weight:600;color:#0F172A;">${(val / total * 100).toFixed(1)}%</span>
+    </div>`
+  ).join('');
+}
+
+function _padronRenderClasifPorInstrumento(rows) {
+  _padronClasifChartInst = _sgrDestroy(_padronClasifChartInst);
+  _padronClasifSmallInsts.forEach(i => _sgrDestroy(i));
+  _padronClasifSmallInsts = [];
+
+  const grid = document.getElementById('padron-clasif-instrumento-wrap');
+  if (!grid) return;
+
+  if (rows.length === 0) {
+    grid.innerHTML = '<div style="color:#94A3B8;font-size:12px;grid-column:1/-1;">No hay ONs seleccionadas — elegí al menos una en el filtro "ONs a incluir".</div>';
+    return;
+  }
+
+  const byInstrument = {};
+  rows.forEach(r => {
+    const key = r.instrumentDescription || '(Sin instrumento)';
+    (byInstrument[key] = byInstrument[key] || []).push(r);
+  });
+
+  const instruments = Object.keys(byInstrument).sort();
+
+  grid.innerHTML = instruments.map((inst, i) =>
+    `<div class="sgr-chart-card" style="padding:14px;">
+      <div class="padron-clasif-mini-title" title="${_escHtml(inst)}">${_escHtml(inst)}</div>
+      <div class="chart-wrap" style="height:150px;"><canvas id="padron-clasif-mini-${i}"></canvas></div>
+      <div class="sgr-legend" id="padron-clasif-mini-legend-${i}" style="margin-top:10px;font-size:11px;"></div>
+    </div>`
+  ).join('');
+
+  instruments.forEach((inst, i) => {
+    const sorted = _padronGroupByClasif(byInstrument[inst]);
+    const total  = sorted.reduce((s, [, v]) => s + v, 0);
+    const ctx = document.getElementById(`padron-clasif-mini-${i}`);
+    const legendEl = document.getElementById(`padron-clasif-mini-legend-${i}`);
+    if (!ctx || sorted.length === 0) return;
+
+    const labels = sorted.map(([l]) => l);
+    const data   = sorted.map(([, v]) => v);
+    const colors = labels.map(l => _padronClasifColor(l));
+
+    const inst_chart = new Chart(ctx, {
+      type: 'doughnut',
+      data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { ...TOOLTIP, callbacks: {
+            label: c => `${c.label}: ${c.parsed.toLocaleString('es-AR')} (${(c.parsed / total * 100).toFixed(1)}%)`,
+          }},
+        },
+        cutout: '55%',
+      },
+    });
+    _padronClasifSmallInsts.push(inst_chart);
+
+    legendEl.innerHTML = sorted.map(([label, val]) =>
+      `<div class="sgr-legend-item">
+        <div class="sgr-legend-dot" style="background:${_padronClasifColor(label)};"></div>
+        <span>${_escHtml(label)}</span>
+        <span style="margin-left:auto;font-weight:600;color:#0F172A;">${(val / total * 100).toFixed(1)}%</span>
+      </div>`
+    ).join('');
   });
 }
 

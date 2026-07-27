@@ -639,9 +639,28 @@ Sección accesible desde la pestaña **Padrón** en la nav. Muestra el listado d
 
 **Clasificación propia por tenedor** (`Padron/mapeo_clasificacion.csv`): además de los campos que devuelve BYMA, el dashboard clasifica cada tenedor con una taxonomía propia (Alyc, Aseguradora, Banco, Caja, Corporativo, ETF, FCI, Propio, SGR, TTRFP) para poder ver rápidamente qué tipo de sector concentra la deuda. La fuente es `Mappeo.xlsx` (hoja "Personas Jurídicas", columnas `SOCIEDAD` / `Clasificacion`) provista por el usuario — se deduplicó a `Padron/mapeo_clasificacion.csv` (`Nombre_Cuenta,Clasificacion`, nombres normalizados a mayúsculas sin espacios repetidos). El Excel original traía ~9010 filas con solo 3656 `SOCIEDAD` únicas y 62 con clasificación inconsistente entre filas repetidas; al deduplicar se priorizó la clasificación más específica sobre `Corporativo` (que actúa como default genérico del sistema fuente de BYMA/Caja de Valores, no como una clasificación real).
 - `initPadronMapeo()` — carga `Padron/mapeo_clasificacion.csv` una sola vez al iniciar la página (junto a los demás `initXxx()`) y llena el global `_padronMapeo` (`{ NOMBRE_NORMALIZADO: Clasificacion }`)
-- `_padronNormName(s)` — normaliza un nombre (colapsa espacios, trim, uppercase) para el match; se usa tanto al cargar el mapeo como al enriquecer `_padronRows`
-- En `_padronFetch()`, después de recibir `data.rows`, cada fila se enriquece con `r.clasificacionPropia = _padronMapeo[_padronNormName(r.investorName)] || 'Sin Clasificar'` — el match es por nombre exacto (normalizado), no hay fuzzy matching
-- **Actualizar el mapeo**: si BYMA agrega tenedores nuevos que no matchean, van a aparecer como "Sin Clasificar" en la columna; para corregirlo, agregar la fila correspondiente a `Padron/mapeo_clasificacion.csv` (`Nombre_Cuenta` en mayúsculas tal cual aparece en `investorName`, `Clasificacion`) y hacer commit — no requiere tocar `index.html`
+- `_padronNormName(s)` — normaliza un nombre (`NFD` + saca acentos, colapsa espacios, trim, uppercase) para el match; se usa tanto al cargar el mapeo como al enriquecer `_padronRows` y al evaluar las reglas heurísticas de abajo
+- En `_padronFetch()`, después de recibir `data.rows`, cada fila se enriquece con `r.clasificacionPropia = _padronMapeo[_padronNormName(r.investorName)] || _padronHeuristicClasificar(r.investorType, r.investorName) || 'Sin Clasificar'` — primero intenta el match exacto (curado, `Padron/mapeo_clasificacion.csv`); si no matchea, cae al clasificador heurístico; solo si ninguno de los dos resuelve algo queda "Sin Clasificar"
+- **Actualizar el mapeo exacto**: para casos puntuales que la heurística clasifique mal, agregar la fila correspondiente a `Padron/mapeo_clasificacion.csv` (`Nombre_Cuenta` en mayúsculas tal cual aparece en `investorName`, `Clasificacion`) y hacer commit — el match exacto siempre gana sobre la heurística, así que sirve como lista de excepciones/overrides — no requiere tocar `index.html`
+
+**Clasificador heurístico** (`PADRON_CLASIF_RULES` + `_padronHeuristicClasificar(investorType, investorName)`): fallback basado en reglas para que casi ningún tenedor quede "Sin Clasificar" cuando no está en el CSV curado. Lógica:
+1. Si `investorType === 'F'` (Persona Física en el campo que devuelve BYMA) → `"Persona Física"`, sin mirar el nombre.
+2. Si no, se evalúa el nombre normalizado contra `PADRON_CLASIF_RULES` en orden — gana el primer patrón que matchea:
+   - `IRSA` / `CRESUD` en el nombre → `"Propio"` (entidades relacionadas a los propios emisores)
+   - `TORONTO TRUST` → `"TTRFP"` (fondo Toronto Trust Renta Fija Plus, alias "TTRFPD")
+   - `ETF` → `"ETF"`
+   - `SGR` / `S.G.R` → `"SGR"`
+   - `BVSA` / `BCSA` / `FCI` → `"FCI"`
+   - `ASEGURADORA` / `SEGURO(S)` / `CIA. DE SEGUROS` → `"Aseguradora"`
+   - `CAJA` / `MUTUAL(ES)` / `COLEGIO` → `"Caja"`
+   - `BANCO` / `BCO` / `BANK` → `"Banco"`
+   - `ALYC` / `SOCIEDAD DE BOLSA` / `AGENTE DE LIQUIDACION` / `AGENTE DE NEGOCIACION` / `BURSATIL` / `CAPITAL MARKETS` / `BROKER` → `"Alyc"`
+   - `SA` / `SRL` / `SAIC` / `SCA` / `SOCIEDAD ANONIMA` / `SOCIEDAD DE RESPONSABILIDAD LIMITADA` → `"Corporativo"` (fallback genérico de forma societaria)
+3. Si `investorType === 'J'` (Persona Jurídica) y ningún patrón matcheó → `"Corporativo"` como bucket genérico final.
+4. Si no matcheó nada y `investorType` no es ni `F` ni `J` → devuelve `null`, y el llamador cae a `"Sin Clasificar"`.
+
+**Por qué el orden importa**: el patrón `Corporativo` (paso 2, al final) es intencionalmente el último — una aseguradora, un banco o una SGR casi siempre también tienen "S.A." en la razón social, así que si el fallback genérico corriera primero, todo terminaría clasificado como Corporativo y las categorías específicas nunca se alcanzarían. Los patrones específicos y de mayor prioridad de negocio van primero.
+
 - **Cap de filas en tabla** (`PADRON_TABLE_ROW_CAP = 200`): `_padronRenderTable()` solo renderiza las primeras 200 filas de `_padronVisibleRows()` (performance — algunos padrones traen miles de tenedores y romper todo el DOM los vuelve pesado); si hay más, se muestra una nota debajo de la tabla (`#padron-truncate-note`) indicando cuántas hay en total y sugiriendo usar los botones de descarga. **La exportación (CSV/Excel) no tiene este cap** — exporta siempre el listado completo filtrado/ordenado, no solo las 200 visibles.
 - Tabla con `min-width: 2400px` (hay ~27 columnas) dentro de `.deals-table-wrap` (`overflow-x: auto`) — scroll horizontal esperado.
 - **Botones "Descargar CSV" / "Descargar Excel"** (junto a "Consultar"): exportan `_padronVisibleRows()` (respeta filtro de búsqueda y sort activos) con **todas** las columnas de `PADRON_COLS`, no solo las visibles en pantalla. `_padronDownloadCsv()` genera un `.csv` con BOM UTF-8 (para que Excel muestre bien tildes/ñ) y escapado de comas/comillas. `_padronDownloadExcel()` genera un `.xls` compatible con Excel armando una tabla HTML con `<meta charset="UTF-8">` y sirviéndola con MIME `application/vnd.ms-excel` — no es un binario `.xlsx` real (no se agregó ninguna librería tipo SheetJS, siguiendo la convención del proyecto de cero dependencias de build), pero Excel lo abre nativamente como planilla. Nombre de archivo: `padron_{issuerCode}_{fecha}.{csv|xls}`.
@@ -673,7 +692,7 @@ Sección accesible desde la pestaña **Padrón** en la nav. Muestra el listado d
 | Deals — tabla de emisiones (filas, filtros, subtotales) | `emisiones_obligaciones_negociables.csv` — dinámico |
 | Deals — Curvas ONs: scatter Ley Arg + scatter Ley NY + tabla | `curvas_on.csv` — dinámico; generado por `scraper_curvas.py` (fuente IAMC) |
 | Padrón — tabla de tenedores | API de Custodia BYMA vía `api/padron.js` — dinámico, consulta on-demand (no carga sola al iniciar la página) |
-| Padrón — columna Clasificación (propia) | `Padron/mapeo_clasificacion.csv` — dinámico, cargado al iniciar la página; match por nombre exacto normalizado contra `investorName` |
+| Padrón — columna Clasificación (propia) | `Padron/mapeo_clasificacion.csv` (match exacto) + `PADRON_CLASIF_RULES` (heurística de fallback) — dinámico |
 
 ## Diseño responsive (mobile + desktop)
 
