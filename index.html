@@ -6294,7 +6294,7 @@ const PADRON_OUTSTANDING_ADJUST = [
   // Confirmado contra dato real BYMA: "ON CRESUD CL. 40 VTO21/12/26 U$S CG" (Clase XL en numeración romana)
   { pattern: /\bCL\.?\s*(40|XL)\b/i,  factor: 0.340, label: 'ON Cresud Clase XL (CL. 40)' },
   // IRSA Clase XIV — BYMA parece numerar en arábigo igual que Cresud (CL. 14); se acepta también la forma romana por las dudas
-  { pattern: /\bCL\.?\s*(14|XIV)\b/i, factor: 0.525, label: 'ON IRSA Clase XIV (CL. 14)' },
+  { pattern: /\bCL\.?\s*(14|XIV)\b/i, factor: 0.475, label: 'ON IRSA Clase XIV (CL. 14)' },
 ];
 
 function _padronOutstandingFactor(instrumentDescription) {
