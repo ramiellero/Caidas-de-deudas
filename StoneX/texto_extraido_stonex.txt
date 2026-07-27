@@ -1,10 +1,42 @@
-24 de julio de 2026
+27 de julio de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
 opinión o estimación contenida eneste reporte representael juicio actualde StoneX yestá sujetoa cambios sin previo aviso. StoneX Securities S.A. o sus vinculadas podrían proveerconsejo respecto a adquirir, mantener o
 venderlosinstrumentosnombradosenesteinforme.
-Resultados
+Resultados de la semana
+Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
+Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
+Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
+3,75% - 3,79% - - mar, 21 jul. ON Banco BBVA - 48 USD Cable USD 42.074.070 3,75% 17,72 549 24/01/2028 AAA (Fix SCR) Tasa vie, 24 jul.
+ON Banco BBVA (Integra en efectivo y/o en
+3,25% - 3,28% - - mar, 21 jul. - 49 USD Mep USD 34.323.771 3,25% 11,90 365 24/07/2027 A1+ (Fix SCR) Tasa vie, 24 jul.
+especie)
+ON Banco BBVA (Integra en efectivo y/o en
+5,00% - 7,59% - - mar, 21 jul. - 50 USD Mep USD 58.729.484 5,00% 22,92 731 24/07/2028 AAA (Fix SCR) Tasa vie, 24 jul.
+especie)
+Letras del Tesoro de la Provincia de Buenos
+Px 98,13 22,8750% 26,84% 1,14% 24,01% mar, 21 jul. LBG26 - ARS $ 278.595.179.504 0,00% 0,95 29 21/08/2026 B (Moody´s) Precio jue, 23 jul.
+Aires a Descuento [Reapertura]
+Letras del Tesoro de la Provincia de Buenos
+Px 95,86 22,8750% 27,73% 1,85% 24,73% mar, 21 jul. - - ARS $ 88.620.870.626 0,00% 2,07 63 24/09/2026 B (Moody´s) Precio jue, 23 jul.
+Aires a Descuento [Nueva]
+Letras del Tesoro de la Provincia de Buenos
+TEM 2,15% 22,8750% 28,70% 2,62% 25,50% mar, 21 jul. - - ARS $ 11.191.958.399 TEM 2,15% 3,91 119 19/11/2026 B (Moody´s) TEM jue, 23 jul.
+Aires Capitalizable [Nueva]
+[OFERTA DE CONVERSIÓN] D31L6 x Letra del
+Px 99,00 - 10,28% - - mar, 21 jul. Tesoro Nacional Vinculada al Dólar D31G6 - USD Linked USD 1.736.000.000 0,00% 1,25 38 31/08/2026 SC Precio vie, 24 jul.
+[Reapertura]
+[OFERTA DE CONVERSIÓN] D31L6 x Bono del
+Px 80,99 - 9,08% - - mar, 21 jul. Tesoro Nacional Vinculada al Dólar TZVD8 - USD Linked USD 159.000.000 0,00% 28,77 875 15/12/2028 SC Precio vie, 24 jul.
+[Reapertura]
+N/A - - - - mié, 22 jul. FF Individual Prosegur Digital Gold - CP USD Mep USD 265.529 - - 1826 24/07/2031 SC Precio vie, 24 jul.
+8,00% - 8,22% - - mié, 22 jul. ON Garantizada Jemersoft S.A.S. (Pyme) I - USD Mep USD 250.000 8,00% 10,19 549 24/01/2028 SC Tasa vie, 24 jul.
+ON Petroquímica Comodoro Rivadavia & Luz de B (S&P) / B (Fitch
+Px 99,354 - 8,57% - - mié, 22 jul. - 1 USD Cable USD 400.000.000 8,50% 64,84 2922 28/07/2034 Book Building mar, 28 jul.
+Tres Picos [Ley NY] Ratings)
+Presentation Heading |
+Resultados de la semana
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
@@ -29,15 +61,9 @@ TAMAR-1,05% 22,9375% 25,17% -0,28% 22,66% jue, 23 jul. ON Garantizada Cheek S.A.
 Títulos de Deuda de la Provincia de Neuquén B- (S&P) /B-
 Px 98,377 - 7,79% - - jue, 23 jul. - - USD Cable USD 500.000.000 7,35% 67,48 2948 25/08/2034 Book Building jue, 30 jul.
 [Ley NY] (Fitch)
+23,73% 22,9375% 29,30% 3,03% 25,97% vie, 24 jul. FF Consubond 200 VDF ARS $ 14.214.659.148 (20%; T+100; 40%) 2,37 213 25/02/2027 AAA (Fix SCR) TIR lun, 27 jul.
 Presentation Heading |
 Licita hoy
-STONEX
-Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
-Licitación (meses) (días) Pago Licitación Liquidación
-vie, 24 jul. FF Consubond 200 $ 14.214.659.148 VDF ARS $ 14.214.659.148 (20%; T+100; 40%) 2,36 213 25/02/2027 AAA (Fix SCR) TIR lun, 27 jul.
-Presentation Heading |
-Operaciones en Difusión
 STONEX
 Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
@@ -50,6 +76,23 @@ Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
 Licitación (meses) (días) Pago Licitación Liquidación
 lun, 27 jul. FF Centrocard Créditos IX $ 16.027.000.000 VDF ARS $ 16.027.000.000 28,00% 10,97 636 24/04/2028 SC TIR mar, 28 jul.
+Presentation Heading |
+Operaciones en Difusión
+OPERACIONES DE TERCEROS
+Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
+Licitación (meses) (días) Pago Licitación Liquidación
+mar, 28 jul. FF Cuotas Cencosud LIX VFA ARS $ 17.482.229.108 (20%; T+300; 45%) 3,22 206 20/02/2027 AAA Precio mié, 29 jul.
+$ 20.872.722.026
+mar, 28 jul. FF Cuotas Cencosud LIX VDFB ARS $ 3.390.492.918 (20%; T+300; 45%) 7,98 295 20/05/2027 BB- Precio mié, 29 jul.
+ON Banco de Galicia (Integra en efectivo y/o
+mar, 28 jul. I XXXIII USD Mep A licitar 11,87 365 30/07/2027 A informar Tasa jue, 30 jul.
+en especie)
+USD 50.000.000 (amp. h/ USD 50.000.000 (amp. h/
+300.000.000) 300.000.000)
+ON Banco de Galicia (Integra en efectivo y/o
+mar, 28 jul. II XXXIII USD Mep A licitar 33,70 1096 30/07/2029 A informar Tasa jue, 30 jul.
+en especie)
 USD 60.000.000 (amp. h/ USD USD 60.000.000 (amp. h/ USD Venc. a los 10
 mar, 28 jul. ON Raghsa S.A. [Ley NY] - 8 USD Cable A licitar A informar A informar B1 (Moody´s) Tasa A informar
 70.000.000) 70.000.000) años
