@@ -636,6 +636,7 @@
       overflow-y: auto;
       box-shadow: 0 8px 32px rgba(0,0,0,0.14);
     }
+    .modal-box-wide { width: 820px; max-width: 96vw; }
     .modal-title {
       font-size: 13px; font-weight: 700;
       letter-spacing: 0.06em; text-transform: uppercase;
@@ -2420,6 +2421,22 @@
         <div class="sgr-legend" id="padron-clasif-legend"></div>
       </div>
       <div id="padron-clasif-instrumento-wrap" class="padron-clasif-grid" style="display:none;"></div>
+    </div>
+
+    <!-- Drilldown Top 20 tenedores por categoría (click en porción del donut o leyenda) -->
+    <div class="modal-overlay" id="padronClasifModal" onclick="if(event.target===this)_padronCloseClasifModal()">
+      <div class="modal-box modal-box-wide">
+        <div class="modal-title" id="padronClasifModalTitle">Top 20 tenedores</div>
+        <div class="deals-table-wrap" style="margin-top:0;">
+          <table class="deals-table">
+            <thead><tr><th>Tenedor</th><th>Instrumento</th><th>Holding</th><th>Holding ajustado (propio)</th></tr></thead>
+            <tbody id="padronClasifModalTbody"></tbody>
+          </table>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-btn modal-btn-cancel" onclick="_padronCloseClasifModal()">Cerrar</button>
+        </div>
+      </div>
     </div>
 
     <!-- Tabla de resultados -->
@@ -6282,6 +6299,8 @@ let _padronClasifViewMode = 'agregado'; // 'agregado' | 'instrumento'
 let _padronClasifChartInst = null;
 let _padronClasifSmallInsts = [];
 let _padronClasifColorMap = {};
+let _padronLastClasifRows = []; // filas del subset activo (vista agregado) — usado por el drilldown Top 20
+let _padronLastClasifByInst = {}; // ídem, por índice de instrumento (vista por instrumento)
 
 const PADRON_CLASIF_PALETTE = ['#1D4B6E','#7C3AED','#B45309','#0891B2','#16A34A','#DB2777','#0369A1','#D97706','#4338CA','#059669'];
 const PADRON_CLASIF_FALLBACK = '#94A3B8';
@@ -6608,6 +6627,32 @@ function _padronGroupByClasif(rows) {
     .sort((a, b) => b[1] - a[1]);
 }
 
+/* Drilldown: click en una porción del donut de Clasificación (propia) → modal con Top 20 tenedores de esa
+   categoría, ordenados por Holding ajustado (propio) descendente. */
+function _padronShowClasifTop20(label, rows) {
+  const filtered = (rows || []).filter(r => (r.clasificacionPropia || 'Sin Clasificar') === label);
+  const top20 = filtered.slice().sort((a, b) => _padronAdjHolding(b) - _padronAdjHolding(a)).slice(0, 20);
+
+  document.getElementById('padronClasifModalTitle').textContent =
+    `Top 20 tenedores — ${label} (${filtered.length} en total)`;
+
+  document.getElementById('padronClasifModalTbody').innerHTML = top20.length
+    ? top20.map(r => `
+      <tr>
+        <td>${_escHtml(r.investorName || '')}</td>
+        <td>${_escHtml(r.instrumentDescription || '')}</td>
+        <td style="text-align:right;">${(parseFloat(r.holding) || 0).toLocaleString('es-AR')}</td>
+        <td style="text-align:right;font-weight:600;">${Math.round(_padronAdjHolding(r)).toLocaleString('es-AR')}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="4" class="deals-empty">Sin datos</td></tr>';
+
+  document.getElementById('padronClasifModal').classList.add('open');
+}
+
+function _padronCloseClasifModal() {
+  document.getElementById('padronClasifModal').classList.remove('open');
+}
+
 function _padronRenderClasificacionPie() {
   const card = document.getElementById('padron-clasif-card');
   if (_padronRows.length === 0) { card.style.display = 'none'; return; }
@@ -6642,11 +6687,18 @@ function _padronRenderClasifAgregado(rows) {
   const data   = sorted.map(([, v]) => v);
   const colors = labels.map(l => _padronClasifColor(l));
 
+  _padronLastClasifRows = rows;
+
   _padronClasifChartInst = new Chart(ctx, {
     type: 'doughnut',
     data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }] },
     options: {
       responsive: true, maintainAspectRatio: false,
+      onClick: (evt, elements) => {
+        if (!elements.length) return;
+        _padronShowClasifTop20(labels[elements[0].index], _padronLastClasifRows);
+      },
+      onHover: (evt, elements) => { evt.native.target.style.cursor = elements.length ? 'pointer' : 'default'; },
       plugins: {
         legend: { display: false },
         tooltip: { ...TOOLTIP, callbacks: {
@@ -6658,7 +6710,7 @@ function _padronRenderClasifAgregado(rows) {
   });
 
   legendEl.innerHTML = sorted.map(([label, val]) =>
-    `<div class="sgr-legend-item">
+    `<div class="sgr-legend-item" style="cursor:pointer;" onclick="_padronShowClasifTop20('${label}', _padronLastClasifRows)">
       <div class="sgr-legend-dot" style="background:${_padronClasifColor(label)};"></div>
       <span>${_escHtml(label)}</span>
       <span style="margin-left:auto;font-weight:600;color:#0F172A;">${(val / total * 100).toFixed(1)}%</span>
@@ -6670,6 +6722,7 @@ function _padronRenderClasifPorInstrumento(rows) {
   _padronClasifChartInst = _sgrDestroy(_padronClasifChartInst);
   _padronClasifSmallInsts.forEach(i => _sgrDestroy(i));
   _padronClasifSmallInsts = [];
+  _padronLastClasifByInst = {};
 
   const grid = document.getElementById('padron-clasif-instrumento-wrap');
   if (!grid) return;
@@ -6709,11 +6762,18 @@ function _padronRenderClasifPorInstrumento(rows) {
     const data   = sorted.map(([, v]) => v);
     const colors = labels.map(l => _padronClasifColor(l));
 
+    _padronLastClasifByInst[i] = byInstrument[inst];
+
     const inst_chart = new Chart(ctx, {
       type: 'doughnut',
       data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }] },
       options: {
         responsive: true, maintainAspectRatio: false,
+        onClick: (evt, elements) => {
+          if (!elements.length) return;
+          _padronShowClasifTop20(labels[elements[0].index], _padronLastClasifByInst[i]);
+        },
+        onHover: (evt, elements) => { evt.native.target.style.cursor = elements.length ? 'pointer' : 'default'; },
         plugins: {
           legend: { display: false },
           tooltip: { ...TOOLTIP, callbacks: {
@@ -6726,7 +6786,7 @@ function _padronRenderClasifPorInstrumento(rows) {
     _padronClasifSmallInsts.push(inst_chart);
 
     legendEl.innerHTML = sorted.map(([label, val]) =>
-      `<div class="sgr-legend-item">
+      `<div class="sgr-legend-item" style="cursor:pointer;" onclick="_padronShowClasifTop20('${label}', _padronLastClasifByInst[${i}])">
         <div class="sgr-legend-dot" style="background:${_padronClasifColor(label)};"></div>
         <span>${_escHtml(label)}</span>
         <span style="margin-left:auto;font-weight:600;color:#0F172A;">${(val / total * 100).toFixed(1)}%</span>
