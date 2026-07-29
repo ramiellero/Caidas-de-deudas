@@ -1,73 +1,66 @@
-28 de julio de 2026
+29 de julio de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
 opinión o estimación contenida eneste reporte representael juicio actualde StoneX yestá sujetoa cambios sin previo aviso. StoneX Securities S.A. o sus vinculadas podrían proveerconsejo respecto a adquirir, mantener o
 venderlosinstrumentosnombradosenesteinforme.
 Resultados
-Spread TNA30d - Fecha de Maturity Última Fecha de Fecha de
-Tasa / Precio de Corte Tasa Tamar TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Duration (Meses) Calificación Tipo de Licitación
-Tamar Licitación (días) Pago Liquidación
-31,89% 22,9375% 31,89% 5,06% 28,00% lun, 27 jul. FF Centrocard Créditos IX VDFA ARS $ 16.027.000.000 31.89% 9,80 636 24/04/2028 SC TIR mar, 28 jul.
-4.00% 22,9375% 30,42% 3,91% 26,85% lun, 27 jul. FF Megabono 355 VDFA ARS $ 10.447.967.911 (20%; T+400; 45%) 6,10 331 24/06/2027 AAA (Fix SCR) Margen mar, 28 jul.
-6.00% 22,9375% 31,08% 4,44% 27,37% lun, 27 jul. FF Megabono 355 VDFB ARS $ 1.243.787.378 (25%; T+600; 50%) 12,49 392 24/08/2027 AA (Fix SCR) Margen mar, 28 jul.
+Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
+Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
+Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
+Px 98,800 22,6875% 27,18% 1,60% 24,29% mar, 28 jul. FF Cuotas Cencosud LIX VFA ARS $ 17.482.229.108 (20%; T+300; 45%) 3,22 206 20/2/2027 AAA Precio mié, 29 jul.
+Px 98,768 22,6875% 27,18% 1,60% 24,29% mar, 28 jul. FF Cuotas Cencosud LIX VDFB ARS $ 3.390.492.918 (20%; T+300; 45%) 7,97 295 20/5/2027 BB- Precio mié, 29 jul.
+ON Banco de Galicia (Integra en efectivo y/o en
+3,25% - 3,28% - - mar, 28 jul. I XXXIII USD Mep USD 151.393.967 3,25% 11,90 368 2/8/2027 A informar Tasa jue, 30 jul.
+especie)
+ON Banco de Galicia (Integra en efectivo y/o en
+5,50% - 5,58% - - mar, 28 jul. II XXXIII USD Mep USD 66.446.676 5,50% 33,70 1096 30/07/2029 A informar Tasa jue, 30 jul.
+especie)
+7,95% - 8,10% - - mar, 28 jul. ON Raghsa S.A. [Ley NY] - 8 USD Cable USD 67.000.000 7,95% 85,06 3653 4/8/2036 B1 (Moody´s) Tasa mar, 4 ago.
+ON Laboratorios Richmond (Integra en efectivo
+TAMAR+8,75% 22,6875% 35,34% 7,96% 30,64% mar, 28 jul. VIII A ARS $ 11.407.055.000 TAMAR+8,75% 16,94 731 31/7/2028 A- (Fix SCR) Margen vie, 31 jul.
+y/o en especie con ON S VIII - Cl A)
+ON Laboratorios Richmond (Integra en efectivo
+9,00% - 9,31% - - mar, 28 jul. VIII B USD Mep USD 6.054.960 9,00% 19,73 731 31/7/2028 A- (Fix SCR) Tasa vie, 31 jul.
+y/o en especie con ON S VIII - Cl B)
+ON Laboratorios Richmond (Integra en efectivo
+8,00% - 8,24% - - mar, 28 jul. VIII C USD Linked USD 633.715 8,00% 19,87 731 31/7/2028 A- (Fix SCR) Tasa vie, 31 jul.
+y/o en especie con ON S VI - Cl B)
 Presentation Heading |
 Licita hoy
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-mar, 28 jul. FF Cuotas Cencosud LIX VFA ARS $ 17.482.229.108 (20%; T+300; 45%) 3,22 206 20/02/2027 AAA Precio mié, 29 jul.
-$ 20.872.722.026
-mar, 28 jul. FF Cuotas Cencosud LIX VDFB ARS $ 3.390.492.918 (20%; T+300; 45%) 7,98 295 20/05/2027 BB- Precio mié, 29 jul.
-ON Banco de Galicia (Integra en efectivo y/o
-mar, 28 jul. I XXXIII USD Mep A licitar 11,87 365 30/07/2027 A informar Tasa jue, 30 jul.
-en especie)
-USD 50.000.000 (amp. h/ USD 50.000.000 (amp. h/
-300.000.000) 300.000.000)
-ON Banco de Galicia (Integra en efectivo y/o
-mar, 28 jul. II XXXIII USD Mep A licitar 33,70 1096 30/07/2029 A informar Tasa jue, 30 jul.
-en especie)
-USD 60.000.000 (amp. h/ USD USD 60.000.000 (amp. h/ USD Venc. a los 10
-mar, 28 jul. ON Raghsa S.A. [Ley NY] - 8 USD Cable A licitar A informar A informar B1 (Moody´s) Tasa A informar
-70.000.000) 70.000.000) años
-ON Laboratorios Richmond (Integra en USD 5.000.000 (amp h/ USD USD 5.000.000 (amp h/ USD
-mar, 28 jul. VIII A ARS TAMAR+Mg 17,21 731 31/07/2028 A- (Fix SCR) Margen vie, 31 jul.
-efectivo y/o en especie con ON S VIII - Cl A) 20.000.000) 20.000.000)
-ON Laboratorios Richmond (Integra en USD 5.000.000 (amp h/ USD USD 5.000.000 (amp h/ USD
-mar, 28 jul. VIII B USD Mep A licitar 19,46 731 31/07/2028 A- (Fix SCR) Tasa vie, 31 jul.
-efectivo y/o en especie con ON S VIII - Cl B) 20.000.000) 20.000.000)
-ON Laboratorios Richmond (Integra en USD 3.000.000 (amp h/ USD USD 3.000.000 (amp h/ USD
-mar, 28 jul. VIII C USD Linked A licitar 20,02 731 31/07/2028 A- (Fix SCR) Tasa vie, 31 jul.
-efectivo y/o en especie con ON S VI - Cl B) 20.000.000) 20.000.000)
-Presentation Heading |
-Operaciones en Difusión
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-mié, 29 jul. ON Garantizada Yacopini Süd (Bajo Impacto) I $ 1.000.000.000 - ARS $ 1.000.000.000 TAMAR+Mg 10,95 365 31/07/2027 SC Margen vie, 31 jul.
+Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
+Licitación (meses) (días) Pago Licitación Liquidación
+mié, 29 jul. ON Garantizada Yacopini Süd (Pyme) I $ 1.000.000.000 - ARS $ 1.000.000.000 TAMAR+Mg 10,95 365 31/7/2027 SC Margen vie, 31 jul.
 $1.000.000.000 (amp. h/
-mié, 29 jul. ON Garantizada S.O.S. (Bajo Impacto) I $ 1.000.000.000 - ARS TAMAR+Mg 15,27 731 31/07/2028 SC Margen vie, 31 jul.
+mié, 29 jul. ON Garantizada S.O.S. (Pyme) I $ 1.000.000.000 - ARS TAMAR+Mg 15,27 731 31/7/2028 SC Margen vie, 31 jul.
 $6.000.000.000)
 Letra del Tesoro Nacional Capitalizable en
-mié, 29 jul. S16O6 - ARS A licitar 2,53 77 16/10/2026 SC TEM vie, 31 jul.
+mié, 29 jul. S16O6 - ARS TEM A licitar 2,53 77 16/10/2026 SC TEM vie, 31 jul.
 Pesos [Nueva]
-Bono del Tesoro Nacional en Pesos Dual CER
-mié, 29 jul. TXMD8 - CER 0,00% / TAMAR TEM + 3,00% 28,54 868 15/12/2028 SC Precio vie, 31 jul.
-/ TAMAR [Reapertura]
-Hasta el Monto Máximo Hasta el Monto Máximo
 Bono del Tesoro Nacional en Pesos Dual
-mié, 29 jul. TMVE8 Autorizado por la Normativa - USD Linked Autorizado por la Normativa 0,00% / TAMAR TEM + 0,00% 17,95 546 28/01/2028 SC Precio vie, 31 jul.
-Vinculado al Dólar / TAMAR [Nuevo]
+mié, 29 jul. TXMD8 - CER 0,00% / TAMAR TEM + 3,00% 28,54 868 15/12/2028 SC Precio vie, 31 jul.
+CER / TAMAR [Reapertura]
+Hasta el Monto Máximo Hasta el Monto Máximo
+Bono del Tesoro Nacional en Pesos Dual USD Linked /
+mié, 29 jul. TMVE8 Autorizado por la Normativa - Autorizado por la Normativa 0,00% / TAMAR TEM + 0,00% 17,95 546 28/01/2028 SC Precio vie, 31 jul.
+Vinculado al Dólar / TAMAR [Nuevo] ARS
 Vigente Vigente
 Letra del Tesoro Nacional Cero Cupón
-mié, 29 jul. D30S6 - USD Linked 0.00% 2,01 61 30/09/2026 SC Precio vie, 31 jul.
+mié, 29 jul. D30S6 - USD Linked 0,00% 2,01 61 30/09/2026 SC Precio vie, 31 jul.
 Vinculada al Dólar [Reapertura]
 Letra del Tesoro Nacional Cero Cupón
-mié, 29 jul. D15E7 - USD Linked 0.00% 5,52 168 15/01/2027 SC Precio vie, 31 jul.
+mié, 29 jul. D15E7 - USD Linked 0,00% 5,52 168 15/01/2027 SC Precio vie, 31 jul.
 Vinculada al Dólar [Nueva]
 mié, 29 jul. BONAR 2029 [Reapertura] AO29 USD 1.351.000.000 - USD Mep USD 1.351.000.000 6,00% 35,37 1188 31/10/2029 SC Precio vie, 31 jul.
-mié, 29 jul. BONAR 2029 [Segunda Vuelta] AO29 USD 150.000.000 - USD Mep USD 150.000.000 6,00% 35,37 1188 31/10/2029 SC Por Adhesión vie, 31 jul.
-vie, 31 jul. ON Giorgi Automotores Pyme (Bajo Impacto) I USD 1.300.000 - USD Mep USD 1.300.000 A licitar 12,30 566 21/02/2028 SC Tasa mar, 4 ago.
+Presentation Heading |
+Operaciones en Difusión
+Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
+Licitación (meses) (días) Pago Licitación Liquidación
+jue, 30 jul. BONAR 2029 [Segunda Vuelta] AO29 USD 150.000.000 - USD Mep USD 150.000.000 6,00% 35,37 1188 31/10/2029 SC Por Adhesión vie, 31 jul.
+10 B- (S&P) / B3
+jue, 30 jul. ON Edenor [Ley NY] - USD 300.000.000 USD Cable USD 300.000.000 9,50% 54,35 2459 28/4/2033 Book building mar, 4 ago.
+Adicionales (Moody´s)
+vie, 31 jul. ON Giorgi Automotores (Pyme) I USD 1.300.000 - USD Mep USD 1.300.000 A licitar 12,04 566 21/2/2028 SC Tasa mar, 4 ago.
 Presentation Heading |
