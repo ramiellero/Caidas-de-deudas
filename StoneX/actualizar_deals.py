@@ -513,9 +513,10 @@ def limpiar_vn(txt):
     if not nums:
         return None
 
-    val = float(nums[0].replace(".", ""))
+    raw = nums[0]
+    val = float(raw.replace(".", ""))
 
-    if val > 1_000_000:
+    if "." in raw or val > 1_000_000:
         return round(val / 1_000_000, 1)
 
     return round(val, 1)
@@ -648,9 +649,10 @@ def normalizar_emisor(emisor):
     s = re.sub(r"\s*-\s*", " – ", s)
     s = s.replace("[Ley NY]", "(Ley NY)")
 
+    s = re.sub(r"\s*\(Integra[^)]*\)", "", s, flags=re.I)
     s = re.sub(
-        r"\s*\(Integra en efectivo y/o en especie\)",
-        "",
+        r"\s*\(Integra.*?(?=\s+[IVXLCDM]+\s+[A-Z0-9]+$|$)",
+        " ",
         s,
         flags=re.I
     )
@@ -669,6 +671,13 @@ def normalizar_emisor(emisor):
             s = f"{base} – {clase}"
 
     s = re.sub(r"\s*(?:-|\u2013|â€“)\s*$", "", s).strip()
+
+    s = re.sub(
+        r"^(Banco de Galicia)\s+[-\u2013Ц]\s+([IVXLCDM]+\s+[IVXLCDM]+)$",
+        r"\1 \2",
+        s,
+        flags=re.I
+    )
 
     return s
 
@@ -689,9 +698,10 @@ def nombre_desde_prefix(prefix):
     p = p.replace("[Ley NY]", "(Ley NY)")
 
     # Sacar aclaraciones largas
+    p = re.sub(r"\s*\(Integra[^)]*\)", "", p, flags=re.I)
     p = re.sub(
-        r"\s*\(Integra en efectivo y/o en especie\)",
-        "",
+        r"\s*\(Integra.*?(?=\s+[IVXLCDM]+\s+[A-Z0-9]+$|$)",
+        " ",
         p,
         flags=re.I
     )
@@ -705,6 +715,13 @@ def nombre_desde_prefix(prefix):
 
     # Limpieza final
     p = re.sub(r"\s+", " ", p).strip()
+
+    p = re.sub(
+        r"^(Banco de Galicia)\s+[-\u2013Ц]\s+([IVXLCDM]+\s+[IVXLCDM]+)$",
+        r"\1 \2",
+        p,
+        flags=re.I
+    )
 
     return p
 
@@ -1063,8 +1080,7 @@ def _difusion_emisor(reg):
 def parsear_resultados_generico(resultados, modo_monto="principal"):
     filas = []
 
-    if modo_monto == "bajo_impacto":
-        resultados = _preprocesar_on_partidas(resultados)
+    resultados = _preprocesar_on_partidas(resultados)
 
     texto = limpiar_texto_celda(resultados)
     cupon_pat = (
@@ -1118,7 +1134,7 @@ def parsear_resultados_generico(resultados, modo_monto="principal"):
 
             prefix = detalle.group("prefix")
 
-            if " ON " in prefix:
+            if " ON " in prefix and not re.search(r"\bcon\s+ON\b", prefix, flags=re.I):
                 prefix = "ON " + prefix.split(" ON ")[-1]
 
             if " BONAR " in prefix:
