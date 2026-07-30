@@ -1,4 +1,6 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
+31-jul-26,Garantizada S.O.S. – I,ARS,TAMAR,"-1,00%",24,"6000,00",SC
+31-jul-26,Garantizada Yacopini Süd – I,ARS,TAMAR,"-1,10%",12,"1000,00",SC
 31-jul-26,Laboratorios Richmond – VIII B,USD Mep,Fija,"9,00%",24,"6,10",A- (Fix SCR)
 31-jul-26,Laboratorios Richmond – VIII C,USD Linked,Fija,"8,00%",24,"0,60",A- (Fix SCR)
 31-jul-26,S VIII – Cl B) – VIII B,USD Mep,Fija,"9,00%",24,"6,10",A- (Fix SCR)
@@ -12,4 +14,3 @@
 30-jun-26,Hattrick Energy – II,USD Mep,Fija,"8,75%",36,"10,00",SC
 30-jun-26,Tecnovax I 1,ARS,TAMAR,"5,00%",18,"5720,00",A (Moody´s)
 30-jun-26,Tecnovax I 2,USD Mep,Fija,"6,48%",24,"1,10",A (Moody´s)
-29-jun-26,Pyme CNV Garantizada Halpern – I,ARS,TAMAR,"2,00%",27,"1500,00",SC
