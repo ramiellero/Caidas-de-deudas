@@ -1,4 +1,4 @@
-30 de julio de 2026
+31 de julio de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,42 +8,42 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-TAMAR-1,10% 22,8625% 23,60% -1,48% 21,38% mié, 29 jul. ON Garantizada Yacopini Süd (Pyme) I - ARS $ 1.000.000.000 TAMAR-1,10% 11,08 365 31/7/2027 SC Margen vie, 31 jul.
-TAMAR-1,00% 22,8625% 23,72% -1,39% 21,47% mié, 29 jul. ON Garantizada S.O.S. (Pyme) I - ARS $ 6.000.000.000 TAMAR-1,00% 15,72 731 31/7/2028 SC Margen vie, 31 jul.
-Letra del Tesoro Nacional Capitalizable en
-TEM 2,05% 22,8625% 27,57% 1,74% 24,60% mié, 29 jul. S16O6 - ARS $ 4.612.305.000.000 TEM 2,05% 2,52 77 16/10/2026 SC TEM vie, 31 jul.
-Pesos [Nueva]
-Bono del Tesoro Nacional en Pesos Dual CER /
-Px 91,50 - 5,40% - - mié, 29 jul. TXMD8 - CER / ARS $ 947.748.000.000 0,00% / TAMAR TEM + 3,00% 28,56 868 15/12/2028 SC Precio vie, 31 jul.
-TAMAR [Reapertura]
-Bono del Tesoro Nacional en Pesos Dual USD Linked /
-Px 90,81 - 6,64% - - mié, 29 jul. TMVE8 - USD 3.467.000.000 0,00% / TAMAR TEM + 0,00% 18,00 549 31/1/2028 SC Precio vie, 31 jul.
-Vinculado al Dólar / TAMAR [Nuevo] ARS
-Letra del Tesoro Nacional Cero Cupón
-Px 98,84 - 7,25% - - mié, 29 jul. D30S6 - USD Linked USD 453.000.000 0,00% 1,92 61 30/09/2026 SC Precio vie, 31 jul.
-Vinculada al Dólar [Reapertura]
-Letra del Tesoro Nacional Cero Cupón
-Px 97,57 - 5,51% - - mié, 29 jul. D15E7 - USD Linked USD 911.000.000 0,00% 5,52 168 15/01/2027 SC Precio vie, 31 jul.
-Vinculada al Dólar [Nueva]
-Px 94,50 - 8,33% - - mié, 29 jul. BONAR 2029 [Reapertura] AO29 - USD Mep USD 327.000.000 6,00% 35,28 1188 31/10/2029 SC Precio vie, 31 jul.
+Px 94,50 - 8,33% - - jue, 30 jul. BONAR 2029 [Segunda Vuelta] AO29 - USD Mep USD 150.000.000 6,00% 35,37 1188 31/10/2029 SC Por Adhesión vie, 31 jul.
+10 B- (S&P) / B3
+Px 99,33 - 9,89% - - jue, 30 jul. ON Edenor [Ley NY] - USD Cable USD 200.000.000 9,50% 54,27 1188 28/4/2033 Book building mié, 5 ago.
+Adicionales (Moody´s)
 Presentation Heading |
 Licita hoy
 OPERACIONES DE TERCEROS
 Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
 Licitación (meses) (días) Pago Licitación Liquidación
-jue, 30 jul. BONAR 2029 [Segunda Vuelta] AO29 USD 150.000.000 - USD Mep USD 150.000.000 6,00% 35,37 1188 31/10/2029 SC Por Adhesión vie, 31 jul.
-10 B- (S&P) / B3
-jue, 30 jul. ON Edenor [Ley NY] - USD 300.000.000 USD Cable USD 300.000.000 9,50% 54,35 2459 28/4/2033 Book building mar, 4 ago.
-Adicionales (Moody´s)
+vie, 31 jul. ON Giorgi Automotores (Pyme) I USD 1.300.000 - USD Mep USD 1.300.000 A licitar 12,04 566 21/2/2028 SC Tasa mar, 4 ago.
 Presentation Heading |
 Operaciones en Difusión
+STONEX
+Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
+Licitación (meses) (días) Pago Licitación Liquidación
+mié, 5 ago. FF Megabono Crédito 350 VDFA ARS $ 15.428.299.430 (23%; T+Mg; 42%) 5,17 293 27/5/2027 AAA (Fix SCR) Margen vie, 7 ago.
+$ 18.150.940.506
+mié, 5 ago. FF Megabono Crédito 350 VDFB ARS $ 2.722.641.076 (25%; T+Mg; 47%) 11,23 385 27/8/2027 AA- (Fix SCR) Margen vie, 7 ago.
 OPERACIONES DE TERCEROS
 Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
 Licitación (meses) (días) Pago Licitación Liquidación
-vie, 31 jul. ON Giorgi Automotores (Pyme) I USD 1.300.000 - USD Mep USD 1.300.000 A licitar 12,04 566 21/2/2028 SC Tasa mar, 4 ago.
 USD 30.000.000 (amp. h/ USD USD 30.000.000 (amp. h/ USD
 mar, 4 ago. ON AES Argentina Generación S.A. - 3 USD Mep A licitar 23,17 731 6/8/2028 AA- (Fix SCR) Tasa jue, 6 ago.
 50.000.000) 50.000.000)
+ON Banco de la Provincia de Córdoba S.A. A1+ (Fix SCR) / A-1
+mié, 5 ago. - III ARS TAMAR+Mg 10,82 365 10/8/2027 Margen lun, 10 ago.
+(integra en efectivo y/o en especie con ON Cl I) (Moody´s)
+USD 20.000.000 (amp. h/ USD 20.000.000 (amp. h/
+ON Banco de la Provincia de Córdoba S.A. AA (Fix SCR) / AA-
+mié, 5 ago. - Máximo Disponible del IV USD Mep Máximo Disponible del A licitar 33,70 1096 10/8/2029 Tasa lun, 10 ago.
+(integra en efectivo o en especie con ON Cl II) (Moody´s)
+Programa) Programa)
+ON Banco de la Provincia de Córdoba S.A. AA (Fix SCR) / AA-
+mié, 5 ago. - V UVA A licitar 17,33 731 10/8/2028 Tasa lun, 10 ago.
+(integra en efectivo o en especie con ON Cl I) (Moody´s)
 Presentation Heading |
