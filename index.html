@@ -1935,13 +1935,15 @@
 
     <!-- SGR Selector -->
     <div class="sgr-selector">
-      <button class="sgr-pill active" data-sgr="potenciar"  onclick="selectSgr('potenciar')">Potenciar</button>
-      <button class="sgr-pill"        data-sgr="garantizar" onclick="selectSgr('garantizar')">Garantizar</button>
-      <button class="sgr-pill"        data-sgr="integra"    onclick="selectSgr('integra')">Integra</button>
-      <button class="sgr-pill"        data-sgr="bind"       onclick="selectSgr('bind')">Bind Garantías</button>
-      <button class="sgr-pill"        data-sgr="acindar"    onclick="selectSgr('acindar')">Acindar Pymes</button>
+      <button class="sgr-pill active" data-sgr="potenciar"    onclick="selectSgr('potenciar')">Potenciar - 25</button>
+      <button class="sgr-pill"        data-sgr="potenciar26"  onclick="selectSgr('potenciar26')">Potenciar - 26</button>
+      <button class="sgr-pill"        data-sgr="garantizar"   onclick="selectSgr('garantizar')">Garantizar - 25</button>
+      <button class="sgr-pill"        data-sgr="garantizar26" onclick="selectSgr('garantizar26')">Garantizar - 26</button>
+      <button class="sgr-pill"        data-sgr="acindar"      onclick="selectSgr('acindar')">Acindar - 26</button>
+      <button class="sgr-pill"        data-sgr="integra"      onclick="selectSgr('integra')">Integra - 25</button>
+      <button class="sgr-pill"        data-sgr="bind"         onclick="selectSgr('bind')">Bind Garantías - 25</button>
       <div class="sgr-pill-sep"></div>
-      <button class="sgr-pill"        data-sgr="mercado"    onclick="selectSgr('mercado')">Mercado</button>
+      <button class="sgr-pill"        data-sgr="mercado"      onclick="selectSgr('mercado')">Mercado</button>
     </div>
     <p style="font-size:10.5px;color:#94A3B8;margin:-16px 0 20px;letter-spacing:0.01em;">Fuente: Ministerio de Economía de la Nación</p>
 
@@ -4203,20 +4205,24 @@ function _callCellHtml(instrText) {
 // ══════════════════════════════════════════════════════════════════════════════
 
 const SGR_META = {
-  potenciar:  { label: 'Potenciar',      entity: 'IRSA',   csvLabel: 'Potenciar',      totalLabel: 'POTENCIAR S.G.R.',       fotoLabel: 'POTENCIAR',  color: '#166534', bgLight: '#f0fdf4', borderLight: '#bbf7d0' },
-  garantizar: { label: 'Garantizar',     entity: 'IRSA',   csvLabel: 'Garantizar',     totalLabel: 'GARANTIZAR S.G.R.',      fotoLabel: 'GARANTIZAR', color: '#1D4B6E', bgLight: '#eff6ff', borderLight: '#bfdbfe' },
-  integra:    { label: 'Integra',        entity: 'FIBESA', csvLabel: 'Integra',        totalLabel: 'INTEGRA PYMES S.G.R.',   fotoLabel: 'INTEGRA',    color: '#6D28D9', bgLight: '#f5f3ff', borderLight: '#ddd6fe' },
-  bind:       { label: 'Bind Garantías', entity: 'FIBESA', csvLabel: 'Bind Garantias', totalLabel: 'GARANTIAS BIND S.G.R.', fotoLabel: 'BIND',       color: '#B45309', bgLight: '#fffbeb', borderLight: '#fde68a' },
-  acindar:    { label: 'Acindar Pymes',  entity: 'IRSA',   csvLabel: 'Acindar Pymes',  totalLabel: 'ACINDAR PYMES S.G.R.',  fotoLabel: 'ACINDAR',    color: '#0F766E', bgLight: '#f0fdfa', borderLight: '#99f6e4' },
+  potenciar:    { label: 'Potenciar - 25',      entity: 'IRSA',   csvLabel: 'Potenciar',      totalLabel: 'POTENCIAR S.G.R.',      fotoLabel: 'POTENCIAR',     color: '#166534', bgLight: '#f0fdf4', borderLight: '#bbf7d0' },
+  potenciar26:  { label: 'Potenciar - 26',      entity: 'IRSA',   csvLabel: 'Potenciar 26',   totalLabel: 'POTENCIAR S.G.R.',      fotoLabel: 'POTENCIAR 26',  color: '#059669', bgLight: '#ecfdf5', borderLight: '#a7f3d0' },
+  garantizar:   { label: 'Garantizar - 25',     entity: 'IRSA',   csvLabel: 'Garantizar',     totalLabel: 'GARANTIZAR S.G.R.',     fotoLabel: 'GARANTIZAR',    color: '#1D4B6E', bgLight: '#eff6ff', borderLight: '#bfdbfe' },
+  garantizar26: { label: 'Garantizar - 26',     entity: 'IRSA',   csvLabel: 'Garantizar 26',  totalLabel: 'GARANTIZAR S.G.R.',     fotoLabel: 'GARANTIZAR 26', color: '#0EA5E9', bgLight: '#f0f9ff', borderLight: '#bae6fd' },
+  integra:      { label: 'Integra - 25',        entity: 'FIBESA', csvLabel: 'Integra',        totalLabel: 'INTEGRA PYMES S.G.R.',  fotoLabel: 'INTEGRA',       color: '#6D28D9', bgLight: '#f5f3ff', borderLight: '#ddd6fe' },
+  bind:         { label: 'Bind Garantías - 25', entity: 'FIBESA', csvLabel: 'Bind Garantias', totalLabel: 'GARANTIAS BIND S.G.R.', fotoLabel: 'BIND',          color: '#B45309', bgLight: '#fffbeb', borderLight: '#fde68a' },
+  acindar:      { label: 'Acindar - 26',        entity: 'IRSA',   csvLabel: 'Acindar Pymes',  totalLabel: 'ACINDAR PYMES S.G.R.',  fotoLabel: 'ACINDAR',       color: '#0F766E', bgLight: '#f0fdfa', borderLight: '#99f6e4' },
 };
 
 const SGR_HEADER_BG = {
-  potenciar:  'linear-gradient(135deg, #166534 0%, #0f4023 100%)',
-  garantizar: 'linear-gradient(135deg, #1D4B6E 0%, #0f2840 100%)',
-  integra:    'linear-gradient(135deg, #5b21b6 0%, #3730a3 100%)',
-  bind:       'linear-gradient(135deg, #b45309 0%, #78350f 100%)',
-  acindar:    'linear-gradient(135deg, #0F766E 0%, #134e4a 100%)',
-  mercado:    'linear-gradient(135deg, #374151 0%, #1f2937 100%)',
+  potenciar:    'linear-gradient(135deg, #166534 0%, #0f4023 100%)',
+  potenciar26:  'linear-gradient(135deg, #059669 0%, #064e3b 100%)',
+  garantizar:   'linear-gradient(135deg, #1D4B6E 0%, #0f2840 100%)',
+  garantizar26: 'linear-gradient(135deg, #0EA5E9 0%, #075985 100%)',
+  integra:      'linear-gradient(135deg, #5b21b6 0%, #3730a3 100%)',
+  bind:         'linear-gradient(135deg, #b45309 0%, #78350f 100%)',
+  acindar:      'linear-gradient(135deg, #0F766E 0%, #134e4a 100%)',
+  mercado:      'linear-gradient(135deg, #374151 0%, #1f2937 100%)',
 };
 
 // Data stores
@@ -4334,12 +4340,14 @@ async function initSgrSection() {
     // mora_sobre_garantias.csv
     const _pctVal = s => parseFloat((s || '0').replace('%', ''));
     _sgrMoraEvolucion = _sgrParseCsv(moraEvolTxt).map(r => ({
-      fecha:     r['Fecha'],
-      potenciar: _pctVal(r['POTENCIAR']),
-      garantizar:_pctVal(r['GARANTIZAR']),
-      integra:   _pctVal(r['INTEGRA']),
-      bind:      _pctVal(r['BIND']),
-      promedio:  _pctVal(r['Promedio']),
+      fecha:       r['Fecha'],
+      potenciar:   _pctVal(r['POTENCIAR']),
+      potenciar26: _pctVal(r['POTENCIAR 26']),
+      garantizar:  _pctVal(r['GARANTIZAR']),
+      garantizar26:_pctVal(r['GARANTIZAR 26']),
+      integra:     _pctVal(r['INTEGRA']),
+      bind:        _pctVal(r['BIND']),
+      promedio:    _pctVal(r['Promedio']),
     }));
 
     // plazo_mora_mercado.csv — guarda todos los períodos
@@ -4396,12 +4404,14 @@ async function initSgrSection() {
       const yyyymm = _sgrDateToYYYYMM(r['Fecha'] || '');
       if (!_sgrComposicionAllData[yyyymm]) _sgrComposicionAllData[yyyymm] = [];
       _sgrComposicionAllData[yyyymm].push({
-        categoria:  r['Categoria'],
-        potenciar:  parseFloat(r['Potenciar']  || 0),
-        garantizar: parseFloat(r['Garantizar'] || 0),
-        integra:    parseFloat(r['Integra']    || 0),
-        bind:       parseFloat(r['BIND']       || 0),
-        acindar:    parseFloat(r['ACINDAR']    || 0),
+        categoria:    r['Categoria'],
+        potenciar:    parseFloat(r['Potenciar']     || 0),
+        potenciar26:  parseFloat(r['Potenciar 26']  || 0),
+        garantizar:   parseFloat(r['Garantizar']    || 0),
+        garantizar26: parseFloat(r['Garantizar 26'] || 0),
+        integra:      parseFloat(r['Integra']       || 0),
+        bind:         parseFloat(r['BIND']          || 0),
+        acindar:      parseFloat(r['ACINDAR']       || 0),
       });
     });
 
@@ -4411,12 +4421,14 @@ async function initSgrSection() {
       const yyyymm = _sgrDateToYYYYMM(r['Fecha'] || '');
       if (!_sgrMonedaAllData[yyyymm]) _sgrMonedaAllData[yyyymm] = [];
       _sgrMonedaAllData[yyyymm].push({
-        moneda:     r['Moneda'],
-        potenciar:  parseFloat(r['Potenciar']  || 0),
-        garantizar: parseFloat(r['Garantizar'] || 0),
-        integra:    parseFloat(r['Integra']    || 0),
-        bind:       parseFloat(r['BIND']       || 0),
-        acindar:    parseFloat(r['ACINDAR']    || 0),
+        moneda:       r['Moneda'],
+        potenciar:    parseFloat(r['Potenciar']     || 0),
+        potenciar26:  parseFloat(r['Potenciar 26']  || 0),
+        garantizar:   parseFloat(r['Garantizar']    || 0),
+        garantizar26: parseFloat(r['Garantizar 26'] || 0),
+        integra:      parseFloat(r['Integra']       || 0),
+        bind:         parseFloat(r['BIND']          || 0),
+        acindar:      parseFloat(r['ACINDAR']       || 0),
       });
     });
 
@@ -4546,7 +4558,9 @@ function selectSgr(sgr) {
 // ── Color palettes (dark → light per SGR color) ───────────────────────────────
 const _SGR_PALETTES = {
   '#166534': ['#14532d','#166534','#15803d','#16a34a','#22c55e','#4ade80','#86efac'],
+  '#059669': ['#064e3b','#065f46','#059669','#10b981','#34d399','#6ee7b7','#a7f3d0'],
   '#1D4B6E': ['#0f2840','#1D4B6E','#1e40af','#2563eb','#3b82f6','#60a5fa','#93c5fd'],
+  '#0EA5E9': ['#075985','#0369a1','#0ea5e9','#38bdf8','#7dd3fc','#bae6fd','#e0f2fe'],
   '#6D28D9': ['#3730a3','#4f46e5','#6D28D9','#7c3aed','#8b5cf6','#a78bfa','#c4b5fd'],
   '#B45309': ['#78350f','#92400e','#B45309','#d97706','#f59e0b','#fbbf24','#fde68a'],
   '#0F766E': ['#134e4a','#0f766e','#0d9488','#14b8a6','#2dd4bf','#5eead4','#99f6e4'],
@@ -4607,7 +4621,7 @@ function _sgrRenderMoraChart(meta) {
   const ctx = document.getElementById('sgr-mora-chart');
   if (!ctx || !_sgrMoraEvolucion.length) return;
 
-  const colMap = { potenciar: 'potenciar', garantizar: 'garantizar', integra: 'integra', bind: 'bind', acindar: 'acindar' };
+  const colMap = { potenciar: 'potenciar', potenciar26: 'potenciar26', garantizar: 'garantizar', garantizar26: 'garantizar26', integra: 'integra', bind: 'bind', acindar: 'acindar' };
   const col = colMap[_sgrActiveSgr];
 
   const labels = _sgrMoraEvolucion.map(r => r.fecha);
@@ -4794,16 +4808,16 @@ function _sgrRenderMktMora() {
   const labels = _sgrMoraEvolucion.map(r => r.fecha);
 
   const sgrLines = [
-    { key: 'potenciar',  label: 'Potenciar',     color: '#166534' },
-    { key: 'garantizar', label: 'Garantizar',     color: '#1D4B6E' },
-    { key: 'integra',    label: 'Integra',        color: '#6D28D9' },
-    { key: 'bind',       label: 'Bind Garantías', color: '#B45309' },
-    { key: 'acindar',    label: 'Acindar Pymes',  color: '#0F766E' },
+    { key: 'potenciar',    label: 'Potenciar',       color: '#166534' },
+    { key: 'garantizar',   label: 'Garantizar',      color: '#1D4B6E' },
+    { key: 'integra',      label: 'Integra',         color: '#6D28D9' },
+    { key: 'bind',         label: 'Bind Garantías',  color: '#B45309' },
+    { key: 'acindar',      label: 'Acindar',         color: '#0F766E' },
   ];
 
   const datasets = sgrLines.map(s => ({
     label: s.label,
-    data: _sgrMoraEvolucion.map(r => r[s.key]),
+    data: _sgrMoraEvolucion.map(r => r[s.key + '26'] || r[s.key]),
     borderColor: s.color,
     backgroundColor: 'transparent',
     pointRadius: 3,
@@ -4889,8 +4903,8 @@ function _sgrRenderMktRanking() {
     }
   }
 
-  const sorted  = [..._sgrTotalSgr].sort((a, b) => b.mora - a.mora);
   const ourSGRs = new Set([...Object.values(SGR_META).map(m => m.totalLabel), 'ACINDAR PYMES S.G.R.']);
+  const sorted  = _sgrTotalSgr.filter(r => ourSGRs.has(r.sgr)).sort((a, b) => b.mora - a.mora);
 
   const labels = sorted.map(r =>
     r.sgr.replace(/ S\.G\.R\.$/, '').replace(' PYMES', '').replace('GARANTIAS ', '').trim()
@@ -4953,7 +4967,7 @@ function _sgrRenderMktFdr() {
   if (!ctx || !_sgrFdrData.length) return;
 
   const ourSGRs = new Set([...Object.values(SGR_META).map(m => m.totalLabel), 'ACINDAR PYMES S.G.R.']);
-  const sorted  = [..._sgrFdrData].sort((a, b) => b.valor - a.valor);
+  const sorted  = _sgrFdrData.filter(r => ourSGRs.has(r.sgr)).sort((a, b) => b.valor - a.valor);
 
   const labels = sorted.map(r =>
     r.sgr.replace(/ S\.G\.R\.$/, '').replace(' PYMES', '').replace('GARANTIAS ', '').trim()
