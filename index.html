@@ -2405,7 +2405,7 @@
           <tbody id="padron-locext-tbody"></tbody>
         </table>
       </div>
-      <div style="font-size:11px;color:#94A3B8;margin-top:8px;">* Local = Holding total del padrón (ajustado por outstanding) menos lo clasificado como "Euroclear". Exterior = Emitido − Local. Cada fila se actualiza al consultar el padrón de ese emisor; la otra fila conserva el último valor consultado en la sesión.</div>
+      <div style="font-size:11px;color:#94A3B8;margin-top:8px;">* Local = Holding de ONs del padrón (ajustado por outstanding; excluye tenencia accionaria ORD/ADR) menos lo clasificado como "Euroclear". Exterior = Emitido − Local. Cada fila se actualiza al consultar el padrón de ese emisor; la otra fila conserva el último valor consultado en la sesión.</div>
     </div>
 
     <!-- Resumen por Instrumento (Holding ajustado por outstanding) -->
@@ -6500,8 +6500,11 @@ async function _padronFetch(fecha, issuerCode, uuid, attempt) {
 }
 
 function _padronUpdateLocalExterior(issuerCode) {
-  const totalHolding = _padronRows.reduce((s, r) => s + _padronAdjHolding(r), 0);
-  const euroclearHolding = _padronRows
+  // El padrón trae tenencia de ONs mezclada con acciones (ORD) y ADR bajo el mismo issuerCode — "Emitido" es
+  // un stock de deuda, así que acá solo entran las filas de bonos (instrumentDescription empieza con "ON ").
+  const bondRows = _padronRows.filter(r => (r.instrumentDescription || '').trim().toUpperCase().startsWith('ON '));
+  const totalHolding = bondRows.reduce((s, r) => s + _padronAdjHolding(r), 0);
+  const euroclearHolding = bondRows
     .filter(r => r.clasificacionPropia === 'Euroclear')
     .reduce((s, r) => s + _padronAdjHolding(r), 0);
   const local = totalHolding - euroclearHolding;
