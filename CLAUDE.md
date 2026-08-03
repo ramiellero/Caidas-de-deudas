@@ -51,6 +51,7 @@ StoneX/                                 # Scripts del compañero que carga emisi
 
 Padron/
   mapeo_clasificacion.csv               # Lookup Nombre_Cuenta → Clasificación propia (Alyc, Banco, Caja, Corporativo, SGR, etc.) usado para enriquecer la tabla de Padrón con una columna de sector propio
+  descargar_padron_semanal.ps1          # Script de Task Scheduler: descarga el padrón (IRSA + Cresud) vía /api/padron y lo guarda en una carpeta de red — ver sección "Automatización de descarga del padrón" abajo
 ```
 
 ## Arquitectura del archivo `index.html`
@@ -670,6 +671,40 @@ Sección accesible desde la pestaña **Padrón** en la nav. Muestra el listado d
 - **Botones "Descargar CSV" / "Descargar Excel"** (junto a "Consultar"): exportan `_padronVisibleRows()` (respeta filtro de búsqueda y sort activos) con **todas** las columnas de `PADRON_COLS`, no solo las visibles en pantalla. `_padronDownloadCsv()` genera un `.csv` con BOM UTF-8 (para que Excel muestre bien tildes/ñ) y escapado de comas/comillas. `_padronDownloadExcel()` genera un `.xls` compatible con Excel armando una tabla HTML con `<meta charset="UTF-8">` y sirviéndola con MIME `application/vnd.ms-excel` — no es un binario `.xlsx` real (no se agregó ninguna librería tipo SheetJS, siguiendo la convención del proyecto de cero dependencias de build), pero Excel lo abre nativamente como planilla. Nombre de archivo: `padron_{issuerCode}_{fecha}.{csv|xls}`.
 
 **Diagnóstico 2026-07-21 → resuelto 2026-07-24**: se probó el endpoint real contra producción con credenciales válidas (token OAuth se obtiene correctamente, 401 sin token confirma que la capa de auth funciona) pero `GET /holdings.csv/` devolvía `500 {"type":"unexpected-error"}` con cualquier valor de `issuerCode`. Se escaló a soporte de BYMA; confirmaron que era falta de entitlement/whitelist del `client_id` para el recurso `/holdings` — habilitaron el acceso para `issuerCode=CRES` (Cresud) el 2026-07-24 y se verificó con una consulta real end-to-end (token → 202 con `uuid` → polling con `X-UUID` → CSV final con filas de tenedores reales). `IRSA` como `issuerCode` debería habilitarse de la misma forma; si sigue dando 500 después de esa fecha, repetir el mismo pedido de whitelist a BYMA para ese código.
+
+### Automatización de descarga del padrón (`Padron/descargar_padron_semanal.ps1`)
+
+Script PowerShell que llama a `/api/padron` (el mismo endpoint que usa el frontend) y guarda el CSV crudo de BYMA en una carpeta de red, sin intervención manual. Corre vía **Task Scheduler local** (no GitHub Actions, porque la carpeta destino es una unidad de red `T:\` accesible solo desde dentro de la red corporativa — GitHub Actions no tiene forma de llegar a esa ruta).
+
+**Destino**: `T:\Finanzas\TODOS\Mercado de Capitales\04 - Reportes MC\Tenedores ONs\BASE CAJA\Padron\` — subcarpetas `IRSA\` y `Cresud\` (mapeo `$SubcarpetaPorIssuer` en el script: `IRSA`→`IRSA`, `CRES`→`Cresud`).
+
+**Modos de uso**:
+- `-IssuerCode IRSA` / `-IssuerCode CRES` — corre un solo emisor (proceso independiente; si uno falla no afecta al otro). Sin este parámetro corre ambos secuencialmente (uso manual).
+- `-BalanceDateOverride "YYYY-MM-DD"` — fuerza una fecha de balance específica (pruebas).
+- `-Mensual` — activa el modo de cierre de mes (ver abajo).
+
+**Archivo generado**: `Padron_{subcarpeta}_{balanceDate}.csv` (semanal) o `Padron_{subcarpeta}_{balanceDate}_CierreMes.csv` (mensual) — mismo formato `;`-delimited que devuelve BYMA, sin ningún procesamiento adicional (sin ajuste de outstanding ni clasificación propia — eso es exclusivo del frontend).
+
+**Polling**: igual que `_padronFetch` del frontend — primera request sin `uuid`, reintentos con `X-UUID` hasta `status:'ready'`. `TimeoutSec 150` por request (el segundo call, el que ya trae `X-UUID`, puede tardar 50-60s reales en responder — con timeouts más cortos el script tira falsos positivos de "colgado"). Hasta 80 intentos x 3s de espera entre polls (~240s de margen total). Los timeouts de red a nivel request individual no abortan el emisor — se loguean como aviso y se reintenta.
+
+**Log**: `Padron/descargar_padron_semanal[_<IssuerCode>][_Mensual].log` — un archivo por combinación de emisor/modo para que las corridas en paralelo no escriban al mismo archivo a la vez.
+
+#### Job semanal (lunes 11:00)
+
+- Tareas de Task Scheduler: **"Descarga Padron IRSA"** y **"Descarga Padron Cresud"**, ambas `WEEKLY /D MON /ST 11:00`, cada una invoca el script con su `-IssuerCode` respectivo.
+- `balanceDate` = hoy − 3 días calendario → si corre un lunes, pide el viernes previo (BYMA no tiene el cierre del propio lunes listo a las 11am).
+
+#### Job mensual — cierre de mes (`-Mensual`)
+
+- Tareas de Task Scheduler: **"Descarga Padron Mensual IRSA"** y **"Descarga Padron Mensual Cresud"**, `DAILY /MO 1 /ST 11:00` — corren **todos los días**, no solo a fin de mes.
+- Por qué es un trigger diario: `schtasks` en este Windows no acepta una lista de días específicos para triggers `MONTHLY` (`/D 1,2,3...` da error `valor incorrecto para la opción /D`), así que en vez de intentar acotar el trigger, el script mismo decide si corresponde actuar ese día.
+- Lógica interna (`Get-LastBusinessDayOfMonth` + `Add-BusinessDays`): calcula el último día hábil (lun-vie, sin calendario de feriados) del mes recién cerrado, le suma 3 días hábiles, y solo si "hoy" coincide con esa fecha llama a la API — el resto de los días loguea `"no es el dia de corrida"` y termina sin red. El delay de 3 días hábiles es a propósito: el cierre de mes de BYMA no está disponible el mismo día ni al día siguiente.
+- Ejemplo: el cierre de julio 2026 (último hábil = viernes 31/07) se descarga el miércoles 05/08/2026 (3er día hábil después).
+- No contempla feriados bursátiles (mismo alcance limitado que el resto del sistema — ver "Año fiscal" y otras convenciones de este documento) — si un feriado corre el cálculo, ajustar manualmente ese mes con `-BalanceDateOverride`.
+
+**Requisito de Firewall en Vercel**: `/api/padron` está detrás del "Attack Challenge" (bot protection) de Vercel por default, que bloquea con `403` cualquier cliente que no sea un navegador real (scripts, curl, PowerShell no pueden resolver el challenge JS). Se agregó una **Custom Rule** en el Firewall del proyecto (Vercel dashboard → Firewall → Configure) con condición `Path starts with /api/padron` y acción `Bypass`, para que este script (y cualquier otro caller no-browser) pueda pegarle al endpoint sin el checkpoint.
+
+**Requisito de la máquina**: la tarea corre en la PC del usuario (no hay servidor dedicado) — necesita estar prendida y con sesión iniciada a las 11:00 los días que corresponda para que Task Scheduler la ejecute.
 
 ## Qué es dinámico vs hardcodeado
 
