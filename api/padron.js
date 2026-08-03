@@ -71,6 +71,12 @@ async function _getAccessToken(issuerCode) {
 }
 
 module.exports = async (req, res) => {
+  // Sin esto el browser puede servir una respuesta vieja de su caché HTTP (304 Not Modified) en vez
+  // de re-consultar el endpoint — visto en producción: el polling quedaba repitiendo para siempre el
+  // primer "pending" (con un uuid viejo) sin nunca volver a preguntarle a BYMA si ya terminó, así que
+  // la consulta parecía colgada en "Procesando (1)" indefinidamente aunque el reporte ya estuviera listo.
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+
   if (req.method !== 'GET') {
     res.status(405).json({ status: 'error', message: 'Method not allowed' });
     return;
