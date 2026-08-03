@@ -2402,7 +2402,10 @@
       <div class="deals-table-wrap">
         <table class="deals-table" id="padron-locext-table" style="max-width:520px;">
           <thead><tr><th></th><th>Emitido</th><th>Exterior</th><th>Local</th></tr></thead>
-          <tbody id="padron-locext-tbody"></tbody>
+          <tbody id="padron-locext-tbody">
+            <tr><td style="font-weight:600;color:#0F172A;">Cresud</td><td class="deals-vn" data-label="Emitido">372.483.542</td><td class="deals-vn" data-label="Exterior">—</td><td class="deals-vn" data-label="Local">—</td></tr>
+            <tr><td style="font-weight:600;color:#0F172A;">IRSA</td><td class="deals-vn" data-label="Emitido">668.194.581</td><td class="deals-vn" data-label="Exterior">—</td><td class="deals-vn" data-label="Local">—</td></tr>
+          </tbody>
         </table>
       </div>
       <div style="font-size:11px;color:#94A3B8;margin-top:8px;">* Local = Holding de ONs del padrón (ajustado por outstanding; excluye tenencia accionaria ORD/ADR) menos lo clasificado como "Euroclear". Exterior = Emitido − Local. Cada fila se actualiza al consultar el padrón de ese emisor; la otra fila conserva el último valor consultado en la sesión.</div>
@@ -3462,7 +3465,6 @@ initSgrSection();
 initDealsSection();
 initCurvasSection();
 initPadronMapeo();
-_padronRenderLocalExterior();
 
 
 /* ════════════════════════════════════════════════════════
