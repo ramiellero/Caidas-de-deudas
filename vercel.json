@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/padron.js": { "maxDuration": 60 }
+    "api/padron.js": { "maxDuration": 300 }
   },
   "headers": [
     {
