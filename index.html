@@ -6412,6 +6412,19 @@ function _padronHeuristicClasificar(investorType, investorName) {
   return null;
 }
 
+function _padronParseCsv(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
+  if (lines.length === 0) return { columns: [], rows: [] };
+  const columns = lines[0].split(';').map(c => c.trim());
+  const rows = lines.slice(1).map(line => {
+    const cells = line.split(';');
+    const row = {};
+    columns.forEach((col, i) => { row[col] = (cells[i] || '').trim(); });
+    return row;
+  });
+  return { columns, rows };
+}
+
 function _padronSetStatus(html) {
   const el = document.getElementById('padron-status');
   if (!html) { el.style.display = 'none'; el.innerHTML = ''; return; }
@@ -6482,7 +6495,7 @@ async function _padronFetch(fecha, issuerCode, uuid, attempt) {
     return;
   }
 
-  _padronRows = data.rows || [];
+  _padronRows = _padronParseCsv(data.csv || '').rows;
   _padronRows.forEach(r => {
     r.clasificacionPropia = _padronMapeo[_padronNormName(r.investorName)]
       || _padronHeuristicClasificar(r.investorType, r.investorName)

@@ -107,7 +107,7 @@ function Get-PadronData {
 
         switch ($resp.status) {
             'ready' {
-                Write-Log "[$IssuerCode] Listo (intento $intento) - $($resp.rows.Count) filas"
+                Write-Log "[$IssuerCode] Listo (intento $intento)"
                 return $resp
             }
             'pending' {
@@ -145,16 +145,9 @@ function Save-PadronCsv {
     $nombreArchivo = "Padron_${subcarpeta}_${BalanceDate}${sufijoArchivo}.csv"
     $rutaCompleta = Join-Path $destinoCarpeta $nombreArchivo
 
-    $columnas = $Data.columns
-    $lineas = New-Object System.Collections.Generic.List[string]
-    $lineas.Add(($columnas -join ';'))
-
-    foreach ($row in $Data.rows) {
-        $valores = foreach ($col in $columnas) { [string]$row.$col }
-        $lineas.Add(($valores -join ';'))
-    }
-
-    Set-Content -Path $rutaCompleta -Value $lineas -Encoding UTF8
+    # $Data.csv ya es el texto CSV crudo ';'-delimitado que devuelve BYMA, tal cual (api/padron.js
+    # dejo de parsearlo a columns/rows para no inflar el payload JSON ~3.4x en la transferencia).
+    Set-Content -Path $rutaCompleta -Value $Data.csv -Encoding UTF8 -NoNewline
     Write-Log "[$IssuerCode] Guardado: $rutaCompleta"
 }
 

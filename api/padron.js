@@ -70,21 +70,6 @@ async function _getAccessToken(issuerCode) {
   return token;
 }
 
-function _parseHoldingsCsv(text) {
-  const lines = text.split(/\r?\n/).filter((l) => l.trim().length > 0);
-  if (lines.length === 0) return { columns: [], rows: [] };
-  const columns = lines[0].split(';').map((c) => c.trim());
-  const rows = lines.slice(1).map((line) => {
-    const cells = line.split(';');
-    const row = {};
-    columns.forEach((col, i) => {
-      row[col] = (cells[i] || '').trim();
-    });
-    return row;
-  });
-  return { columns, rows };
-}
-
 module.exports = async (req, res) => {
   if (req.method !== 'GET') {
     res.status(405).json({ status: 'error', message: 'Method not allowed' });
@@ -139,9 +124,13 @@ module.exports = async (req, res) => {
       return;
     }
 
+    // Se manda el CSV crudo (texto) en vez de parsearlo a columns/rows acá: un JSON con los 27
+    // nombres de columna repetidos en cada fila pesa ~3.4x más que el CSV ';'-delimitado equivalente
+    // (Cresud: ~59MB vs ~17MB para las mismas filas). Con reportes de ~85.000-180.000 filas ese
+    // sobrepeso es justo el tipo de transferencia grande que se cuelga en redes corporativas con
+    // proxy/inspección SSL. El parseo a filas ahora se hace en el frontend (_padronParseCsv).
     const csvText = await resp.text();
-    const { columns, rows } = _parseHoldingsCsv(csvText);
-    res.status(200).json({ status: 'ready', columns, rows });
+    res.status(200).json({ status: 'ready', csv: csvText });
   } catch (err) {
     res.status(200).json({ status: 'error', message: err.message || String(err) });
   }
