@@ -6447,8 +6447,13 @@ async function consultarPadron() {
 }
 
 async function _padronFetch(fecha, issuerCode, uuid, attempt) {
-  const MAX_ATTEMPTS = 40;   // BYMA puede tardar 30-60s+ en generar el reporte
-  const POLL_DELAY_MS = 3000; // ~120s de ventana total
+  // Cada poll re-consulta a BYMA directamente (api/padron.js no cachea el estado "pending").
+  // BYMA documenta un rate limit de 1 req/seg, 5/min, 10/hora — con el padrón actual (~85.000
+  // tenedores, ~55MB para Cresud) el reporte puede tardar varios minutos en estar listo, así que
+  // pollear cada pocos segundos pega varias veces por minuto contra ese límite y termina colgando
+  // el polling en vez de resolverlo. 15s entre polls = 4/min, dentro del límite documentado.
+  const MAX_ATTEMPTS = 24;    // ~6 minutos de ventana total (24 × 15s)
+  const POLL_DELAY_MS = 15000;
   if (attempt >= MAX_ATTEMPTS) {
     _padronSetStatus('El reporte está tardando más de lo esperado. Probá de nuevo en unos minutos.');
     return;

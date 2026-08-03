@@ -37,8 +37,11 @@ $SubcarpetaPorIssuer = @{
 # Si se pasa -IssuerCode corre solo ese emisor (proceso independiente); si no, corre los dos en secuencia
 $Issuers = if ($IssuerCode) { @($IssuerCode) } else { @('IRSA', 'CRES') }
 
-$MaxIntentos = 80      # ~80 x 3s = 240s de espera maxima por emisor
-$EsperaSegundos = 3
+# BYMA documenta rate limit 1 req/seg, 5/min, 10/hora. Con el padron actual (~85.000 tenedores,
+# ~55MB para Cresud) el reporte puede tardar varios minutos en estar listo; pollear cada 3s pega
+# 20 veces/min contra ese limite y termina colgando el polling. 15s entre polls = 4/min.
+$MaxIntentos = 24      # ~24 x 15s = 360s (6 min) de espera maxima por emisor
+$EsperaSegundos = 15
 
 # Log separado por emisor/modo para que procesos en paralelo no escriban al mismo archivo a la vez
 $LogSuffix = if ($IssuerCode) { "_$IssuerCode" } else { '' }
