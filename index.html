@@ -6328,6 +6328,8 @@ const PADRON_OUTSTANDING_ADJUST = [
   { pattern: /\bCL\.?\s*(40|XL)\b/i,  factor: 0.340, label: 'ON Cresud Clase XL (CL. 40)' },
   // IRSA Clase XIV — BYMA parece numerar en arábigo igual que Cresud (CL. 14); se acepta también la forma romana por las dudas
   { pattern: /\bCL\.?\s*(14|XIV)\b/i, factor: 0.475, label: 'ON IRSA Clase XIV (CL. 14)' },
+  // IRSA Clase XIV — variantes REGS/144A: "ON IRSA REGS 8.75% V.22/06/2028" / "ON IRSA 144A 8.75% V.22/06/2028"
+  { pattern: /\bIRSA\b.*8[.,]75%.*22\/06\/2028/i, factor: 0.475, label: 'ON IRSA Clase XIV (REGS/144A 8.75% 22/06/2028)' },
 ];
 
 function _padronOutstandingFactor(instrumentDescription) {
