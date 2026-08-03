@@ -2396,6 +2396,18 @@
     <!-- Summary row -->
     <div class="deals-summary-row" id="padron-summary-row"></div>
 
+    <!-- Distribución Local / Exterior -->
+    <div class="sgr-chart-card" id="padron-locext-card" style="margin-bottom:20px;">
+      <div class="sgr-chart-title">Distribución Local / Exterior</div>
+      <div class="deals-table-wrap">
+        <table class="deals-table" id="padron-locext-table" style="max-width:520px;">
+          <thead><tr><th></th><th>Emitido</th><th>Exterior</th><th>Local</th></tr></thead>
+          <tbody id="padron-locext-tbody"></tbody>
+        </table>
+      </div>
+      <div style="font-size:11px;color:#94A3B8;margin-top:8px;">* Local = Holding total del padrón (ajustado por outstanding) menos lo clasificado como "Euroclear". Exterior = Emitido − Local. Cada fila se actualiza al consultar el padrón de ese emisor; la otra fila conserva el último valor consultado en la sesión.</div>
+    </div>
+
     <!-- Resumen por Instrumento (Holding ajustado por outstanding) -->
     <div class="sgr-chart-card" id="padron-instrumento-card" style="display:none; margin-bottom:20px;">
       <div class="sgr-chart-title">Resumen por Instrumento — Holding (ajustado por outstanding)</div>
@@ -3450,6 +3462,7 @@ initSgrSection();
 initDealsSection();
 initCurvasSection();
 initPadronMapeo();
+_padronRenderLocalExterior();
 
 
 /* ════════════════════════════════════════════════════════
@@ -6316,6 +6329,13 @@ let _padronClasifColorMap = {};
 let _padronLastClasifRows = []; // filas del subset activo (vista agregado) — usado por el drilldown Top 20
 let _padronLastClasifByInst = {}; // ídem, por índice de instrumento (vista por instrumento)
 
+// Distribución Local / Exterior — Emitido es un valor fijo (stock total emitido en circulación); Local/Exterior
+// se recalculan cada vez que se consulta el padrón de ese emisor. Persisten por emisor durante la sesión, así
+// no hace falta re-consultar ambos para mantener las dos filas visibles.
+const PADRON_EMITIDO = { IRSA: 668194581, CRES: 372483542 };
+const PADRON_LOCEXT_LABELS = { CRES: 'Cresud', IRSA: 'IRSA' };
+let _padronLocalExteriorByIssuer = {};
+
 const PADRON_CLASIF_PALETTE = ['#1D4B6E','#7C3AED','#B45309','#0891B2','#16A34A','#DB2777','#0369A1','#D97706','#4338CA','#059669'];
 const PADRON_CLASIF_FALLBACK = '#94A3B8';
 
@@ -6476,6 +6496,34 @@ async function _padronFetch(fecha, issuerCode, uuid, attempt) {
   _padronRenderSummary();
   _padronRenderInstrumentSummary();
   _padronRenderTable();
+  _padronUpdateLocalExterior(issuerCode);
+}
+
+function _padronUpdateLocalExterior(issuerCode) {
+  const totalHolding = _padronRows.reduce((s, r) => s + _padronAdjHolding(r), 0);
+  const euroclearHolding = _padronRows
+    .filter(r => r.clasificacionPropia === 'Euroclear')
+    .reduce((s, r) => s + _padronAdjHolding(r), 0);
+  const local = totalHolding - euroclearHolding;
+  const emitido = PADRON_EMITIDO[issuerCode];
+  _padronLocalExteriorByIssuer[issuerCode] = {
+    local,
+    exterior: emitido != null ? (emitido - local) : null
+  };
+  _padronRenderLocalExterior();
+}
+
+function _padronRenderLocalExterior() {
+  const tbody = document.getElementById('padron-locext-tbody');
+  if (!tbody) return;
+  const fmt = n => (n == null || isNaN(n)) ? '—' : Math.round(n).toLocaleString('es-AR');
+  tbody.innerHTML = ['CRES', 'IRSA'].map(code => {
+    const d = _padronLocalExteriorByIssuer[code];
+    return `<tr><td style="font-weight:600;color:#0F172A;">${PADRON_LOCEXT_LABELS[code]}</td>` +
+      `<td class="deals-vn" data-label="Emitido">${fmt(PADRON_EMITIDO[code])}</td>` +
+      `<td class="deals-vn" data-label="Exterior">${d ? fmt(d.exterior) : '—'}</td>` +
+      `<td class="deals-vn" data-label="Local">${d ? fmt(d.local) : '—'}</td></tr>`;
+  }).join('');
 }
 
 function _padronRenderSummary() {
