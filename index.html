@@ -1092,6 +1092,134 @@
       font-variant-numeric: tabular-nums;
     }
 
+    /* ── Distribución Local / Exterior ── */
+    .locext-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .locext-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .locext-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--locext-accent, #334155);
+    }
+    .locext-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .locext-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: -0.01em;
+    }
+    .locext-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--locext-accent, #334155);
+      flex-shrink: 0;
+    }
+    .locext-emitido {
+      text-align: right;
+    }
+    .locext-emitido-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94A3B8;
+      margin-bottom: 1px;
+    }
+    .locext-emitido-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: #334155;
+      font-variant-numeric: tabular-nums;
+    }
+    .locext-bar {
+      display: flex;
+      width: 100%;
+      height: 9px;
+      border-radius: 5px;
+      overflow: hidden;
+      background: #E2E8F0;
+      margin-bottom: 14px;
+    }
+    .locext-bar-seg {
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+    .locext-bar-seg.local { background: var(--locext-accent, #334155); }
+    .locext-bar-seg.exterior { background: #CBD5E1; }
+    .locext-stats {
+      display: flex;
+      gap: 12px;
+    }
+    .locext-stat {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 9px 12px;
+    }
+    .locext-stat-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748B;
+      margin-bottom: 4px;
+    }
+    .locext-stat-sw {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .locext-stat-sw.local { background: var(--locext-accent, #334155); }
+    .locext-stat-sw.exterior { background: #CBD5E1; }
+    .locext-stat-value {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #0F172A;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.01em;
+    }
+    .locext-stat-pct {
+      font-size: 11px;
+      font-weight: 600;
+      color: #94A3B8;
+      margin-left: 4px;
+    }
+    .locext-foot {
+      font-size: 11px;
+      color: #94A3B8;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+    @media (max-width: 600px) {
+      .locext-grid { grid-template-columns: 1fr; }
+    }
+
     @media (max-width: 900px) {
       .sgr-chart-grid { grid-template-columns: 1fr; }
       .sgr-mkt-grid   { grid-template-columns: 1fr; }
@@ -2399,16 +2527,8 @@
     <!-- Distribución Local / Exterior -->
     <div class="sgr-chart-card" id="padron-locext-card" style="margin-bottom:20px;">
       <div class="sgr-chart-title">Distribución Local / Exterior</div>
-      <div class="deals-table-wrap">
-        <table class="deals-table" id="padron-locext-table" style="max-width:520px;">
-          <thead><tr><th></th><th>Emitido</th><th>Exterior</th><th>Local</th></tr></thead>
-          <tbody id="padron-locext-tbody">
-            <tr><td style="font-weight:600;color:#0F172A;">Cresud</td><td class="deals-vn" data-label="Emitido">372.483.542</td><td class="deals-vn" data-label="Exterior">—</td><td class="deals-vn" data-label="Local">—</td></tr>
-            <tr><td style="font-weight:600;color:#0F172A;">IRSA</td><td class="deals-vn" data-label="Emitido">668.194.581</td><td class="deals-vn" data-label="Exterior">—</td><td class="deals-vn" data-label="Local">—</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div style="font-size:11px;color:#94A3B8;margin-top:8px;">* Local = Holding de ONs del padrón (ajustado por outstanding; excluye tenencia accionaria ORD/ADR) menos lo clasificado como "Euroclear". Exterior = Emitido − Local. Cada fila se actualiza al consultar el padrón de ese emisor; la otra fila conserva el último valor consultado en la sesión.</div>
+      <div class="locext-grid" id="padron-locext-grid"></div>
+      <div class="locext-foot">* Local = Holding de ONs del padrón (ajustado por outstanding; excluye tenencia accionaria ORD/ADR) menos lo clasificado como "Euroclear". Exterior = Emitido − Local. Cada tarjeta se actualiza al consultar el padrón de ese emisor; la otra conserva el último valor consultado en la sesión.</div>
     </div>
 
     <!-- Resumen por Instrumento (Holding ajustado por outstanding) -->
@@ -6536,16 +6656,45 @@ function _padronUpdateLocalExterior(issuerCode) {
   _padronRenderLocalExterior();
 }
 
+const PADRON_LOCEXT_ACCENT = { CRES: '#1A3D2A', IRSA: '#1D4B6E' };
+
 function _padronRenderLocalExterior() {
-  const tbody = document.getElementById('padron-locext-tbody');
-  if (!tbody) return;
+  const grid = document.getElementById('padron-locext-grid');
+  if (!grid) return;
   const fmt = n => (n == null || isNaN(n)) ? '—' : Math.round(n).toLocaleString('es-AR');
-  tbody.innerHTML = ['CRES', 'IRSA'].map(code => {
+  grid.innerHTML = ['CRES', 'IRSA'].map(code => {
     const d = _padronLocalExteriorByIssuer[code];
-    return `<tr><td style="font-weight:600;color:#0F172A;">${PADRON_LOCEXT_LABELS[code]}</td>` +
-      `<td class="deals-vn" data-label="Emitido">${fmt(PADRON_EMITIDO[code])}</td>` +
-      `<td class="deals-vn" data-label="Exterior">${d ? fmt(d.exterior) : '—'}</td>` +
-      `<td class="deals-vn" data-label="Local">${d ? fmt(d.local) : '—'}</td></tr>`;
+    const emitido = PADRON_EMITIDO[code];
+    const hasData = !!d && d.local != null;
+    const localPct = hasData && emitido ? (d.local / emitido * 100) : null;
+    const exteriorPct = hasData && emitido ? (100 - localPct) : null;
+    const barLocalW = localPct != null ? Math.max(0, Math.min(100, localPct)) : 0;
+    const barExtW = 100 - barLocalW;
+    const pctStr = p => p == null ? '' : `<span class="locext-stat-pct">${p.toFixed(1)}%</span>`;
+    return `
+      <div class="locext-card" style="--locext-accent:${PADRON_LOCEXT_ACCENT[code]}">
+        <div class="locext-head">
+          <div class="locext-name"><span class="locext-dot"></span>${PADRON_LOCEXT_LABELS[code]}</div>
+          <div class="locext-emitido">
+            <div class="locext-emitido-label">Emitido</div>
+            <div class="locext-emitido-value">${fmt(emitido)}</div>
+          </div>
+        </div>
+        <div class="locext-bar">
+          <div class="locext-bar-seg local" style="width:${hasData ? barLocalW : 50}%"></div>
+          <div class="locext-bar-seg exterior" style="width:${hasData ? barExtW : 50}%"></div>
+        </div>
+        <div class="locext-stats">
+          <div class="locext-stat">
+            <div class="locext-stat-label"><span class="locext-stat-sw local"></span>Local</div>
+            <div class="locext-stat-value">${hasData ? fmt(d.local) : '—'}${pctStr(localPct)}</div>
+          </div>
+          <div class="locext-stat">
+            <div class="locext-stat-label"><span class="locext-stat-sw exterior"></span>Exterior</div>
+            <div class="locext-stat-value">${hasData ? fmt(d.exterior) : '—'}${pctStr(exteriorPct)}</div>
+          </div>
+        </div>
+      </div>`;
   }).join('');
 }
 
