@@ -1,4 +1,4 @@
-05 de agosto de 2026
+06 de agosto de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,63 +8,47 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-6,47% - 6,57% - - mar, 4 ago. ON AES Argentina Generación S.A. - 3 USD Mep USD 50.000.000 6,47% 22,93 731 6/8/2028 AA- (Fix SCR) Tasa jue, 6 ago.
+XLIII
+Px 101,72 - 5,05% - - mié, 5 ago. ON YPF S.A. - USD Mep USD 171.351.508 5,50% 40,66 1346 14/04/2030 AAA (Moody´s) Precio vie, 7 ago.
+Adicionales
+A1+ (Fix SCR) / A-
+TAMAR+2,50% 22,9375% 28,66% 2,53% 25,47% mié, 5 ago. ON Banco de la Provincia de Córdoba - III ARS $ 11.000.000.000 TAMAR+2,50% 10,90 365 10/08/2027 Margen lun, 10 ago.
+1 (Moody´s)
+AA (Fix SCR) / AA-
+5,95% - 6,04% - - mié, 5 ago. ON Banco de la Provincia de Córdoba - IV USD Mep USD 20.000.000 5,95% 33,53 1096 10/08/2029 Tasa lun, 10 ago.
+(Moody´s)
+AA (Fix SCR) / AA-
+6,75% - 6,92% - - mié, 5 ago. ON Banco de la Provincia de Córdoba - V UVA UVA 34.387.337 6,75% 17,24 731 10/08/2028 Tasa lun, 10 ago.
+(Moody´s)
+4,50% 22,9375% 31,07% 4,43% 27,37% mié, 5 ago. FF Megabono Crédito 350 VDFA ARS $ 15.428.299.430 (23%; T+450; 42%) 5,23 293 27/05/2027 AAA (Fix SCR) Margen vie, 7 ago.
+12,00% 22,9375% 38,40% 10,00% 32,94% mié, 5 ago. FF Megabono Crédito 350 VDFB ARS $ 2.722.641.076 (25%; T+1200; 47%) 11,62 385 27/08/2027 AA- (Fix SCR) Margen vie, 7 ago.
+25,00% 22,9375% 31,38% 4,67% 27,61% mié, 5 ago. Letras del Tesoro de la Provincia del Chubut CXX 1 ARS $ 22.916.250.820 Máx {TNA 25%; T+5,00%} 2,04 62 07/10/2026 BB+ (Moody´s) Tasa jue, 6 ago.
+28,00% 22,9375% 31,57% 4,82% 27,75% mié, 5 ago. Letras del Tesoro de la Provincia del Chubut CXX 2 ARS $ 28.583.749.180 Máx {TNA 28%; T+5,50%} 3,12 95 09/11/2026 BB+ (Moody´s) Tasa jue, 6 ago.
 Presentation Heading |
 Licita hoy
 STONEX
 Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
 Licitación (meses) (días) Pago Licitación Liquidación
-mié, 5 ago. FF Megabono Crédito 350 VDFA ARS $ 15.428.299.430 (23%; T+Mg; 42%) 5,17 293 27/5/2027 AAA (Fix SCR) Margen vie, 7 ago.
-$ 18.150.940.506
-mié, 5 ago. FF Megabono Crédito 350 VDFB ARS $ 2.722.641.076 (25%; T+Mg; 47%) 11,23 385 27/8/2027 AA- (Fix SCR) Margen vie, 7 ago.
-OPERACIONES DE TERCEROS
-Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
-Licitación (meses) (días) Pago Licitación Liquidación
-ON Banco de la Provincia de Córdoba S.A. A1+ (Fix SCR) / A-1
-mié, 5 ago. - III ARS TAMAR+Mg 10,82 365 10/8/2027 Margen lun, 10 ago.
-(integra en efectivo y/o en especie con ON Cl I) (Moody´s)
-USD 20.000.000 (amp. h/ USD 20.000.000 (amp. h/
-ON Banco de la Provincia de Córdoba S.A. AA (Fix SCR) / AA-
-mié, 5 ago. - Máximo Disponible del IV USD Mep Máximo Disponible del A licitar 33,70 1096 10/8/2029 Tasa lun, 10 ago.
-(integra en efectivo o en especie con ON Cl II) (Moody´s)
-Programa) Programa)
-ON Banco de la Provincia de Córdoba S.A. AA (Fix SCR) / AA-
-mié, 5 ago. - V UVA A licitar 17,33 731 10/8/2028 Tasa lun, 10 ago.
-(integra en efectivo o en especie con ON Cl I) (Moody´s)
-USD 100.000.000 (amp. h/ USD 100.000.000 (amp. h/
-XLIII
-mié, 5 ago. ON YPF S.A. (integra en efectivo y/o en especie) - Máximo Disponible del USD Mep Máximo Disponible del 5,50% 40,63 1346 14/4/2030 AAA (Moody´s) Precio vie, 7 ago.
-Adicionales
-Programa) Programa)
-mié, 5 ago. Letras del Tesoro de la Provincia del Chubut CXX $ 10.000.000.000 (ampliable) 1 ARS $ 10.000.000.000 (ampliable) Máx {Tasa A licitar; TAMAR+5,00%} 2,04 62 7/10/2026 BB+ (Moody´s) Tasa jue, 6 ago.
-mié, 5 ago. Letras del Tesoro de la Provincia del Chubut CXX $ 10.000.000.000 (ampliable) 2 ARS $ 10.000.000.000 (ampliable) Máx {Tasa A licitar; TAMAR+5,50%} 3,12 95 9/11/2026 BB+ (Moody´s) Tasa jue, 6 ago.
-Presentation Heading |
-Operaciones en Difusión
-Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
-Licitación (meses) (días) Pago Licitación Liquidación
-jue, 6 ago. FF Pareto 16 VDFA ARS $ 2.548.259.872 (25%; T+Mg; 40%) 2,30 171 25/1/2027 A-1 (Moody´s) Margen vie, 7 ago.
+jue, 6 ago. FF Pareto 16 VDFA ARS $ 2.548.259.872 (25%; T+Mg; 40%) 2,30 171 25/01/2027 A-1 (Moody´s) Margen vie, 7 ago.
 $ 2.691.381.318
-jue, 6 ago. FF Pareto 16 VDFB ARS $ 143.121.446 (30%; T+Mg; 45%) 5,96 202 25/2/2027 BBB- (Moody´s) Margen vie, 7 ago.
+jue, 6 ago. FF Pareto 16 VDFB ARS $ 143.121.446 (30%; T+Mg; 45%) 5,96 202 25/02/2027 BBB- (Moody´s) Margen vie, 7 ago.
 OPERACIONES DE TERCEROS
 Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
 Licitación (meses) (días) Pago Licitación Liquidación
-Venc. a los 12
-jue, 6 ago. ON IEB Construcciones S.A. - USD 20.000.000 I USD Mep USD 20.000.000 A licitar - A informar B (Moody´s) Tasa A informar
-meses
-jue, 6 ago. ON Banco Supervielle - W USD Mep A licitar 23,08 731 7/8/2028 AA+ (Moody´s) Tasa vie, 7 ago.
+jue, 6 ago. ON IEB Construcciones S.A. - USD 20.000.000 I USD Mep USD 20.000.000 A licitar 11,65 365 10/08/2027 B (Moody´s) Tasa lun, 10 ago.
+jue, 6 ago. ON Banco Supervielle - W USD Mep A licitar 23,08 731 07/08/2028 AA+ (Moody´s) Tasa vie, 7 ago.
 USD 20.000.000 (amp. h/ el USD 20.000.000 (amp. h/ el
 Monto Disponible del Monto Disponible del
 Programa) Programa)
-jue, 6 ago. ON Banco Supervielle - X USD Mep A licitar 11,90 365 7/8/2027 A-1 (Moody´s) Tasa vie, 7 ago.
+jue, 6 ago. ON Banco Supervielle - X USD Mep A licitar 11,90 365 07/08/2027 A-1 (Moody´s) Tasa vie, 7 ago.
 $5.000.000.000 (amp. h/ $5.000.000.000 (amp. h/
-jue, 6 ago. ON Morixe Hermanos - IV ARS TAMAR+Mg 15,01 639 10/5/2028 A (Fix SCR) Margen lun, 10 ago.
+jue, 6 ago. ON Morixe Hermanos - IV ARS TAMAR+Mg 15,01 639 10/05/2028 A (Fix SCR) Margen lun, 10 ago.
 $15.000.000.000) $15.000.000.000)
 USD 100.000.000 (amp. h/ USD 100.000.000 (amp. h/
 ON Garantizadas MSU Green Energy [Ley NY] B2 (Moody´s) / B-
-jue, 6 ago. - Máximo Disponible del 4 Adicionales USD Cable Máximo Disponible del 9,75% 72,14 3598 16/6/2036 Book building lun, 10 ago.
+jue, 6 ago. - Máximo Disponible del 4 Adicionales USD Cable Máximo Disponible del 9,75% 72,14 3598 16/06/2036 Book building lun, 10 ago.
 [Bono SVS] (S&P)
 Programa) Programa)
+Presentation Heading |
