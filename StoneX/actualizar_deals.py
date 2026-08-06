@@ -591,7 +591,7 @@ def cumple_monto(moneda, vn):
         return vn >= 10000
 
     if moneda == "UVA":
-        return vn >= 10000
+        return vn > 10
 
     return False
 
@@ -786,6 +786,45 @@ def _rearmar_on_partida(prefix, data_line, suffix=""):
     )
 
 
+_RATING_GRADE_RESULTADOS = r"(?:AAA|AA[+-]?|A1\+?|A-1|A-2|A2|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?|SC)"
+
+
+def _linea_rating_resultado(linea):
+    l = limpiar_texto_celda(linea)
+    if re.search(DIA, l, flags=re.I):
+        return False
+    if re.search(r"\b(?:ON|BONAR|USD|ARS|UVA)\b", l, flags=re.I):
+        return False
+    return bool(re.match(rf"^(?:ML\s+)?{_RATING_GRADE_RESULTADOS}\b", l, flags=re.I))
+
+
+def _linea_rating_continuacion(linea):
+    l = limpiar_texto_celda(linea)
+    return bool(re.match(r"^(?:\d+\s+\([^)]+\)|\([^)]+\))$", l, flags=re.I))
+
+
+def _unir_rating_partida(rating, continuacion):
+    rating = limpiar_texto_celda(rating)
+    continuacion = limpiar_texto_celda(continuacion)
+    sep = "" if re.search(r"(?:A-|AA-|BBB-|BB-|B-)$", rating) and re.match(r"^\d", continuacion) else " "
+    return limpiar_texto_celda(f"{rating}{sep}{continuacion}")
+
+
+def _insertar_rating_en_resultado(linea, rating):
+    if not rating:
+        return linea
+
+    tipo_pat = r"(?:Tasa|Margen|TIR|TEM|Precio|Book building|Por AdhesiÃ³n)"
+    nueva = re.sub(
+        rf"\s+({tipo_pat})\s+({DIA})\s*$",
+        lambda m: f" {rating} {m.group(1)} {m.group(2)}",
+        linea,
+        count=1,
+        flags=re.I
+    )
+    return nueva
+
+
 def _preprocesar_on_partidas(resultados):
     lines = [
         limpiar_texto_celda(line)
@@ -799,6 +838,18 @@ def _preprocesar_on_partidas(resultados):
     while i < len(lines):
         line = lines[i]
 
+        if _linea_rating_resultado(line) and i + 1 < len(lines):
+            next_line = lines[i + 1]
+            if re.search(DIA, next_line, flags=re.I) and re.search(r"\bON\b", next_line, flags=re.I):
+                rating = line
+                skip = 2
+                if i + 2 < len(lines) and _linea_rating_continuacion(lines[i + 2]):
+                    rating = _unir_rating_partida(rating, lines[i + 2])
+                    skip = 3
+                out.append(_insertar_rating_en_resultado(next_line, rating))
+                i += skip
+                continue
+
         prefix, rest = _separar_nombre_on_de_metricas(line)
         if prefix and re.search(DIA, rest, flags=re.I):
             out.append(_rearmar_on_partida(prefix, rest))
@@ -808,7 +859,7 @@ def _preprocesar_on_partidas(resultados):
         if line.startswith("ON ") and i + 1 < len(lines):
             next_line = lines[i + 1]
             if re.search(DIA, next_line, flags=re.I) and re.search(
-                r"\b(?:USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS)\b",
+                r"\b(?:USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS|UVA)\b",
                 next_line
             ):
                 suffix = ""
@@ -1093,12 +1144,12 @@ def parsear_resultados_generico(resultados, modo_monto="principal"):
     moneda_pat = (
         r"USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS|UVA"
         if modo_monto == "bajo_impacto"
-        else r"USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS"
+        else r"USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS|UVA"
     )
     vn_pat = (
         r"(?:USD|\$|UVA)\s*[\d\.]+"
         if modo_monto == "bajo_impacto"
-        else r"(?:USD|\$)\s*[\d\.]+"
+        else r"(?:USD|\$|UVA)\s*[\d\.]+"
     )
 
     patron_fila = re.compile(

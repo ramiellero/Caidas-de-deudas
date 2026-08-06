@@ -1,4 +1,7 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
+10-ago-26,Banco de la Provincia de Córdoba – III,ARS,TAMAR,"2,50%",12,"11000,00",A1+ (Fix SCR) / A-1 (Moody´s)
+10-ago-26,Banco de la Provincia de Córdoba – IV,USD Mep,Fija,"5,95%",36,"20,00",AA (Fix SCR) / AA- (Moody´s)
+10-ago-26,Banco de la Provincia de Córdoba – V,UVA,Fija,"6,75%",24,"34,40",AA (Fix SCR) / AA- (Moody´s)
 7-ago-26,YPF S.A.,USD Mep,Fija,"5,50%",44,"171,40",AAA (Moody´s)
 6-ago-26,AES Argentina Generación S.A. – 3,USD Mep,Fija,"6,47%",24,"50,00",AA- (Fix SCR)
 4-ago-26,Raghsa S.A. (Ley NY) – 8,USD Int,Fija,"7,95%",120,"67,00",B1 (Moody´s)
