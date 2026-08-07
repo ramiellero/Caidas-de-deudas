@@ -786,7 +786,10 @@ def _rearmar_on_partida(prefix, data_line, suffix=""):
     )
 
 
-_RATING_GRADE_RESULTADOS = r"(?:AAA|AA[+-]?|A1\+?|A-1|A-2|A2|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?|SC)"
+_RATING_GRADE_RESULTADOS = (
+    r"(?:AAA|AA[+-]?|A\+?1|A1\+?|A-1|A-2|A2|A[+-]?|"
+    r"BBB[+-]?|BB[+-]?|B[+-]?|B\d|CCC[+-]?|Caa\d|Ca|C|SC)"
+)
 
 
 def _linea_rating_resultado(linea):
@@ -823,6 +826,70 @@ def _insertar_rating_en_resultado(linea, rating):
         flags=re.I
     )
     return nueva
+
+
+def _extraer_rating_de_prefix_resultado(prefix):
+    m = re.search(
+        rf"\s+(?P<rating>{_RATING_GRADE_RESULTADOS}\b.*)$",
+        prefix,
+        flags=re.I
+    )
+    if not m:
+        return prefix, ""
+
+    return prefix[:m.start()].strip(), m.group("rating").strip()
+
+
+def _extraer_clase_de_prefix_resultado(prefix):
+    m = re.search(r"\s+(?P<clase>\d+|[IVXLCDM]+)\s*$", prefix, flags=re.I)
+    if not m:
+        return prefix, ""
+
+    return prefix[:m.start()].strip(), m.group("clase").strip()
+
+
+def _separar_suffix_y_rating_continuacion(suffix):
+    suffix = limpiar_texto_celda(suffix)
+    m = re.search(r"\s*(?P<agencia>\([^)]+\))\s*$", suffix)
+    if not m:
+        return suffix, ""
+
+    return suffix[:m.start()].strip(), m.group("agencia").strip()
+
+
+def _armar_nombre_on_con_clase(prefix, clase, suffix_nombre):
+    tags = re.findall(r"\[[^\]]+\]", suffix_nombre)
+    resto_suffix = re.sub(r"\[[^\]]+\]", " ", suffix_nombre)
+    resto_suffix = limpiar_texto_celda(resto_suffix)
+
+    nombre = limpiar_texto_celda(" ".join([prefix] + tags))
+    clase_completa = limpiar_texto_celda(f"{clase} {resto_suffix}")
+    if clase_completa:
+        return limpiar_texto_celda(f"{nombre} - {clase_completa}")
+
+    return nombre
+
+
+def _rearmar_on_partida_con_rating_adelantado(prefix, data_line, suffix=""):
+    prefix_sin_rating, rating = _extraer_rating_de_prefix_resultado(prefix)
+    if not rating:
+        return None
+
+    prefix_sin_clase, clase = _extraer_clase_de_prefix_resultado(prefix_sin_rating)
+    suffix_nombre, rating_cont = _separar_suffix_y_rating_continuacion(suffix)
+    if rating_cont:
+        rating = _unir_rating_partida(rating, rating_cont)
+
+    m_fecha = re.search(DIA, data_line, flags=re.I)
+    if not m_fecha:
+        return None
+
+    nombre = _armar_nombre_on_con_clase(prefix_sin_clase, clase, suffix_nombre)
+    tail = limpiar_texto_celda(data_line[m_fecha.end():])
+    tail = re.sub(r"^-+\s*", "", tail)
+    tail = _insertar_rating_en_resultado(tail, rating)
+
+    return limpiar_texto_celda(f"{data_line[:m_fecha.end()]} {nombre} {tail}")
 
 
 def _preprocesar_on_partidas(resultados):
@@ -867,6 +934,15 @@ def _preprocesar_on_partidas(resultados):
                 if i + 2 < len(lines) and not _linea_empieza_fila(lines[i + 2]):
                     suffix = lines[i + 2]
                     skip = 3
+                partida_con_rating = _rearmar_on_partida_con_rating_adelantado(
+                    line,
+                    next_line,
+                    suffix
+                )
+                if partida_con_rating:
+                    out.append(partida_con_rating)
+                    i += skip
+                    continue
                 out.append(_rearmar_on_partida(line, next_line, suffix))
                 i += skip
                 continue
