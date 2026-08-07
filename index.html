@@ -2811,7 +2811,7 @@ function _renderIrsaFullTimeline(rows) {
     if (ev.isCapital) {
       const r      = ev.rows[0];
       name         = 'ON ' + r['ON'];
-      amt          = _fmtM(_parseNum(r['Capital']));
+      amt          = _fmtM(_parseNum(r['Capital']) + _parseNum(r['Intereses']));
       rate         = r['Tasa'];
       const isMulc = r['Moneda'].includes('S/MULC');
       color        = isMulc ? '#5B8DB8' : '#1D4B6E';
@@ -2952,7 +2952,7 @@ function _renderCresudFullTimeline(capRows, fullRows) {
     } else if (ev.isCapital) {
       const r = ev.rows[0];
       name  = 'ON ' + r['Clase'];
-      amt   = _fmtM(parseFloat(r['Capital']) || 0);
+      amt   = _fmtM((parseFloat(r['Capital']) || 0) + (parseFloat(r['Intereses']) || 0));
       rate  = r['Tasa'].replace('.', ',');
       b     = _cresudFullBadge(r['Moneda']);
       isInt = false;
