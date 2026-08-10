@@ -1150,6 +1150,7 @@ def _difusion_emisor(reg):
     s = limpiar_texto_celda(reg)
 
     s = re.sub(DIA, " ", s, flags=re.I)
+    s = re.sub(r"^\[OFERTA DE CANJE\]\s*", "", s, flags=re.I)
 
     rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A-2|A2|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
     rating_pat = rf"(?:ML\s+)?{rating_grade}\s+\([^)]+\)"
@@ -1184,7 +1185,7 @@ def _difusion_emisor(reg):
     emisor = re.sub(r"^Títulos de Deuda del\s+", "", emisor, flags=re.I)
     emisor = re.sub(r"\(Integra.*", "", emisor, flags=re.I)
     emisor = re.sub(r"\(Pyme\)", "", emisor, flags=re.I)
-    emisor = re.sub(r"\[Ley NY\]", "", emisor)
+    emisor = emisor.replace("[Ley NY]", "(Ley NY)")
     emisor = re.sub(r"\[Bono SVS\]", "", emisor)
     emisor = re.sub(r"Garantizadas?\s+", "", emisor, flags=re.I)
     emisor = re.sub(r"\s+-\s*(?:[IVXLCDM]+|\d+)\s*$", "", emisor)
@@ -1697,7 +1698,7 @@ def actualizar_difusion(texto):
 
     patron = re.compile(
         rf"(?P<fecha_lic>{DIA})\s+"
-        rf"(?P<reg>(?:ON |BONAR |Títulos de Deuda).*?)\s+"
+        rf"(?P<reg>(?:\[OFERTA DE CANJE\]\s+ON |ON |BONAR |Títulos de Deuda).*?)\s+"
         rf"(?P<tipo>Tasa|Margen|TIR|TEM|Precio|Book Building|Book building|Por Adhesión)\s+"
         rf"(?P<fecha_liq>{DIA}|A informar)",
         re.DOTALL
