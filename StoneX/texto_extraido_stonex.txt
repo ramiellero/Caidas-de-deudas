@@ -1,48 +1,22 @@
-10 de agosto de 2026
+11 de agosto de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
 opinión o estimación contenida eneste reporte representael juicio actualde StoneX yestá sujetoa cambios sin previo aviso. StoneX Securities S.A. o sus vinculadas podrían proveerconsejo respecto a adquirir, mantener o
 venderlosinstrumentosnombradosenesteinforme.
-Resultados de la semana
+Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-6,47% - 6,57% - - mar, 4 ago. ON AES Argentina Generación S.A. - 3 USD Mep USD 50.000.000 6,47% 22,93 731 06/08/2028 AA- (Fix SCR) Tasa jue, 6 ago.
-XLIII
-Px 101,72 - 5,05% - - mié, 5 ago. ON YPF S.A. (integra en efectivo y/o en especie) - USD Mep USD 171.351.508 5,50% 40,66 1346 14/04/2030 AAA (Moody´s) Precio vie, 7 ago.
-Adicionales
-ON Banco de la Provincia de Córdoba S.A. A1+ (Fix SCR) / A-
-TAMAR+2,50% 22,9375% 28,66% 2,53% 25,47% mié, 5 ago. - III ARS $ 11.000.000.000 TAMAR+2,50% 10,90 365 10/08/2027 Margen lun, 10 ago.
-(integra en efectivo y/o en especie con ON Cl I) 1 (Moody´s)
-ON Banco de la Provincia de Córdoba S.A. AA (Fix SCR) / AA-
-5,95% - 6,04% - - mié, 5 ago. - IV USD Mep USD 20.000.000 5,95% 33,53 1096 10/08/2029 Tasa lun, 10 ago.
-(integra en efectivo o en especie con ON Cl II) (Moody´s)
-ON Banco de la Provincia de Córdoba S.A. AA (Fix SCR) / AA-
-6,75% - 6,92% - - mié, 5 ago. - V UVA UVA 34.387.337 6,75% 17,24 731 10/08/2028 Tasa lun, 10 ago.
-(integra en efectivo o en especie con ON Cl I) (Moody´s)
-TAMAR+4,5% 22,9375% 31,07% 4,43% 27,37% mié, 5 ago. FF Megabono Crédito 350 VDFA ARS $ 15.428.299.430 (23%; T+450; 42%) 5,23 293 27/05/2027 AAA (Fix SCR) Margen vie, 7 ago.
-TAMAR+12% 22,9375% 38,40% 10,00% 32,94% mié, 5 ago. FF Megabono Crédito 350 VDFB ARS $ 2.722.641.076 (25%; T+1200; 47%) 11,62 385 27/08/2027 AA- (Fix SCR) Margen vie, 7 ago.
-25,00% 22,9375% 31,38% 4,67% 27,61% mié, 5 ago. Letras del Tesoro de la Provincia del Chubut CXX 1 ARS $ 22.916.250.820 Máx {TNA 25%; T+5,00%} 2,04 62 07/10/2026 BB+ (Moody´s) Tasa jue, 6 ago.
-28,00% 22,9375% 31,57% 4,82% 27,75% mié, 5 ago. Letras del Tesoro de la Provincia del Chubut CXX 2 ARS $ 28.583.749.180 Máx {TNA 28%; T+5,50%} 3,12 95 09/11/2026 BB+ (Moody´s) Tasa jue, 6 ago.
-TAMAR+3,00% 23,1250% 29,52% 3,03% 26,15% jue, 6 ago. FF Pareto 16 VDFA ARS $ 2.548.259.872 (25%; T+300; 40%) 2,30 171 25/01/2027 A-1 (Moody´s) Margen vie, 7 ago.
-TAMAR+12,01% 23,1250% 38,63% 9,98% 33,11% jue, 6 ago. FF Pareto 16 VDFB ARS $ 143.121.446 (30%; T+1201; 45%) 6,01 202 25/02/2027 BBB- (Moody´s) Margen vie, 7 ago.
-6,50% - 6,66% - - jue, 6 ago. ON IEB Construcciones S.A. - I USD Mep USD 20.000.000 6,50% 11,72 365 10/08/2027 B (Moody´s) Tasa lun, 10 ago.
-5,50% - 5,58% - - jue, 6 ago. ON Banco Supervielle - W USD Mep USD 11.774.749 5,50% 23,08 731 07/08/2028 AA+ (Moody´s) Tasa vie, 7 ago.
-3,50% - 3,53% - - jue, 6 ago. ON Banco Supervielle - X USD Mep USD 46.625.144 3,50% 11,90 365 07/08/2027 A-1 (Moody´s) Tasa vie, 7 ago.
-TAMAR+7,75% 23,1250% 34,63% 6,99% 30,11% jue, 6 ago. ON Morixe Hermanos - IV ARS $ 8.662.427.468 TAMAR+7,75% 15,06 639 10/05/2028 A (Fix SCR) Margen lun, 10 ago.
-ON Garantizadas MSU Green Energy [Ley NY] 4 B2 (Moody´s) / B-
-Px 98,82 - 10,46% - - jue, 6 ago. - USD Cable USD 130.000.000 9,75% 71,90 3598 16/06/2036 Book building lun, 10 ago.
-[Bono SVS] Adicionales (S&P)
+ON PYME CNV Garantizada Agropecuaria Sur
+TAMAR-0,10% 23,2500% 26,59% 0,56% 23,81% lun, 10 ago. I - ARS $ 3.350.000.000 TAMAR-0,10% 15,40 731 12/8/2028 SC Margen mié, 12 ago.
+S.A.
 Presentation Heading |
 Licita hoy
-OPERACIONES DE TERCEROS
 Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
 Licitación (meses) (días) Pago Licitación Liquidación
-ON PYME CNV Garantizada Agropecuaria Sur $1.500.000.000 (amp. h/ $1.500.000.000 (amp. h/
-lun, 10 ago. I - ARS TAMAR+Mg 15,47 731 12/08/2028 SC Margen mié, 12 ago.
-S.A. $3.350.000.000) $3.350.000.000)
+mar, 11 ago. ON PYME Garantizada Indave S.A. I USD 1.000.000 - USD Mep USD 1.000.000 A licitar 24,15 915 13/2/2029 SC Tasa jue, 13 ago.
 Presentation Heading |
 Operaciones en Difusión
 STONEX
@@ -50,17 +24,37 @@ Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
 Licitación (meses) (días) Pago Licitación Liquidación
 (i) Max (32%; T+Mg) para el primer
-$15.000.000.000 (amp. h/ $15.000.000.000 (amp. h/
-jue, 13 ago. ON CFN (Integra en efectivo y/o en especie) X - ARS servicio; 8,33 273 18/05/2027 A2 (Fix SCR) Margen mar, 18 ago.
-$30.000.000.000) $30.000.000.000)
+$15.000.000.000 (amp. h/ el $15.000.000.000 (amp. h/ el
+jue, 13 ago. ON CFN (Integra en efectivo y/o en especie) X - ARS servicio; 8,33 273 18/5/2027 A2 (Fix SCR) Margen mar, 18 ago.
+Monto Máximo de Emisión) Monto Máximo de Emisión)
 (ii) T+Mg para los siguientes servicios
 OPERACIONES DE TERCEROS
 Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
 Licitación (meses) (días) Pago Licitación Liquidación
-mar, 11 ago. ON PYME Garantizada Indave S.A. I USD 1.000.000 - USD Mep USD 1.000.000 A licitar 24,15 915 13/02/2029 SC Tasa jue, 13 ago.
+mié, 12 ago. FF Mercado Crédito LIII $ 115.955.072.694 VDF ARS $ 99.605.407.444 (15%; T+100; 45%) 9,44 366 15/8/2027 AAA (Fix SCR) TIR vie, 14 ago.
+Letra del Tesoro Nacional Capitalizable en
+mié, 12 ago. S30N6 - ARS TEM 2,30% 3,55 108 30/11/2026 SC Precio vie, 14 ago.
+pesos [Reapertura]
+Letra del Tesoro Nacional Cero Cupón con
+mié, 12 ago. X29E7 - CER 0,00% 5,52 168 29/1/2027 SC Precio vie, 14 ago.
+Ajuste por CER [Nueva] Hasta el Monto Máximo Hasta el Monto Máximo
+Autorizado por la Normativa Autorizado por la Normativa
+Letra del Tesoro Nacional Cero Cupón Vigente Vigente
+mié, 12 ago. D30S6 - USD Linked 0,00% 1,55 47 30/9/2026 SC Precio vie, 14 ago.
+Vinculada al Dólar [Reapertura]
+Letra del Tesoro Nacional Cero Cupón
+mié, 12 ago. D30O6 - USD Linked 0,00% 2,53 77 30/10/2026 SC Precio vie, 14 ago.
+Vinculada al Dólar [Nueva]
+mié, 12 ago. BONAR 2029 [Reapertura] AO29 USD 50.000.000 - USD Mep USD 50.000.000 6,00% 35,06 1174 31/10/2029 SC Precio vie, 14 ago.
+jue, 13 ago. BONAR 2029 [Segunda Vuelta] AO29 USD 50.000.000 - USD Mep USD 50.000.000 6,00% 35,06 1174 31/10/2029 SC Por Adhesión vie, 14 ago.
+Operaciones en Difusión
+OPERACIONES DE TERCEROS
+Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
+Licitación (meses) (días) Pago Licitación Liquidación
 Letras de Tesorería de la Provincia del Chaco
-jue, 13 ago. - 6 ARS 26,00% 1,15 35 18/09/2026 B (Fix SCR) Precio vie, 14 ago.
+jue, 13 ago. - 6 ARS 26,00% 1,15 35 18/9/2026 B (Fix SCR) Precio vie, 14 ago.
 [Reapertura]
 Letras de Tesorería de la Provincia del Chaco
 jue, 13 ago. - 9 ARS 25,75% 2,07 63 16/10/2026 B (Fix SCR) Precio vie, 14 ago.
@@ -69,9 +63,19 @@ Letras de Tesorería de la Provincia del Chaco
 jue, 13 ago. - $ 140.000.000.000 12 ARS $ 140.000.000.000 A licitar 2,99 91 13/11/2026 B (Fix SCR) Tasa vie, 14 ago.
 [Nueva]
 Letras de Tesorería de la Provincia del Chaco
-jue, 13 ago. - 13 ARS TAMAR+Mg 5,98 182 12/02/2027 B (Fix SCR) Margen vie, 14 ago.
+jue, 13 ago. - 13 ARS TAMAR+Mg 5,98 182 12/2/2027 B (Fix SCR) Margen vie, 14 ago.
 [Nueva]
 Letras de Tesorería de la Provincia del Chaco
-jue, 13 ago. - 14 ARS TAMAR+Mg 11,97 364 13/08/2027 B (Fix SCR) Margen vie, 14 ago.
+jue, 13 ago. - 14 ARS TAMAR+Mg 11,97 364 13/8/2027 B (Fix SCR) Margen vie, 14 ago.
 [Nueva]
-jue, 20 ago. [OFERTA DE CANJE] ON Raghsa S.A. [Ley NY] - USD 56.777.276 8 Adicionales USD Cable USD 56.777.276 7,95% - A informar 04/08/2036 A informar Por Adhesión A informar
+Títulos de Deuda Pública Garantizados de la
+jue, 13 ago. - $ 30.000.000.000 - ARS $ 30.000.000.000 TAMAR+Mg 19,55 1096 18/8/2029 BBB+ (Fix SCR) Margen mar, 18 ago.
+Municipalidad de San Isidro
+ON Credicuotas Consumo (Integra en efectivo Máx. (Tasa Fija a Licitar;
+jue, 13 ago. XXII - ARS 10,84 365 18/8/2027 A informar Tasa mar, 18 ago.
+y/o en especie) USD 10.000.000 (amp. h/ USD 10.000.000 (amp. h/ TAMAR+5,50%)
+Máximo Disponible del Máximo Disponible del
+ON Credicuotas Consumo (Integra en efectivo Programa) Programa)
+jue, 13 ago. XXIII - USD Mep A licitar 11,69 365 18/8/2027 A informar Tasa mar, 18 ago.
+y/o en especie)
+jue, 20 ago. [OFERTA DE CANJE] ON Raghsa S.A. [Ley NY] - USD 56.777.276 8 Adicionales USD Cable USD 56.777.276 7,95% - A informar 4/8/2036 B1 (Moody´s) Por Adhesión A informar
