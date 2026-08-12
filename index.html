@@ -6332,6 +6332,12 @@ function _dealsRenderVolumeChart() {
     // Build total for subtitle — values in CSV are already in MM
     const totalMM = Math.round(totByCur[cur]);
 
+    // If one month's bar dwarfs the rest (e.g. a single very large issuance),
+    // a linear axis flattens every other month down to nothing. Switch that
+    // chart to a log axis so all months stay visible.
+    const sortedData = [...data].sort((a, b) => b - a);
+    const useLog = sortedData[0] > 0 && sortedData[1] > 0 && (sortedData[0] / sortedData[1]) > 8;
+
     const safeId  = cur.replace(/[\s/]+/g, '-').toLowerCase();
     const canvasId = 'deals-vol-c-' + safeId;
 
@@ -6366,7 +6372,19 @@ function _dealsRenderVolumeChart() {
             grid: { display: false },
             ticks: { font: { size: 10 }, maxRotation: 45 }
           },
-          y: {
+          y: useLog ? {
+            type: 'logarithmic',
+            ticks: {
+              font: { size: 10 },
+              callback: v => {
+                // only label power-of-ten-ish ticks Chart.js emits on a log axis, to avoid clutter
+                const s = v.toString();
+                if (!/^[1-9]0*$/.test(s)) return null;
+                return v.toLocaleString('es-AR') + ' MM';
+              }
+            },
+            grid: { color: '#F1F5F9' }
+          } : {
             beginAtZero: true,
             ticks: {
               font: { size: 10 },
