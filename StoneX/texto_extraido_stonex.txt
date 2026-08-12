@@ -1,4 +1,4 @@
-11 de agosto de 2026
+12 de agosto de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,37 +8,20 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-ON PYME CNV Garantizada Agropecuaria Sur
-TAMAR-0,10% 23,2500% 26,59% 0,56% 23,81% lun, 10 ago. I - ARS $ 3.350.000.000 TAMAR-0,10% 15,40 731 12/8/2028 SC Margen mié, 12 ago.
-S.A.
+6,00% - 6,14% - - mar, 11 ago. ON Garantizada Indave S.A. (Pyme) I - USD Mep USD 1.000.000 6,00% 21,12 915 13/2/2029 SC Tasa jue, 13 ago.
 Presentation Heading |
 Licita hoy
-Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
-Licitación (meses) (días) Pago Licitación Liquidación
-mar, 11 ago. ON PYME Garantizada Indave S.A. I USD 1.000.000 - USD Mep USD 1.000.000 A licitar 24,15 915 13/2/2029 SC Tasa jue, 13 ago.
-Presentation Heading |
-Operaciones en Difusión
-STONEX
-Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
-Licitación (meses) (días) Pago Licitación Liquidación
-(i) Max (32%; T+Mg) para el primer
-$15.000.000.000 (amp. h/ el $15.000.000.000 (amp. h/ el
-jue, 13 ago. ON CFN (Integra en efectivo y/o en especie) X - ARS servicio; 8,33 273 18/5/2027 A2 (Fix SCR) Margen mar, 18 ago.
-Monto Máximo de Emisión) Monto Máximo de Emisión)
-(ii) T+Mg para los siguientes servicios
 OPERACIONES DE TERCEROS
 Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
 Licitación (meses) (días) Pago Licitación Liquidación
 mié, 12 ago. FF Mercado Crédito LIII $ 115.955.072.694 VDF ARS $ 99.605.407.444 (15%; T+100; 45%) 9,44 366 15/8/2027 AAA (Fix SCR) TIR vie, 14 ago.
-Letra del Tesoro Nacional Capitalizable en
+Letra del Tesoro Nacional
 mié, 12 ago. S30N6 - ARS TEM 2,30% 3,55 108 30/11/2026 SC Precio vie, 14 ago.
-pesos [Reapertura]
-Letra del Tesoro Nacional Cero Cupón con
+Capitalizable en pesos [Reapertura]
+Letra del Tesoro Nacional Cero Cupón
 mié, 12 ago. X29E7 - CER 0,00% 5,52 168 29/1/2027 SC Precio vie, 14 ago.
-Ajuste por CER [Nueva] Hasta el Monto Máximo Hasta el Monto Máximo
+con Ajuste por CER [Nueva] Hasta el Monto Máximo Hasta el Monto Máximo
 Autorizado por la Normativa Autorizado por la Normativa
 Letra del Tesoro Nacional Cero Cupón Vigente Vigente
 mié, 12 ago. D30S6 - USD Linked 0,00% 1,55 47 30/9/2026 SC Precio vie, 14 ago.
@@ -47,35 +30,56 @@ Letra del Tesoro Nacional Cero Cupón
 mié, 12 ago. D30O6 - USD Linked 0,00% 2,53 77 30/10/2026 SC Precio vie, 14 ago.
 Vinculada al Dólar [Nueva]
 mié, 12 ago. BONAR 2029 [Reapertura] AO29 USD 50.000.000 - USD Mep USD 50.000.000 6,00% 35,06 1174 31/10/2029 SC Precio vie, 14 ago.
+Presentation Heading |
+Operaciones en Difusión
+STONEX
+Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
+Licitación (meses) (días) Pago Licitación Liquidación
+(i) Max (32%; T+Mg) para el primer
+ON CFN (Integra en efectivo y/o en $15.000.000.000 (amp. h/ el $15.000.000.000 (amp. h/ el
+jue, 13 ago. X - ARS servicio; 8,33 273 18/5/2027 A2 (Fix SCR) Margen mar, 18 ago.
+especie) Monto Máximo de Emisión) Monto Máximo de Emisión)
+(ii) T+Mg para los siguientes servicios
+OPERACIONES DE TERCEROS
+Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
+Licitación (meses) (días) Pago Licitación Liquidación
 jue, 13 ago. BONAR 2029 [Segunda Vuelta] AO29 USD 50.000.000 - USD Mep USD 50.000.000 6,00% 35,06 1174 31/10/2029 SC Por Adhesión vie, 14 ago.
+Letras de Tesorería de la Provincia del
+jue, 13 ago. - 6 ARS 26,00% 1,15 35 18/9/2026 B (Fix SCR) Precio vie, 14 ago.
+Chaco [Reapertura]
+Letras de Tesorería de la Provincia del
+jue, 13 ago. - 9 ARS 25,75% 2,07 63 16/10/2026 B (Fix SCR) Precio vie, 14 ago.
+Chaco [Reapertura]
+Letras de Tesorería de la Provincia del
+jue, 13 ago. - $ 140.000.000.000 12 ARS $ 140.000.000.000 A licitar 2,99 91 13/11/2026 B (Fix SCR) Tasa vie, 14 ago.
+Chaco [Nueva]
+Letras de Tesorería de la Provincia del
+jue, 13 ago. - 13 ARS TAMAR+Mg 5,98 182 12/2/2027 B (Fix SCR) Margen vie, 14 ago.
+Chaco [Nueva]
+Letras de Tesorería de la Provincia del
+jue, 13 ago. - 14 ARS TAMAR+Mg 11,97 364 13/8/2027 B (Fix SCR) Margen vie, 14 ago.
+Chaco [Nueva]
 Operaciones en Difusión
 OPERACIONES DE TERCEROS
 Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Rating
 Licitación (meses) (días) Pago Licitación Liquidación
-Letras de Tesorería de la Provincia del Chaco
-jue, 13 ago. - 6 ARS 26,00% 1,15 35 18/9/2026 B (Fix SCR) Precio vie, 14 ago.
-[Reapertura]
-Letras de Tesorería de la Provincia del Chaco
-jue, 13 ago. - 9 ARS 25,75% 2,07 63 16/10/2026 B (Fix SCR) Precio vie, 14 ago.
-[Reapertura]
-Letras de Tesorería de la Provincia del Chaco
-jue, 13 ago. - $ 140.000.000.000 12 ARS $ 140.000.000.000 A licitar 2,99 91 13/11/2026 B (Fix SCR) Tasa vie, 14 ago.
-[Nueva]
-Letras de Tesorería de la Provincia del Chaco
-jue, 13 ago. - 13 ARS TAMAR+Mg 5,98 182 12/2/2027 B (Fix SCR) Margen vie, 14 ago.
-[Nueva]
-Letras de Tesorería de la Provincia del Chaco
-jue, 13 ago. - 14 ARS TAMAR+Mg 11,97 364 13/8/2027 B (Fix SCR) Margen vie, 14 ago.
-[Nueva]
-Títulos de Deuda Pública Garantizados de la
+Títulos de Deuda Pública de la
 jue, 13 ago. - $ 30.000.000.000 - ARS $ 30.000.000.000 TAMAR+Mg 19,55 1096 18/8/2029 BBB+ (Fix SCR) Margen mar, 18 ago.
 Municipalidad de San Isidro
-ON Credicuotas Consumo (Integra en efectivo Máx. (Tasa Fija a Licitar;
+ON Credicuotas Consumo (Integra en Máx. (Tasa Fija a Licitar;
 jue, 13 ago. XXII - ARS 10,84 365 18/8/2027 A informar Tasa mar, 18 ago.
-y/o en especie) USD 10.000.000 (amp. h/ USD 10.000.000 (amp. h/ TAMAR+5,50%)
+efectivo y/o en especie) USD 10.000.000 (amp. h/ USD 10.000.000 (amp. h/ TAMAR+5,50%)
 Máximo Disponible del Máximo Disponible del
-ON Credicuotas Consumo (Integra en efectivo Programa) Programa)
+ON Credicuotas Consumo (Integra en Programa) Programa)
 jue, 13 ago. XXIII - USD Mep A licitar 11,69 365 18/8/2027 A informar Tasa mar, 18 ago.
-y/o en especie)
-jue, 20 ago. [OFERTA DE CANJE] ON Raghsa S.A. [Ley NY] - USD 56.777.276 8 Adicionales USD Cable USD 56.777.276 7,95% - A informar 4/8/2036 B1 (Moody´s) Por Adhesión A informar
+efectivo y/o en especie)
+USD 30.000.000 (amp. h/ USD 30.000.000 (amp. h/
+jue, 13 ago. ON YPF Luz - XXIV USD Mep A licitar 33,71 1096 18/8/2029 AAA (Fix SCR) Tasa mar, 18 ago.
+USD 50.000.000) USD 50.000.000)
+vie, 14 ago. ON PyME CNV Alto Real Viñedos S.A. - USD 10.000.000 II USD Linked USD 10.000.000 10,00% 48,91 1826 20/8/2031 SC Precio jue, 20 ago.
+[OFERTA DE CANJE] ON Raghsa S.A.
+jue, 20 ago. - USD 56.777.276 8 Adicionales USD Cable USD 56.777.276 7,95% - A informar 4/8/2036 B1 (Moody´s) Por Adhesión A informar
+[Ley NY]
