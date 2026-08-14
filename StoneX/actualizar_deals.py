@@ -828,6 +828,26 @@ def _insertar_rating_en_resultado(linea, rating):
     return nueva
 
 
+def _extraer_vn_base_resultado(linea):
+    m = re.match(r"^((?:USD|\$|UVA)\s*[\d\.]+)\b", limpiar_texto_celda(linea), flags=re.I)
+    return m.group(1).strip() if m else ""
+
+
+def _insertar_vn_en_resultado(linea, vn):
+    if not vn:
+        return linea
+
+    moneda_pat = r"(?:USD\s+Mep|USD\s+Cable|USD\s+Linked|USD\s+linked|ARS|UVA)"
+    cupon_inicio_pat = r"(?=TAMAR[+-]\d|T[+-]\d|TEM\s+\d|\d{1,2},\d{2,3}%|0,00%)"
+    return re.sub(
+        rf"\b({moneda_pat})\s+{cupon_inicio_pat}",
+        lambda m: f"{m.group(1)} {vn} ",
+        linea,
+        count=1,
+        flags=re.I
+    )
+
+
 def _extraer_rating_de_prefix_resultado(prefix):
     m = re.search(
         rf"\s+(?P<rating>{_RATING_GRADE_RESULTADOS}\b.*)$",
@@ -904,6 +924,19 @@ def _preprocesar_on_partidas(resultados):
 
     while i < len(lines):
         line = lines[i]
+
+        vn_previo = _extraer_vn_base_resultado(line)
+        if vn_previo and i + 1 < len(lines):
+            next_line = lines[i + 1]
+            if re.search(DIA, next_line, flags=re.I) and re.search(r"\bON\b", next_line, flags=re.I):
+                reparada = _insertar_vn_en_resultado(next_line, vn_previo)
+                if reparada != next_line:
+                    skip = 2
+                    if i + 2 < len(lines) and _extraer_vn_base_resultado(lines[i + 2]):
+                        skip = 3
+                    out.append(reparada)
+                    i += skip
+                    continue
 
         if _linea_rating_resultado(line) and i + 1 < len(lines):
             next_line = lines[i + 1]
