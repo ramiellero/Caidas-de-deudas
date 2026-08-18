@@ -2306,6 +2306,7 @@
       <button class="deals-view-tab"        id="deals-tab-bajo"    onclick="setDealsView('bajo',    this)">ON &lt; 10MM</button>
       <button class="deals-view-tab"        id="deals-tab-difusion" onclick="setDealsView('difusion', this)">Difusión</button>
       <button class="deals-view-tab"        id="deals-tab-curvas"  onclick="setDealsView('curvas',  this)">Curvas ONs</button>
+      <button class="deals-view-tab"        id="deals-tab-propias" onclick="setDealsView('propias', this)">Propias</button>
     </div>
 
     <!-- View: Tabla -->
@@ -2466,6 +2467,34 @@
       </div>
 
     </div><!-- /deals-view-curvas -->
+
+    <!-- View: Propias (IRSA / Cresud — evolución precio & yield) -->
+    <div id="deals-view-propias" style="display:none;">
+
+      <div class="curvas-header-bar">
+        <span>Evolución histórica — ONs propias (IRSA &amp; Cresud)</span>
+      </div>
+
+      <div class="curvas-filters">
+        <div class="deals-filter-group">
+          <span class="deals-filter-label">Instrumento</span>
+          <select class="deals-filter-input wide" id="propias-f-instrumento" onchange="_propiasRenderCharts()">
+          </select>
+        </div>
+      </div>
+
+      <div class="curvas-charts-grid">
+        <div class="curvas-chart-card">
+          <div class="curvas-chart-title">Precio limpio (% par)</div>
+          <div class="curvas-chart-wrap"><canvas id="propias-chart-precio"></canvas></div>
+        </div>
+        <div class="curvas-chart-card">
+          <div class="curvas-chart-title">YTM</div>
+          <div class="curvas-chart-wrap"><canvas id="propias-chart-ytm"></canvas></div>
+        </div>
+      </div>
+
+    </div><!-- /deals-view-propias -->
 
   </div><!-- /content -->
 </div><!-- /page-deals -->
@@ -3584,6 +3613,7 @@ initCresudTimeline();
 initSgrSection();
 initDealsSection();
 initCurvasSection();
+initPropiasSection();
 initPadronMapeo();
 
 
@@ -5851,25 +5881,28 @@ const _DEALS_VOL_COLORS = {
 };
 
 function setDealsView(mode, btn) {
-  const volView    = document.getElementById('deals-view-volumen');
-  const tblView    = document.getElementById('deals-view-tabla');
-  const bajoView   = document.getElementById('deals-view-bajo');
-  const difView    = document.getElementById('deals-view-difusion');
-  const curvasView = document.getElementById('deals-view-curvas');
-  tblView.style.display    = mode === 'tabla'    ? '' : 'none';
-  volView.style.display    = mode === 'volumen'  ? '' : 'none';
-  bajoView.style.display   = mode === 'bajo'     ? '' : 'none';
-  difView.style.display    = mode === 'difusion' ? '' : 'none';
-  curvasView.style.display = mode === 'curvas'   ? '' : 'none';
+  const volView     = document.getElementById('deals-view-volumen');
+  const tblView     = document.getElementById('deals-view-tabla');
+  const bajoView    = document.getElementById('deals-view-bajo');
+  const difView     = document.getElementById('deals-view-difusion');
+  const curvasView  = document.getElementById('deals-view-curvas');
+  const propiasView = document.getElementById('deals-view-propias');
+  tblView.style.display     = mode === 'tabla'    ? '' : 'none';
+  volView.style.display     = mode === 'volumen'  ? '' : 'none';
+  bajoView.style.display    = mode === 'bajo'     ? '' : 'none';
+  difView.style.display     = mode === 'difusion' ? '' : 'none';
+  curvasView.style.display  = mode === 'curvas'   ? '' : 'none';
+  propiasView.style.display = mode === 'propias'  ? '' : 'none';
 
   const filtersBar = document.getElementById('deals-filters-bar');
-  if (filtersBar) filtersBar.style.display = mode === 'curvas' ? 'none' : '';
+  if (filtersBar) filtersBar.style.display = (mode === 'curvas' || mode === 'propias') ? 'none' : '';
 
   document.querySelectorAll('.deals-view-tab').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
 
   if (mode === 'volumen') _dealsRenderVolumeChart();
   if (mode === 'curvas' && _curvasAllRows.length) _curvasRenderCharts();
+  if (mode === 'propias' && _propiasAllRows.length) _propiasRenderCharts();
 }
 
 /* ── Curvas ONs ─────────────────────────────────────────────────────────── */
@@ -6281,6 +6314,169 @@ function _curvasBuildScatter(type, rows) {
 
   if (type === 'arg') _curvasChartArg = chart;
   else                _curvasChartNY  = chart;
+}
+
+/* ── Propias — evolución histórica precio & YTM (IRSA / Cresud) ──────────── */
+
+let _propiasAllRows = [];   // [{fecha:Date, fechaStr, ticker, emisor, vencimiento, precio, ytm}]
+let _propiasChartPrecio = null;
+let _propiasChartYtm    = null;
+
+const _PROPIAS_MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+function _propiasParseFecha(s) {
+  // "DD-MM-YYYY"
+  const p = s.split('-');
+  if (p.length !== 3) return null;
+  return new Date(+p[2], +p[1] - 1, +p[0]);
+}
+function _propiasFmtFecha(d) {
+  return `${d.getDate()} ${_PROPIAS_MES[d.getMonth()]}`;
+}
+
+async function initPropiasSection() {
+  try {
+    const text = await _csvFetch('Deals/curvas_propias_historico.csv').catch(() => null);
+    if (!text) return;
+    const lines = text.split('\n');
+    if (lines.length < 2) return;
+    const headers = lines[0].split(',');
+    const rows = [];
+    for (let i = 1; i < lines.length; i++) {
+      const l = lines[i].trim();
+      if (!l) continue;
+      const cells = l.split(',');
+      const r = {};
+      headers.forEach((h, j) => r[h.trim()] = (cells[j] || '').trim());
+      if (!r['Precio_Clean'] || !r['YTM']) continue;
+      const fecha = _propiasParseFecha(r['Fecha']);
+      if (!fecha) continue;
+      rows.push({
+        fecha,
+        fechaStr: r['Fecha'],
+        ticker: r['Ticker'],
+        emisor: r['Emisor'],
+        vencimiento: r['Vencimiento'],
+        precio: parseFloat(r['Precio_Clean']),
+        ytm: parseFloat(r['YTM']),
+      });
+    }
+    rows.sort((a, b) => a.fecha - b.fecha);
+    _propiasAllRows = rows;
+
+    // Poblar dropdown de instrumentos, agrupado por emisor
+    const sel = document.getElementById('propias-f-instrumento');
+    if (sel) {
+      const byTicker = {};
+      rows.forEach(r => { byTicker[r.ticker] = r; }); // último gana → vencimiento/emisor actuales
+      const irsaTickers   = Object.keys(byTicker).filter(t => byTicker[t].emisor === 'IRSA').sort();
+      const cresudTickers = Object.keys(byTicker).filter(t => byTicker[t].emisor === 'Cresud').sort();
+
+      const buildGroup = (label, tickers) => {
+        if (!tickers.length) return '';
+        const opts = tickers.map(t => {
+          const r = byTicker[t];
+          return `<option value="${t}">${t} — vto. ${r.vencimiento}</option>`;
+        }).join('');
+        return `<optgroup label="${label}">${opts}</optgroup>`;
+      };
+      sel.innerHTML = buildGroup('IRSA', irsaTickers) + buildGroup('Cresud', cresudTickers);
+    }
+
+    _propiasRenderCharts();
+  } catch (e) {
+    console.error('initPropiasSection:', e);
+  }
+}
+
+function _propiasColorFor(emisor) {
+  return emisor === 'IRSA' ? '#1D4B6E' : '#1A3D2A';
+}
+
+function _propiasRenderCharts() {
+  const view = document.getElementById('deals-view-propias');
+  if (view && view.style.display === 'none') return;
+  if (!_propiasAllRows.length) return;
+
+  const sel = document.getElementById('propias-f-instrumento');
+  const ticker = sel ? sel.value : null;
+  if (!ticker) return;
+
+  const rows = _propiasAllRows.filter(r => r.ticker === ticker);
+  if (!rows.length) return;
+  const color = _propiasColorFor(rows[0].emisor);
+  const labels = rows.map(r => _propiasFmtFecha(r.fecha));
+
+  _propiasChartPrecio = _propiasBuildLineChart('propias-chart-precio', _propiasChartPrecio, labels, rows.map(r => r.precio), color, {
+    suffix: '',
+    decimals: 1,
+    yLabel: 'Precio limpio (% par)',
+  });
+  _propiasChartYtm = _propiasBuildLineChart('propias-chart-ytm', _propiasChartYtm, labels, rows.map(r => r.ytm), color, {
+    suffix: '%',
+    decimals: 2,
+    yLabel: 'YTM',
+  });
+}
+
+function _propiasBuildLineChart(canvasId, existingInst, labels, values, color, opts) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return null;
+  if (existingInst) existingInst.destroy();
+  const existing = Chart.getChart(canvas);
+  if (existing) existing.destroy();
+
+  return new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        borderColor: color,
+        backgroundColor: color + '22',
+        borderWidth: 2,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: color,
+        pointHitRadius: 12,
+        tension: 0.15,
+        fill: true,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: item => `${item.parsed.y.toFixed(opts.decimals)}${opts.suffix}`,
+          },
+          backgroundColor: '#1E293B',
+          titleColor: '#F8FAFC',
+          bodyColor: '#CBD5E1',
+          padding: 10,
+          cornerRadius: 6,
+          titleFont: { size: 11, weight: '600' },
+          bodyFont: { size: 12, weight: '600' },
+        },
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 10 }, color: '#64748B', maxRotation: 0, autoSkip: true, maxTicksLimit: 8 },
+        },
+        y: {
+          grid: { color: '#F1F5F9' },
+          ticks: {
+            font: { size: 10 },
+            color: '#64748B',
+            callback: v => `${v.toFixed(opts.decimals)}${opts.suffix}`,
+          },
+        },
+      },
+    },
+  });
 }
 
 function _dealsRenderVolumeChart() {

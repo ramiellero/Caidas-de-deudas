@@ -30,10 +30,12 @@ import pdfplumber
 import requests
 from bs4 import BeautifulSoup
 
-BASE_DIR    = Path(__file__).parent
-CSV_OUT     = BASE_DIR / "curvas_on.csv"
-LOG_FILE    = BASE_DIR / "scraper_curvas.log"
-LOOKUP_CSV  = BASE_DIR / "curvas_moneda_lookup.csv"
+BASE_DIR      = Path(__file__).parent
+CSV_OUT       = BASE_DIR / "curvas_on.csv"
+LOG_FILE      = BASE_DIR / "scraper_curvas.log"
+LOOKUP_CSV    = BASE_DIR / "curvas_moneda_lookup.csv"
+PROPIAS_CSV   = BASE_DIR / "curvas_propias_historico.csv"
+PROPIAS_FIELDNAMES = ["Fecha", "Ticker", "Emisor", "Vencimiento", "Precio_Clean", "YTM", "CY", "DM"]
 
 IAMC_LISTING = "https://www.iamc.com.ar/curvarendimientoobligacionesnegociables/"
 HTTP_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
@@ -594,12 +596,51 @@ def save_csv(rows, report_date_str):
             w.writerow(r)
     log(f"  [CSV] {CSV_OUT.name}  ({len(rows)} bonos, fecha {report_date_str})")
 
+# ── Histórico ONs propias (IRSA / Cresud) — tab "Propias" ─────────────────────
+# Se appendea (no se sobreescribe) cada corrida, a diferencia de curvas_on.csv.
+
+def _is_propia(ticker):
+    return ticker.startswith('IRC') or re.match(r'^CS\d', ticker)
+
+
+def append_propias_historico(rows, report_date_str):
+    propias = [r for r in rows if _is_propia(r['Ticker'])]
+    if not propias:
+        return
+
+    # Evitar duplicados si el scraper corre más de una vez el mismo día
+    existing_dates = set()
+    if PROPIAS_CSV.exists():
+        with open(PROPIAS_CSV, encoding='utf-8') as f:
+            existing_dates = {row['Fecha'] for row in csv.DictReader(f)}
+    if report_date_str in existing_dates:
+        log(f"  [PROPIAS] {report_date_str} ya está en {PROPIAS_CSV.name}, no se appendea de nuevo")
+        return
+
+    write_header = not PROPIAS_CSV.exists()
+    with open(PROPIAS_CSV, 'a', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(f, fieldnames=PROPIAS_FIELDNAMES, extrasaction='ignore')
+        if write_header:
+            w.writeheader()
+        for r in propias:
+            w.writerow({
+                'Fecha':        report_date_str,
+                'Ticker':       r['Ticker'],
+                'Emisor':       'IRSA' if r['Ticker'].startswith('IRC') else 'Cresud',
+                'Vencimiento':  r['Vencimiento'],
+                'Precio_Clean': r['Precio_Clean'],
+                'YTM':          r['YTM'],
+                'CY':           r['CY'],
+                'DM':           r['DM'],
+            })
+    log(f"  [PROPIAS] {PROPIAS_CSV.name}  (+{len(propias)} filas, fecha {report_date_str})")
+
 # ── Git commit y push ─────────────────────────────────────────────────────────
 
 def git_commit_push(report_date_str):
     try:
         subprocess.run(
-            ['git', 'add', 'curvas_on.csv'],
+            ['git', 'add', 'curvas_on.csv', 'curvas_propias_historico.csv'],
             cwd=BASE_DIR, check=True, capture_output=True
         )
         result = subprocess.run(
@@ -653,6 +694,7 @@ def run(args):
         sys.exit(1)
 
     save_csv(rows, informe_fecha)
+    append_propias_historico(rows, informe_fecha)
     log(f"\n[OK] Listo.")
 
     if args.commit:

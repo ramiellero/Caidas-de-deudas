@@ -40,12 +40,14 @@ SGR/
 
 Deals/
   curvas_on.csv                         # Tabla de bonos corporativos USD del informe diario IAMC — generado por scraper_curvas.py; se sobreescribe con el informe más reciente
+  curvas_propias_historico.csv          # Histórico diario (se appendea) de Precio_Clean/YTM solo para ONs propias (IRSA: IRC*, Cresud: CS<dígito>*) — fuente de la tab "Propias" dentro de Curvas ONs
   curvas_last_id.txt                    # Legado PPI (ya no se usa; conservado para historial)
   curvas_moneda_lookup.csv              # Lookup persistente Ticker → Moneda usado por enrich_curvas_moneda.py
-  scraper_curvas.py                     # Scraper diario: descarga PDF del informe IAMC, extrae páginas 1-2 (Ley NY) y 5-13 (Ley Arg), guarda curvas_on.csv
+  scraper_curvas.py                     # Scraper diario: descarga PDF del informe IAMC, extrae páginas 1-2 (Ley NY) y 5-13 (Ley Arg), guarda curvas_on.csv y appendea curvas_propias_historico.csv
   scraper_curvas.log                    # Log de ejecuciones del scraper
   run_scraper_curvas.bat                # Wrapper para la tarea programada de Windows
   enrich_curvas_moneda.py               # Script one-time de enriquecimiento (ya corrido; conservado para referencia)
+  historico_propias.py                  # Script one-off usado para hacer el backfill inicial de curvas_propias_historico.csv (recorre los últimos N informes IAMC disponibles); no corre en el flujo normal — el appendeo diario ya lo hace scraper_curvas.py
 
 StoneX/                                 # Scripts del compañero que carga emisiones semanalmente — no tocar rutas (ver StoneX/CLAUDE.md)
 
@@ -432,6 +434,22 @@ Vista de curva de rendimientos de bonos corporativos USD del mercado argentino. 
 
 **Flujo de actualización**: correr `python scraper_curvas.py` en días hábiles (a las 10 hs toma el informe del día anterior) → commit de `curvas_on.csv` → el frontend toma los datos nuevos automáticamente al refrescar.
 
+### Propias (sub-tab dentro de Deals, a la derecha de "Curvas ONs")
+
+Vista de evolución histórica de precio y YTM, acotada a las ONs propias (IRSA: tickers `IRC*`; Cresud: tickers `CS<dígito>*`). Dos gráficos de línea (Chart.js) — Precio limpio y YTM — con un desplegable para elegir el instrumento; siempre un instrumento a la vez, sin overlay de series.
+
+**Fuente**: `curvas_propias_historico.csv` (columnas: `Fecha, Ticker, Emisor, Vencimiento, Precio_Clean, YTM, CY, DM`) — a diferencia de `curvas_on.csv` (que se sobreescribe con el informe más reciente), este CSV **se appendea** cada corrida del scraper: `scraper_curvas.py` filtra las filas `IRC*`/`CS<dígito>*` del informe del día (`append_propias_historico()`) y las agrega al final, deduplicando por `Fecha` para que correr el scraper dos veces el mismo día no duplique filas. El backfill inicial (últimos 30 informes IAMC disponibles al 2026-08-18) se hizo una sola vez con `historico_propias.py`; ese script no forma parte del flujo normal.
+
+**Frontend** (`index.html`):
+- `initPropiasSection()` — carga y parsea `curvas_propias_historico.csv`, ordena por fecha ascendente, puebla el `<select>` de instrumento agrupado en `<optgroup>` IRSA / Cresud (ordenados alfabéticamente dentro de cada grupo), y llama `_propiasRenderCharts()`
+- `_propiasRenderCharts()` — filtra `_propiasAllRows` por el ticker seleccionado en el dropdown y redibuja ambos charts; no hace nada si la vista está oculta (evita renderizar canvas con `display:none`, mismo patrón que `_dealsRenderVolumeChart`)
+- `_propiasBuildLineChart(canvasId, existingInst, labels, values, color, opts)` — helper genérico de line chart (área rellena, sin puntos salvo hover, tooltip oscuro); reutilizado para Precio y YTM con distinto `decimals`/`suffix`
+- `_propiasColorFor(emisor)` — `'#1D4B6E'` (IRSA) / `'#1A3D2A'` (Cresud), mismos colores de marca que el resto del dashboard
+- Globals: `_propiasAllRows`, `_propiasChartPrecio`, `_propiasChartYtm`
+- `setDealsView('propias', btn)` — igual que `'curvas'`, oculta la barra de filtros de Deals (`#deals-filters-bar`) y llama `_propiasRenderCharts()` si ya hay datos cargados
+
+**Reutiliza CSS de Curvas ONs** sin agregar clases nuevas: `.curvas-header-bar`, `.curvas-filters`, `.curvas-charts-grid`, `.curvas-chart-card`, `.curvas-chart-title`, `.curvas-chart-wrap`, `.deals-filter-group`/`.deals-filter-input.wide`.
+
 ### Deals (color: `#0F4C75` azul petróleo)
 Sección de emisiones de ONs del mercado argentino. Fuente: `emisiones_obligaciones_negociables.csv`. Para agregar datos nuevos: solo hay que appendear filas al CSV y hacer commit; el frontend no requiere cambios.
 
@@ -742,6 +760,7 @@ Script PowerShell que llama a `/api/padron` (el mismo endpoint que usa el fronte
 | SGR — KPI foto (Aporte, Posición, Weight, P&L, Mora) | `foto_sgr.csv` — dinámico; histórico multi-período; siempre muestra el mes más reciente por SGR |
 | Deals — tabla de emisiones (filas, filtros, subtotales) | `emisiones_obligaciones_negociables.csv` — dinámico |
 | Deals — Curvas ONs: scatter Ley Arg + scatter Ley NY + tabla | `curvas_on.csv` — dinámico; generado por `scraper_curvas.py` (fuente IAMC) |
+| Deals — Propias: evolución Precio + YTM por instrumento | `curvas_propias_historico.csv` — dinámico; appendeado diario por `scraper_curvas.py` |
 | Padrón — tabla de tenedores | API de Custodia BYMA vía `api/padron.js` — dinámico, consulta on-demand (no carga sola al iniciar la página) |
 | Padrón — columna Clasificación (propia) | `Padron/mapeo_clasificacion.csv` (match exacto) + `PADRON_CLASIF_RULES` (heurística de fallback) — dinámico |
 
