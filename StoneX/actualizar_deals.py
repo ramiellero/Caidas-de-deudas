@@ -679,6 +679,20 @@ def normalizar_emisor(emisor):
         flags=re.I
     )
 
+    s = re.sub(
+        r"^Banco de la Provincia de Córdoba\s+S\.A\.\s+–\s+(?:1\s+)?([IVXLCDM]+)$",
+        r"Banco de la Provincia de Córdoba – \1",
+        s,
+        flags=re.I
+    )
+
+    s = re.sub(
+        r"^Banco de la Provincia de Córdoba\s+S\.A\.\s*$",
+        "Banco de la Provincia de Córdoba",
+        s,
+        flags=re.I
+    )
+
     return s
 
 
@@ -688,7 +702,11 @@ def nombre_desde_prefix(prefix):
     # BONAR
     m_bonar = re.search(r"(BONAR\s+\d{4}).*?(AO\d+)", p)
     if m_bonar:
-        return f"{m_bonar.group(1)} ({m_bonar.group(2)})"
+        etiqueta = ""
+        m_etiqueta = re.search(r"\[(Reapertura|Segunda Vuelta)\]", p, flags=re.I)
+        if m_etiqueta:
+            etiqueta = f" [{m_etiqueta.group(1)}]"
+        return f"{m_bonar.group(1)} ({m_bonar.group(2)}){etiqueta}"
 
     # Limpieza inicial
     p = re.sub(r"^\[OFERTA DE CANJE\]\s*", "", p, flags=re.I)
@@ -1382,6 +1400,15 @@ def normalizar_y_deduplicar(df):
 
     df["EMISOR"] = df["EMISOR"].apply(normalizar_emisor)
 
+    mask_cordoba_iii = (
+        df["EMISOR"].str.match(r"Banco de la Provincia de Córdoba – III$", na=False)
+        & df["CALIFICACIÓN"].str.contains(r"/\s*A-\s+\(Moody", regex=True, na=False)
+    )
+    df.loc[mask_cordoba_iii, "CALIFICACIÓN"] = df.loc[
+        mask_cordoba_iii,
+        "CALIFICACIÓN"
+    ].str.replace(r"/\s*A-\s+\(Moody", "/ A-1 (Moody", regex=True)
+
     # Borra filas mal parseadas de pruebas anteriores
     df = df[
     ~df["EMISOR"].str.contains("Tasa mié|Tasa mar|Tasa lun", regex=True, na=False)
@@ -1398,6 +1425,43 @@ def normalizar_y_deduplicar(df):
         pd.to_numeric(df["VN"], errors="coerce")
         .round(1)
     )
+
+    bonar_base = df["EMISOR"].str.extract(
+        r"^(BONAR\s+\d{4}\s+\(AO\d+\))(?:\s+\[(?:Reapertura|Segunda Vuelta)\])?$"
+    )[0]
+    bonar_tagged = df["EMISOR"].str.contains(
+        r"\[(?:Reapertura|Segunda Vuelta)\]",
+        regex=True,
+        na=False
+    )
+    bonar_key_cols = [
+        "FECHA",
+        "MONEDA",
+        "TASA",
+        "TASA/MARGEN",
+        "PLAZO (en meses)",
+        "VN",
+    ]
+    tagged_bonar_keys = set(
+        tuple(row)
+        for row in df.loc[bonar_tagged & bonar_base.notna(), bonar_key_cols]
+        .assign(_BONAR_BASE=bonar_base[bonar_tagged & bonar_base.notna()])
+        [["_BONAR_BASE"] + bonar_key_cols]
+        .itertuples(index=False, name=None)
+    )
+    generic_bonar_mask = (
+        bonar_base.notna()
+        & ~bonar_tagged
+        & pd.Series(
+            [
+                tuple([base] + [df.loc[i, c] for c in bonar_key_cols])
+                in tagged_bonar_keys
+                for i, base in bonar_base.items()
+            ],
+            index=df.index
+        )
+    )
+    df = df[~generic_bonar_mask].copy()
 
     key_cols = [
         "FECHA",
