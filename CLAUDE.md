@@ -20,9 +20,13 @@ api/
 IRSA/
   irsa_deuda.csv                        # Vencimientos de capital de IRSA (fuente principal de KPIs IRSA)
   irsa_deuda_total.csv                  # Schedule completo IRSA: capital + intereses por período
+  irsa_call_data.csv                    # Call option simple por ON IRSA: ON,CallDate,Price
+  irsa_call_schedule.csv                # Call option escalonado por ON IRSA (ON XIV, XXIV): ON,From,Price — una fila por tramo
 
 Cresud/
   cresud_deuda.csv                      # Vencimientos de capital de Cresud (fuente principal de KPIs Cresud)
+  cresud_call_data.csv                  # Call option simple por ON Cresud: ON,CallDate,Price
+  cresud_call_schedule.csv              # Call option escalonado por ON Cresud: ON,From,Price — vacío actualmente, ningún ON de Cresud tiene call escalonado
   cresud_completo.csv                   # Schedule completo Cresud: capital + intereses por período
 
 SGR/
@@ -246,11 +250,19 @@ Columna interactiva añadida en ambas tablas (`#irsa-mat-table`, `#cresud-mat-ta
 - Filas con `Tipo = "Bancaria"` → celda vacía (sin botón)
 - ONs sin call option (e.g. ON XLII) → celda vacía
 
+**Fuente de datos** (dinámica desde CSV, no hardcodeada en `index.html`):
+- `IRSA/irsa_call_data.csv` — ONs con call date simple: `ON,CallDate,Price` (e.g. XVIII, XX, XXII, XXIII)
+- `IRSA/irsa_call_schedule.csv` — ONs con schedule escalonado: `ON,From,Price`, una fila por tramo (e.g. XIV, XXIV)
+- `Cresud/cresud_call_data.csv` — ídem simple para Cresud (XXV, XL, XLIV...LIII)
+- `Cresud/cresud_call_schedule.csv` — ídem schedule para Cresud (vacío actualmente — ningún ON de Cresud tiene call escalonado)
+- ONs sin call option (e.g. ON XLII) simplemente no aparecen en ninguno de los 4 CSVs
+- `_loadCallData()` — fetchea los 4 CSVs en paralelo, parsea con `_parseIrsaCsv` y construye el global `callData` (`{ "ON <nombre>": {...} }`); se llama una vez al final del script, antes de `initIrsaMatChart()`/`initIrsaTimeline()`/`initCresudMatChart()`/`initCresudTimeline()` (que dependen de `callData` para renderizar el botón de Call Option en la tabla de detalle)
+
 **Lógica**:
 - `callData` — objeto con los datos de call de cada instrumento; dos tipos:
   - `type: "schedule"` (ON XIV, ON XXIV): callable si `today >= start`; el popover muestra tabla escalonada de precios por tramo
   - Sin type (resto): callable si `today >= callDate`; el popover muestra Call Date + Price
-  - `null` (ON XLII): sin call option
+  - Ausente del objeto (ON XLII): sin call option
 - `_callIsCallable(key)` — retorna `true/false/null`; `null` = no tiene call
 - `_callCurrentPrice(key)` — recorre los steps del schedule para encontrar el precio vigente
 - `_callPopoverHtml(key, outstanding)` — genera el HTML del popover; muestra "Outstanding: X USD M" en la cabecera del popover; lee el outstanding desde `td[6]` de la fila del botón
@@ -373,8 +385,8 @@ Los dos strips (IRSA y Cresud) están sincronizados: cambiar uno actualiza el ot
 - **Ver cambios**: el dashboard está deployado en Vercel — refrescar el browser tras cada commit (Vercel redespliega en segundos)
 - **Actualizar datos de maturity walls**: editar el CSV correspondiente y hacer commit; el chart se recalcula automáticamente al cargar la página
 - **Actualizar timeline IRSA**: editar `irsa_deuda.csv` (capital) o `irsa_deuda_total.csv` (capital+intereses) y hacer commit; la timeline se regenera automáticamente
-- **Actualizar IRSA (ON nueva)**: agregar filas en `irsa_deuda.csv` (capital) y `irsa_deuda_total.csv` (schedule de intereses); tabla, KPIs, maturity wall, pie chart y timelines se recalculan solos — sin tocar `index.html`. Agregar también entrada en `callData` si el instrumento tiene call option.
-- **Actualizar Cresud (ON nueva)**: agregar filas en `cresud_deuda.csv` (capital) y `cresud_completo.csv` (schedule de intereses); tabla, KPIs, maturity wall, pie chart y timelines se recalculan solos — sin tocar `index.html`. Agregar también entrada en `callData` si el instrumento tiene call option.
+- **Actualizar IRSA (ON nueva)**: agregar filas en `irsa_deuda.csv` (capital) y `irsa_deuda_total.csv` (schedule de intereses); tabla, KPIs, maturity wall, pie chart y timelines se recalculan solos — sin tocar `index.html`. Agregar también fila en `IRSA/irsa_call_data.csv` (call date simple) o `IRSA/irsa_call_schedule.csv` (call escalonado) si el instrumento tiene call option.
+- **Actualizar Cresud (ON nueva)**: agregar filas en `cresud_deuda.csv` (capital) y `cresud_completo.csv` (schedule de intereses); tabla, KPIs, maturity wall, pie chart y timelines se recalculan solos — sin tocar `index.html`. Agregar también fila en `Cresud/cresud_call_data.csv` o `Cresud/cresud_call_schedule.csv` si el instrumento tiene call option.
 - **Actualizar timeline Cresud**: editar `cresud_deuda.csv` (capital, banking) o `cresud_completo.csv` (capital+intereses de ONs) y hacer commit
 - **No hay build step** — editar archivos y hacer commit directamente
 
@@ -750,6 +762,7 @@ Script PowerShell que llama a `/api/padron` (el mismo endpoint que usa el fronte
 | Timeline Cresud (capital + intereses) | `cresud_completo.csv` + `cresud_deuda.csv` (banking) — dinámico |
 | Tabla detalle IRSA | `irsa_deuda.csv` — **completamente dinámico** via `_renderIrsaTableBase()`; agregar ON al CSV actualiza la tabla automáticamente |
 | Tabla detalle Cresud | `cresud_deuda.csv` — **completamente dinámico** via `_renderCresudTableBase()`; agregar ON al CSV actualiza la tabla automáticamente |
+| Columna Call Option (ambas tablas) | `IRSA/irsa_call_data.csv` + `IRSA/irsa_call_schedule.csv` (IRSA); `Cresud/cresud_call_data.csv` + `Cresud/cresud_call_schedule.csv` (Cresud) — dinámico via `_loadCallData()` |
 | SGR — Stock de Garantías chart | `garantia_sgr.csv` — dinámico |
 | SGR — Mora/Garantías chart (individual) | `mora_sobre_garantias.csv` — dinámico |
 | SGR — Mora por Antigüedad donut | `mora_antiguedad.csv` — dinámico |

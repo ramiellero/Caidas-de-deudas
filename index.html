@@ -2290,6 +2290,18 @@
         <input type="text" class="deals-filter-input" id="deals-f-calif" placeholder="Ej: AAA, B-…" oninput="_dealsApplyFilters()">
       </div>
 
+      <div class="deals-filter-group">
+        <span class="deals-filter-label">Plazo</span>
+        <select class="deals-filter-input" id="deals-f-plazo" onchange="_dealsApplyFilters()">
+          <option value="">Todos</option>
+          <option value="0-12">Hasta 12 meses</option>
+          <option value="13-24">13 a 24 meses</option>
+          <option value="25-36">25 a 36 meses</option>
+          <option value="37-60">37 a 60 meses</option>
+          <option value="61-9999">Más de 60 meses</option>
+        </select>
+      </div>
+
       <button class="deals-clear-btn" onclick="_dealsClearFilters()">Limpiar filtros</button>
 
     </div><!-- /deals-filters -->
@@ -3415,8 +3427,7 @@ function setIrsaMatView(mode, btn) {
   _applyIrsaMatData(irsaMatData[mode]);
 }
 
-initIrsaMatChart();
-initIrsaTimeline();
+// initIrsaMatChart() / initIrsaTimeline() se disparan más abajo, después de _loadCallData()
 
 
 /* ════════════════════════════════════════════════════════
@@ -3608,8 +3619,13 @@ function setCresudMatView(mode, btn) {
   _applyCresudMatData(cresudMatData[mode]);
 }
 
-initCresudMatChart();
-initCresudTimeline();
+(async function () {
+  await _loadCallData();
+  initIrsaMatChart();
+  initIrsaTimeline();
+  initCresudMatChart();
+  initCresudTimeline();
+})();
 initSgrSection();
 initDealsSection();
 initCurvasSection();
@@ -4265,44 +4281,30 @@ function downloadDescCsv() {
 
 // ── Call Option ───────────────────────────────────────────────────────────────
 
-const callData = {
-  "ON XIV": {
-    type: "schedule",
-    start: "2025-06-22",
-    steps: [
-      { from: "2025-06-22", price: "104.375%" },
-      { from: "2026-06-22", price: "102.1875%" },
-      { from: "2027-01-01", price: "100%" }
-    ]
-  },
-  "ON XVIII": { callDate: "2026-08-28", price: "101%" },
-  "ON XX":    { callDate: "2025-12-10", price: "101%" },
-  "ON XXII":  { callDate: "2027-04-23", price: "101%" },
-  "ON XXIII": { callDate: "2028-10-23", price: "100%" },
-  "ON XXIV": {
-    type: "schedule",
-    start: "2029-03-31",
-    steps: [
-      { from: "2029-03-31", price: "104%" },
-      { from: "2030-03-31", price: "102%" },
-      { from: "2031-03-31", price: "101%" },
-      { from: "2032-03-31", price: "100%" }
-    ]
-  },
-  "ON XXV":    { callDate: "2027-03-08", price: "100%" },
-  "ON XL":     { callDate: "2026-06-21", price: "101%" },
-  "ON XLII":   null,
-  "ON XLIV":   { callDate: "2026-07-17", price: "101%" },
-  "ON XLV":    { callDate: "2026-02-22", price: "101%" },
-  "ON XLVI":   { callDate: "2027-04-18", price: "101%" },
-  "ON XLVII":  { callDate: "2027-11-15", price: "100%" },
-  "ON XLVIII": { callDate: "2027-07-11", price: "100%" },
-  "ON XLIX":   { callDate: "2026-09-02", price: "100%" },
-  "ON L":      { callDate: "2027-06-10", price: "100%" },
-  "ON LI":     { callDate: "2026-10-20", price: "100%" },
-  "ON LII":    { callDate: "2027-04-30", price: "100%" },
-  "ON LIII":   { callDate: "2027-04-30", price: "100%" }
-};
+let callData = {};
+
+async function _loadCallData() {
+  const [irsaSimple, irsaSched, cresudSimple, cresudSched] = await Promise.all([
+    _csvFetch('IRSA/irsa_call_data.csv').then(_parseIrsaCsv),
+    _csvFetch('IRSA/irsa_call_schedule.csv').then(_parseIrsaCsv),
+    _csvFetch('Cresud/cresud_call_data.csv').then(_parseIrsaCsv),
+    _csvFetch('Cresud/cresud_call_schedule.csv').then(_parseIrsaCsv)
+  ]);
+  const data = {};
+  [irsaSimple, cresudSimple].forEach(rows => {
+    rows.forEach(r => {
+      data['ON ' + r['ON']] = { callDate: r['CallDate'], price: r['Price'] };
+    });
+  });
+  [irsaSched, cresudSched].forEach(rows => {
+    rows.forEach(r => {
+      const key = 'ON ' + r['ON'];
+      if (!data[key]) data[key] = { type: 'schedule', start: r['From'], steps: [] };
+      data[key].steps.push({ from: r['From'], price: r['Price'] });
+    });
+  });
+  callData = data;
+}
 
 function _callIsCallable(key) {
   const d = callData[key];
@@ -5733,6 +5735,8 @@ function _dealsApplyFilters() {
   const tasa   = document.getElementById('deals-f-tasa').value.toLowerCase();
   const emisor = document.getElementById('deals-f-emisor').value.toLowerCase().trim();
   const calif  = document.getElementById('deals-f-calif').value.toLowerCase().trim();
+  const plazo  = document.getElementById('deals-f-plazo').value;
+  const [plazoMin, plazoMax] = plazo ? plazo.split('-').map(Number) : [null, null];
 
   _dealsFiltered = _dealsAllRows.filter(r => {
     if (desde && r._fecha && r._fecha < new Date(desde + 'T00:00:00')) return false;
@@ -5741,6 +5745,7 @@ function _dealsApplyFilters() {
     if (tasa   && r._tasa.toLowerCase()   !== tasa)   return false;
     if (emisor && !r._emisor.toLowerCase().includes(emisor)) return false;
     if (calif  && !r._calif.toLowerCase().includes(calif))   return false;
+    if (plazo  && (r._plazo < plazoMin || r._plazo > plazoMax)) return false;
     return true;
   });
 
@@ -5762,6 +5767,8 @@ function _dealsApplyLowFilters() {
   const tasa   = document.getElementById('deals-f-tasa').value.toLowerCase();
   const emisor = document.getElementById('deals-f-emisor').value.toLowerCase().trim();
   const calif  = document.getElementById('deals-f-calif').value.toLowerCase().trim();
+  const plazo  = document.getElementById('deals-f-plazo').value;
+  const [plazoMin, plazoMax] = plazo ? plazo.split('-').map(Number) : [null, null];
 
   _dealsLowFiltered = _dealsLowRows.filter(r => {
     if (desde && r._fecha && r._fecha < new Date(desde + 'T00:00:00')) return false;
@@ -5770,6 +5777,7 @@ function _dealsApplyLowFilters() {
     if (tasa   && r._tasa.toLowerCase()   !== tasa)   return false;
     if (emisor && !r._emisor.toLowerCase().includes(emisor)) return false;
     if (calif  && !r._calif.toLowerCase().includes(calif))   return false;
+    if (plazo  && (r._plazo < plazoMin || r._plazo > plazoMax)) return false;
     return true;
   });
 
@@ -5789,6 +5797,7 @@ function _dealsClearFilters() {
   document.getElementById('deals-f-tasa').value   = '';
   document.getElementById('deals-f-emisor').value = '';
   document.getElementById('deals-f-calif').value  = '';
+  document.getElementById('deals-f-plazo').value  = '';
   _dealsApplyFilters();
 }
 
