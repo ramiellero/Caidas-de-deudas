@@ -18,7 +18,7 @@ screenshot_stonex.png       # Screenshot del sitio al momento de la extracción
 
 **Archivo destino en el repo:**
 ```
-../emisiones_obligaciones_negociables.csv   # Lo que consume el dashboard
+../Deals/emisiones_obligaciones_negociables.csv   # Lo que consume el dashboard
 ```
 
 ## Flujo de `actualizar_deals.py`

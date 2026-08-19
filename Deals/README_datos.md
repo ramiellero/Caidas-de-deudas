@@ -10,13 +10,10 @@ Este archivo describe el contenido de esta carpeta para el agente de Copilot "De
   - Ticker IRSA: prefijo `IRC`. Ticker Cresud: `CS` + dígito (ej. `CS1`, `CS34`).
 - **`curvas_propias_historico.csv`** — histórico diario (**se appendea**, no se sobreescribe) SOLO de tickers `IRC*` y `CS<dígito>*`. Columnas: `Fecha, Ticker, Emisor, Vencimiento, Precio_Clean, YTM, CY, DM`. Es la única fuente con serie temporal en esta carpeta — para "evolución" o "tendencia" de precio/YTM usar este archivo, nunca `curvas_on.csv`.
 - **`curvas_moneda_lookup.csv`** — lookup interno Ticker → Moneda usado por el scraper; no suele necesitarse para responder preguntas de usuario.
-
-## Archivo fuera de esta carpeta (raíz del repo)
-
-- **`emisiones_obligaciones_negociables.csv`** — registro semanal de emisiones **primarias** del mercado argentino (no vive en `Deals/`, vive en la raíz del repo). Si este agente tiene acceso a él, columnas: `FECHA, EMISOR, MONEDA, TASA, TASA/MARGEN, PLAZO (en meses), VN, CALIFICACIÓN`.
+- **`emisiones_obligaciones_negociables.csv`** — registro semanal de emisiones **primarias** del mercado argentino. Columnas: `FECHA, EMISOR, MONEDA, TASA, TASA/MARGEN, PLAZO (en meses), VN, CALIFICACIÓN`.
   - `FECHA`: formato `29-abr-26` (día-mesES-año2d). `VN`: formato argentino ("157.000,00" = 157.000).
   - `MONEDA` viene heterogénea — normalizar antes de agrupar: "USD" → "USD Mep", "USD - Int" → "USD Int", "USD - CCL" → "USD Cable", "USD - Linked" → "USD Linked". Filas con `MONEDA = "resultado pendiente"` descartar siempre.
-  - Si este archivo no está en el conocimiento del agente, no asumir sus datos — avisar que falta.
+- **`emisiones_on_bajo_impacto.csv`** — mismo formato que `emisiones_obligaciones_negociables.csv`, pero para emisiones de bajo impacto (montos chicos, por debajo del umbral que se incluye en el registro principal).
 
 ## Reglas de interpretación
 

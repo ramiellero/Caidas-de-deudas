@@ -49,8 +49,8 @@ CSV_OUTPUT = CARPETA / "deals.csv"
 CSV_DIFUSION = CARPETA / "difusion.csv"
 CSV_BAJO_IMPACTO = CARPETA / "deals_bajo_impacto.csv"
 
-CSV_WEB = REPO_GIT / "emisiones_obligaciones_negociables.csv"
-CSV_WEB_BAJO_IMPACTO = REPO_GIT / "emisiones_on_bajo_impacto.csv"
+CSV_WEB = REPO_GIT / "Deals" / "emisiones_obligaciones_negociables.csv"
+CSV_WEB_BAJO_IMPACTO = REPO_GIT / "Deals" / "emisiones_on_bajo_impacto.csv"
 SCREENSHOT = CARPETA / "screenshot_stonex.png"
 
 ASUNTO_BUSCADO = "AGENDA DE EMISIONES"

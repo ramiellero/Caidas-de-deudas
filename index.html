@@ -1819,7 +1819,7 @@
         <span id="irsa-kpi-vida" class="kpi-value" style="color:#1D4B6E;">—</span>
       </div>
     </div>
-    <p id="irsa-kpi-note" class="chart-note" style="margin-bottom:24px;">Calculado sobre deuda USD vigente. Excluye ARS (Cohen vencido). Base: irsa_deuda.</p>
+    <p id="irsa-kpi-note" class="chart-note" style="margin-bottom:24px;">Calculado sobre deuda USD vigente. Base: irsa_deuda.</p>
 
     <!-- IRSA Timeline -->
     <div class="tl-section">
@@ -1953,7 +1953,7 @@
         <span id="cresud-kpi-vida" class="kpi-value" style="color:#1A3D2A;">—</span>
       </div>
     </div>
-    <p id="cresud-kpi-note" class="chart-note" style="margin-bottom:24px;">Calculado sobre deuda USD vigente. Excluye ARS (ICBC vencido). Base: cresud_deuda.</p>
+    <p id="cresud-kpi-note" class="chart-note" style="margin-bottom:24px;">Calculado sobre deuda USD vigente. Base: cresud_deuda.</p>
 
     <!-- Cresud Timeline -->
     <div class="tl-section">
@@ -4038,7 +4038,7 @@ function _updateIrsaKpis(allCapRows) {
   document.getElementById('irsa-kpi-vida').textContent = vida;
   const d = new Date();
   document.getElementById('irsa-kpi-note').textContent =
-    `Calculado sobre deuda USD vigente al ${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}. Excluye ARS (Cohen vencido). Base: irsa_deuda.`;
+    `Calculado sobre deuda USD vigente al ${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}. Base: irsa_deuda.`;
 }
 
 function _updateCresudKpis(allCapRows) {
@@ -4047,7 +4047,7 @@ function _updateCresudKpis(allCapRows) {
   document.getElementById('cresud-kpi-vida').textContent = vida;
   const d = new Date();
   document.getElementById('cresud-kpi-note').textContent =
-    `Calculado sobre deuda USD vigente al ${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}. Excluye ARS (ICBC vencido). Base: cresud_deuda.`;
+    `Calculado sobre deuda USD vigente al ${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}. Base: cresud_deuda.`;
 }
 
 function _rebuildIrsa() {
@@ -5407,7 +5407,7 @@ document.addEventListener('click', function(e) {
 
 /* ════════════════════════════════════════════════════════
    DEALS — Emisiones de ONs
-   Fuente: emisiones_obligaciones_negociables.csv
+   Fuente: Deals/emisiones_obligaciones_negociables.csv
    Para agregar nuevas emisiones: append filas al CSV y hacer commit.
 ════════════════════════════════════════════════════════ */
 
@@ -5550,7 +5550,7 @@ function _dealsParseRowsFromCsv(text) {
 // ── CSV init ──────────────────────────────────────────
 async function initDealsSection() {
   try {
-    const text = await _csvFetch('emisiones_obligaciones_negociables.csv');
+    const text = await _csvFetch('Deals/emisiones_obligaciones_negociables.csv');
     const lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
 
     // strip BOM if present
@@ -5607,7 +5607,7 @@ async function initDealsSection() {
 
 async function initBajoImpactoSection() {
   try {
-    const text = await _csvFetch('emisiones_on_bajo_impacto.csv').catch(() => '');
+    const text = await _csvFetch('Deals/emisiones_on_bajo_impacto.csv').catch(() => '');
     _dealsLowRows = _dealsParseRowsFromCsv(text);
     _dealsApplyLowFilters();
   } catch(e) {

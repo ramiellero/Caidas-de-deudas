@@ -10,7 +10,6 @@ Los CSVs de datos están organizados en carpetas que reflejan las pestañas (tab
 ```
 index.html                              # Toda la aplicación: HTML + CSS + JS en un único archivo
 CLAUDE.md                               # Este archivo
-emisiones_obligaciones_negociables.csv  # Registro semanal de emisiones de ONs del mercado argentino — permanece en la raíz porque el script del compañero (StoneX/actualizar_deals.py) escribe acá directo
 vercel.json                             # Config de deploy Vercel
 openapi.json                            # Spec OpenAPI de la API Custody Issuers de BYMA (fuente de verdad del contrato de /holdings, usado por api/padron.js)
 
@@ -43,6 +42,8 @@ SGR/
   composicion_carteras.csv              # Composición por tipo de activo por SGR (guardado, no usado aún)
 
 Deals/
+  emisiones_obligaciones_negociables.csv # Registro semanal de emisiones de ONs del mercado argentino — el script del compañero (StoneX/actualizar_deals.py) escribe acá directo
+  emisiones_on_bajo_impacto.csv         # Mismo formato que el anterior, para emisiones de bajo impacto (montos chicos) — también escrito por StoneX/actualizar_deals.py
   curvas_on.csv                         # Tabla de bonos corporativos USD del informe diario IAMC — generado por scraper_curvas.py; se sobreescribe con el informe más reciente
   curvas_propias_historico.csv          # Histórico diario (se appendea) de Precio_Clean/YTM solo para ONs propias (IRSA: IRC*, Cresud: CS<dígito>*) — fuente de la tab "Propias" dentro de Curvas ONs
   curvas_last_id.txt                    # Legado PPI (ya no se usa; conservado para historial)
@@ -79,7 +80,7 @@ El archivo está organizado en tres bloques principales dentro de un único `.ht
 - Info tables: condiciones de cada bono
 - Maturity wall chart (Chart.js bar chart) con toggle Año Fiscal / Año Calendario
 - **KPI boxes** (entre el chart y la timeline) — calculados dinámicamente desde `irsa_deuda.csv`:
-  - Tasa Promedio Ponderada (USD): calculado al día de hoy sobre deuda USD vigente. Excluye Cohen (ARS, vencido 30/01/2026).
+  - Tasa Promedio Ponderada (USD): calculado al día de hoy sobre deuda USD vigente.
   - Vida Promedio Ponderada (USD): ídem.
   - Se recalculan al agregar/eliminar descubiertos (`_rebuildIrsa`).
   - IDs HTML: `#irsa-kpi-tasa`, `#irsa-kpi-vida`, `#irsa-kpi-note`.
@@ -92,7 +93,7 @@ El archivo está organizado en tres bloques principales dentro de un único `.ht
 ### Cresud (color: `#1A3D2A` verde oscuro)
 - Maturity wall chart con toggle Año Fiscal / Año Calendario (`setCresudMatView`)
 - **KPI boxes** (entre el chart y la timeline) — calculados dinámicamente desde `cresud_deuda.csv`:
-  - Tasa Promedio Ponderada (USD): calculado al día de hoy sobre deuda USD vigente. Excluye XXXVIII (vencida 03/03/2026) e ICBC (ARS, vencido 01/02/2026).
+  - Tasa Promedio Ponderada (USD): calculado al día de hoy sobre deuda USD vigente. Excluye XXXVIII (vencida 03/03/2026).
   - Vida Promedio Ponderada (USD): ídem.
   - Se recalculan al agregar/eliminar descubiertos (`_rebuildCresud`).
   - IDs HTML: `#cresud-kpi-tasa`, `#cresud-kpi-vida`, `#cresud-kpi-note`.
@@ -108,7 +109,6 @@ El archivo está organizado en tres bloques principales dentro de un único `.ht
 Vencimientos de capital de IRSA. Columnas: `AÑO, FY, MONEDA, Periodo, Compañía, Sociedad, Concepto, Concepto 2, Fecha Inicio, Fecha Fin, Tasa, Moneda, Monto Webcast, Monto USD, Outstanding`.
 - Fuente del **maturity wall IRSA** y de la **timeline capital-only** (`#irsa-tl-cap`)
 - ONs cubiertas: XIV, XVIII, XX, XXII, XXIII, XXIV
-- Incluye un descubierto en ARS (Cohen, vencido 30/01/2026) — se filtra automáticamente
 - `MONEDA`: tipo explícito de liquidación del instrumento — valores: `"Cable"` (HD puro), `"MEP"` (HD MEP), `"MEP S/MULC"` (HD sin MULC), `"CABLE S/MULC"`, `"DL"` (dólar linked), `"ARS"`. Reemplaza la columna `Detalle` y la lógica anterior de `TC < 0.99`
 - `Monto Webcast`: monto nominal en moneda original (antes llamado `Monto MO`)
 - `Monto USD`: equivalente USD. Para instrumentos S/MULC el frontend **ignora este campo** y recalcula dinámicamente con `Monto Webcast × brecha_sesión` via `_rowUsdAmt(r)`. Para instrumentos con acceso MULC, `Monto USD = Monto Webcast`
@@ -130,7 +130,7 @@ Schedule completo de IRSA con todos los flujos. Columnas: `AÑO, FY, Detalle, Co
 ### `cresud_deuda.csv`
 Vencimientos de capital de Cresud. Columnas: `AÑO, FY, MONEDA, Periodo, Compañía, Sociedad, Concepto, Concepto 2, Fecha Inicio, Fecha Fin, Tasa, Moneda, Monto Webcast, Monto USD`.
 - Usado para calcular KPIs de tasa y vida promedio ponderada
-- Incluye ONs, Prefinanciaciones bancarias (BBVA, Ciudad) y descubiertos (ICBC en ARS)
+- Incluye ONs y Prefinanciaciones bancarias (BBVA, Ciudad)
 
 ### `cresud_completo.csv`
 Schedule completo de Cresud con todos los flujos. Columnas: `AÑO, FY, Compañía, Sociedad, Clase, Concepto 2, Fecha Inicio, Fecha Fin, Tasa, Moneda, Monto Emitido, Outstanding, Intereses, Amortización, Capital`.
@@ -284,7 +284,7 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 
 **Comportamiento por moneda**:
 - **USD**: el descubierto se refleja en el maturity wall (barra "Deuda Bancaria" `#4A7A9B`), en la timeline de capital (badge "Desc."), en el pie chart (bucket HD) y en la tabla de detalle.
-- **ARS**: solo aparece en la tabla de detalle (columna Tipo = "Desc. ARS", monto en naranja). No afecta charts ni pie, igual que Cohen/ICBC en los CSVs originales.
+- **ARS**: solo aparece en la tabla de detalle (columna Tipo = "Desc. ARS", monto en naranja). No afecta charts ni pie.
 
 **Globals de estado**:
 - `_irsaCapRows` / `_cresudCapRows` — filas del CSV de capital cargadas al init
@@ -353,7 +353,7 @@ Los dos strips (IRSA y Cresud) están sincronizados: cambiar uno actualiza el ot
 - Cresud: `AÑO,FY,MONEDA,Periodo,Compañía,Sociedad,Concepto,Concepto 2,Fecha Inicio,Fecha Fin,Tasa,Moneda,Monto Webcast,Monto USD` — sin `TC`, tasa con punto decimal
 
 ### Lógica de filtrado CSV (maturity walls)
-- Se excluyen automáticamente filas donde `Moneda != 'USD'` (e.g. Cohen ARS, ICBC ARS)
+- Se excluyen automáticamente filas donde `Moneda != 'USD'`
 - Se excluyen automáticamente filas donde `Fecha Fin <= hoy` (vencimientos pasados desaparecen solos)
 - Agrupación FY: usa columna `FY` del CSV (e.g. "FY2026", "FY2027") — un instrumento puede tener `AÑO` distinto al año fiscal de su `FY`
 - Agrupación Calendario: usa columna `AÑO`
