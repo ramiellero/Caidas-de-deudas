@@ -30,18 +30,7 @@ Este archivo describe el contenido de esta carpeta para el agente de Copilot "Me
 
 ## Fórmulas
 
-**Tasa Promedio Ponderada** (sobre USD vigente):
-```
-Σ (Monto Webcast_i × Tasa_i) / Σ (Monto Webcast_i)
-```
-
-**Vida Promedio Ponderada**:
-```
-Σ (Monto Webcast_i × Años_i) / Σ (Monto Webcast_i)
-```
-donde `Años_i` = (Fecha Fin − hoy) / 365 (días exactos).
-
-El peso siempre es `Monto Webcast` (nominal), nunca el monto ajustado por brecha.
+Ver skill `skills/kpis-tasa-vida-promedio/SKILL.md` — Tasa y Vida Promedio Ponderada sobre USD vigente, peso siempre `Monto Webcast`.
 
 ## Grounding
 
