@@ -1,4 +1,6 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
+24-ago-26,Banco CMF – 20,USD Mep,Fija,"4,00%",12,"22,00",A1 (Fix SCR)
+21-ago-26,Pampa Energía – 28,USD Mep,Fija,"5,50%",48,"138,40",AAA (Fix SCR)
 18-ago-26,Credicuotas Consumo – XXIII,USD Mep,Fija,"6,50%",12,"24,80",A informar
 18-ago-26,YPF Luz – XXIV,USD Mep,Fija,"5,00%",36,"30,00",AAA (Fix SCR)
 14-ago-26,BONAR 2029 (AO29) [Reapertura],USD Mep,Fija,"6,00%",39,"50,00",SC
@@ -24,7 +26,7 @@
 24-jul-26,Banco BBVA – 48,USD Cable,Fija,"3,75%",18,"42,10",AAA (Fix SCR)
 24-jul-26,Banco BBVA – 49,USD Mep,Fija,"3,25%",12,"34,30",A1+ (Fix SCR)
 24-jul-26,Banco BBVA – 50,USD Mep,Fija,"5,00%",24,"58,70",AAA (Fix SCR)
-24-jul-26,Garantizada Jemersoft S.A.S. – I,USD Mep,Fija,"8,00%",18,"25,00",SC
+24-jul-26,Garantizada Jemersoft S.A.S. – I,USD Mep,Fija,"8,00%",18,"250000,00",SC
 17-jul-26,BONAR 2029 (AO29),USD Mep,Fija,"6,00%",39,"499,00",SC
 17-jul-26,BONAR 2029 (AO29),USD Mep,Fija,"6,00%",39,"150,00",SC
 17-jul-26,Rombo Cía. Financiera 67,ARS,TAMAR,"4,50%",15,"17063,70",AA (Fix SCR)
