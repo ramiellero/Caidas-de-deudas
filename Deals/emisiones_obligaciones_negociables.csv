@@ -1,5 +1,8 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
 24-ago-26,Banco CMF – 20,USD Mep,Fija,"4,00%",12,"22,00",A1 (Fix SCR)
+24-ago-26,Banco Hipotecario – 15,USD Mep,Fija,"3,50%",12,"26,00",A-1 (Moody´s) ML A-1 (Moody’s)
+24-ago-26,Mercado Pago – 7,ARS,Fija,"28,00%",3,"33014,40",A1+ (Fix SCR) /
+24-ago-26,Mercado Pago – 8,ARS,TAMAR,"4,25%",12,"53790,90",A1+ (Fix SCR) /
 21-ago-26,Pampa Energía – 28,USD Mep,Fija,"5,50%",48,"138,40",AAA (Fix SCR)
 18-ago-26,Credicuotas Consumo – XXIII,USD Mep,Fija,"6,50%",12,"24,80",A informar
 18-ago-26,YPF Luz – XXIV,USD Mep,Fija,"5,00%",36,"30,00",AAA (Fix SCR)
