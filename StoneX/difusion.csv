@@ -1,6 +1,8 @@
 ﻿FECHA LICITACIÓN;FECHA LIQUIDACIÓN;EMISOR;MONEDA;TASA;TASA/MARGEN;PLAZO (en meses);CALIFICACIÓN
-vie, 21 ago.;mar, 25 ago.;Lodiser S.A. (Apto;ARS;TAMAR+Mg;A licitar;24;SC
-lun, 24 ago.;mié, 26 ago.;Banco Comafi;USD Mep;Fija;A licitar;12;A informar
-lun, 24 ago.;mié, 26 ago.;Banco Comafi;USD Mep;Fija;A licitar;24;A informar
+lun, 24 ago.;mié, 26 ago.;Banco Comafi;USD Mep;Fija;A licitar;12;A1+ (Fix SCR)
+lun, 24 ago.;mié, 26 ago.;Banco Comafi;USD Mep;Fija;A licitar;24;A1+ (Fix SCR)
 mar, 25 ago.;vie, 28 ago.;Empresa Provincial de Energía de;USD Mep;Fija;A licitar;18;AA- (Moody’s) / AA
 mar, 25 ago.;vie, 28 ago.;Empresa Provincial de Energía de;UVA;Fija;A licitar;24;AA- (Moody’s) / AA
+mar, 25 ago.;jue, 27 ago.;DQD S.A.;USD Mep;Fija;A licitar;12;SC
+mar, 25 ago.;jue, 27 ago.;Demagro I;ARS;TAMAR+Mg;A licitar;24;SC
+mar, 25 ago.;jue, 27 ago.;Demagro I;USD Linked;Fija;A licitar;24;SC
