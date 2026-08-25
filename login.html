@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar sesión — Debt Profile IRSA &amp; Cresud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #F8FAFC;
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-card {
+    background: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+    padding: 44px 40px 36px;
+    width: 100%;
+    max-width: 380px;
+  }
+  .login-logo {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #94A3B8;
+    margin-bottom: 28px;
+    display: block;
+  }
+  .login-title { font-size: 20px; font-weight: 700; color: #0F172A; margin-bottom: 6px; }
+  .login-subtitle { font-size: 13px; color: #64748B; margin-bottom: 32px; }
+  .login-field { margin-bottom: 16px; }
+  .login-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #64748B;
+    margin-bottom: 6px;
+  }
+  .login-field input {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: 'Inter', system-ui, sans-serif;
+    border: 1px solid #CBD5E1;
+    border-radius: 7px;
+    color: #0F172A;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .login-field input:focus { border-color: #1D4B6E; box-shadow: 0 0 0 3px rgba(29,75,110,0.12); }
+  .login-field input.input-error { border-color: #DC2626; box-shadow: 0 0 0 3px rgba(220,38,38,0.10); }
+  .login-error {
+    display: none;
+    font-size: 12.5px;
+    color: #DC2626;
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 6px;
+    padding: 9px 13px;
+    margin-bottom: 16px;
+  }
+  .login-error.visible { display: block; }
+  .login-btn {
+    width: 100%;
+    padding: 11px;
+    background: #1D4B6E;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Inter', system-ui, sans-serif;
+    letter-spacing: 0.05em;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-top: 4px;
+  }
+  .login-btn:hover { background: #163A56; }
+  .login-btn:active { background: #0F2A3E; }
+  .login-btn:disabled { opacity: 0.6; cursor: default; }
+  .login-footer {
+    margin-top: 24px;
+    font-size: 11px;
+    color: #94A3B8;
+    text-align: center;
+    border-top: 1px solid #F1F5F9;
+    padding-top: 18px;
+  }
+  @media (max-width: 600px) {
+    .login-card { padding: 32px 20px 28px; margin: 16px; }
+    .login-title { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+  <div class="login-card">
+    <span class="login-logo">Debt Profile · IRSA &amp; Cresud</span>
+    <div class="login-title">Iniciar sesión</div>
+    <div class="login-subtitle">Ingresá tus credenciales para acceder al dashboard.</div>
+    <div id="login-error" class="login-error">Usuario o contraseña incorrectos.</div>
+    <form id="login-form" autocomplete="on">
+      <div class="login-field">
+        <label for="login-user">Usuario</label>
+        <input type="text" id="login-user" name="username" placeholder="usuario" autocomplete="username" required>
+      </div>
+      <div class="login-field">
+        <label for="login-pass">Contraseña</label>
+        <input type="password" id="login-pass" name="password" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="login-btn" id="login-btn">Ingresar</button>
+    </form>
+    <div class="login-footer">Acceso restringido — uso interno IRSA / Cresud</div>
+  </div>
+
+<script>
+  var form  = document.getElementById('login-form');
+  var userEl = document.getElementById('login-user');
+  var passEl = document.getElementById('login-pass');
+  var errEl  = document.getElementById('login-error');
+  var btnEl  = document.getElementById('login-btn');
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    [userEl, passEl].forEach(function (el) { el.classList.remove('input-error'); });
+    errEl.classList.remove('visible');
+    btnEl.disabled = true;
+    btnEl.textContent = 'Ingresando…';
+
+    fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user: userEl.value.trim(), password: passEl.value })
+    })
+      .then(function (resp) {
+        return resp.json().catch(function () { return {}; }).then(function (data) {
+          return { ok: resp.ok, data: data };
+        });
+      })
+      .then(function (result) {
+        if (result.ok && result.data && result.data.ok) {
+          var params = new URLSearchParams(window.location.search);
+          var next = params.get('next');
+          // Solo se permite redirigir a una ruta relativa propia (nunca a un dominio externo).
+          window.location.href = (next && next.charAt(0) === '/' && next.indexOf('//') !== 0) ? next : '/';
+          return;
+        }
+        userEl.classList.add('input-error');
+        passEl.classList.add('input-error');
+        passEl.value = '';
+        errEl.textContent = (result.data && result.data.message) || 'Usuario o contraseña incorrectos.';
+        errEl.classList.add('visible');
+        passEl.focus();
+      })
+      .catch(function () {
+        errEl.textContent = 'Error de conexión. Intentá de nuevo.';
+        errEl.classList.add('visible');
+      })
+      .finally(function () {
+        btnEl.disabled = false;
+        btnEl.textContent = 'Ingresar';
+      });
+  });
+</script>
+</body>
+</html>

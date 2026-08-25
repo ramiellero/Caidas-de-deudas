@@ -9,12 +9,16 @@ Los CSVs de datos están organizados en carpetas que reflejan las pestañas (tab
 
 ```
 index.html                              # Toda la aplicación: HTML + CSS + JS en un único archivo
+login.html                              # Página de login standalone — servida sin auth por middleware.js; ver sección "Autenticación"
+middleware.js                           # Vercel Edge Middleware — gate real de acceso (cookie de sesión) a todo excepto /login.html, /api/login, /api/logout
 CLAUDE.md                               # Este archivo
 vercel.json                             # Config de deploy Vercel
 openapi.json                            # Spec OpenAPI de la API Custody Issuers de BYMA (fuente de verdad del contrato de /holdings, usado por api/padron.js)
 
 api/
   padron.js                             # Vercel Serverless Function — proxy a la API de Custodia BYMA (holdings/tenedores). Ver sección "Padrón" abajo
+  login.js                              # Vercel Serverless Function — valida usuario/contraseña, emite cookie de sesión firmada. Ver sección "Autenticación"
+  logout.js                             # Vercel Serverless Function — limpia la cookie de sesión
 
 IRSA/
   irsa_deuda.csv                        # Vencimientos de capital de IRSA (fuente principal de KPIs IRSA)
@@ -744,9 +748,27 @@ Script PowerShell que llama a `/api/padron` (el mismo endpoint que usa el fronte
 - Ejemplo: el cierre de julio 2026 (último hábil = viernes 31/07) se descarga el miércoles 05/08/2026 (3er día hábil después).
 - No contempla feriados bursátiles (mismo alcance limitado que el resto del sistema — ver "Año fiscal" y otras convenciones de este documento) — si un feriado corre el cálculo, ajustar manualmente ese mes con `-BalanceDateOverride`.
 
-**Requisito de Firewall en Vercel**: `/api/padron` está detrás del "Attack Challenge" (bot protection) de Vercel por default, que bloquea con `403` cualquier cliente que no sea un navegador real (scripts, curl, PowerShell no pueden resolver el challenge JS). Se agregó una **Custom Rule** en el Firewall del proyecto (Vercel dashboard → Firewall → Configure) con condición `Path starts with /api/padron` y acción `Bypass`, para que este script (y cualquier otro caller no-browser) pueda pegarle al endpoint sin el checkpoint.
+**Requisito de Firewall en Vercel**: `/api/padron` (y ahora también `/api/login`, ver sección "Autenticación" abajo) están detrás del "Attack Challenge" (bot protection) de Vercel por default, que bloquea con `403` cualquier cliente que no sea un navegador real (scripts, curl, PowerShell no pueden resolver el challenge JS). Hay una **Custom Rule** en el Firewall del proyecto (Vercel dashboard → Firewall → Configure) con condición `Path starts with /api/` y acción `Bypass`, para que este script (y cualquier otro caller no-browser) pueda pegarle a `/api/login` y `/api/padron` sin el checkpoint. **Nota**: el bypass es a nivel bot-protection únicamente — desde que se agregó el login real (`middleware.js`), `/api/padron` sigue exigiendo una cookie de sesión válida además de esto; el bypass del firewall solo evita el challenge JS, no reemplaza la autenticación.
+
+**Requisito de credenciales del script**: desde que se agregó el login real, este script necesita autenticarse igual que un browser antes de poder pegarle a `/api/padron` — ver `Get-DashboardSession` en el script y la sección "Autenticación" abajo para cómo configurar `Padron\padron_auth.local.ps1` (gitignoreado) o las variables de entorno `PADRON_AUTH_USER` / `PADRON_AUTH_PASSWORD` en la máquina que corre Task Scheduler.
 
 **Requisito de la máquina**: la tarea corre en la PC del usuario (no hay servidor dedicado) — necesita estar prendida y con sesión iniciada a las 11:00 los días que corresponda para que Task Scheduler la ejecute.
+
+### Autenticación (login real, server-side)
+
+El dashboard antes tenía un login puramente cosmético: un overlay de JS que solo escondía el `<div>` del contenido en el browser, mientras `index.html` y todos los CSVs seguían siendo archivos estáticos servidos sin ningún control de acceso real (cualquiera con la URL directa los podía pedir). Se reemplazó por autenticación real a nivel de servidor:
+
+- **`middleware.js`** (raíz del repo) — Vercel Edge Middleware. Corre antes de servir *cualquier* archivo estático (`index.html`, los CSV de `IRSA/`, `Cresud/`, `SGR/`, `Padron/mapeo_clasificacion.csv`, etc.) y antes de invocar *cualquier* función en `/api/*`. Sin una cookie `auth` válida, no se llega a nada de eso — a diferencia del login viejo. Deja pasar sin auth únicamente `/login.html`, `/api/login` y `/api/logout` (`config.matcher`). Si el path pedido empieza con `/api/` y no hay sesión válida, responde `401` JSON en vez de redirigir (para no romper `fetch()` del frontend).
+- **`api/login.js`** — recibe `{ user, password }` por `POST`, valida contra `AUTH_USER` / `AUTH_PASSWORD_HASH` (usuario único, hash PBKDF2-HMAC-SHA256 con 210.000 iteraciones, formato `saltHex:hashHex` — elegido en vez de scrypt/bcrypt porque se genera con PowerShell puro, sin instalar Node localmente; ver comentario en el archivo para el comando exacto). Si es válido, emite la cookie `auth` (`HttpOnly; Secure; SameSite=Lax`, 7 días) firmada con HMAC-SHA256 (`SESSION_SECRET`) sobre `${AUTH_USER}.${expiry}`.
+- **`api/logout.js`** — limpia la cookie (`Max-Age=0`).
+- **`login.html`** — página de login standalone (mismo estilo visual que tenía el overlay viejo, CSS inline, sin dependencias externas salvo Google Fonts). Postea a `/api/login`; si hay `?next=/ruta` en la URL y es una ruta relativa propia (protección anti open-redirect), redirige ahí tras loguear.
+- La cookie se firma en `api/login.js` (Node runtime, módulo `crypto` de Node) y se verifica en `middleware.js` (Edge runtime, Web Crypto `crypto.subtle`) — es la misma lógica HMAC-SHA256 duplicada en los dos runtimes porque el Edge Runtime no tiene acceso al módulo `crypto` de Node.
+
+**Env vars requeridas en Vercel** (Settings → Environment Variables, no commitear): `AUTH_USER` (usuario único), `AUTH_PASSWORD_HASH` (formato `saltHex:hashHex`, generado localmente — ver comentario en `api/login.js`), `SESSION_SECRET` (string random largo, ej. `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`).
+
+**Scripts no-browser que pegan a `/api/padron`** (`Padron/descargar_padron_semanal.ps1`): ya no alcanza con el bypass del Firewall — ahora también necesitan loguearse. El script hace `POST /api/login` con `-SessionVariable` y reusa esa cookie (`-WebSession`) en los requests a `/api/padron`. Las credenciales se leen de `Padron/padron_auth.local.ps1` (gitignoreado, define `$PadronAuthUser` / `$PadronAuthPassword`) o, si no existe ese archivo, de las variables de entorno `PADRON_AUTH_USER` / `PADRON_AUTH_PASSWORD` en la máquina que corre Task Scheduler.
+
+**Cambiar la contraseña**: generar un hash nuevo con el comando del comentario en `api/login.js`, actualizar `AUTH_PASSWORD_HASH` en Vercel, y actualizar `padron_auth.local.ps1` (o la env var de la máquina) para que el script de descarga del padrón siga pudiendo loguearse.
 
 ## Qué es dinámico vs hardcodeado
 

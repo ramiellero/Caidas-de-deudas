@@ -48,6 +48,18 @@ $LogSuffix = if ($IssuerCode) { "_$IssuerCode" } else { '' }
 $LogSuffix += if ($Mensual) { '_Mensual' } else { '' }
 $LogFile = Join-Path $PSScriptRoot "descargar_padron_semanal$LogSuffix.log"
 
+# /api/padron ahora vive detras del login real del dashboard (middleware.js). Este script necesita
+# autenticarse igual que un browser: POST /api/login y reusar la cookie de sesion (via -WebSession)
+# en todos los requests siguientes. Las credenciales NO se commitean: se leen de
+# Padron\padron_auth.local.ps1 (gitignoreado) que define $PadronAuthUser / $PadronAuthPassword, o
+# si ese archivo no existe, de las variables de entorno PADRON_AUTH_USER / PADRON_AUTH_PASSWORD.
+$LocalAuthFile = Join-Path $PSScriptRoot 'padron_auth.local.ps1'
+if (Test-Path $LocalAuthFile) {
+    . $LocalAuthFile
+}
+if (-not $PadronAuthUser) { $PadronAuthUser = $env:PADRON_AUTH_USER }
+if (-not $PadronAuthPassword) { $PadronAuthPassword = $env:PADRON_AUTH_PASSWORD }
+
 # --- Helpers -------------------------------------------------------------------
 
 function Write-Log {
@@ -85,10 +97,25 @@ function Get-LastBusinessDayOfMonth {
     return $ultimoDiaCalendario
 }
 
+function Get-DashboardSession {
+    if (-not $PadronAuthUser -or -not $PadronAuthPassword) {
+        throw "Faltan credenciales: crea $LocalAuthFile con `$PadronAuthUser / `$PadronAuthPassword, o setea PADRON_AUTH_USER / PADRON_AUTH_PASSWORD como variables de entorno de la maquina."
+    }
+
+    $session = $null
+    $body = @{ user = $PadronAuthUser; password = $PadronAuthPassword } | ConvertTo-Json
+    $resp = Invoke-RestMethod -Uri "$BaseUrl/api/login" -Method Post -Body $body -ContentType 'application/json' -SessionVariable session -TimeoutSec 60
+    if (-not $resp.ok) {
+        throw "Login fallo: $($resp.message)"
+    }
+    return $session
+}
+
 function Get-PadronData {
     param(
         [string]$IssuerCode,
-        [string]$BalanceDate
+        [string]$BalanceDate,
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
 
     $uuid = $null
@@ -97,7 +124,7 @@ function Get-PadronData {
         if ($uuid) { $url += "&uuid=$uuid" }
 
         try {
-            $resp = Invoke-RestMethod -Uri $url -Method Get -TimeoutSec 150
+            $resp = Invoke-RestMethod -Uri $url -Method Get -WebSession $Session -TimeoutSec 150
         }
         catch {
             Write-Log "[$IssuerCode] Aviso: request fallo (intento $intento/$MaxIntentos): $($_.Exception.Message) - reintentando"
@@ -172,9 +199,18 @@ if ($Mensual -and -not $BalanceDateOverride) {
 $BalanceDate = if ($BalanceDateOverride) { $BalanceDateOverride } else { (Get-Date).AddDays(-3).ToString('yyyy-MM-dd') }
 Write-Log "=== Inicio descarga padron - balanceDate=$BalanceDate ==="
 
+try {
+    $session = Get-DashboardSession
+    Write-Log "Login OK"
+}
+catch {
+    Write-Log "ERROR de login, abortando: $($_.Exception.Message)"
+    exit 1
+}
+
 foreach ($issuer in $Issuers) {
     try {
-        $data = Get-PadronData -IssuerCode $issuer -BalanceDate $BalanceDate
+        $data = Get-PadronData -IssuerCode $issuer -BalanceDate $BalanceDate -Session $session
         Save-PadronCsv -IssuerCode $issuer -BalanceDate $BalanceDate -Data $data
     }
     catch {
