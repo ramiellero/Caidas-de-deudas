@@ -1,179 +1,179 @@
 Fecha,Ticker,Emisor,Industria,Ley,Moneda,Cupon,Vencimiento,Prox_Cupon,Precio_Clean,YTM,CY,DM,CX,WAL,Monto_Emitido,ADTV_ARS,Cierre_ARS,Accr_Int,VT,VR,Estructura,Frec_Cupon,Cuotas_Capital,Frec_Capital,Prox_Capital
-21-08-2026,PLC7O,PLUSPETROL S.A.,Petróleo & Gas,NY,,7.6,30-Sep-2037,30-Mar-2027,100.0,7.68,7.5,6.7,61.2,10.1,450.0,2080.32,160780.0,1.1,101.1,100.0,Tasa Fija,Semestral,3,Anual,30-Sep-2035
-21-08-2026,VSCXO,Vista Energy Argentina S.A.U.,Petróleo & Gas,NY,USD Int,7.9,08-Apr-2038,08-Oct-2026,103.3,7.55,7.4,6.9,66.9,11.0,500.0,1820.17,169140.0,3.0,103.0,100.0,Tasa Fija,Semestral,3,Anual,04-Aug-2036
-21-08-2026,MGCRO,Pampa Energía S.A.,Electricidad,NY,USD Int,7.8,14-Nov-2037,14-Nov-2026,101.0,7.75,7.5,7.0,69.5,11.2,450.0,1535.65,164000.0,2.2,102.2,100.0,Tasa Fija,Semestral,1,Vencimiento,14-Nov-2037
-21-08-2026,YM34O,YPF S.A.,Petróleo & Gas,NY,USD Int,8.3,17-Jan-2034,17-Jan-2027,105.4,7.30,7.8,4.8,31.4,6.5,1100.0,1319.41,169000.0,0.8,100.8,100.0,Tasa Fija,Semestral,3,Anual,17-Jan-2032
-21-08-2026,YMCXO,YPF S.A.,Petróleo & Gas,NY,USD Int,8.8,11-Sep-2031,11-Sep-2026,105.8,7.25,8.0,3.4,16.8,4.5,500.0,913.2,174900.0,4.0,104.0,100.0,Tasa Fija,Semestral,3,Anual,11-Sep-2029
-21-08-2026,TLCPO,TELECOM ARGENTINA S.A.,Telecomunicaciones,NY,USD Int,9.3,28-May-2033,28-Nov-2026,107.1,7.91,8.5,4.5,28.0,6.3,1000.0,784.33,174010.0,2.2,102.2,100.0,Tasa Fija,Semestral,2,Anual,28-May-2032
-21-08-2026,VSCVO,Vista Energy Argentina S.A.U.,Petróleo & Gas,NY,USD Int,8.5,10-Jun-2033,10-Dec-2026,106.5,7.21,7.8,4.3,26.1,5.8,500.0,719.31,172210.0,1.7,101.7,100.0,Tasa Fija,Semestral,3,Anual,10-Jun-2031
-21-08-2026,IRCPO,Inversiones y Representaciones S.A.,Real Estate,NY,USD Int,8.0,31-Mar-2035,30-Sep-2026,103.9,7.42,7.5,5.3,39.2,7.6,480.0,714.22,170500.0,3.2,103.2,100.0,Tasa Fija,Semestral,3,Anual,31-Mar-2033
-21-08-2026,TLCTO,TELECOM ARGENTINA S.A.,Telecomunicaciones,NY,USD Int,8.5,20-Jan-2036,20-Jan-2027,104.0,8.01,8.1,6.0,48.8,8.9,600.0,662.47,166650.0,0.8,100.8,100.0,Tasa Fija,Semestral,2,Anual,20-Jan-2035
-21-08-2026,TLCMO,TELECOM ARGENTINA S.A.,Telecomunicaciones,NY,USD Int,9.5,18-Jul-2031,18-Jan-2027,107.3,7.41,8.8,3.1,13.9,3.9,617.0,515.63,172210.0,1.0,101.0,100.0,Tasa Fija,Semestral,3,Anual,18-Jul-2029
-21-08-2026,DNCAO,EDENOR S.A.,Electricidad,NY,USD Int,9.5,28-Apr-2033,28-Oct-2026,99.6,9.82,9.3,4.0,22.6,5.7,550.0,438.83,163130.0,3.1,103.1,100.0,Tasa Fija,Semestral,3,Anual,28-Apr-2031
-21-08-2026,PN43O,Pan American Energy S.A.,Petróleo & Gas,NY,USD Int,7.8,15-Jan-2037,15-Jan-2027,103.3,7.38,7.4,6.4,55.4,9.4,375.0,437.92,165600.0,0.8,100.8,100.0,Tasa Fija,Semestral,3,Anual,15-Jan-2035
-21-08-2026,EAC4O,MSU GREEN ENERGY S.A.U.,Electricidad,NY,,9.8,16-Jun-2036,16-Dec-2026,98.3,10.29,9.7,5.4,42.3,8.8,400.0,417.77,159200.0,1.8,101.8,100.0,Tasa Fija,Semestral,3,Anual,16-Jun-2034
-21-08-2026,MGCOO,PAMPA ENERGIA S.A.,Electricidad,NY,USD Int,7.9,16-Dec-2034,16-Dec-2026,103.7,7.39,7.5,5.8,45.5,8.3,360.0,342.02,167290.0,1.5,101.5,100.0,Tasa Fija,Semestral,1,Vencimiento,16-Dec-2034
-21-08-2026,CP38O,Compañía General de Combustibles S.A.,Petróleo & Gas,NY,USD Int,11.9,28-Nov-2030,28-Nov-2026,102.8,11.30,11.2,3.0,13.5,4.3,300.0,311.63,168000.0,2.8,102.8,100.0,Tasa Fija,Semestral,1,Vencimiento,28-Nov-2030
-21-08-2026,YMCIO,YPF S.A.,Petróleo & Gas,NY,USD Int,9.0,30-Jun-2029,30-Dec-2026,104.6,5.93,8.5,1.4,4.0,1.6,748.0,300.04,144470.0,1.2,86.9,86.0,,Semestral,7,Semestral,30-Dec-2026
-21-08-2026,YM39O,YPF S.A.,Petróleo & Gas,NY,USD Int,8.8,22-Jul-2030,22-Jan-2027,106.5,6.91,8.1,3.2,14.0,3.9,58.0,286.99,170710.0,0.8,100.8,100.0,Tasa Fija,Semestral,1,Vencimiento,22-Jul-2030
-21-08-2026,YMCJO,YPF S.A.,Petróleo & Gas,NY,USD Int,7.0,30-Sep-2033,30-Sep-2026,99.9,7.15,6.8,4.3,25.5,5.6,576.0,261.71,163210.0,2.8,102.8,100.0,,Semestral,4,Anual,30-Sep-2030
-21-08-2026,TSC4O,TRANSPORTADORA DE GAS,Petróleo & Gas,NY,USD Int,7.8,20-Nov-2035,20-Nov-2026,103.1,7.40,7.4,6.2,53.3,9.2,500.0,252.43,167200.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,20-Nov-2035
-21-08-2026,PLC5O,PLUSPETROL S.A.,Petróleo & Gas,NY,USD Int,8.1,18-May-2031,18-Nov-2026,103.9,7.24,7.7,3.7,18.7,4.7,500.0,213.23,168740.0,2.2,102.2,100.0,Tasa Fija,Semestral,1,Vencimiento,18-May-2031
-21-08-2026,DNC7O,EDENOR S.A.,Electricidad,NY,USD Int,9.8,24-Oct-2030,24-Oct-2026,102.0,9.17,9.3,2.5,9.5,3.2,135.0,204.88,167400.0,3.3,103.3,100.0,Tasa Fija,Semestral,3,Anual,24-Oct-2028
-21-08-2026,RUCDO,MSU ENERGY S.A.,Electricidad,NY,USD Int,9.8,05-Dec-2030,05-Dec-2026,101.3,9.52,9.4,2.9,12.3,3.8,177.0,178.6,164500.0,2.1,102.1,100.0,Tasa Fija,Semestral,3,Anual,05-Dec-2028
-21-08-2026,TTCDO,Tecpetrol S.A.,Petróleo & Gas,NY,USD Int,7.6,03-Nov-2030,03-Nov-2026,102.0,7.17,7.3,3.4,15.6,4.2,750.0,170.74,165910.0,2.4,102.4,100.0,Tasa Fija,Semestral,1,Vencimiento,03-Nov-2030
-21-08-2026,MGCMO,PAMPA ENERGIA S.A.,Electricidad,NY,USD Int,8.0,10-Sep-2031,10-Sep-2026,103.9,7.11,7.4,3.9,20.6,5.0,410.0,148.88,171110.0,3.6,103.6,100.0,Tasa Fija,Semestral,1,Vencimiento,10-Sep-2031
-21-08-2026,TSC3O,Transportadora de Gas del Sur S.A.,Petróleo & Gas,NY,USD Int,8.5,24-Jul-2031,24-Jan-2027,106.2,7.08,7.9,3.9,20.1,4.9,490.0,135.37,170100.0,0.7,100.7,100.0,Tasa Fija,Semestral,1,Vencimiento,24-Jul-2031
-21-08-2026,VSCTO,Vista Energy Argentina S.A.U.,Petróleo & Gas,NY,USD Int,7.6,10-Dec-2035,10-Dec-2026,102.5,7.33,7.3,5.8,46.0,8.3,600.0,101.54,165550.0,1.6,101.6,100.0,Tasa Fija,Semestral,3,Anual,10-Dec-2033
-21-08-2026,YFCJO,YPF ENERGIA ELECTRICA,Electricidad,NY,USD Int,7.9,16-Oct-2032,16-Oct-2026,103.6,7.12,7.4,3.9,21.8,5.2,420.0,92.73,169300.0,2.8,102.8,100.0,Tasa Fija,Semestral,3,Anual,16-Oct-2030
-21-08-2026,BACGO,BANCO MACRO S.A.,Finanzas,NY,USD Int,8.0,23-Jun-2029,23-Dec-2026,102.3,7.20,7.7,2.4,8.3,2.8,530.0,86.71,164810.0,1.4,101.4,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Jun-2029
-21-08-2026,PNXCO,PAN AMERICAN ENERGY,Petróleo & Gas,NY,USD Int,8.5,30-Apr-2032,30-Oct-2026,106.6,6.89,7.8,3.6,18.7,4.7,400.0,83.35,174010.0,2.7,102.7,100.0,Tasa Fija,Semestral,3,Anual,30-Apr-2030
-21-08-2026,GN49O,GENNEIA S.A.,Electricidad,NY,USD Int,7.8,02-Dec-2033,02-Dec-2026,102.4,7.37,7.4,4.7,29.9,6.3,400.0,70.97,165750.0,1.8,101.8,100.0,Tasa Fija,Semestral,3,Anual,02-Dec-2031
-21-08-2026,BACHO,BANCO MACRO S.A.,Finanzas,NY,USD Int,8.0,28-Jan-2031,28-Jan-2027,103.9,7.07,7.7,3.6,17.2,4.4,400.0,66.62,166120.0,0.6,100.6,100.0,Tasa Fija,Semestral,1,Vencimiento,28-Jan-2031
-21-08-2026,BYCHO,BANCO DE GALICIA Y,Finanzas,NY,USD Int,7.8,10-Oct-2028,10-Oct-2026,102.7,6.40,7.3,1.8,5.3,2.1,325.0,65.38,168040.0,2.9,102.9,100.0,Tasa Fija,Semestral,1,Vencimiento,10-Oct-2028
-21-08-2026,ARC1O,AEROPUERTOS,Otros,NY,USD Int,8.5,01-Aug-2031,01-Nov-2026,117.5,1.45,7.2,2.4,9.9,2.6,273.0,63.72,163350.0,0.5,87.4,87.0,Tasa Fija,Trimestral,23,Trimestral,01-Nov-2026
-21-08-2026,PN38O,PAN AMERICAN ENERGY,Petróleo & Gas,NY,USD Int,6.5,11-Aug-2027,11-Feb-2027,101.1,5.33,6.4,0.9,1.7,1.0,120.0,58.79,161170.0,0.2,100.2,100.0,Tasa Fija,Semestral,1,Vencimiento,11-Aug-2027
-21-08-2026,IRCFO,Inversiones y Representaciones S.A.,Real Estate,NY,USD Int,8.8,22-Jun-2028,22-Dec-2026,102.7,6.87,8.4,1.3,3.1,1.5,171.0,51.97,78690.0,0.7,48.2,48.0,Tasa Fija,Semestral,5,Anual,22-Jun-2027
-21-08-2026,CAC5O,CAPEX S.A.,Electricidad,NY,USD Int,9.3,25-Aug-2028,25-Aug-2026,100.1,9.37,8.8,0.8,1.9,1.0,189.0,22.77,104000.0,2.9,65.4,62.0,Tasa Fija,Semestral,8,Semestral,25-Aug-2026
-21-08-2026,PNDCO,PAN AMERICAN ENERGY,Petróleo & Gas,NY,USD Int,9.1,30-Apr-2027,30-Oct-2026,102.6,2.98,8.6,0.4,0.6,0.4,300.0,22.45,67100.0,1.2,41.2,40.0,Tasa Fija,Semestral,5,Semestral,30-Oct-2026
-21-08-2026,TTCAO,TECPETROL S.A.,Petróleo & Gas,NY,USD Int,7.6,22-Jan-2033,22-Jan-2027,104.3,6.76,7.3,4.2,24.4,5.4,400.0,20.82,166940.0,0.7,100.7,100.0,Tasa Fija,Semestral,3,Anual,22-Jan-2031
-21-08-2026,OZC8O,EDEMSA S.A.,Electricidad,NY,,9.8,11-Jun-2033,11-Dec-2026,95.7,11.07,10.0,4.0,22.6,5.8,300.0,17.58,155100.0,2.0,102.0,100.0,Tasa Fija,Semestral,3,Anual,11-Jun-2031
-21-08-2026,YM43O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,5.5,14-Apr-2030,14-Jan-2027,95.2,7.17,5.7,3.1,12.9,3.6,122.0,424.69,154300.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,14-Apr-2030
-21-08-2026,PLC4O,Pluspetrol S.A.,Petróleo & Gas,Arg,USD Int,8.5,30-May-2032,30-Nov-2026,108.5,6.76,7.7,4.4,25.8,5.8,650.0,401.01,169520.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,30-May-2032
-21-08-2026,MCC3O,Pecom Servicios Energía S.A.U.,Petróleo & Gas,Arg,USD Mep,7.5,11-May-2030,11-Nov-2026,100.3,7.52,7.3,3.0,12.8,3.7,197.0,366.39,157000.0,2.1,102.1,100.0,Tasa Fija,Semestral,1,Vencimiento,11-May-2030
-21-08-2026,YM35O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,6.3,27-Feb-2027,27-Aug-2026,100.3,5.65,6.1,0.5,0.7,0.5,140.0,291.47,156000.0,1.5,101.5,100.0,Tasa Fija,Trimestral,1,Vencimiento,27-Feb-2027
-21-08-2026,VSCRO,Vista Energy Argentina S.A.U.,Petróleo & Gas,Arg,USD Mep,7.7,10-Oct-2031,10-Oct-2026,103.2,6.84,7.2,3.3,15.6,4.1,150.0,285.68,168670.0,2.8,102.8,100.0,Tasa Fija,Semestral,3,Anual,10-Oct-2029
-21-08-2026,PLC6O,PLUSPETROL S.A.,Petróleo & Gas,Arg,USD Mep,6.5,27-Feb-2029,27-Nov-2026,102.9,5.27,6.1,2.2,7.1,2.5,167.0,229.33,162600.0,3.2,103.2,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Feb-2029
-21-08-2026,PN35O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,7.0,27-Sep-2029,27-Sep-2026,104.5,5.40,6.5,2.6,9.9,3.1,177.0,227.13,164700.0,2.9,102.9,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Sep-2029
-21-08-2026,DNC5O,EDENOR S.A.,Electricidad,Arg,USD Mep,9.5,05-Aug-2028,05-Feb-2027,103.9,7.40,9.1,1.7,4.6,2.0,82.0,226.8,160000.0,0.5,100.5,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Aug-2028
-21-08-2026,YM38O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,7.5,22-Jul-2027,22-Oct-2026,102.7,4.56,7.3,0.8,1.5,0.9,250.0,209.59,158300.0,0.7,100.7,100.0,Tasa Fija,Trimestral,1,Vencimiento,22-Jul-2027
-21-08-2026,YM42O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,7.0,02-Mar-2029,02-Dec-2026,104.3,5.18,6.6,2.2,7.3,2.5,356.0,204.96,162350.0,1.6,101.6,100.0,Tasa Fija,Semestral,1,Vencimiento,02-Mar-2029
-21-08-2026,DNC3O,EDENOR S.A.,Electricidad,Arg,USD Mep,9.8,22-Nov-2026,22-Nov-2026,101.7,2.67,9.4,0.2,0.3,0.2,96.0,202.76,159600.0,2.5,102.5,100.0,Tasa Fija,Semestral,1,Vencimiento,22-Nov-2026
-21-08-2026,DNCBO,EDENOR S.A.,Electricidad,Arg,,7.5,03-Jul-2029,03-Jan-2027,94.9,9.82,7.8,2.4,8.1,2.9,313.0,195.14,152490.0,1.1,101.1,100.0,Tasa Fija,Semestral,1,Vencimiento,03-Jul-2029
-21-08-2026,T662O,TARJETA NARANJA S.A.U.,Finanzas,Arg,USD Mep,6.5,31-Aug-2026,31-Aug-2026,100.1,0.05,6.4,0.0,0.0,0.0,90.0,189.35,155800.0,1.6,101.6,100.0,Tasa Fija,Trimestral,1,Vencimiento,31-Aug-2026
-21-08-2026,BYCVO,BANCO DE GALICIA Y,Finanzas,Arg,USD Mep,6.3,31-Aug-2026,31-Aug-2026,100.2,-2.83,6.0,0.0,0.0,0.0,111.0,169.91,158500.0,3.3,103.3,100.0,Tasa Fija,Semestral,1,Vencimiento,31-Aug-2026
-21-08-2026,YM37O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,7.0,07-May-2027,07-Nov-2026,101.2,5.31,6.9,0.7,1.1,0.7,140.0,145.53,155570.0,0.3,100.3,100.0,Tasa Fija,Trimestral,1,Vencimiento,07-May-2027
-21-08-2026,PQCSO,PETROQUIMICA,Petróleo & Gas,Arg,USD Mep,8.0,17-Feb-2031,17-Feb-2027,101.8,7.66,7.8,3.6,17.4,4.5,65.0,112.38,156110.0,0.2,100.2,100.0,Tasa Fija,Semestral,1,Vencimiento,17-Feb-2031
-21-08-2026,PLC2O,Pluspetrol S.A.,Petróleo & Gas,Arg,USD Mep,7.5,27-Jan-2030,27-Oct-2026,104.5,6.07,7.0,2.9,11.5,3.4,123.0,101.35,164000.0,2.4,102.4,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Jan-2030
-21-08-2026,TTC9O,TECPETROL S.A.,Petróleo & Gas,Arg,USD Mep,6.8,24-Oct-2029,24-Oct-2026,103.1,5.76,6.4,2.7,10.3,3.2,81.0,94.83,161520.0,2.3,102.3,100.0,Tasa Fija,Semestral,1,Vencimiento,24-Oct-2029
-21-08-2026,LMS8O,Aluminio Argentino S.A.I.C.,Materiales Básicos,Arg,USD Cable,6.3,21-Mar-2027,21-Sep-2026,102.0,-0.09,6.1,0.3,0.5,0.3,100.0,85.33,123000.0,0.8,75.8,75.0,Tasa Fija,Trimestral,4,Trimestral,21-Sep-2026
-21-08-2026,PN36O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,7.3,13-Nov-2031,13-Nov-2026,105.6,6.05,6.7,4.1,23.1,5.2,78.0,82.54,165000.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,13-Nov-2031
-21-08-2026,YFCNO,YPF ENERGIA ELECTRICA S.A.,Electricidad,Arg,USD Mep,6.0,03-Oct-2026,03-Oct-2026,100.6,-0.00,5.8,0.1,0.1,0.1,80.0,80.44,157770.0,2.4,102.4,100.0,Tasa Fija,Semestral,1,Vencimiento,03-Oct-2026
-21-08-2026,LOC5O,LOMA NEGRA C.I.A.S.A,Construcción,Arg,USD Cable,8.0,24-Jul-2027,24-Jan-2027,102.8,4.89,7.7,0.9,1.6,0.9,113.0,79.66,158500.0,0.7,100.7,100.0,Tasa Fija,Semestral,1,Vencimiento,24-Jul-2027
-21-08-2026,VSCUO,Vista Energy Argentina S.A.U.,Petróleo & Gas,Arg,USD Cable,7.5,07-Mar-2030,07-Sep-2026,105.3,5.83,6.9,2.9,12.1,3.5,92.0,77.14,173280.0,3.5,103.5,100.0,Tasa Fija,Semestral,1,Vencimiento,07-Mar-2030
-21-08-2026,PFC2O,PROFERTIL S.A.,Petróleo & Gas,Arg,USD Mep,7.3,14-Jul-2027,14-Jan-2027,101.5,5.55,7.1,0.8,1.5,0.9,54.0,74.61,156730.0,0.8,100.8,100.0,Tasa Fija,Semestral,1,Vencimiento,14-Jul-2027
-21-08-2026,RC2CO,ARCOR S.A.I.C.,Alimentos y Bebidas,Arg,USD Mep,5.9,06-Oct-2026,06-Oct-2026,100.3,2.86,5.7,0.1,0.1,0.1,100.0,69.59,157170.0,2.3,102.3,100.0,Tasa Fija,Semestral,1,Vencimiento,06-Oct-2026
-21-08-2026,MGCQO,PAMPA ENERGIA S.A.,Electricidad,Arg,USD Cable,7.3,06-Aug-2028,06-Feb-2027,102.0,6.22,7.1,1.7,4.8,2.0,105.0,68.34,162750.0,0.4,100.4,100.0,Tasa Fija,Semestral,1,Vencimiento,06-Aug-2028
-21-08-2026,TLCQO,TELECOM ARGENTINA S.A.,Telecomunicaciones,Arg,USD Mep,7.5,02-Jul-2027,02-Oct-2026,103.3,3.56,7.2,0.8,1.4,0.9,50.0,65.03,159960.0,1.1,101.1,100.0,Tasa Fija,Trimestral,1,Vencimiento,02-Jul-2027
-21-08-2026,YMCYO,YPF S.A.,Petróleo & Gas,Arg,USD Mep,6.5,10-Oct-2028,10-Oct-2026,102.7,5.21,6.3,1.9,5.6,2.1,125.0,64.59,158610.0,0.8,100.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,10-Oct-2028
-21-08-2026,IRCOO,Inversiones y Representaciones S.A.,Real Estate,Arg,USD Mep,7.3,23-Oct-2029,23-Jan-2027,103.9,5.96,6.9,2.7,10.4,3.2,51.0,63.81,160120.0,0.6,100.6,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Oct-2029
-21-08-2026,OLC6O,OLEODUCTOS DEL VALLE S.A.,Petróleo & Gas,Arg,USD Mep,7.5,05-Dec-2029,05-Dec-2026,103.6,6.33,7.1,2.8,10.8,3.3,116.0,61.6,161300.0,1.6,101.6,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Dec-2029
-21-08-2026,YM41O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,6.0,08-Jan-2027,08-Oct-2026,100.2,5.61,5.9,0.4,0.5,0.4,99.0,61.24,154600.0,0.8,100.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,08-Jan-2027
-21-08-2026,TLCOO,TELECOM ARGENTINA S.A.,Telecomunicaciones,Arg,USD Mep,7.0,28-Nov-2028,28-Nov-2026,103.6,5.33,6.6,2.0,6.1,2.3,75.0,60.58,161300.0,1.7,101.7,100.0,Tasa Fija,Semestral,1,Vencimiento,28-Nov-2028
-21-08-2026,OZC3O,EDEMSA S.A.,Electricidad,Arg,USD Mep,8.0,29-Nov-2027,29-Nov-2026,101.8,6.59,7.7,1.1,2.4,1.3,16.0,59.2,158800.0,1.9,101.9,100.0,Tasa Fija,Semestral,1,Vencimiento,29-Nov-2027
-21-08-2026,TTCEO,Tecpetrol S.A.,Petróleo & Gas,Arg,USD Mep,5.5,21-May-2029,21-Nov-2026,100.1,5.52,5.4,2.4,8.4,2.7,100.0,57.7,155520.0,1.4,101.4,100.0,Tasa Fija,Semestral,1,Vencimiento,21-May-2029
-21-08-2026,CS47O,Cresud S.A.C.I.F.A.,Real Estate,Arg,USD Mep,7.0,15-Nov-2028,15-Nov-2026,103.1,5.55,6.7,2.0,5.9,2.2,64.0,56.76,160900.0,1.9,101.9,100.0,Tasa Fija,Semestral,1,Vencimiento,15-Nov-2028
-21-08-2026,CICAO,CNH INDUSTRIAL CAPITAL,Finanzas,Arg,USD Mep,8.0,03-Jun-2028,03-Dec-2026,101.9,6.94,7.7,1.6,4.0,1.8,56.0,55.64,158850.0,1.8,101.8,100.0,Tasa Fija,Semestral,1,Vencimiento,03-Jun-2028
-21-08-2026,RUCEO,MSU ENERGY S.A.,Electricidad,Arg,USD Mep,7.5,30-Oct-2027,30-Oct-2026,100.7,6.99,7.4,1.0,1.8,1.1,60.0,55.58,155000.0,0.5,100.5,100.0,Tasa Fija,Trimestral,2,Trimestral,30-Jul-2027
-21-08-2026,PN41O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,7.5,27-Aug-2029,27-Aug-2026,105.1,5.62,6.9,2.5,9.3,3.0,86.0,52.26,167000.0,3.7,103.7,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Aug-2029
-21-08-2026,PLC3O,Pluspetrol S.A.,Petróleo & Gas,Arg,USD Mep,7.3,30-Apr-2028,30-Jan-2027,103.9,4.87,6.9,1.5,3.9,1.7,91.0,51.46,159870.0,0.5,100.5,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Apr-2028
-21-08-2026,TTCBO,Tecpetrol S.A.,Petróleo & Gas,Arg,USD Mep,6.5,16-Oct-2027,16-Oct-2026,102.6,4.16,6.2,1.1,2.2,1.1,114.0,51.42,160730.0,2.3,102.3,100.0,Tasa Fija,Semestral,1,Vencimiento,16-Oct-2027
-21-08-2026,VSCPO,Vista Energy Argentina S.A.U.,Petróleo & Gas,Arg,USD Cable,8.0,03-May-2029,03-Nov-2026,102.2,6.83,7.6,1.7,4.8,1.9,47.0,49.63,166500.0,2.5,102.5,100.0,Tasa Fija,Semestral,4,Semestral,03-Nov-2027
-21-08-2026,LOC6O,LOMA NEGRA C.I.A.S.A,Construcción,Arg,USD Mep,6.5,23-Jan-2029,23-Jan-2027,101.6,5.84,6.4,2.1,6.8,2.4,60.0,48.41,156500.0,0.6,100.6,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Jan-2029
-21-08-2026,MGCTO,PAMPA ENERGIA S.A.,Electricidad,Arg,USD Mep,5.5,01-Apr-2029,01-Oct-2026,100.3,5.43,5.4,2.3,7.7,2.6,200.0,47.9,156980.0,2.2,102.2,100.0,Tasa Fija,Semestral,1,Vencimiento,01-Apr-2029
-21-08-2026,CS50O,Cresud S.A.C.I.F.A.,Real Estate,Arg,USD Mep,7.3,10-Mar-2029,10-Sep-2026,102.5,6.22,6.7,2.1,7.0,2.5,70.0,47.26,165000.0,5.1,105.1,100.0,Tasa Fija,Semestral,1,Vencimiento,10-Mar-2029
-21-08-2026,YM40O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,7.5,28-Aug-2028,28-Aug-2026,105.9,4.38,7.0,1.8,5.1,2.0,51.0,46.96,165190.0,1.8,101.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,28-Aug-2028
-21-08-2026,NPCDO,CENTRAL PUERTO S.A.,Electricidad,Arg,USD Mep,6.0,30-Apr-2030,30-Oct-2026,99.0,6.41,5.9,3.1,13.3,3.7,130.0,42.89,154500.0,1.9,101.9,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Apr-2030
-21-08-2026,OLC5O,OLEODUCTOS DEL VALLE S.A.,Petróleo & Gas,Arg,USD Mep,7.9,12-Jun-2028,12-Dec-2026,103.8,5.67,7.5,1.6,4.2,1.8,85.0,42.18,161500.0,1.6,101.6,100.0,Tasa Fija,Semestral,1,Vencimiento,12-Jun-2028
-21-08-2026,HJCIO,JOHN DEERE CREDIT,Finanzas,Arg,,7.5,27-May-2027,27-Nov-2026,101.3,5.75,7.3,0.7,1.2,0.8,68.0,38.47,158000.0,1.8,101.8,100.0,Tasa Fija,Semestral,1,Vencimiento,27-May-2027
-21-08-2026,WBS3O,BANCO MARIVA,Otros,Arg,,6.0,06-Jul-2027,30-Sep-2026,99.6,6.59,6.0,0.8,1.4,0.9,46.0,37.76,154000.0,0.9,100.9,100.0,Tasa Fija,Trimestral,1,Vencimiento,06-Jul-2027
-21-08-2026,RCCRO,ARCOR S.A.I.C.,Alimentos y Bebidas,Arg,USD Mep,6.8,09-May-2027,09-Nov-2026,101.1,5.22,6.5,0.7,1.1,0.7,68.0,36.94,157860.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,09-May-2027
-21-08-2026,HJCKO,JOHN DEERE CREDIT,Finanzas,Arg,,7.8,16-Jan-2029,16-Jan-2027,102.4,6.71,7.5,2.1,6.5,2.4,80.0,34.04,158200.0,0.8,100.8,100.0,Tasa Fija,Semestral,1,Vencimiento,16-Jan-2029
-21-08-2026,NPCCO,CENTRAL PUERTO S.A.,Electricidad,Arg,USD Cable,8.0,25-Aug-2029,25-Aug-2026,103.4,6.77,7.4,2.5,9.0,3.0,89.0,33.57,171000.0,4.0,104.0,100.0,Tasa Fija,Semestral,1,Vencimiento,25-Aug-2029
-21-08-2026,MGCNO,Pampa Energía S.A.,Electricidad,Arg,USD Mep,5.8,04-Oct-2028,04-Oct-2026,101.0,5.27,5.6,1.9,5.5,2.1,84.0,33.36,158230.0,2.2,102.2,100.0,Tasa Fija,Semestral,1,Vencimiento,04-Oct-2028
-21-08-2026,RC1CO,Arcor S.A.I.C.,Alimentos y Bebidas,Arg,USD Int,7.6,31-Jul-2033,31-Jan-2027,108.8,5.89,7.0,4.6,29.0,5.9,350.0,32.23,167490.0,0.5,100.5,100.0,Tasa Fija,Semestral,3,Anual,31-Jul-2031
-21-08-2026,CS49O,CRESUD S.A.C.I.F.A.,Real Estate,Arg,USD Mep,7.3,02-Sep-2027,02-Sep-2026,102.2,5.02,6.9,0.9,1.8,1.0,31.0,31.74,161910.0,3.5,103.5,100.0,Tasa Fija,Semestral,1,Vencimiento,02-Sep-2027
-21-08-2026,PLC1O,Pluspetrol S.A.,Petróleo & Gas,Arg,USD Mep,6.0,27-Jan-2028,27-Oct-2026,102.8,3.97,5.7,1.3,3.0,1.4,74.0,31.2,160490.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Jan-2028
-21-08-2026,OTS5O,OTAMERICA EBYTEM S.A.,Telecomunicaciones,Arg,USD Mep,6.7,23-Oct-2026,23-Oct-2026,101.3,-1.15,6.5,0.2,0.2,0.2,50.0,30.0,158600.0,2.2,102.2,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Oct-2026
-21-08-2026,CS48O,Cresud S.A.C.I.F.A.,Real Estate,Arg,USD Mep,8.0,11-Jul-2028,11-Jan-2027,104.1,5.71,7.6,1.7,4.5,1.9,44.0,29.26,161000.0,1.0,101.0,100.0,Tasa Fija,Semestral,1,Vencimiento,11-Jul-2028
-21-08-2026,XMC1O,MINERA EXAR S.A.,Materiales Básicos,Arg,USD Mep,8.0,11-Nov-2027,11-Nov-2026,102.5,5.29,7.6,0.9,1.7,1.0,50.0,27.02,160600.0,2.3,102.3,100.0,Tasa Fija,Semestral,2,Semestral,11-May-2027
-21-08-2026,TLCUO,TELECOM ARGENTINA S.A.,Telecomunicaciones,Arg,USD Mep,6.5,05-Mar-2029,05-Sep-2026,99.2,6.97,6.4,2.2,7.0,2.5,81.0,26.86,156610.0,3.1,103.1,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Mar-2029
-21-08-2026,YFCOO,YPF Energía Eléctrica S.A.,Electricidad,Arg,USD Mep,6.8,15-Dec-2028,15-Sep-2026,102.2,5.81,6.3,2.0,6.0,2.3,45.0,26.55,163810.0,4.7,104.7,100.0,Tasa Fija,Trimestral,1,Vencimiento,15-Dec-2028
-21-08-2026,VBC2O,BANCO DE VALORES S.A.,Finanzas,Arg,USD Mep,7.8,05-Sep-2026,05-Sep-2026,100.2,2.12,7.5,0.0,0.0,0.0,15.0,25.89,159000.0,3.6,103.6,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Sep-2026
-21-08-2026,MIC6O,MIRGOR S.A.C.I.F.I.A.,Otros,Arg,,8.0,28-May-2028,28-Aug-2026,100.6,7.79,7.8,1.5,3.8,1.8,22.0,25.69,157100.0,1.9,101.9,100.0,Tasa Fija,Trimestral,1,Vencimiento,28-May-2028
-21-08-2026,OT42O,OILTANKING EBYTEM S.A.,Petróleo & Gas,Arg,USD Mep,8.0,17-Jan-2030,17-Oct-2026,105.5,6.30,7.5,2.8,11.3,3.4,35.0,24.89,162960.0,0.8,100.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,17-Jan-2030
-21-08-2026,YFCKO,YPF ENERGIA ELECTRICA S.A.,Electricidad,Arg,,5.3,22-Nov-2026,22-Nov-2026,101.8,-2.10,5.2,0.3,0.3,0.2,49.0,24.85,156000.0,0.0,100.0,100.0,Tasa Fija,Trimestral,1,Vencimiento,22-Nov-2026
-21-08-2026,ZZC1O,CAMUZZI GAS PAMPEANA,Petróleo & Gas,Arg,USD Mep,8.0,21-Feb-2027,21-Feb-2027,100.8,6.36,7.9,0.5,0.7,0.5,70.0,24.21,154470.0,0.1,100.1,100.0,Tasa Fija,Semestral,1,Vencimiento,21-Feb-2027
-21-08-2026,CS52O,Cresud S.A.C.I.F.A.,Real Estate,Arg,USD Mep,4.8,30-Apr-2028,30-Jan-2027,97.8,6.21,4.8,1.5,3.8,1.7,41.0,23.64,152120.0,1.5,101.5,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Apr-2028
-21-08-2026,CACDO,CAPEX S.A.,Electricidad,Arg,USD Mep,8.3,04-Jun-2029,04-Dec-2026,102.6,7.30,7.9,2.3,8.0,2.8,71.0,23.53,160000.0,1.8,101.8,100.0,Tasa Fija,Semestral,1,Vencimiento,04-Jun-2029
-21-08-2026,CICBO,CNH Industrial Capital Argentina S.A.,Finanzas,Arg,USD Mep,7.5,09-Feb-2029,09-Feb-2027,101.4,6.96,7.4,2.1,6.8,2.5,47.0,23.5,155830.0,0.3,100.3,100.0,Tasa Fija,Semestral,1,Vencimiento,09-Feb-2029
-21-08-2026,MCC1O,PECOM SERVICIOS ENERGIA,Petróleo & Gas,Arg,USD Mep,7.9,10-Mar-2029,10-Sep-2026,101.8,7.21,7.5,2.1,6.9,2.5,30.0,23.12,161530.0,3.6,103.6,100.0,Tasa Fija,Semestral,1,Vencimiento,10-Mar-2029
-21-08-2026,CS51O,CRESUD S.A.C.I.F.A.,Real Estate,Arg,USD Mep,5.8,20-Jan-2027,20-Jan-2027,100.5,4.47,5.7,0.4,0.5,0.4,47.0,22.7,154790.0,0.5,100.5,100.0,Tasa Fija,Semestral,1,Vencimiento,20-Jan-2027
-21-08-2026,HJCJO,JOHN DEERE CREDIT,Finanzas,Arg,USD Mep,8.5,25-Jul-2027,25-Jan-2027,102.7,5.49,8.2,0.9,1.5,0.9,56.0,22.58,158400.0,0.7,100.7,100.0,Tasa Fija,Semestral,1,Vencimiento,25-Jul-2027
-21-08-2026,PN37O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,6.3,13-Nov-2028,13-Nov-2026,103.1,4.77,6.0,2.0,6.0,2.2,74.0,22.27,160700.0,1.8,101.8,100.0,Tasa Fija,Semestral,1,Vencimiento,13-Nov-2028
-21-08-2026,OLC7O,OLEODUCTOS DEL VALLE,Petróleo & Gas,Arg,USD Mep,6.9,23-Feb-2030,23-Feb-2027,103.9,5.72,6.6,3.0,12.4,3.5,184.0,20.96,159180.0,0.0,100.0,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Feb-2030
-21-08-2026,LUC5O,Luz de Tres Picos S.A.,Electricidad,Arg,USD Mep,8.0,26-Feb-2029,26-Aug-2026,101.7,7.31,7.6,2.1,6.7,2.5,50.0,19.91,162000.0,4.0,104.0,100.0,Tasa Fija,Semestral,1,Vencimiento,26-Feb-2029
-21-08-2026,CS53O,Cresud S.A.C.I.F.A.,Real Estate,Arg,USD Mep,6.3,30-Apr-2030,30-Jan-2027,101.6,5.82,6.0,3.1,13.4,3.7,23.0,19.61,158690.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Apr-2030
-21-08-2026,TTC8O,TECPETROL S.A.,Petróleo & Gas,Arg,USD Mep,5.0,24-Oct-2027,24-Oct-2026,101.7,3.46,4.8,1.1,2.3,1.2,67.0,19.2,158440.0,1.7,101.7,100.0,Tasa Fija,Semestral,1,Vencimiento,24-Oct-2027
-21-08-2026,PN42O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,6.0,17-Apr-2027,17-Oct-2026,102.1,2.66,5.8,0.6,1.0,0.6,56.0,19.02,159690.0,2.1,102.1,100.0,Tasa Fija,Semestral,1,Vencimiento,17-Apr-2027
-21-08-2026,MTC2O,MASTELLONE HERMANOS,Alimentos y Bebidas,Arg,,6.5,22-Jun-2028,22-Sep-2026,101.9,5.47,6.3,1.6,4.3,1.8,42.0,18.73,157880.0,1.1,101.1,100.0,Tasa Fija,Trimestral,1,Vencimiento,22-Jun-2028
-21-08-2026,PN34O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,5.0,27-Sep-2027,27-Sep-2026,101.7,3.33,4.8,1.0,2.1,1.1,23.0,17.87,158990.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Sep-2027
-21-08-2026,BYCXO,BANCO DE GALICIA Y,Finanzas,Arg,USD Mep,5.5,30-Dec-2026,30-Dec-2026,100.2,4.81,5.4,0.3,0.4,0.4,72.0,17.49,155000.0,0.9,100.9,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Dec-2026
-21-08-2026,SBC2O,Scania Credit Argentina S.A.U.,Finanzas,Arg,USD Mep,74.9,16-Jan-2029,16-Oct-2026,93.6,115.10,74.1,0.4,0.4,1.3,41.0,15.71,140800.0,7.2,98.2,91.0,Tasa Fija,Trimestral,11,Trimestral,16-Oct-2026
-21-08-2026,DEC2O,EDESA S.A.,Electricidad,Arg,USD Mep,8.5,24-Feb-2027,24-Feb-2027,102.5,3.42,8.3,0.5,0.7,0.5,22.0,15.6,157000.0,0.0,100.0,100.0,Tasa Fija,Semestral,1,Vencimiento,24-Feb-2027
-21-08-2026,SIC2O,SIDERSA S.A.,Otros,Arg,,7.5,19-Jun-2029,19-Dec-2026,101.2,7.14,7.3,2.4,8.3,2.8,50.0,15.1,157080.0,1.4,101.4,100.0,Tasa Fija,Semestral,1,Vencimiento,19-Jun-2029
-21-08-2026,BF39O,Banco BBVA Argentina S.A.,Finanzas,Arg,USD Mep,5.8,05-Dec-2026,05-Dec-2026,100.3,4.82,5.7,0.3,0.3,0.3,50.0,14.99,155500.0,1.3,101.3,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Dec-2026
-21-08-2026,LMS7O,ALUMINIO ARGENTINO,Materiales Básicos,Arg,USD Mep,7.0,12-Oct-2028,12-Oct-2026,100.6,6.54,6.9,1.0,2.4,1.1,138.0,13.98,121000.0,0.6,75.6,75.0,Tasa Fija,Trimestral,12,Trimestral,12-Oct-2026
-21-08-2026,AFCIO,Banco Comafi S.A.,Finanzas,Arg,USD Mep,6.5,07-Nov-2026,07-Nov-2026,100.4,4.36,6.4,0.2,0.2,0.2,38.0,13.69,156770.0,1.9,101.9,100.0,Tasa Fija,Semestral,1,Vencimiento,07-Nov-2026
-21-08-2026,IRCJO,Inversiones y Representaciones S.A.,Real Estate,Arg,USD Mep,7.0,28-Feb-2027,28-Aug-2026,100.5,6.02,6.7,0.5,0.7,0.5,21.0,13.51,159130.0,3.4,103.4,100.0,Tasa Fija,Semestral,1,Vencimiento,28-Feb-2027
-21-08-2026,OTS2O,OTAMERICA EBYTEM S.A.,Telecomunicaciones,Arg,USD Mep,7.0,24-Apr-2027,24-Oct-2026,101.3,5.16,6.9,0.6,1.0,0.7,33.0,13.14,156000.0,0.6,100.6,100.0,Tasa Fija,Trimestral,1,Vencimiento,24-Apr-2027
-21-08-2026,YFCLO,YPF Energía Eléctrica S.A.,Electricidad,Arg,USD Mep,6.8,22-Nov-2028,22-Nov-2026,103.1,5.35,6.5,2.0,6.1,2.2,51.0,12.97,158050.0,0.0,100.0,100.0,Tasa Fija,Trimestral,1,Vencimiento,22-Nov-2028
-21-08-2026,T641O,Tarjeta Naranja S.A.U.,Finanzas,Arg,USD Mep,7.9,30-Apr-2027,29-Oct-2026,102.2,4.64,7.7,0.6,1.0,0.7,33.0,12.96,157440.0,0.5,100.5,100.0,Tasa Fija,Trimestral,1,Vencimiento,30-Apr-2027
-21-08-2026,BYCWO,BANCO DE GALICIA Y,Finanzas,Arg,,6.0,30-Nov-2026,30-Nov-2026,101.1,1.61,5.8,0.3,0.3,0.3,144.0,12.82,157500.0,1.7,101.7,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Nov-2026
-21-08-2026,TLCWO,TELECOM ARGENTINA S.A.,Telecomunicaciones,Arg,,6.3,29-May-2030,29-Nov-2026,102.3,5.63,6.0,3.2,14.0,3.8,35.0,11.3,159000.0,1.5,101.5,100.0,Tasa Fija,Semestral,1,Vencimiento,29-May-2030
-21-08-2026,YMCZO,YPF S.A.,Petróleo & Gas,Arg,USD Mep,7.0,10-Oct-2028,10-Oct-2026,102.2,5.92,6.7,1.9,5.4,2.1,25.0,11.0,166750.0,2.6,102.6,100.0,Tasa Fija,Semestral,1,Vencimiento,10-Oct-2028
-21-08-2026,AERBO,AEROPUERTOS,Aerolíneas,Arg,USD Mep,5.5,15-Dec-2026,15-Dec-2026,100.2,4.79,5.4,0.3,0.4,0.3,29.0,10.05,154940.0,0.9,100.9,100.0,Tasa Fija,Semestral,1,Vencimiento,15-Dec-2026
-21-08-2026,IRCNO,Inversiones y Representaciones S.A.,Real Estate,Arg,USD Mep,5.8,23-Oct-2027,23-Jan-2027,101.3,4.66,5.6,1.1,2.2,1.2,16.0,9.57,155890.0,0.5,100.5,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Oct-2027
-21-08-2026,MIC3O,MIRGOR S.A.C.I.F.I.A.,Otros,Arg,USD Mep,8.5,11-Nov-2026,11-Nov-2026,100.8,4.83,8.4,0.2,0.2,0.2,20.0,9.44,154840.0,0.3,100.3,100.0,Tasa Fija,Trimestral,1,Vencimiento,11-Nov-2026
-21-08-2026,GYC4O,360 ENERGY SOLAR S.A.,Electricidad,Arg,USD Mep,8.0,30-Oct-2027,30-Oct-2026,99.7,8.54,8.0,1.0,2.1,1.2,22.0,8.97,153500.0,0.5,100.5,100.0,Tasa Fija,Trimestral,1,Vencimiento,30-Oct-2027
-21-08-2026,MSSFO,MSU S.A.,Agroindustria,Arg,USD Mep,7.5,23-Jul-2027,23-Jan-2027,100.5,7.07,7.4,0.8,1.5,0.9,34.0,8.88,154900.0,0.6,100.6,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Jul-2027
-21-08-2026,OTS6O,OTAMERICA EBYTEM S.A.,Telecomunicaciones,Arg,USD Mep,6.7,29-Jul-2029,29-Oct-2026,102.1,6.04,6.4,2.4,8.9,2.9,50.0,8.72,162410.0,3.8,103.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,29-Jul-2029
-21-08-2026,GN47O,GENNEIA S.A.,Electricidad,Arg,USD Mep,6.0,17-Oct-2028,17-Oct-2026,100.0,6.06,5.9,1.9,5.5,2.2,48.0,8.52,156450.0,2.1,102.1,100.0,Tasa Fija,Semestral,1,Vencimiento,17-Oct-2028
-21-08-2026,OTS3O,Otamérica Ebytem S.A.,Telecomunicaciones,Arg,USD Mep,7.0,01-Nov-2028,01-Nov-2026,103.1,5.57,6.8,1.9,5.8,2.2,36.0,8.3,158650.0,0.4,100.4,100.0,Tasa Fija,Trimestral,1,Vencimiento,01-Nov-2028
-21-08-2026,MIC4O,MIRGOR S.A.C.I.F.I.A.,Otros,Arg,USD Mep,8.3,29-Jul-2027,29-Oct-2026,100.4,8.01,8.2,0.8,1.5,0.9,26.0,7.82,154710.0,0.6,100.6,100.0,Tasa Fija,Trimestral,1,Vencimiento,29-Jul-2027
-21-08-2026,PUC2O,PETROLEOS,Petróleo & Gas,Arg,USD Mep,8.8,28-Aug-2027,28-Aug-2026,97.7,11.58,8.6,0.8,1.5,1.0,9.0,7.79,156000.0,4.2,104.2,100.0,Tasa Fija,Semestral,1,Vencimiento,28-Aug-2027
-21-08-2026,SBC1O,SCANIA CREDIT,Finanzas,Arg,USD Mep,8.8,05-Sep-2027,05-Sep-2026,101.4,6.13,8.5,0.5,0.8,0.5,11.0,7.52,114000.0,1.4,73.4,72.0,Tasa Fija,Trimestral,7,Trimestral,05-Sep-2026
-21-08-2026,YFCMO,YPF ENERGIA ELECTRICA,Electricidad,Arg,USD Mep,6.5,20-May-2027,20-Nov-2026,101.9,3.91,6.4,0.7,1.2,0.7,54.0,7.4,156230.0,0.1,100.1,100.0,Tasa Fija,Trimestral,1,Vencimiento,20-May-2027
-21-08-2026,MCC2O,Pecom Servicios Energía S.A.U.,Petróleo & Gas,Arg,USD Mep,7.5,02-Jun-2027,02-Dec-2026,101.7,5.21,7.2,0.7,1.2,0.8,30.0,7.37,158470.0,1.7,101.7,100.0,Tasa Fija,Semestral,1,Vencimiento,02-Jun-2027
-21-08-2026,GYC5O,360 ENERGY SOLAR S.A.,Electricidad,Arg,USD Mep,8.8,05-Sep-2027,05-Sep-2026,100.4,8.53,8.5,0.9,1.7,1.0,15.0,6.77,156800.0,1.9,101.9,100.0,Tasa Fija,Trimestral,1,Vencimiento,05-Sep-2027
-21-08-2026,FO4AO,FUTUROS Y,Finanzas,Arg,USD Mep,7.9,20-Jul-2028,20-Oct-2026,103.0,6.34,7.6,1.7,4.5,1.9,21.0,5.66,159000.0,0.8,100.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,20-Jul-2028
-21-08-2026,YFCGO,YPF ENERGIA ELECTRICA,Electricidad,Arg,USD Mep,6.0,27-Feb-2027,27-Aug-2026,99.5,7.25,5.9,0.5,0.7,0.5,11.0,5.5,154550.0,1.5,101.5,100.0,Tasa Fija,Trimestral,1,Vencimiento,27-Feb-2027
-21-08-2026,EMC1O,Compañía Mega S.A.,Petróleo & Gas,Arg,USD Mep,7.5,04-Jul-2027,04-Jan-2027,101.4,5.82,7.3,0.8,1.4,0.9,60.0,5.41,157000.0,1.0,101.0,100.0,Tasa Fija,Semestral,1,Vencimiento,04-Jul-2027
-21-08-2026,CP40O,COMPAÑIA GENERAL DE,Petróleo & Gas,Arg,,9.5,09-Mar-2028,09-Sep-2026,104.3,6.61,8.9,1.3,3.2,1.5,55.0,5.32,163000.0,2.0,102.0,100.0,Tasa Fija,Trimestral,1,Vencimiento,09-Mar-2028
-21-08-2026,SNSBO,S.A. SAN MIGUEL,Otros,Arg,USD Mep,9.5,14-Oct-2026,14-Oct-2026,75.6,712.40,12.4,0.0,0.0,0.1,18.0,5.22,117020.0,1.1,101.1,100.0,Tasa Fija,Trimestral,1,Vencimiento,14-Oct-2026
-21-08-2026,LDCGO,LEDESMA S.A.A.I.,Agroindustria,Arg,USD Mep,7.0,04-Oct-2027,04-Nov-2026,99.0,8.19,7.0,1.0,1.9,1.1,31.0,5.15,152220.0,0.4,100.4,100.0,Tasa Fija,Trimestral,1,Vencimiento,04-Oct-2027
-21-08-2026,CACBO,CAPEX S.A.,Electricidad,Arg,USD Mep,7.8,17-Jun-2028,17-Sep-2026,102.1,6.64,7.5,1.6,4.1,1.8,45.0,4.57,158650.0,1.4,101.4,100.0,Tasa Fija,Trimestral,1,Vencimiento,17-Jun-2028
-21-08-2026,HBCDO,Banco Hipotecario S.A.,Finanzas,Arg,USD Mep,6.0,20-Nov-2026,20-Nov-2026,101.1,1.14,5.8,0.2,0.3,0.2,34.0,4.54,157340.0,1.6,101.6,100.0,Tasa Fija,Semestral,1,Vencimiento,20-Nov-2026
-21-08-2026,BGC4O,Banco Patagonia S.A.,Finanzas,Arg,USD Mep,6.3,13-Nov-2026,13-Nov-2026,100.3,4.58,6.1,0.2,0.2,0.2,47.0,3.78,156400.0,1.8,101.8,100.0,Tasa Fija,Semestral,1,Vencimiento,13-Nov-2026
-21-08-2026,OT41O,OILTANKING EBYTEM S.A.,Petróleo & Gas,Arg,USD Mep,7.0,17-Jan-2028,17-Oct-2026,99.5,7.55,7.0,1.2,2.7,1.4,28.0,3.69,153550.0,0.7,100.7,100.0,Tasa Fija,Trimestral,1,Vencimiento,17-Jan-2028
-21-08-2026,VBC1O,BANCO DE VALORES S.A.,Finanzas,Arg,USD Mep,7.5,11-Mar-2027,11-Sep-2026,101.0,5.69,7.2,0.5,0.7,0.5,30.0,3.41,159920.0,3.4,103.4,100.0,Tasa Fija,Semestral,1,Vencimiento,11-Mar-2027
-21-08-2026,YFCIO,YPF Energía Eléctrica S.A.,Electricidad,Arg,USD Mep,5.9,13-Jun-2027,13-Sep-2026,102.8,1.74,5.7,0.7,1.1,0.7,10.0,3.07,159250.0,1.2,101.2,100.0,Tasa Fija,Trimestral,2,Trimestral,13-Mar-2027
-21-08-2026,PQCRO,PETROQUIMICA COMODORO,Petróleo & Gas,Arg,USD Mep,6.8,22-Oct-2028,22-Oct-2026,99.1,7.35,6.7,1.9,5.4,2.2,46.0,3.05,155200.0,2.3,102.3,100.0,Tasa Fija,Semestral,1,Vencimiento,22-Oct-2028
-21-08-2026,MSSGO,MSU S.A.,Agroindustria,Arg,USD Mep,8.5,16-Apr-2029,16-Oct-2026,102.0,7.74,8.1,2.2,7.2,2.6,35.0,2.69,161000.0,3.0,103.0,100.0,Tasa Fija,Semestral,1,Vencimiento,16-Apr-2029
-21-08-2026,PZCGO,PLAZA LOGISTICA S.R.L.,Construcción,Arg,USD Mep,7.0,04-Jun-2028,04-Sep-2026,99.4,7.56,6.9,1.5,3.9,1.8,10.0,1.85,154620.0,1.6,101.6,100.0,Tasa Fija,Trimestral,1,Vencimiento,04-Jun-2028
-21-08-2026,GN48O,GENNEIA S.A.,Electricidad,Arg,USD Mep,6.5,05-Mar-2028,05-Sep-2026,102.1,5.07,6.2,1.4,3.3,1.5,28.0,1.7,161170.0,3.1,103.1,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Mar-2028
-21-08-2026,GN43O,Genneia S.A.,Electricidad,Arg,USD Mep,6.3,08-Mar-2027,08-Sep-2026,100.9,4.54,6.1,0.5,0.7,0.5,21.0,1.69,156650.0,1.3,101.3,100.0,Tasa Fija,Trimestral,1,Vencimiento,08-Mar-2027
-21-08-2026,JNC6O,INVERSORA JURAMENTO S.A.,Construcción,Arg,USD Mep,9.0,03-Oct-2027,03-Oct-2026,101.0,8.11,8.6,1.0,1.9,1.1,30.0,1.38,160200.0,3.5,103.5,100.0,Tasa Fija,Semestral,1,Vencimiento,03-Oct-2027
-21-08-2026,SNABO,San Miguel A.G.I.C.I. y F.,Alimentos y Bebidas,Arg,USD Mep,9.0,29-Jul-2026,,0.0,,0.0,,,,7.0,1.32,106800.0,0.0,,0.0,Tasa Fija,Trimestral,1,Vencimiento,
-21-08-2026,PQCTO,PETROQUIMICA COMODORO,Petróleo & Gas,Arg,USD Mep,8.5,21-Jul-2028,21-Jan-2027,102.0,7.45,8.3,1.7,4.4,1.9,39.0,1.07,157510.0,0.8,100.8,100.0,Tasa Fija,Semestral,1,Vencimiento,21-Jul-2028
-21-08-2026,SNSDO,S.A. SAN MIGUEL,Otros,Arg,USD Mep,9.5,06-Feb-2027,06-Feb-2027,81.2,73.15,11.6,0.3,0.2,0.5,16.0,0.96,125000.0,0.5,100.5,100.0,Tasa Fija,Semestral,1,Vencimiento,06-Feb-2027
-21-08-2026,RZABO,RIZOBACTER,Agroindustria,Arg,USD Mep,8.0,28-Nov-2027,28-Aug-2026,65.3,55.21,12.0,0.8,1.1,1.3,24.0,0.89,102000.0,1.9,101.9,100.0,Tasa Fija,Trimestral,1,Vencimiento,28-Nov-2027
-21-08-2026,RZ9BO,Rizobacter Argentina S.A.,Agroindustria,Arg,,7.5,28-Jun-2026,,0.0,,0.0,,,,7.0,0.78,88380.0,0.0,,0.0,Tasa Fija,Trimestral,1,Vencimiento,
-21-08-2026,BPCSO,Banco Supervielle S.A.,Finanzas,Arg,USD Mep,6.8,26-Aug-2026,26-Aug-2026,99.4,194.24,6.6,0.0,0.0,0.0,16.0,0.76,157410.0,3.3,103.3,100.0,Tasa Fija,Semestral,1,Vencimiento,26-Aug-2026
-21-08-2026,VAC3P,VITALCAN S.A.,Agroindustria,Arg,USD Mep,9.5,27-Oct-2027,27-Oct-2026,95.9,13.30,9.8,1.2,2.5,1.4,3.0,0.34,148000.0,0.7,100.7,100.0,Tasa Fija,Trimestral,3,Trimestral,27-Oct-2027
-21-08-2026,HVS1O,HAVANNA S.A.,Alimentos y Bebidas,Arg,USD Mep,8.8,08-Jul-2028,08-Oct-2026,104.4,6.36,8.3,1.6,4.3,1.9,19.0,0.23,161690.0,1.1,101.1,100.0,Tasa Fija,Trimestral,1,Vencimiento,08-Jul-2028
-21-08-2026,CWC6O,CROWN POINT,Petróleo & Gas,Arg,USD Mep,9.5,30-Oct-2027,30-Oct-2026,93.8,21.05,9.8,0.5,0.8,0.7,22.0,0.22,148060.0,3.0,103.0,100.0,Tasa Fija,Semestral,3,Semestral,30-Oct-2026
-21-08-2026,VES2L,Ricardo Venturino S.A.,Construcción,Arg,USD Mep,6.0,28-Oct-2028,28-Oct-2026,98.5,7.26,6.0,1.3,3.1,1.4,7.0,0.17,151600.0,0.4,100.4,100.0,Tasa Fija,Trimestral,4,Semestral,28-Apr-2027
-21-08-2026,BPCTO,Banco Supervielle S.A.,Finanzas,Arg,USD Mep,8.0,26-Aug-2027,26-Aug-2026,100.1,8.04,7.7,0.9,1.6,1.0,5.0,0.16,159400.0,4.0,104.0,100.0,Tasa Fija,Semestral,1,Vencimiento,26-Aug-2027
-21-08-2026,BF44O,Banco BBVA Argentina S.A.,Finanzas,Arg,USD Mep,5.0,08-May-2028,08-Nov-2026,101.2,4.29,4.9,1.6,4.0,1.7,48.0,0.09,157290.0,1.5,101.5,100.0,Tasa Fija,Semestral,1,Vencimiento,08-May-2028
-21-08-2026,JNC5O,Inversora Juramento S.A.,Construcción,Arg,USD Mep,6.0,09-Oct-2026,09-Oct-2026,95.6,51.84,6.2,0.1,0.1,0.1,20.0,0.07,147500.0,0.8,100.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,09-Oct-2026
+24-08-2026,PLC7O,PLUSPETROL S.A.,Petróleo & Gas,NY,,7.6,30-Sep-2037,30-Mar-2027,99.4,7.77,7.5,6.6,60.9,10.1,450.0,1862.25,160800.0,1.2,101.2,100.0,Tasa Fija,Semestral,3,Anual,30-Sep-2035
+24-08-2026,VSCXO,Vista Energy Argentina S.A.U.,Petróleo & Gas,NY,USD Int,7.9,08-Apr-2038,08-Oct-2026,102.8,7.62,7.4,6.8,66.7,11.0,500.0,1718.07,169380.0,3.0,103.0,100.0,Tasa Fija,Semestral,3,Anual,04-Aug-2036
+24-08-2026,MGCRO,Pampa Energía S.A.,Electricidad,NY,USD Int,7.8,14-Nov-2037,14-Nov-2026,101.0,7.75,7.5,7.0,69.4,11.2,450.0,1467.65,165100.0,2.2,102.2,100.0,Tasa Fija,Semestral,1,Vencimiento,14-Nov-2037
+24-08-2026,YM34O,YPF S.A.,Petróleo & Gas,NY,USD Int,8.3,17-Jan-2034,17-Jan-2027,104.5,7.49,7.8,4.8,31.2,6.5,1100.0,1318.0,168600.0,0.9,100.9,100.0,Tasa Fija,Semestral,3,Anual,17-Jan-2032
+24-08-2026,YMCXO,YPF S.A.,Petróleo & Gas,NY,USD Int,8.8,11-Sep-2031,11-Sep-2026,104.9,7.52,8.0,3.4,16.7,4.4,500.0,897.29,174470.0,4.0,104.0,100.0,Tasa Fija,Semestral,3,Anual,11-Sep-2029
+24-08-2026,TLCPO,TELECOM ARGENTINA S.A.,Telecomunicaciones,NY,USD Int,9.3,28-May-2033,28-Nov-2026,107.8,7.75,8.4,4.5,28.1,6.3,1000.0,795.15,176370.0,2.2,102.2,100.0,Tasa Fija,Semestral,2,Anual,28-May-2032
+24-08-2026,VSCVO,Vista Energy Argentina S.A.U.,Petróleo & Gas,NY,USD Int,8.5,10-Jun-2033,10-Dec-2026,106.2,7.27,7.9,4.3,26.0,5.8,500.0,778.47,172900.0,1.8,101.8,100.0,Tasa Fija,Semestral,3,Anual,10-Jun-2031
+24-08-2026,IRCPO,Inversiones y Representaciones S.A.,Real Estate,NY,USD Int,8.0,31-Mar-2035,30-Sep-2026,103.5,7.50,7.5,5.3,39.0,7.6,480.0,747.82,170900.0,3.2,103.2,100.0,Tasa Fija,Semestral,3,Anual,31-Mar-2033
+24-08-2026,TLCTO,TELECOM ARGENTINA S.A.,Telecomunicaciones,NY,USD Int,8.5,20-Jan-2036,20-Jan-2027,104.0,8.00,8.1,6.0,48.8,8.9,600.0,650.9,167800.0,0.8,100.8,100.0,Tasa Fija,Semestral,2,Anual,20-Jan-2035
+24-08-2026,TLCMO,TELECOM ARGENTINA S.A.,Telecomunicaciones,NY,USD Int,9.5,18-Jul-2031,18-Jan-2027,106.8,7.56,8.8,3.1,13.9,3.9,617.0,498.68,172570.0,1.0,101.0,100.0,Tasa Fija,Semestral,3,Anual,18-Jul-2029
+24-08-2026,DNCAO,EDENOR S.A.,Electricidad,NY,USD Int,9.5,28-Apr-2033,28-Oct-2026,98.8,10.01,9.3,4.0,22.5,5.7,550.0,468.01,163000.0,3.1,103.1,100.0,Tasa Fija,Semestral,3,Anual,28-Apr-2031
+24-08-2026,PN43O,Pan American Energy S.A.,Petróleo & Gas,NY,USD Int,7.8,15-Jan-2037,15-Jan-2027,102.5,7.50,7.5,6.3,55.1,9.4,375.0,451.09,165390.0,0.9,100.9,100.0,Tasa Fija,Semestral,3,Anual,15-Jan-2035
+24-08-2026,EAC4O,MSU GREEN ENERGY S.A.U.,Electricidad,NY,,9.8,16-Jun-2036,16-Dec-2026,98.0,10.35,9.8,5.4,42.2,8.8,400.0,419.06,159740.0,1.9,101.9,100.0,Tasa Fija,Semestral,3,Anual,16-Jun-2034
+24-08-2026,MGCOO,PAMPA ENERGIA S.A.,Electricidad,NY,USD Int,7.9,16-Dec-2034,16-Dec-2026,103.6,7.41,7.5,5.8,45.5,8.3,360.0,331.7,168200.0,1.5,101.5,100.0,Tasa Fija,Semestral,1,Vencimiento,16-Dec-2034
+24-08-2026,CP38O,Compañía General de Combustibles S.A.,Petróleo & Gas,NY,USD Int,11.9,28-Nov-2030,28-Nov-2026,102.1,11.51,11.3,3.0,13.4,4.3,300.0,310.23,168050.0,2.9,102.9,100.0,Tasa Fija,Semestral,1,Vencimiento,28-Nov-2030
+24-08-2026,YMCIO,YPF S.A.,Petróleo & Gas,NY,USD Int,9.0,30-Jun-2029,30-Dec-2026,103.4,6.76,8.6,1.4,3.9,1.6,748.0,295.44,143740.0,1.2,86.9,86.0,,Semestral,7,Semestral,30-Dec-2026
+24-08-2026,YM39O,YPF S.A.,Petróleo & Gas,NY,USD Int,8.8,22-Jul-2030,22-Jan-2027,106.2,7.03,8.2,3.2,13.9,3.9,58.0,284.74,171210.0,0.8,100.8,100.0,Tasa Fija,Semestral,1,Vencimiento,22-Jul-2030
+24-08-2026,YMCJO,YPF S.A.,Petróleo & Gas,NY,USD Int,7.0,30-Sep-2033,30-Sep-2026,100.2,7.06,6.8,4.3,25.5,5.6,576.0,258.7,164900.0,2.8,102.8,100.0,,Semestral,4,Anual,30-Sep-2030
+24-08-2026,TSC4O,TRANSPORTADORA DE GAS,Petróleo & Gas,NY,USD Int,7.8,20-Nov-2035,20-Nov-2026,102.6,7.48,7.4,6.2,53.1,9.2,500.0,249.4,167470.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,20-Nov-2035
+24-08-2026,TTCDO,Tecpetrol S.A.,Petróleo & Gas,NY,USD Int,7.6,03-Nov-2030,03-Nov-2026,101.8,7.21,7.3,3.4,15.6,4.2,750.0,222.98,166830.0,2.4,102.4,100.0,Tasa Fija,Semestral,1,Vencimiento,03-Nov-2030
+24-08-2026,PLC5O,PLUSPETROL S.A.,Petróleo & Gas,NY,USD Int,8.1,18-May-2031,18-Nov-2026,103.3,7.41,7.7,3.7,18.7,4.7,500.0,209.83,168830.0,2.2,102.2,100.0,Tasa Fija,Semestral,1,Vencimiento,18-May-2031
+24-08-2026,DNC7O,EDENOR S.A.,Electricidad,NY,USD Int,9.8,24-Oct-2030,24-Oct-2026,101.9,9.21,9.3,2.5,9.4,3.2,135.0,201.87,168350.0,3.3,103.3,100.0,Tasa Fija,Semestral,3,Anual,24-Oct-2028
+24-08-2026,RUCDO,MSU ENERGY S.A.,Electricidad,NY,USD Int,9.8,05-Dec-2030,05-Dec-2026,101.4,9.48,9.4,2.9,12.3,3.8,177.0,193.75,165780.0,2.2,102.2,100.0,Tasa Fija,Semestral,3,Anual,05-Dec-2028
+24-08-2026,MGCMO,PAMPA ENERGIA S.A.,Electricidad,NY,USD Int,8.0,10-Sep-2031,10-Sep-2026,104.0,7.07,7.4,3.9,20.6,5.0,410.0,154.91,172500.0,3.6,103.6,100.0,Tasa Fija,Semestral,1,Vencimiento,10-Sep-2031
+24-08-2026,BACHO,BANCO MACRO S.A.,Finanzas,NY,USD Int,8.0,28-Jan-2031,28-Jan-2027,102.9,7.34,7.7,3.5,17.1,4.4,400.0,154.79,165640.0,0.6,100.6,100.0,Tasa Fija,Semestral,1,Vencimiento,28-Jan-2031
+24-08-2026,TSC3O,Transportadora de Gas del Sur S.A.,Petróleo & Gas,NY,USD Int,8.5,24-Jul-2031,24-Jan-2027,106.1,7.13,8.0,3.8,20.1,4.9,490.0,126.55,170940.0,0.7,100.7,100.0,Tasa Fija,Semestral,1,Vencimiento,24-Jul-2031
+24-08-2026,PNXCO,PAN AMERICAN ENERGY,Petróleo & Gas,NY,USD Int,8.5,30-Apr-2032,30-Oct-2026,106.6,6.89,7.8,3.6,18.7,4.7,400.0,101.84,175200.0,2.7,102.7,100.0,Tasa Fija,Semestral,3,Anual,30-Apr-2030
+24-08-2026,YFCJO,YPF ENERGIA ELECTRICA,Electricidad,NY,USD Int,7.9,16-Oct-2032,16-Oct-2026,102.7,7.34,7.5,3.9,21.7,5.2,420.0,95.56,168970.0,2.8,102.8,100.0,Tasa Fija,Semestral,3,Anual,16-Oct-2030
+24-08-2026,BACGO,BANCO MACRO S.A.,Finanzas,NY,USD Int,8.0,23-Jun-2029,23-Dec-2026,102.2,7.24,7.7,2.4,8.3,2.8,530.0,83.75,165730.0,1.4,101.4,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Jun-2029
+24-08-2026,VSCTO,Vista Energy Argentina S.A.U.,Petróleo & Gas,NY,USD Int,7.6,10-Dec-2035,10-Dec-2026,102.2,7.38,7.3,5.8,45.9,8.3,600.0,77.37,166140.0,1.6,101.6,100.0,Tasa Fija,Semestral,3,Anual,10-Dec-2033
+24-08-2026,ARC1O,AEROPUERTOS,Otros,NY,USD Int,8.5,01-Aug-2031,01-Nov-2026,117.1,1.58,7.2,2.3,9.8,2.6,273.0,63.44,163910.0,0.5,87.4,87.0,Tasa Fija,Trimestral,23,Trimestral,01-Nov-2026
+24-08-2026,GN49O,GENNEIA S.A.,Electricidad,NY,USD Int,7.8,02-Dec-2033,02-Dec-2026,102.2,7.42,7.4,4.7,29.8,6.3,400.0,59.79,166480.0,1.8,101.8,100.0,Tasa Fija,Semestral,3,Anual,02-Dec-2031
+24-08-2026,BYCHO,BANCO DE GALICIA Y,Finanzas,NY,USD Int,7.8,10-Oct-2028,10-Oct-2026,102.1,6.76,7.4,1.8,5.3,2.1,325.0,56.7,168040.0,2.9,102.9,100.0,Tasa Fija,Semestral,1,Vencimiento,10-Oct-2028
+24-08-2026,PN38O,PAN AMERICAN ENERGY,Petróleo & Gas,NY,USD Int,6.5,11-Aug-2027,11-Feb-2027,101.0,5.53,6.4,0.9,1.7,1.0,120.0,55.89,161940.0,0.3,100.3,100.0,Tasa Fija,Semestral,1,Vencimiento,11-Aug-2027
+24-08-2026,IRCFO,Inversiones y Representaciones S.A.,Real Estate,NY,USD Int,8.8,22-Jun-2028,22-Dec-2026,102.5,6.98,8.4,1.3,3.1,1.5,171.0,52.18,79090.0,0.7,48.2,48.0,Tasa Fija,Semestral,5,Anual,22-Jun-2027
+24-08-2026,OZC8O,EDEMSA S.A.,Electricidad,NY,,9.8,11-Jun-2033,11-Dec-2026,96.1,10.97,9.9,4.0,22.7,5.8,300.0,25.42,156800.0,2.0,102.0,100.0,Tasa Fija,Semestral,3,Anual,11-Jun-2031
+24-08-2026,CAC5O,CAPEX S.A.,Electricidad,NY,USD Int,9.3,25-Aug-2028,25-Feb-2027,102.3,7.37,9.0,1.1,2.6,1.3,189.0,22.81,81860.0,0.0,50.0,50.0,Tasa Fija,Semestral,8,Semestral,25-Feb-2027
+24-08-2026,PNDCO,PAN AMERICAN ENERGY,Petróleo & Gas,NY,USD Int,9.1,30-Apr-2027,30-Oct-2026,101.9,4.57,8.7,0.4,0.6,0.4,300.0,22.25,67100.0,1.2,41.2,40.0,Tasa Fija,Semestral,5,Semestral,30-Oct-2026
+24-08-2026,TTCAO,TECPETROL S.A.,Petróleo & Gas,NY,USD Int,7.6,22-Jan-2033,22-Jan-2027,100.7,7.58,7.5,4.2,23.9,5.4,400.0,21.74,162300.0,0.7,100.7,100.0,Tasa Fija,Semestral,3,Anual,22-Jan-2031
+24-08-2026,YM43O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,5.5,14-Apr-2030,14-Jan-2027,95.0,7.24,5.7,3.1,12.8,3.6,122.0,427.8,155000.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,14-Apr-2030
+24-08-2026,PLC4O,Pluspetrol S.A.,Petróleo & Gas,Arg,USD Int,8.5,30-May-2032,30-Nov-2026,108.7,6.73,7.7,4.4,25.8,5.8,650.0,398.71,170500.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,30-May-2032
+24-08-2026,MCC3O,Pecom Servicios Energía S.A.U.,Petróleo & Gas,Arg,USD Mep,7.5,11-May-2030,11-Nov-2026,100.5,7.48,7.3,3.0,12.8,3.7,197.0,349.45,157890.0,2.2,102.2,100.0,Tasa Fija,Semestral,1,Vencimiento,11-May-2030
+24-08-2026,YM35O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,6.3,27-Feb-2027,27-Aug-2026,100.4,5.51,6.1,0.5,0.7,0.5,140.0,307.17,156800.0,1.5,101.5,100.0,Tasa Fija,Trimestral,1,Vencimiento,27-Feb-2027
+24-08-2026,VSCRO,Vista Energy Argentina S.A.U.,Petróleo & Gas,Arg,USD Mep,7.7,10-Oct-2031,10-Oct-2026,102.3,7.08,7.3,3.3,15.5,4.1,150.0,290.74,168460.0,2.9,102.9,100.0,Tasa Fija,Semestral,3,Anual,10-Oct-2029
+24-08-2026,PLC6O,PLUSPETROL S.A.,Petróleo & Gas,Arg,USD Mep,6.5,27-Feb-2029,27-Nov-2026,102.3,5.50,6.2,2.2,7.1,2.5,167.0,229.82,162500.0,3.2,103.2,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Feb-2029
+24-08-2026,PN35O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,7.0,27-Sep-2029,27-Sep-2026,104.7,5.35,6.5,2.6,9.9,3.1,177.0,227.21,165690.0,2.9,102.9,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Sep-2029
+24-08-2026,DNC5O,EDENOR S.A.,Electricidad,Arg,USD Mep,9.5,05-Aug-2028,05-Feb-2027,102.8,8.03,9.2,1.7,4.5,1.9,82.0,210.32,159010.0,0.5,100.5,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Aug-2028
+24-08-2026,DNC3O,EDENOR S.A.,Electricidad,Arg,USD Mep,9.8,22-Nov-2026,22-Nov-2026,100.9,5.67,9.4,0.2,0.3,0.2,96.0,203.42,159180.0,2.5,102.5,100.0,Tasa Fija,Semestral,1,Vencimiento,22-Nov-2026
+24-08-2026,YM38O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,7.5,22-Jul-2027,22-Oct-2026,103.4,3.72,7.2,0.8,1.6,0.9,250.0,197.73,160140.0,0.7,100.7,100.0,Tasa Fija,Trimestral,1,Vencimiento,22-Jul-2027
+24-08-2026,YM42O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,7.0,02-Mar-2029,02-Dec-2026,103.5,5.52,6.7,2.2,7.2,2.5,356.0,197.39,161850.0,1.6,101.6,100.0,Tasa Fija,Semestral,1,Vencimiento,02-Mar-2029
+24-08-2026,DNCBO,EDENOR S.A.,Electricidad,Arg,,7.5,03-Jul-2029,03-Jan-2027,94.7,9.93,7.8,2.4,8.1,2.9,313.0,195.48,153100.0,1.1,101.1,100.0,Tasa Fija,Semestral,1,Vencimiento,03-Jul-2029
+24-08-2026,T662O,TARJETA NARANJA S.A.U.,Finanzas,Arg,USD Mep,6.5,31-Aug-2026,31-Aug-2026,100.6,-26.25,6.4,0.0,0.0,0.0,90.0,187.25,157260.0,1.6,101.6,100.0,Tasa Fija,Trimestral,1,Vencimiento,31-Aug-2026
+24-08-2026,BYCVO,BANCO DE GALICIA Y,Finanzas,Arg,USD Mep,6.3,31-Aug-2026,31-Aug-2026,99.8,17.33,6.1,0.0,0.0,0.0,111.0,173.38,158680.0,3.3,103.3,100.0,Tasa Fija,Semestral,1,Vencimiento,31-Aug-2026
+24-08-2026,YM37O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,7.0,07-May-2027,07-Nov-2026,102.1,3.93,6.8,0.7,1.1,0.7,140.0,133.48,157690.0,0.4,100.4,100.0,Tasa Fija,Trimestral,1,Vencimiento,07-May-2027
+24-08-2026,PQCSO,PETROQUIMICA,Petróleo & Gas,Arg,USD Mep,8.0,17-Feb-2031,17-Feb-2027,101.7,7.66,7.8,3.6,17.4,4.5,65.0,110.36,156790.0,0.2,100.2,100.0,Tasa Fija,Semestral,1,Vencimiento,17-Feb-2031
+24-08-2026,PLC2O,Pluspetrol S.A.,Petróleo & Gas,Arg,USD Mep,7.5,27-Jan-2030,27-Oct-2026,105.5,5.74,6.9,2.9,11.6,3.4,123.0,101.07,166280.0,2.5,102.5,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Jan-2030
+24-08-2026,TTC9O,TECPETROL S.A.,Petróleo & Gas,Arg,USD Mep,6.8,24-Oct-2029,24-Oct-2026,103.6,5.58,6.4,2.7,10.4,3.2,81.0,98.57,163020.0,2.3,102.3,100.0,Tasa Fija,Semestral,1,Vencimiento,24-Oct-2029
+24-08-2026,LMS8O,Aluminio Argentino S.A.I.C.,Materiales Básicos,Arg,USD Cable,6.3,21-Mar-2027,21-Sep-2026,101.2,2.45,6.1,0.3,0.4,0.3,100.0,92.9,122800.0,0.8,75.8,75.0,Tasa Fija,Trimestral,4,Trimestral,21-Sep-2026
+24-08-2026,VSCUO,Vista Energy Argentina S.A.U.,Petróleo & Gas,Arg,USD Cable,7.5,07-Mar-2030,07-Sep-2026,102.8,6.67,7.0,2.9,11.8,3.5,92.0,92.77,170260.0,3.5,103.5,100.0,Tasa Fija,Semestral,1,Vencimiento,07-Mar-2030
+24-08-2026,PN36O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,7.3,13-Nov-2031,13-Nov-2026,106.5,5.83,6.7,4.1,23.2,5.2,78.0,85.25,167200.0,2.1,102.1,100.0,Tasa Fija,Semestral,1,Vencimiento,13-Nov-2031
+24-08-2026,YFCNO,YPF ENERGIA ELECTRICA S.A.,Electricidad,Arg,USD Mep,6.0,03-Oct-2026,03-Oct-2026,100.3,3.01,5.8,0.1,0.1,0.1,80.0,82.69,157950.0,2.4,102.4,100.0,Tasa Fija,Semestral,1,Vencimiento,03-Oct-2026
+24-08-2026,LOC5O,LOMA NEGRA C.I.A.S.A,Construcción,Arg,USD Cable,8.0,24-Jul-2027,24-Jan-2027,102.7,5.00,7.7,0.9,1.5,0.9,113.0,80.83,159060.0,0.7,100.7,100.0,Tasa Fija,Semestral,1,Vencimiento,24-Jul-2027
+24-08-2026,PFC2O,PROFERTIL S.A.,Petróleo & Gas,Arg,USD Mep,7.3,14-Jul-2027,14-Jan-2027,101.9,5.01,7.1,0.8,1.5,0.9,54.0,74.72,158130.0,0.8,100.8,100.0,Tasa Fija,Semestral,1,Vencimiento,14-Jul-2027
+24-08-2026,RC2CO,ARCOR S.A.I.C.,Alimentos y Bebidas,Arg,USD Mep,5.9,06-Oct-2026,06-Oct-2026,100.2,3.89,5.8,0.1,0.1,0.1,100.0,69.88,157680.0,2.3,102.3,100.0,Tasa Fija,Semestral,1,Vencimiento,06-Oct-2026
+24-08-2026,YMCYO,YPF S.A.,Petróleo & Gas,Arg,USD Mep,6.5,10-Oct-2028,10-Oct-2026,103.1,5.04,6.3,1.9,5.6,2.1,125.0,66.64,159840.0,0.8,100.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,10-Oct-2028
+24-08-2026,CICAO,CNH INDUSTRIAL CAPITAL,Finanzas,Arg,USD Mep,8.0,03-Jun-2028,03-Dec-2026,101.8,6.96,7.7,1.6,4.0,1.8,56.0,65.97,159510.0,1.8,101.8,100.0,Tasa Fija,Semestral,1,Vencimiento,03-Jun-2028
+24-08-2026,MGCQO,PAMPA ENERGIA S.A.,Electricidad,Arg,USD Cable,7.3,06-Aug-2028,06-Feb-2027,102.1,6.18,7.1,1.7,4.8,2.0,105.0,64.35,163930.0,0.4,100.4,100.0,Tasa Fija,Semestral,1,Vencimiento,06-Aug-2028
+24-08-2026,TLCQO,TELECOM ARGENTINA S.A.,Telecomunicaciones,Arg,USD Mep,7.5,02-Jul-2027,02-Oct-2026,103.3,3.59,7.2,0.8,1.4,0.9,50.0,64.16,160630.0,1.1,101.1,100.0,Tasa Fija,Trimestral,1,Vencimiento,02-Jul-2027
+24-08-2026,IRCOO,Inversiones y Representaciones S.A.,Real Estate,Arg,USD Mep,7.3,23-Oct-2029,23-Jan-2027,104.0,5.90,6.9,2.7,10.4,3.2,51.0,62.61,161090.0,0.6,100.6,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Oct-2029
+24-08-2026,TTCEO,Tecpetrol S.A.,Petróleo & Gas,Arg,USD Mep,5.5,21-May-2029,21-Nov-2026,100.3,5.45,5.4,2.4,8.4,2.7,100.0,62.42,156500.0,1.4,101.4,100.0,Tasa Fija,Semestral,1,Vencimiento,21-May-2029
+24-08-2026,YM41O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,6.0,08-Jan-2027,08-Oct-2026,100.5,4.68,5.9,0.4,0.5,0.4,99.0,60.45,155800.0,0.8,100.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,08-Jan-2027
+24-08-2026,TLCOO,TELECOM ARGENTINA S.A.,Telecomunicaciones,Arg,USD Mep,7.0,28-Nov-2028,28-Nov-2026,103.6,5.33,6.6,2.0,6.1,2.3,75.0,60.4,162000.0,1.7,101.7,100.0,Tasa Fija,Semestral,1,Vencimiento,28-Nov-2028
+24-08-2026,VSCPO,Vista Energy Argentina S.A.U.,Petróleo & Gas,Arg,USD Cable,8.0,03-May-2029,03-Nov-2026,102.2,6.83,7.6,1.7,4.8,1.9,47.0,60.05,167600.0,2.5,102.5,100.0,Tasa Fija,Semestral,4,Semestral,03-Nov-2027
+24-08-2026,CS47O,Cresud S.A.C.I.F.A.,Real Estate,Arg,USD Mep,7.0,15-Nov-2028,15-Nov-2026,102.7,5.73,6.7,2.0,5.9,2.2,64.0,58.25,161040.0,1.9,101.9,100.0,Tasa Fija,Semestral,1,Vencimiento,15-Nov-2028
+24-08-2026,RUCEO,MSU ENERGY S.A.,Electricidad,Arg,USD Mep,7.5,30-Oct-2027,30-Oct-2026,101.0,6.66,7.4,1.0,1.8,1.1,60.0,56.77,156200.0,0.5,100.5,100.0,Tasa Fija,Trimestral,2,Trimestral,30-Jul-2027
+24-08-2026,OLC6O,OLEODUCTOS DEL VALLE S.A.,Petróleo & Gas,Arg,USD Mep,7.5,05-Dec-2029,05-Dec-2026,104.0,6.18,7.1,2.8,10.8,3.3,116.0,54.21,162700.0,1.7,101.7,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Dec-2029
+24-08-2026,OZC3O,EDEMSA S.A.,Electricidad,Arg,USD Mep,8.0,29-Nov-2027,29-Nov-2026,101.5,6.82,7.7,1.1,2.4,1.3,16.0,52.16,159100.0,1.9,101.9,100.0,Tasa Fija,Semestral,1,Vencimiento,29-Nov-2027
+24-08-2026,PN41O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,7.5,27-Aug-2029,27-Aug-2026,105.6,5.44,6.8,2.5,9.4,3.0,86.0,51.83,168510.0,3.7,103.7,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Aug-2029
+24-08-2026,TTCBO,Tecpetrol S.A.,Petróleo & Gas,Arg,USD Mep,6.5,16-Oct-2027,16-Oct-2026,102.3,4.37,6.2,1.1,2.1,1.1,114.0,51.4,161100.0,2.3,102.3,100.0,Tasa Fija,Semestral,1,Vencimiento,16-Oct-2027
+24-08-2026,PLC3O,Pluspetrol S.A.,Petróleo & Gas,Arg,USD Mep,7.3,30-Apr-2028,30-Jan-2027,103.7,4.99,7.0,1.5,3.9,1.7,91.0,50.27,160300.0,0.5,100.5,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Apr-2028
+24-08-2026,LOC6O,LOMA NEGRA C.I.A.S.A,Construcción,Arg,USD Mep,6.5,23-Jan-2029,23-Jan-2027,101.4,5.93,6.4,2.1,6.8,2.4,60.0,49.14,156900.0,0.6,100.6,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Jan-2029
+24-08-2026,MGCTO,PAMPA ENERGIA S.A.,Electricidad,Arg,USD Mep,5.5,01-Apr-2029,01-Oct-2026,100.6,5.28,5.3,2.3,7.7,2.6,200.0,48.61,158220.0,2.2,102.2,100.0,Tasa Fija,Semestral,1,Vencimiento,01-Apr-2029
+24-08-2026,CS50O,Cresud S.A.C.I.F.A.,Real Estate,Arg,USD Mep,7.3,10-Mar-2029,10-Sep-2026,102.4,6.26,6.7,2.1,6.9,2.5,70.0,47.71,165580.0,5.1,105.1,100.0,Tasa Fija,Semestral,1,Vencimiento,10-Mar-2029
+24-08-2026,YM40O,YPF S.A.,Petróleo & Gas,Arg,USD Mep,7.5,28-Aug-2028,28-Aug-2026,104.6,5.11,7.0,1.8,5.0,2.0,51.0,46.81,163800.0,1.8,101.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,28-Aug-2028
+24-08-2026,NPCDO,CENTRAL PUERTO S.A.,Electricidad,Arg,USD Mep,6.0,30-Apr-2030,30-Oct-2026,99.5,6.25,5.9,3.1,13.3,3.7,130.0,44.12,156000.0,1.9,101.9,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Apr-2030
+24-08-2026,OLC5O,OLEODUCTOS DEL VALLE S.A.,Petróleo & Gas,Arg,USD Mep,7.9,12-Jun-2028,12-Dec-2026,106.2,4.24,7.3,1.6,4.3,1.8,85.0,43.2,166000.0,1.6,101.6,100.0,Tasa Fija,Semestral,1,Vencimiento,12-Jun-2028
+24-08-2026,NPCCO,CENTRAL PUERTO S.A.,Electricidad,Arg,USD Cable,8.0,25-Aug-2029,25-Feb-2027,102.9,7.02,7.8,2.6,9.3,3.0,89.0,36.63,164660.0,0.0,100.0,100.0,Tasa Fija,Semestral,1,Vencimiento,25-Aug-2029
+24-08-2026,RCCRO,ARCOR S.A.I.C.,Alimentos y Bebidas,Arg,USD Mep,6.8,09-May-2027,09-Nov-2026,101.5,4.61,6.5,0.7,1.1,0.7,68.0,36.07,159200.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,09-May-2027
+24-08-2026,HJCIO,JOHN DEERE CREDIT,Finanzas,Arg,,7.5,27-May-2027,27-Nov-2026,101.2,5.85,7.3,0.7,1.1,0.8,68.0,34.76,158600.0,1.8,101.8,100.0,Tasa Fija,Semestral,1,Vencimiento,27-May-2027
+24-08-2026,CS49O,CRESUD S.A.C.I.F.A.,Real Estate,Arg,USD Mep,7.3,02-Sep-2027,02-Sep-2026,101.7,5.51,6.9,0.9,1.8,1.0,31.0,33.98,161900.0,3.5,103.5,100.0,Tasa Fija,Semestral,1,Vencimiento,02-Sep-2027
+24-08-2026,HJCKO,JOHN DEERE CREDIT,Finanzas,Arg,,7.8,16-Jan-2029,16-Jan-2027,103.1,6.38,7.5,2.1,6.5,2.4,80.0,33.5,160000.0,0.8,100.8,100.0,Tasa Fija,Semestral,1,Vencimiento,16-Jan-2029
+24-08-2026,MGCNO,Pampa Energía S.A.,Electricidad,Arg,USD Mep,5.8,04-Oct-2028,04-Oct-2026,101.8,4.87,5.5,1.9,5.5,2.1,84.0,32.73,160130.0,2.3,102.3,100.0,Tasa Fija,Semestral,1,Vencimiento,04-Oct-2028
+24-08-2026,WBS3O,BANCO MARIVA,Otros,Arg,,6.0,06-Jul-2027,30-Sep-2026,99.2,7.16,6.0,0.8,1.4,0.9,46.0,32.53,154000.0,0.9,100.9,100.0,Tasa Fija,Trimestral,1,Vencimiento,06-Jul-2027
+24-08-2026,PLC1O,Pluspetrol S.A.,Petróleo & Gas,Arg,USD Mep,6.0,27-Jan-2028,27-Oct-2026,101.9,4.60,5.8,1.3,3.0,1.4,74.0,31.16,159880.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Jan-2028
+24-08-2026,RC1CO,Arcor S.A.I.C.,Alimentos y Bebidas,Arg,USD Int,7.6,31-Jul-2033,31-Jan-2027,108.1,6.03,7.0,4.6,28.9,5.9,350.0,30.48,167160.0,0.5,100.5,100.0,Tasa Fija,Semestral,3,Anual,31-Jul-2031
+24-08-2026,CS48O,Cresud S.A.C.I.F.A.,Real Estate,Arg,USD Mep,8.0,11-Jul-2028,11-Jan-2027,103.9,5.82,7.6,1.7,4.5,1.9,44.0,30.01,161410.0,1.0,101.0,100.0,Tasa Fija,Semestral,1,Vencimiento,11-Jul-2028
+24-08-2026,OTS5O,OTAMERICA EBYTEM S.A.,Telecomunicaciones,Arg,USD Mep,6.7,23-Oct-2026,23-Oct-2026,100.1,5.84,6.5,0.2,0.2,0.2,50.0,29.97,157530.0,2.3,102.3,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Oct-2026
+24-08-2026,PN37O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,6.3,13-Nov-2028,13-Nov-2026,102.1,5.25,6.0,2.0,5.9,2.2,74.0,28.85,159900.0,1.8,101.8,100.0,Tasa Fija,Semestral,1,Vencimiento,13-Nov-2028
+24-08-2026,XMC1O,MINERA EXAR S.A.,Materiales Básicos,Arg,USD Mep,8.0,11-Nov-2027,11-Nov-2026,102.7,5.09,7.6,0.9,1.7,1.0,50.0,27.78,161600.0,2.3,102.3,100.0,Tasa Fija,Semestral,2,Semestral,11-May-2027
+24-08-2026,TLCUO,TELECOM ARGENTINA S.A.,Telecomunicaciones,Arg,USD Mep,6.5,05-Mar-2029,05-Sep-2026,101.9,5.75,6.2,2.2,7.1,2.5,81.0,26.7,161500.0,3.1,103.1,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Mar-2029
+24-08-2026,MCC1O,PECOM SERVICIOS ENERGIA,Petróleo & Gas,Arg,USD Mep,7.9,10-Mar-2029,10-Sep-2026,103.5,6.43,7.4,2.1,7.0,2.5,30.0,25.99,164980.0,3.6,103.6,100.0,Tasa Fija,Semestral,1,Vencimiento,10-Mar-2029
+24-08-2026,YFCOO,YPF Energía Eléctrica S.A.,Electricidad,Arg,USD Mep,6.8,15-Dec-2028,15-Sep-2026,102.4,5.69,6.3,2.0,6.0,2.3,45.0,25.94,164910.0,4.7,104.7,100.0,Tasa Fija,Trimestral,1,Vencimiento,15-Dec-2028
+24-08-2026,VBC2O,BANCO DE VALORES S.A.,Finanzas,Arg,USD Mep,7.8,05-Sep-2026,05-Sep-2026,99.7,18.05,7.5,0.0,0.0,0.0,15.0,25.89,159000.0,3.7,103.7,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Sep-2026
+24-08-2026,MIC6O,MIRGOR S.A.C.I.F.I.A.,Otros,Arg,,8.0,28-May-2028,28-Aug-2026,101.3,7.34,7.7,1.5,3.8,1.8,22.0,25.14,158900.0,1.9,101.9,100.0,Tasa Fija,Trimestral,1,Vencimiento,28-May-2028
+24-08-2026,ZZC1O,CAMUZZI GAS PAMPEANA,Petróleo & Gas,Arg,USD Mep,8.0,21-Feb-2027,21-Feb-2027,100.3,7.27,7.9,0.5,0.6,0.5,70.0,24.63,154510.0,0.1,100.1,100.0,Tasa Fija,Semestral,1,Vencimiento,21-Feb-2027
+24-08-2026,OT42O,OILTANKING EBYTEM S.A.,Petróleo & Gas,Arg,USD Mep,8.0,17-Jan-2030,17-Oct-2026,106.0,6.14,7.5,2.8,11.3,3.4,35.0,24.17,164450.0,0.8,100.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,17-Jan-2030
+24-08-2026,CICBO,CNH Industrial Capital Argentina S.A.,Finanzas,Arg,USD Mep,7.5,09-Feb-2029,09-Feb-2027,101.6,6.85,7.4,2.1,6.8,2.5,47.0,24.14,156880.0,0.3,100.3,100.0,Tasa Fija,Semestral,1,Vencimiento,09-Feb-2029
+24-08-2026,LUC5O,Luz de Tres Picos S.A.,Electricidad,Arg,USD Mep,8.0,26-Feb-2029,26-Aug-2026,101.4,7.47,7.6,2.1,6.6,2.5,50.0,23.62,162200.0,4.0,104.0,100.0,Tasa Fija,Semestral,1,Vencimiento,26-Feb-2029
+24-08-2026,CS52O,Cresud S.A.C.I.F.A.,Real Estate,Arg,USD Mep,4.8,30-Apr-2028,30-Jan-2027,97.4,6.51,4.8,1.5,3.8,1.7,41.0,23.38,152120.0,1.5,101.5,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Apr-2028
+24-08-2026,CS51O,CRESUD S.A.C.I.F.A.,Real Estate,Arg,USD Mep,5.8,20-Jan-2027,20-Jan-2027,100.5,4.43,5.7,0.4,0.5,0.4,47.0,23.04,155500.0,0.6,100.6,100.0,Tasa Fija,Semestral,1,Vencimiento,20-Jan-2027
+24-08-2026,HJCJO,JOHN DEERE CREDIT,Finanzas,Arg,USD Mep,8.5,25-Jul-2027,25-Jan-2027,103.9,4.10,8.1,0.9,1.6,0.9,56.0,22.99,161010.0,0.7,100.7,100.0,Tasa Fija,Semestral,1,Vencimiento,25-Jul-2027
+24-08-2026,CACDO,CAPEX S.A.,Electricidad,Arg,USD Mep,8.3,04-Jun-2029,04-Dec-2026,102.2,7.47,7.9,2.3,8.0,2.8,71.0,21.87,160100.0,1.9,101.9,100.0,Tasa Fija,Semestral,1,Vencimiento,04-Jun-2029
+24-08-2026,CS53O,Cresud S.A.C.I.F.A.,Real Estate,Arg,USD Mep,6.3,30-Apr-2030,30-Jan-2027,100.0,6.35,6.1,3.1,13.2,3.7,23.0,21.78,156850.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Apr-2030
+24-08-2026,SBC2O,Scania Credit Argentina S.A.U.,Finanzas,Arg,USD Mep,74.9,16-Jan-2029,16-Oct-2026,93.2,116.53,74.4,0.3,0.4,1.3,41.0,21.66,141000.0,7.4,98.4,91.0,Tasa Fija,Trimestral,11,Trimestral,16-Oct-2026
+24-08-2026,YFCKO,YPF ENERGIA ELECTRICA S.A.,Electricidad,Arg,,5.3,22-Nov-2026,22-Nov-2026,101.9,-2.68,5.1,0.3,0.3,0.2,49.0,21.27,156890.0,0.0,100.0,100.0,Tasa Fija,Trimestral,1,Vencimiento,22-Nov-2026
+24-08-2026,OLC7O,OLEODUCTOS DEL VALLE,Petróleo & Gas,Arg,USD Mep,6.9,23-Feb-2030,23-Feb-2027,103.3,5.93,6.7,3.0,12.4,3.5,184.0,20.82,158900.0,0.0,100.0,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Feb-2030
+24-08-2026,LMS7O,ALUMINIO ARGENTINO,Materiales Básicos,Arg,USD Mep,7.0,12-Oct-2028,12-Oct-2026,100.2,7.00,6.9,1.0,2.3,1.1,138.0,18.82,121230.0,0.6,75.6,75.0,Tasa Fija,Trimestral,12,Trimestral,12-Oct-2026
+24-08-2026,MTC2O,MASTELLONE HERMANOS,Alimentos y Bebidas,Arg,,6.5,22-Jun-2028,22-Sep-2026,100.3,6.47,6.4,1.6,4.2,1.8,42.0,18.57,156050.0,1.1,101.1,100.0,Tasa Fija,Trimestral,1,Vencimiento,22-Jun-2028
+24-08-2026,PN42O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,6.0,17-Apr-2027,17-Oct-2026,100.8,4.68,5.8,0.6,0.9,0.6,56.0,17.95,158440.0,2.1,102.1,100.0,Tasa Fija,Semestral,1,Vencimiento,17-Apr-2027
+24-08-2026,IRCJO,Inversiones y Representaciones S.A.,Real Estate,Arg,USD Mep,7.0,28-Feb-2027,28-Aug-2026,102.0,2.80,6.6,0.5,0.7,0.5,21.0,17.65,162310.0,3.4,103.4,100.0,Tasa Fija,Semestral,1,Vencimiento,28-Feb-2027
+24-08-2026,BYCXO,BANCO DE GALICIA Y,Finanzas,Arg,USD Mep,5.5,30-Dec-2026,30-Dec-2026,99.8,6.15,5.5,0.3,0.4,0.3,72.0,17.49,155000.0,1.0,101.0,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Dec-2026
+24-08-2026,PN34O,PAN AMERICAN ENERGY S.A.,Petróleo & Gas,Arg,USD Mep,5.0,27-Sep-2027,27-Sep-2026,101.9,3.14,4.8,1.0,2.1,1.1,23.0,17.23,160000.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,27-Sep-2027
+24-08-2026,TTC8O,TECPETROL S.A.,Petróleo & Gas,Arg,USD Mep,5.0,24-Oct-2027,24-Oct-2026,101.7,3.48,4.8,1.1,2.3,1.2,67.0,16.18,159110.0,1.7,101.7,100.0,Tasa Fija,Semestral,1,Vencimiento,24-Oct-2027
+24-08-2026,DEC2O,EDESA S.A.,Electricidad,Arg,USD Mep,8.5,24-Feb-2027,24-Feb-2027,101.0,6.44,8.4,0.5,0.7,0.5,22.0,15.36,155430.0,0.0,100.0,100.0,Tasa Fija,Semestral,1,Vencimiento,24-Feb-2027
+24-08-2026,SIC2O,SIDERSA S.A.,Otros,Arg,,7.5,19-Jun-2029,19-Dec-2026,100.8,7.28,7.3,2.4,8.3,2.8,50.0,15.05,157260.0,1.4,101.4,100.0,Tasa Fija,Semestral,1,Vencimiento,19-Jun-2029
+24-08-2026,BF39O,Banco BBVA Argentina S.A.,Finanzas,Arg,USD Mep,5.8,05-Dec-2026,05-Dec-2026,99.8,6.50,5.7,0.3,0.3,0.3,50.0,14.99,155500.0,1.3,101.3,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Dec-2026
+24-08-2026,AFCIO,Banco Comafi S.A.,Finanzas,Arg,USD Mep,6.5,07-Nov-2026,07-Nov-2026,100.7,2.64,6.3,0.2,0.2,0.2,38.0,14.48,158000.0,2.0,102.0,100.0,Tasa Fija,Semestral,1,Vencimiento,07-Nov-2026
+24-08-2026,OTS2O,OTAMERICA EBYTEM S.A.,Telecomunicaciones,Arg,USD Mep,7.0,24-Apr-2027,24-Oct-2026,100.0,7.14,7.0,0.6,0.9,0.7,33.0,13.52,154810.0,0.6,100.6,100.0,Tasa Fija,Trimestral,1,Vencimiento,24-Apr-2027
+24-08-2026,YFCLO,YPF Energía Eléctrica S.A.,Electricidad,Arg,USD Mep,6.8,22-Nov-2028,22-Nov-2026,102.3,5.75,6.6,2.0,6.0,2.2,51.0,13.16,157500.0,0.1,100.1,100.0,Tasa Fija,Trimestral,1,Vencimiento,22-Nov-2028
+24-08-2026,T641O,Tarjeta Naranja S.A.U.,Finanzas,Arg,USD Mep,7.9,30-Apr-2027,29-Oct-2026,101.8,5.34,7.7,0.6,1.0,0.7,33.0,12.96,157440.0,0.6,100.6,100.0,Tasa Fija,Trimestral,1,Vencimiento,30-Apr-2027
+24-08-2026,TLCWO,TELECOM ARGENTINA S.A.,Telecomunicaciones,Arg,,6.3,29-May-2030,29-Nov-2026,101.5,5.87,6.1,3.2,13.9,3.8,35.0,11.87,158500.0,1.5,101.5,100.0,Tasa Fija,Semestral,1,Vencimiento,29-May-2030
+24-08-2026,YMCZO,YPF S.A.,Petróleo & Gas,Arg,USD Mep,7.0,10-Oct-2028,10-Oct-2026,101.6,6.27,6.7,1.9,5.4,2.1,25.0,10.98,166760.0,2.6,102.6,100.0,Tasa Fija,Semestral,1,Vencimiento,10-Oct-2028
+24-08-2026,AERBO,AEROPUERTOS,Aerolíneas,Arg,USD Mep,5.5,15-Dec-2026,15-Dec-2026,100.4,4.24,5.4,0.3,0.4,0.3,29.0,10.3,155880.0,0.9,100.9,100.0,Tasa Fija,Semestral,1,Vencimiento,15-Dec-2026
+24-08-2026,BYCWO,BANCO DE GALICIA Y,Finanzas,Arg,,6.0,30-Nov-2026,30-Nov-2026,98.2,13.51,6.0,0.2,0.3,0.3,144.0,10.23,153600.0,1.7,101.7,100.0,Tasa Fija,Semestral,1,Vencimiento,30-Nov-2026
+24-08-2026,MIC3O,MIRGOR S.A.C.I.F.I.A.,Otros,Arg,USD Mep,8.5,11-Nov-2026,11-Nov-2026,100.3,7.03,8.4,0.2,0.2,0.2,20.0,9.41,154840.0,0.3,100.3,100.0,Tasa Fija,Trimestral,1,Vencimiento,11-Nov-2026
+24-08-2026,IRCNO,Inversiones y Representaciones S.A.,Real Estate,Arg,USD Mep,5.8,23-Oct-2027,23-Jan-2027,100.6,5.24,5.7,1.1,2.2,1.2,16.0,9.38,155610.0,0.5,100.5,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Oct-2027
+24-08-2026,GYC4O,360 ENERGY SOLAR S.A.,Electricidad,Arg,USD Mep,8.0,30-Oct-2027,30-Oct-2026,100.2,8.05,7.9,1.0,2.1,1.2,22.0,9.14,155000.0,0.6,100.6,100.0,Tasa Fija,Trimestral,1,Vencimiento,30-Oct-2027
+24-08-2026,OTS6O,OTAMERICA EBYTEM S.A.,Telecomunicaciones,Arg,USD Mep,6.7,29-Jul-2029,29-Oct-2026,101.7,6.20,6.4,2.4,8.8,2.9,50.0,8.7,162500.0,3.9,103.9,100.0,Tasa Fija,Trimestral,1,Vencimiento,29-Jul-2029
+24-08-2026,GN47O,GENNEIA S.A.,Electricidad,Arg,USD Mep,6.0,17-Oct-2028,17-Oct-2026,100.1,6.02,5.9,1.9,5.5,2.1,48.0,8.54,157280.0,2.1,102.1,100.0,Tasa Fija,Semestral,1,Vencimiento,17-Oct-2028
+24-08-2026,OTS3O,Otamérica Ebytem S.A.,Telecomunicaciones,Arg,USD Mep,7.0,01-Nov-2028,01-Nov-2026,102.7,5.80,6.8,1.9,5.7,2.2,36.0,8.28,158650.0,0.5,100.5,100.0,Tasa Fija,Trimestral,1,Vencimiento,01-Nov-2028
+24-08-2026,MSSFO,MSU S.A.,Agroindustria,Arg,USD Mep,7.5,23-Jul-2027,23-Jan-2027,100.7,6.83,7.4,0.8,1.5,0.9,34.0,8.11,155910.0,0.7,100.7,100.0,Tasa Fija,Semestral,1,Vencimiento,23-Jul-2027
+24-08-2026,MIC4O,MIRGOR S.A.C.I.F.I.A.,Otros,Arg,USD Mep,8.3,29-Jul-2027,29-Oct-2026,105.4,2.34,7.8,0.9,1.6,0.9,26.0,7.87,163100.0,0.6,100.6,100.0,Tasa Fija,Trimestral,1,Vencimiento,29-Jul-2027
+24-08-2026,PUC2O,PETROLEOS,Petróleo & Gas,Arg,USD Mep,8.8,28-Aug-2027,28-Aug-2026,97.3,12.12,8.6,0.8,1.5,1.0,9.0,7.79,156000.0,4.3,104.3,100.0,Tasa Fija,Semestral,1,Vencimiento,28-Aug-2027
+24-08-2026,MCC2O,Pecom Servicios Energía S.A.U.,Petróleo & Gas,Arg,USD Mep,7.5,02-Jun-2027,02-Dec-2026,100.9,6.32,7.3,0.7,1.2,0.8,30.0,7.71,157920.0,1.7,101.7,100.0,Tasa Fija,Semestral,1,Vencimiento,02-Jun-2027
+24-08-2026,SBC1O,SCANIA CREDIT,Finanzas,Arg,USD Mep,8.8,05-Sep-2027,05-Sep-2026,103.8,1.49,8.3,0.5,0.9,0.5,11.0,6.74,117240.0,1.4,73.4,72.0,Tasa Fija,Trimestral,7,Trimestral,05-Sep-2026
+24-08-2026,GYC5O,360 ENERGY SOLAR S.A.,Electricidad,Arg,USD Mep,8.8,05-Sep-2027,05-Sep-2026,100.0,9.01,8.6,0.9,1.7,1.0,15.0,6.74,156840.0,1.9,101.9,100.0,Tasa Fija,Trimestral,1,Vencimiento,05-Sep-2027
+24-08-2026,YFCMO,YPF ENERGIA ELECTRICA,Electricidad,Arg,USD Mep,6.5,20-May-2027,20-Nov-2026,102.1,3.63,6.4,0.7,1.2,0.7,54.0,6.47,157230.0,0.1,100.1,100.0,Tasa Fija,Trimestral,1,Vencimiento,20-May-2027
+24-08-2026,SNSBO,S.A. SAN MIGUEL,Otros,Arg,USD Mep,9.5,14-Oct-2026,14-Oct-2026,75.3,774.26,12.5,0.0,0.0,0.1,18.0,5.95,117020.0,1.1,101.1,100.0,Tasa Fija,Trimestral,1,Vencimiento,14-Oct-2026
+24-08-2026,FO4AO,FUTUROS Y,Finanzas,Arg,USD Mep,7.9,20-Jul-2028,20-Oct-2026,102.6,6.61,7.6,1.7,4.5,1.9,21.0,5.66,159000.0,0.8,100.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,20-Jul-2028
+24-08-2026,EMC1O,Compañía Mega S.A.,Petróleo & Gas,Arg,USD Mep,7.5,04-Jul-2027,04-Jan-2027,103.5,3.36,7.2,0.8,1.5,0.9,60.0,5.59,160840.0,1.1,101.1,100.0,Tasa Fija,Semestral,1,Vencimiento,04-Jul-2027
+24-08-2026,YFCGO,YPF ENERGIA ELECTRICA,Electricidad,Arg,USD Mep,6.0,27-Feb-2027,27-Aug-2026,101.7,2.66,5.8,0.5,0.7,0.5,11.0,5.33,158670.0,1.5,101.5,100.0,Tasa Fija,Trimestral,1,Vencimiento,27-Feb-2027
+24-08-2026,LDCGO,LEDESMA S.A.A.I.,Agroindustria,Arg,USD Mep,7.0,04-Oct-2027,04-Nov-2026,99.6,7.62,7.0,1.0,1.9,1.1,31.0,5.24,153790.0,0.4,100.4,100.0,Tasa Fija,Trimestral,1,Vencimiento,04-Oct-2027
+24-08-2026,CP40O,COMPAÑIA GENERAL DE,Petróleo & Gas,Arg,,9.5,09-Mar-2028,09-Sep-2026,103.0,7.55,9.0,1.3,3.1,1.5,55.0,5.2,161680.0,2.0,102.0,100.0,Tasa Fija,Trimestral,1,Vencimiento,09-Mar-2028
+24-08-2026,HBCDO,Banco Hipotecario S.A.,Finanzas,Arg,USD Mep,6.0,20-Nov-2026,20-Nov-2026,100.7,3.00,5.9,0.2,0.3,0.2,34.0,4.54,157340.0,1.6,101.6,100.0,Tasa Fija,Semestral,1,Vencimiento,20-Nov-2026
+24-08-2026,VBC1O,BANCO DE VALORES S.A.,Finanzas,Arg,USD Mep,7.5,11-Mar-2027,11-Sep-2026,100.5,6.61,7.2,0.5,0.7,0.5,30.0,4.13,159910.0,3.4,103.4,100.0,Tasa Fija,Semestral,1,Vencimiento,11-Mar-2027
+24-08-2026,BGC4O,Banco Patagonia S.A.,Finanzas,Arg,USD Mep,6.3,13-Nov-2026,13-Nov-2026,99.9,6.71,6.1,0.2,0.2,0.2,47.0,3.78,156400.0,1.8,101.8,100.0,Tasa Fija,Semestral,1,Vencimiento,13-Nov-2026
+24-08-2026,OT41O,OILTANKING EBYTEM S.A.,Petróleo & Gas,Arg,USD Mep,7.0,17-Jan-2028,17-Oct-2026,99.1,7.91,7.0,1.2,2.7,1.4,28.0,3.54,153550.0,0.7,100.7,100.0,Tasa Fija,Trimestral,1,Vencimiento,17-Jan-2028
+24-08-2026,YFCIO,YPF Energía Eléctrica S.A.,Electricidad,Arg,USD Mep,5.9,13-Jun-2027,13-Sep-2026,101.8,3.15,5.7,0.6,1.0,0.7,10.0,3.19,158510.0,1.2,101.2,100.0,Tasa Fija,Trimestral,2,Trimestral,13-Mar-2027
+24-08-2026,PQCRO,PETROQUIMICA COMODORO,Petróleo & Gas,Arg,USD Mep,6.8,22-Oct-2028,22-Oct-2026,99.4,7.15,6.6,1.9,5.4,2.2,46.0,3.01,156500.0,2.3,102.3,100.0,Tasa Fija,Semestral,1,Vencimiento,22-Oct-2028
+24-08-2026,CACBO,CAPEX S.A.,Electricidad,Arg,USD Mep,7.8,17-Jun-2028,17-Sep-2026,103.1,6.00,7.4,1.6,4.2,1.8,45.0,2.9,161000.0,1.5,101.5,100.0,Tasa Fija,Trimestral,1,Vencimiento,17-Jun-2028
+24-08-2026,MSSGO,MSU S.A.,Agroindustria,Arg,USD Mep,8.5,16-Apr-2029,16-Oct-2026,101.6,7.95,8.1,2.2,7.2,2.6,35.0,2.7,161000.0,3.0,103.0,100.0,Tasa Fija,Semestral,1,Vencimiento,16-Apr-2029
+24-08-2026,PZCGO,PLAZA LOGISTICA S.R.L.,Construcción,Arg,USD Mep,7.0,04-Jun-2028,04-Sep-2026,97.6,8.73,7.1,1.5,3.8,1.8,10.0,1.9,152550.0,1.6,101.6,100.0,Tasa Fija,Trimestral,1,Vencimiento,04-Jun-2028
+24-08-2026,GN43O,Genneia S.A.,Electricidad,Arg,USD Mep,6.3,08-Mar-2027,08-Sep-2026,99.1,8.26,6.2,0.5,0.7,0.5,21.0,1.7,154500.0,1.3,101.3,100.0,Tasa Fija,Trimestral,1,Vencimiento,08-Mar-2027
+24-08-2026,GN48O,GENNEIA S.A.,Electricidad,Arg,USD Mep,6.5,05-Mar-2028,05-Sep-2026,98.7,7.54,6.4,1.3,3.1,1.5,28.0,1.65,156560.0,3.1,103.1,100.0,Tasa Fija,Semestral,1,Vencimiento,05-Mar-2028
+24-08-2026,SNABO,San Miguel A.G.I.C.I. y F.,Alimentos y Bebidas,Arg,USD Mep,9.0,29-Jul-2026,,0.0,,0.0,,,,7.0,1.27,99000.0,0.0,,0.0,Tasa Fija,Trimestral,1,Vencimiento,
+24-08-2026,BPCSO,Banco Supervielle S.A.,Finanzas,Arg,USD Mep,6.8,26-Aug-2026,26-Aug-2026,100.1,-34.14,6.5,0.0,0.0,0.0,16.0,1.19,159210.0,3.4,103.4,100.0,Tasa Fija,Semestral,1,Vencimiento,26-Aug-2026
+24-08-2026,PQCTO,PETROQUIMICA COMODORO,Petróleo & Gas,Arg,USD Mep,8.5,21-Jul-2028,21-Jan-2027,103.2,6.76,8.2,1.7,4.5,1.9,39.0,1.13,160050.0,0.8,100.8,100.0,Tasa Fija,Semestral,1,Vencimiento,21-Jul-2028
+24-08-2026,SNSDO,S.A. SAN MIGUEL,Otros,Arg,USD Mep,9.5,06-Feb-2027,06-Feb-2027,80.8,75.39,11.7,0.3,0.2,0.5,16.0,0.96,125000.0,0.5,100.5,100.0,Tasa Fija,Semestral,1,Vencimiento,06-Feb-2027
+24-08-2026,RZABO,RIZOBACTER,Agroindustria,Arg,USD Mep,8.0,28-Nov-2027,28-Aug-2026,65.0,55.95,12.1,0.7,1.1,1.3,24.0,0.89,102000.0,1.9,101.9,100.0,Tasa Fija,Trimestral,1,Vencimiento,28-Nov-2027
+24-08-2026,RZ9BO,Rizobacter Argentina S.A.,Agroindustria,Arg,,7.5,28-Jun-2026,,0.0,,0.0,,,,7.0,0.75,85000.0,0.0,,0.0,Tasa Fija,Trimestral,1,Vencimiento,
+24-08-2026,JNC6O,INVERSORA,Construcción,Arg,USD Mep,9.0,03-Oct-2027,03-Oct-2026,100.6,8.58,8.6,1.0,1.8,1.1,30.0,0.74,160200.0,3.6,103.6,100.0,Tasa Fija,Semestral,1,Vencimiento,03-Oct-2027
+24-08-2026,HVS1O,HAVANNA S.A.,Alimentos y Bebidas,Arg,USD Mep,8.8,08-Jul-2028,08-Oct-2026,103.9,6.63,8.3,1.6,4.3,1.9,19.0,0.23,161690.0,1.1,101.1,100.0,Tasa Fija,Trimestral,1,Vencimiento,08-Jul-2028
+24-08-2026,VAC3P,VITALCAN S.A.,Agroindustria,Arg,USD Mep,9.5,27-Oct-2027,27-Oct-2026,95.5,13.70,9.9,1.2,2.5,1.4,3.0,0.22,148000.0,0.8,100.8,100.0,Tasa Fija,Trimestral,3,Trimestral,27-Oct-2027
+24-08-2026,VES2L,Ricardo Venturino S.A.,Construcción,Arg,USD Mep,6.0,28-Oct-2028,28-Oct-2026,98.1,7.61,6.1,1.3,3.1,1.4,7.0,0.17,151600.0,0.5,100.5,100.0,Tasa Fija,Trimestral,4,Semestral,28-Apr-2027
+24-08-2026,BPCTO,Banco Supervielle S.A.,Finanzas,Arg,USD Mep,8.0,26-Aug-2027,26-Aug-2026,99.7,8.56,7.7,0.9,1.6,1.0,5.0,0.16,159400.0,4.0,104.0,100.0,Tasa Fija,Semestral,1,Vencimiento,26-Aug-2027
+24-08-2026,BF44O,Banco BBVA Argentina S.A.,Finanzas,Arg,USD Mep,5.0,08-May-2028,08-Nov-2026,100.7,4.58,4.9,1.6,4.0,1.7,48.0,0.09,157290.0,1.5,101.5,100.0,Tasa Fija,Semestral,1,Vencimiento,08-May-2028
+24-08-2026,BVCPO,BANCO DE SERVICIOS Y,Finanzas,Arg,USD Mep,8.0,21-Oct-2026,21-Oct-2026,100.0,8.39,7.9,0.1,0.2,0.2,21.0,0.09,154950.0,0.8,100.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,21-Oct-2026
+24-08-2026,JNC5O,Inversora Juramento S.A.,Construcción,Arg,USD Mep,6.0,09-Oct-2026,09-Oct-2026,95.2,58.71,6.3,0.1,0.1,0.1,20.0,0.07,147500.0,0.8,100.8,100.0,Tasa Fija,Trimestral,1,Vencimiento,09-Oct-2026
