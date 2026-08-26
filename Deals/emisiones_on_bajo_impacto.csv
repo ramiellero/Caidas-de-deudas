@@ -1,4 +1,7 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
+27-ago-26,DQD S.A. – I,USD Mep,Fija,"7,00%",12,"0,80",SC
+27-ago-26,Demagro Garantizada I I,ARS,TAMAR,"-0,50%",24,"727,20",SC
+27-ago-26,Demagro Garantizada I II,USD Linked,Fija,"9,50%",24,"0,20",SC
 25-ago-26,Garantizada Lodiser S.A. (Apto Pyme) – I,ARS,TAMAR,"-1,50%",24,"4000,00",SC
 24-ago-26,Garantizada RDA Renting (Apto Pyme) III I,ARS,TAMAR,"-1,50%",24,"3130,00",SC
 24-ago-26,Garantizada RDA Renting (Apto Pyme) III II,ARS,TAMAR,"0,00%",36,"470,00",SC
