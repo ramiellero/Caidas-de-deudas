@@ -1183,6 +1183,125 @@ def linealizar_filas_difusion(bloque):
     return "\n".join(rows)
 
 
+def extraer_registros_difusion(bloque):
+    lines = [
+        _fix_text_artifacts(limpiar_texto_celda(line))
+        for line in str(bloque).splitlines()
+        if limpiar_texto_celda(line)
+    ]
+    tipo_pat = r"Tasa|Margen|TIR|TEM|Precio|Book Building|Book building|Por Adhesión"
+    row_pat = re.compile(
+        rf"^(?P<fecha_lic>{DIA})\s+"
+        rf"(?P<reg>.*?)\s+"
+        rf"(?P<tipo>{tipo_pat})\s+"
+        rf"(?P<fecha_liq>{DIA}|A informar)\s*$",
+        re.I
+    )
+    instrument_pat = re.compile(
+        r"^(?:\[OFERTA DE CANJE\]\s+ON |ON |BONAR |Títulos de Deuda)",
+        re.I
+    )
+    rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A-2|A2|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
+    rating_pat = re.compile(
+        rf"(?:ML\s+)?{rating_grade}\s+\([^)]+\)"
+    )
+
+    def contexto_anterior(index):
+        start = index - 1
+        while start >= 0 and index - start <= 8:
+            if row_pat.match(lines[start]):
+                break
+            start -= 1
+        return lines[start + 1:index]
+
+    def contexto_posterior(index):
+        out = []
+        for candidate in lines[index + 1:index + 7]:
+            if row_pat.match(candidate) or instrument_pat.match(candidate):
+                break
+            if re.match(r"^(?:Presentation Heading|Operaciones en|OPERACIONES DE)", candidate, re.I):
+                break
+            out.append(candidate)
+        return out
+
+    def continuacion_emisor(candidate):
+        clean = rating_pat.sub(" ", candidate)
+        clean = re.sub(r"\((?:Fix SCR|Moody[’'´]?s|S&P|Fitch(?: Ratings)?)\)", " ", clean, flags=re.I)
+        clean = limpiar_texto_celda(clean).strip(" /-")
+
+        if not clean or re.fullmatch(r"[IVXLCDM]+", clean):
+            return ""
+        if re.search(
+            r"(?:\$|\bUSD\b|\bUVA\b|monto|Programa|autorizado|Fecha de|Emisión|Licitación)",
+            clean,
+            flags=re.I
+        ):
+            return ""
+        if len(clean.split()) > 8:
+            return ""
+
+        if re.match(r"^(?:of|de|del|la|y)\b", clean, flags=re.I):
+            return clean
+        if clean.lower() == "adicionales" or "(" in clean:
+            return clean
+        return ""
+
+    registros = []
+
+    for i, line in enumerate(lines):
+        match = row_pat.match(line)
+        if not match:
+            continue
+
+        reg = limpiar_texto_celda(match.group("reg"))
+        anteriores = contexto_anterior(i)
+        posteriores = contexto_posterior(i)
+
+        if not instrument_pat.match(reg):
+            prefix = next(
+                (candidate for candidate in reversed(anteriores) if instrument_pat.match(candidate)),
+                ""
+            )
+            if prefix:
+                reg = limpiar_texto_celda(f"{prefix} {reg}")
+
+        if not instrument_pat.match(reg):
+            continue
+
+        series = next(
+            (
+                candidate
+                for candidate in reversed(anteriores)
+                if re.fullmatch(r"[IVXLCDM]+", candidate)
+            ),
+            ""
+        )
+        extras_emisor = [
+            extra
+            for extra in (continuacion_emisor(candidate) for candidate in posteriores)
+            if extra
+        ]
+
+        ratings = []
+        for candidate in anteriores + [reg] + posteriores:
+            for rating in rating_pat.findall(candidate):
+                rating = limpiar_texto_celda(rating)
+                if rating not in ratings:
+                    ratings.append(rating)
+
+        registros.append({
+            "fecha_lic": match.group("fecha_lic"),
+            "fecha_liq": match.group("fecha_liq"),
+            "reg": reg,
+            "tipo": match.group("tipo"),
+            "extras_emisor": extras_emisor,
+            "serie_contexto": series,
+            "ratings_contexto": ratings,
+        })
+
+    return registros
+
+
 def _difusion_rating(reg_limpio):
     rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A-2|A2|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
     rating_pat = rf"(?:ML\s+)?{rating_grade}\s+\([^)]+\)"
@@ -1197,11 +1316,20 @@ def _difusion_rating(reg_limpio):
     return m_pending.group(1) if m_pending else ""
 
 
-def _difusion_emisor(reg):
+def _difusion_emisor(reg, extras_emisor=None, serie_contexto=""):
     s = limpiar_texto_celda(reg)
+    extras_emisor = extras_emisor or []
 
     s = re.sub(DIA, " ", s, flags=re.I)
     s = re.sub(r"^\[OFERTA DE CANJE\]\s*", "", s, flags=re.I)
+
+    if re.match(r"^ON\s+Cresud\b", s, flags=re.I) and serie_contexto:
+        adicionales = " Adicionales" if re.search(
+            r"\bAdicionales\b",
+            " ".join([s] + extras_emisor),
+            flags=re.I
+        ) else ""
+        return f"Cresud – Clase {serie_contexto}{adicionales}"
 
     rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A-2|A2|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
     rating_pat = rf"(?:ML\s+)?{rating_grade}\s+\([^)]+\)"
@@ -1216,7 +1344,7 @@ def _difusion_emisor(reg):
         s
     )
 
-    s = re.sub(r"Monto Máximo Disponible", " ", s, flags=re.I)
+    s = re.sub(r"\bmonto (?:máximo )?disponible\b.*$", " ", s, flags=re.I)
     s = re.sub(r"Monto Máximo del Programa", " ", s, flags=re.I)
     s = re.sub(r"del Programa\)", " ", s, flags=re.I)
 
@@ -1232,15 +1360,20 @@ def _difusion_emisor(reg):
     )[0]
 
     emisor = re.sub(r"\s+(VDFA|VDFB|VDFC|CP)\b.*$", "", emisor)
-    emisor = re.sub(r"^ON\s+", "", emisor, flags=re.I)
+
+    if extras_emisor:
+        extra = limpiar_texto_celda(" ".join(extras_emisor))
+        clase = re.search(r"(?P<clase>\s*-\s*(?:[IVXLCDM]+|\d+))\s*$", emisor)
+        if clase:
+            emisor = limpiar_texto_celda(
+                f"{emisor[:clase.start()]} {extra} {clase.group('clase')}"
+            )
+        else:
+            emisor = limpiar_texto_celda(f"{emisor} {extra}")
+
+    emisor = nombre_desde_prefix(emisor)
     emisor = re.sub(r"^Títulos de Deuda del\s+", "", emisor, flags=re.I)
-    emisor = re.sub(r"\(Integra.*", "", emisor, flags=re.I)
-    emisor = re.sub(r"\(Pyme\)", "", emisor, flags=re.I)
-    emisor = emisor.replace("[Ley NY]", "(Ley NY)")
     emisor = re.sub(r"\[Bono SVS\]", "", emisor)
-    emisor = re.sub(r"Garantizadas?\s+", "", emisor, flags=re.I)
-    emisor = re.sub(r"\s+-\s*(?:[IVXLCDM]+|\d+)\s*$", "", emisor)
-    emisor = re.sub(r"\s+(?:VDFA|VDFB|VDFC|CP|[IVXLCDM]+)\s*$", "", emisor)
     emisor = re.sub(r"\s+", " ", emisor).strip(" -")
 
     if emisor == "Banco de Servicios y":
@@ -1786,30 +1919,44 @@ def actualizar_difusion(texto):
 
         return
 
-    bloque_lineal = linealizar_filas_difusion(bloque)
-    if bloque_lineal:
-        bloque = bloque_lineal
-    else:
-        bloque = normalizar_bloque_difusion(bloque)
-    
+    registros = extraer_registros_difusion(bloque)
 
-    patron = re.compile(
-        rf"(?P<fecha_lic>{DIA})\s+"
-        rf"(?P<reg>(?:\[OFERTA DE CANJE\]\s+ON |ON |BONAR |Títulos de Deuda).*?)\s+"
-        rf"(?P<tipo>Tasa|Margen|TIR|TEM|Precio|Book Building|Book building|Por Adhesión)\s+"
-        rf"(?P<fecha_liq>{DIA}|A informar)",
-        re.DOTALL
-    )
+    if not registros:
+        bloque_lineal = linealizar_filas_difusion(bloque)
+        if bloque_lineal:
+            bloque = bloque_lineal
+        else:
+            bloque = normalizar_bloque_difusion(bloque)
+
+        patron = re.compile(
+            rf"(?P<fecha_lic>{DIA})\s+"
+            rf"(?P<reg>(?:\[OFERTA DE CANJE\]\s+ON |ON |BONAR |Títulos de Deuda).*?)\s+"
+            rf"(?P<tipo>Tasa|Margen|TIR|TEM|Precio|Book Building|Book building|Por Adhesión)\s+"
+            rf"(?P<fecha_liq>{DIA}|A informar)",
+            re.DOTALL
+        )
+        registros = [
+            {
+                "fecha_lic": match.group("fecha_lic"),
+                "fecha_liq": match.group("fecha_liq"),
+                "reg": match.group("reg"),
+                "tipo": match.group("tipo"),
+                "extras_emisor": [],
+                "serie_contexto": "",
+                "ratings_contexto": [],
+            }
+            for match in patron.finditer(bloque)
+        ]
 
     filas = []
 
-    for m in patron.finditer(bloque):
+    for registro in registros:
 
-        reg = m.group("reg")
+        reg = registro["reg"]
         reg_limpio = limpiar_texto_celda(reg)
 
-        fecha_lic = m.group("fecha_lic")
-        fecha_liq = m.group("fecha_liq")
+        fecha_lic = registro["fecha_lic"]
+        fecha_liq = registro["fecha_liq"]
 
         # -------------------------
         # MONEDA
@@ -1839,7 +1986,11 @@ def actualizar_difusion(texto):
         # EMISOR
         # -------------------------
 
-        emisor = _difusion_emisor(reg)
+        emisor = _difusion_emisor(
+            reg,
+            extras_emisor=registro["extras_emisor"],
+            serie_contexto=registro["serie_contexto"]
+        )
 
 
         # -------------------------
@@ -1868,8 +2019,8 @@ def actualizar_difusion(texto):
         # TASA
         # -------------------------
 
-        tipo_licitacion = m.group("tipo")
-        if tipo_licitacion == "TEM":
+        tipo_licitacion = registro["tipo"]
+        if tipo_licitacion.upper() == "TEM":
             tasa = "TEM"
         elif moneda == "ARS":
             tasa = "TAMAR+Mg"
@@ -1880,7 +2031,11 @@ def actualizar_difusion(texto):
         # RATING
         # -------------------------
 
-        rating = _difusion_rating(reg_limpio)
+        ratings_contexto = " / ".join(registro["ratings_contexto"])
+        rating_source = limpiar_texto_celda(
+            f"{reg_limpio} {ratings_contexto}"
+        )
+        rating = _difusion_rating(rating_source)
 
         filas.append({
             "FECHA LICITACIÓN": fecha_lic,
