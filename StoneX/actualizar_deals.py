@@ -943,6 +943,26 @@ def _preprocesar_on_partidas(resultados):
     while i < len(lines):
         line = lines[i]
 
+        if re.fullmatch(r"[IVXLCDM]+", line) and i + 1 < len(lines):
+            next_line = lines[i + 1]
+            if re.search(DIA, next_line, flags=re.I) and re.search(
+                r"\bON\s+Cresud\s+Adicionales\s+[IVXLCDM]+\b",
+                next_line,
+                flags=re.I
+            ):
+                reparada = re.sub(
+                    r"\bON\s+Cresud\s+Adicionales\s+[IVXLCDM]+\b",
+                    f"ON Cresud {line.upper()} Adicionales",
+                    next_line,
+                    count=1,
+                    flags=re.I
+                )
+                out.append(reparada)
+                i += 2
+                if i < len(lines) and lines[i].lower() == "adicionales":
+                    i += 1
+                continue
+
         vn_previo = _extraer_vn_base_resultado(line)
         if vn_previo and i + 1 < len(lines):
             next_line = lines[i + 1]
@@ -1323,13 +1343,8 @@ def _difusion_emisor(reg, extras_emisor=None, serie_contexto=""):
     s = re.sub(DIA, " ", s, flags=re.I)
     s = re.sub(r"^\[OFERTA DE CANJE\]\s*", "", s, flags=re.I)
 
-    cresud_adicional = re.match(
-        r"^ON\s+Cresud\s+Adicionales\s+([IVXLCDM]+)\b",
-        s,
-        flags=re.I
-    )
-    if cresud_adicional:
-        return f"Cresud Adicionales – {cresud_adicional.group(1).upper()}"
+    if re.match(r"^ON\s+Cresud\b", s, flags=re.I) and serie_contexto:
+        return f"Cresud {serie_contexto.upper()} Adicionales"
 
     rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A-2|A2|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
     rating_pat = rf"(?:ML\s+)?{rating_grade}\s+\([^)]+\)"
