@@ -1323,13 +1323,13 @@ def _difusion_emisor(reg, extras_emisor=None, serie_contexto=""):
     s = re.sub(DIA, " ", s, flags=re.I)
     s = re.sub(r"^\[OFERTA DE CANJE\]\s*", "", s, flags=re.I)
 
-    if re.match(r"^ON\s+Cresud\b", s, flags=re.I) and serie_contexto:
-        adicionales = " Adicionales" if re.search(
-            r"\bAdicionales\b",
-            " ".join([s] + extras_emisor),
-            flags=re.I
-        ) else ""
-        return f"Cresud – Clase {serie_contexto}{adicionales}"
+    cresud_adicional = re.match(
+        r"^ON\s+Cresud\s+Adicionales\s+([IVXLCDM]+)\b",
+        s,
+        flags=re.I
+    )
+    if cresud_adicional:
+        return f"Cresud Adicionales – {cresud_adicional.group(1).upper()}"
 
     rating_grade = r"(?:AAA|AA[+-]?|A1\+?|A-1|A-2|A2|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?)"
     rating_pat = rf"(?:ML\s+)?{rating_grade}\s+\([^)]+\)"
