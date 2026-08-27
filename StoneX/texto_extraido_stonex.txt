@@ -1,4 +1,4 @@
-26 de agosto de 2026
+27 de agosto de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,49 +8,22 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-TAMAR+9,40% 25,3125% 40,80% 9,40% 34,71% mar, 25 ago. FF Prendo I VDFA ARS $ 2.868.330.025 (20%; T+940; 45%) 4,98 303 25/06/2027 AA (Fix SCR) Margen mié, 26 ago.
-TAMAR+16,00% 25,3125% 42,25% 10,45% 35,77% mar, 25 ago. FF Prendo I VDFB ARS $ 305.141.492 (21%; T+1600; 46%) 11,39 334 26/07/2027 A (Fix SCR) Margen mié, 26 ago.
-ON Empresa Provincial de Energía de Córdoba AA- (Moody’s) /
-5,00% - 5,06% - - mar, 25 ago. - I USD Mep USD 21.316.695 5,00% 17,61 549 28/02/2028 Tasa vie, 28 ago.
-(EPEC) AA (Fix SCR)
-ON Empresa Provincial de Energía de Córdoba AA- (Moody’s) /
-6,75% - 6,86% - - mar, 25 ago. - II UVA UVA 13.458.500 6,75% 22,88 731 28/08/2028 Tasa vie, 28 ago.
-(EPEC) AA (Fix SCR)
-7,00% - 7,00% - - mar, 25 ago. ON DQD S.A. I - USD Mep USD 800.000 7,00% 12,00 365 27/08/2027 SC Tasa jue, 27 ago.
-TAMAR-0,50% 25,3125% 27,22% -1,00% 24,32% mar, 25 ago. ON Demagro Garantizada I I ARS $ 727.176.437 TAMAR-0,50% 17,66 730 26/08/2028 SC Margen jue, 27 ago.
-9,50% - 9,84% - - mar, 25 ago. ON Demagro Garantizada I II USD Linked USD 181.816 9,50% 19,63 730 26/08/2028 SC Tasa jue, 27 ago.
+TAMAR+4,94% 25,0625% 34,35% 4,83% 29,89% mié, 26 ago. FF Megabono 357 VDFA ARS $ 10.957.805.463 (23%; T+494; 42%) 6,10 332 26/07/2027 AAA (Fix SCR) Margen vie, 28 ago.
+TAMAR+6% 25,0625% 33,60% 4,26% 29,32% mié, 26 ago. FF Megabono 357 VDFB ARS $ 1.358.002.544 (25%; T+600; 42%) 12,67 392 24/09/2027 AA (Fix SCR) Margen vie, 28 ago.
+LIII
+Px 102,88 - 6,09% - - mié, 26 ago. ON Cresud Adicionales XXXVI USD Mep USD 40.420.132 6,50% 39,27 1338 30/04/2030 AAA (Fix SCR) Precio lun, 31 ago.
+Adicionales
+ON Industrial and Commercial Bank of China
+TAMAR+3,50% 25,0625% 31,77% 2,85% 27,91% mié, 26 ago. - VIII ARS $21.873.928.787 TAMAR+3,50% 10,85 365 28/08/2027 ML A-1 (Moody’s) Margen vie, 28 ago.
+(Argentina)
+ON Industrial and Commercial Bank of China
+3,50% - 3,55% - - mié, 26 ago. - IX USD Mep USD 42.347.370 3,50% 11,84 365 28/08/2027 ML A-1 (Moody’s) Tasa vie, 28 ago.
+(Argentina)
+Px 98,55 25,0625% 30,24% 1,65% 26,71% mié, 26 ago. FF Cuotas Cencosud LX VDFA ARS $13.203.294.919 (20%; T+300; 45%) 3,34 205 20/03/2027 AAA (Fix SCR) Precio jue, 27 ago.
+Px 98,45 25,0625% 30,23% 1,64% 26,71% mié, 26 ago. FF Cuotas Cencosud LX VDFB ARS $2.822.885.606 (20%; T+300; 45%) 8,24 297 20/06/2027 BB- (Fix SCR) Precio jue, 27 ago.
+TAMAR-1,51% 25,0625% 25,66% -2,00% 23,06% mié, 26 ago. ON Entre Garantizada (Apto Pyme) I - ARS $1.000.000.000 TAMAR-1,51% 15,60 731 28/08/2028 SC Margen vie, 28 ago.
 Presentation Heading |
 Licita hoy
-STONEX
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-mié, 26 ago. FF Megabono 357 VDFA ARS $ 10.957.805.463 (23%; T+Mg; 42%) 5,97 332 26/07/2027 AAA (Fix SCR) Margen vie, 28 ago.
-$12.315.808.007
-mié, 26 ago. FF Megabono 357 VDFB ARS $ 1.358.002.544 (25%; T+Mg; 42%) 11,96 392 24/09/2027 AA (Fix SCR) Margen vie, 28 ago.
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-USD 20.000.000 (amp. h/ USD 20.000.000 (amp. h/
-LIII
-mié, 26 ago. ON Cresud Adicionales XXXVI monto disponible del USD Mep monto disponible del 6,50% 40,09 1338 30/04/2030 AAA (Fix SCR) Precio lun, 31 ago.
-Adicionales
-Programa) Programa)
-ON Industrial and Commercial Bank
-mié, 26 ago. - VIII ARS TAMAR+Mg 10,86 365 28/08/2027 ML A-1 (Moody’s) Margen vie, 28 ago.
-of China (Argentina)
-USD 50.000.000 (amp. h/ USD 50.000.000 (amp. h/
-monto máximo disponible) monto máximo disponible)
-ON Industrial and Commercial Bank
-mié, 26 ago. - IX USD Mep A licitar 11,82 365 28/08/2027 ML A-1 (Moody’s) Tasa vie, 28 ago.
-of China (Argentina)
-mié, 26 ago. FF Cuotas Cencosud LX VDFA ARS $13.203.294.919 (20%; T+300; 45%) 3,36 205 20/03/2027 AAA (Fix SCR) Precio jue, 27 ago.
-$16.026.180.525
-mié, 26 ago. FF Cuotas Cencosud LX VDFB ARS $2.822.885.606 (20%; T+300; 45%) 8,25 297 20/06/2027 BB- (Fix SCR) Precio jue, 27 ago.
-mié, 26 ago. ON Entre Garantizada (Apto Pyme) I $1.000.000.000 - ARS $1.000.000.000 TAMAR+Mg 15,41 731 28/08/2028 SC Margen vie, 28 ago.
-Presentation Heading |
-Operaciones en Difusión
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -77,6 +50,12 @@ Hasta el monto máximo Hasta el monto máximo
 jue, 27 ago. al Dólar Estadounidense Cero Cupón D30O6 - USD Linked 0,00% 1,97 60 30/10/2026 SC Precio lun, 31 ago.
 autorizado autorizado
 [Reapertura]
+Presentation Heading |
+Operaciones en Difusión
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
 Letras del Tesoro de la Provincia del
 vie, 28 ago. CXXI 1 ARS Máx {TNA a licitar;TAMAR+5,00%} 2,99 91 30/11/2026 ML B (Moody’s) Tasa lun, 31 ago.
 Chubut
@@ -84,9 +63,21 @@ $ 5.000.000.000 (ampliable) $ 5.000.000.000 (ampliable)
 Letras del Tesoro de la Provincia del
 vie, 28 ago. CXXI 2 ARS Máx {TNA a licitar;TAMAR+5,50%} 6,90 210 29/03/2027 ML B (Moody’s) Tasa lun, 31 ago.
 Chubut
+USD 200.000.000 (amp. h/ USD 200.000.000 (amp. h/
+vie, 28 ago ON Banco Galicia XXXIV - USD Mep A licitar 23,51 731 31/08/2028 A informar Tasa lun, 31 ago
+monto máximo de emisión) monto máximo de emisión)
+mar, 1 sept ON Crown Point Energía Garantizada - X USD Mep A licitar 23,58 1096 03/09/2029 A(arg) (Fix SCR) Tasa jue, 3 sept
+USD 80.000.000 (amp. h/ USD 80.000.000 (amp. h/
+monto máximo de emisión) monto máximo de emisión)
+ON Crown Point Energía (integra en
+mar, 1 sept - XI USD Linked A licitar 16,92 914 05/03/2029 BBB+(arg) (Fix SCR) Tasa jue, 3 sept
+efectivo y/o en especie)
 mar, 1 sept. FF Crucianelli I VDFA USD Mep USD 5.650.000 8,50% 13,02 644 08/06/2028 AA (Fix SCR) Precio jue, 3 sept.
 USD 6.050.000
 mar, 1 sept. FF Crucianelli I VDFB USD Mep USD 400.000 10,00% 21,57 676 10/07/2028 A (Fix SCR) Precio jue, 3 sept.
 USD 2.000.000 (amp. h/ USD 2.000.000 (amp. h/
 mar, 1 sept. ON Cohen S.A. I - USD Mep A licitar 33,51 1096 03/09/2029 SC Tasa jue, 3 sept.
 USD 5.000.000) USD 5.000.000)
+FF de Infraestructura Pública A (Evaluadora
+mar, 1 sept. XIV $5.000.000.000 VRD ARS $5.000.000.000 (20%; TAMAR+100; 50%) 8,84 530 15/02/2028 Precio jue, 3 sept.
+Eléctrica [Bono SVS] Latinoamericana)
