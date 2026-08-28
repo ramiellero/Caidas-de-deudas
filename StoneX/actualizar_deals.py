@@ -1486,6 +1486,9 @@ def parsear_resultados_generico(resultados, modo_monto="principal"):
                 aceptar_margen_negativo=modo_monto == "bajo_impacto"
             )
 
+            if emisor == "Cresud LIII Adicionales":
+                tasa, margen = "Fija", "6,25%"
+
             if not tasa or margen == "":
                 continue
 
