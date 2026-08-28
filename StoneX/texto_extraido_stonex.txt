@@ -1,4 +1,4 @@
-27 de agosto de 2026
+28 de agosto de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,50 +8,26 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-TAMAR+4,94% 25,0625% 34,35% 4,83% 29,89% mié, 26 ago. FF Megabono 357 VDFA ARS $ 10.957.805.463 (23%; T+494; 42%) 6,10 332 26/07/2027 AAA (Fix SCR) Margen vie, 28 ago.
-TAMAR+6% 25,0625% 33,60% 4,26% 29,32% mié, 26 ago. FF Megabono 357 VDFB ARS $ 1.358.002.544 (25%; T+600; 42%) 12,67 392 24/09/2027 AA (Fix SCR) Margen vie, 28 ago.
-LIII
-Px 102,88 - 6,09% - - mié, 26 ago. ON Cresud Adicionales XXXVI USD Mep USD 40.420.132 6,50% 39,27 1338 30/04/2030 AAA (Fix SCR) Precio lun, 31 ago.
-Adicionales
-ON Industrial and Commercial Bank of China
-TAMAR+3,50% 25,0625% 31,77% 2,85% 27,91% mié, 26 ago. - VIII ARS $21.873.928.787 TAMAR+3,50% 10,85 365 28/08/2027 ML A-1 (Moody’s) Margen vie, 28 ago.
-(Argentina)
-ON Industrial and Commercial Bank of China
-3,50% - 3,55% - - mié, 26 ago. - IX USD Mep USD 42.347.370 3,50% 11,84 365 28/08/2027 ML A-1 (Moody’s) Tasa vie, 28 ago.
-(Argentina)
-Px 98,55 25,0625% 30,24% 1,65% 26,71% mié, 26 ago. FF Cuotas Cencosud LX VDFA ARS $13.203.294.919 (20%; T+300; 45%) 3,34 205 20/03/2027 AAA (Fix SCR) Precio jue, 27 ago.
-Px 98,45 25,0625% 30,23% 1,64% 26,71% mié, 26 ago. FF Cuotas Cencosud LX VDFB ARS $2.822.885.606 (20%; T+300; 45%) 8,24 297 20/06/2027 BB- (Fix SCR) Precio jue, 27 ago.
-TAMAR-1,51% 25,0625% 25,66% -2,00% 23,06% mié, 26 ago. ON Entre Garantizada (Apto Pyme) I - ARS $1.000.000.000 TAMAR-1,51% 15,60 731 28/08/2028 SC Margen vie, 28 ago.
+AAA (Fix SCR) /
+5,50% - 5,58% - - jue, 27 ago. ON Profertil - 4 USD Mep USD 90.374.810 5,50% 38,84 1280 28/02/2030 Tasa vie, 28 ago.
+AAA (Moody’s)
+Letra del Tesoro Nacional Capitalizable en
+Px 121,70 25,2500% 29,75% 1,08% 26,33% jue, 27 ago. S30N6 - ARS $5.000.000.000.000 TEM 2,3% 2,99 91 30/11/2026 SC Precio lun, 31 ago.
+Pesos [Reapertura]
+Letra del Tesoro Nacional Capitalizable en
+TEM 2,25% 25,2500% 30,60% 1,75% 27,00% jue, 27 ago. S29E7 - ARS $2.379.233.000.000 TEM 2,25% 4,96 151 29/01/2027 SC TEM lun, 31 ago.
+Pesos [Nueva]
+Bono del Tesoro Nacional Capitalizable en
+Px 124,00 25,2500% 30,69% 1,82% 27,07% jue, 27 ago. T31Y7 - ARS $1.974.600.000.000 TEM 2,4% 8,98 273 31/05/2027 SC Precio lun, 31 ago.
+Pesos [Reapertura]
+Letra del Tesoro Nacional en Pesos con Ajuste
+Px 98,35 - 6,25% - - jue, 27 ago. X29E7 - CER $848.347.000.000 0,00% 4,96 151 29/01/2027 SC Precio lun, 31 ago.
+por CER a Descuento [Reapertura]
+Letra del Tesoro Nacional Vinculada al Dólar
+Px 98,78 - 7,64% - - jue, 27 ago. D30O6 - USD Linked USD 279.000.000 0,00% 1,97 60 30/10/2026 SC Precio lun, 31 ago.
+Estadounidense Cero Cupón [Reapertura]
 Presentation Heading |
 Licita hoy
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-USD 70.000.000 (amp. h/ USD 70.000.000 (amp. h/ AAA (Fix SCR) /
-jue, 27 ago. ON Profertil - 4 USD Mep A licitar 38,57 1280 28/02/2030 Tasa vie, 28 ago.
-monto máximo disponible) monto máximo disponible) AAA (Moody’s)
-Letra del Tesoro Nacional Hasta el monto máximo Hasta el monto máximo
-jue, 27 ago. S30N6 - ARS 2,30% 2,99 91 30/11/2026 SC Precio lun, 31 ago.
-Capitalizable en Pesos [Reapertura] autorizado autorizado
-Letra del Tesoro Nacional Hasta el monto máximo Hasta el monto máximo
-jue, 27 ago. S29E7 - ARS TEM a licitar 4,96 151 29/01/2027 SC TEM lun, 31 ago.
-Capitalizable en Pesos [Nueva] autorizado autorizado
-Bono del Tesoro Nacional Hasta el monto máximo Hasta el monto máximo
-jue, 27 ago. T31Y7 - ARS 2,40% 8,98 273 31/05/2027 SC Precio lun, 31 ago.
-Capitalizable en Pesos [Reapertura] autorizado autorizado
-Letra del Tesoro Nacional en Pesos
-Hasta el monto máximo Hasta el monto máximo
-jue, 27 ago. con Ajuste por CER a Descuento X29E7 - CER 0,00% 4,96 151 29/01/2027 SC Precio lun, 31 ago.
-autorizado autorizado
-[Reapertura]
-Letra del Tesoro Nacional Vinculada
-Hasta el monto máximo Hasta el monto máximo
-jue, 27 ago. al Dólar Estadounidense Cero Cupón D30O6 - USD Linked 0,00% 1,97 60 30/10/2026 SC Precio lun, 31 ago.
-autorizado autorizado
-[Reapertura]
-Presentation Heading |
-Operaciones en Difusión
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -63,9 +39,15 @@ $ 5.000.000.000 (ampliable) $ 5.000.000.000 (ampliable)
 Letras del Tesoro de la Provincia del
 vie, 28 ago. CXXI 2 ARS Máx {TNA a licitar;TAMAR+5,50%} 6,90 210 29/03/2027 ML B (Moody’s) Tasa lun, 31 ago.
 Chubut
-USD 200.000.000 (amp. h/ USD 200.000.000 (amp. h/
-vie, 28 ago ON Banco Galicia XXXIV - USD Mep A licitar 23,51 731 31/08/2028 A informar Tasa lun, 31 ago
-monto máximo de emisión) monto máximo de emisión)
+USD 200.000.000 (amp. h/ USD 200.000.000 (amp. h/ raAAA (S&P
+vie, 28 ago ON Banco Galicia XXXIV - USD Mep A licitar 23,51 731 31/08/2028 Tasa lun, 31 ago
+monto máximo de emisión) monto máximo de emisión) National Ratings)
+Presentation Heading |
+Operaciones en Difusión
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
 mar, 1 sept ON Crown Point Energía Garantizada - X USD Mep A licitar 23,58 1096 03/09/2029 A(arg) (Fix SCR) Tasa jue, 3 sept
 USD 80.000.000 (amp. h/ USD 80.000.000 (amp. h/
 monto máximo de emisión) monto máximo de emisión)
@@ -81,3 +63,6 @@ USD 5.000.000) USD 5.000.000)
 FF de Infraestructura Pública A (Evaluadora
 mar, 1 sept. XIV $5.000.000.000 VRD ARS $5.000.000.000 (20%; TAMAR+100; 50%) 8,84 530 15/02/2028 Precio jue, 3 sept.
 Eléctrica [Bono SVS] Latinoamericana)
+ON CGC (integra en efectivo y/o en USD 40.000.000 (amp. h/ USD 40.000.000 (amp. h/
+mié, 2 sept. - 41 USD Mep A licitar 32,00 1096 07/09/2029 A informar Tasa lun, 7 sept.
+especie) monto máximo disponible) monto máximo disponible)
