@@ -390,6 +390,11 @@
     .mat-table thead th:nth-child(6) { width: 14%; }
     .mat-table thead th:nth-child(7) { width: 16%; }
     .mat-table thead th:nth-child(8) { width:  8%; }
+    .called-ons-table thead th:nth-child(1) { width: 20%; }
+    .called-ons-table thead th:nth-child(2) { width: 20%; }
+    .called-ons-table thead th:nth-child(3) { width: 20%; }
+    .called-ons-table thead th:nth-child(4) { width: 20%; }
+    .called-ons-table thead th:nth-child(5) { width: 20%; }
     .mat-table thead th.r { text-align: right; }
     .mat-table tbody td {
       padding: 7px 14px;
@@ -1769,6 +1774,23 @@
         </tr>
       </tfoot>
     </table>
+
+    <!-- IRSA — ONs Calleadas -->
+    <div id="irsa-called-section" class="called-ons-section" style="display:none;">
+      <div class="section-label" style="color:#1D4B6E; border-bottom:2px solid #1D4B6E; margin-top:24px;">ONs Calleadas</div>
+      <table class="mat-table called-ons-table" id="irsa-called-table">
+        <thead style="background:#1D4B6E;">
+          <tr>
+            <th>ON</th>
+            <th>Fecha Ejecución</th>
+            <th class="r">Precio</th>
+            <th class="r">Monto (USD M)</th>
+            <th class="r">Cupón</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 
   <footer class="footer">
@@ -1904,6 +1926,23 @@
         </tr>
       </tfoot>
     </table>
+
+    <!-- Cresud — ONs Calleadas -->
+    <div id="cresud-called-section" class="called-ons-section" style="display:none;">
+      <div class="section-label" style="color:#1A3D2A; border-bottom:2px solid #1A3D2A; margin-top:24px;">ONs Calleadas</div>
+      <table class="mat-table called-ons-table" id="cresud-called-table">
+        <thead style="background:#1A3D2A;">
+          <tr>
+            <th>ON</th>
+            <th>Fecha Ejecución</th>
+            <th class="r">Precio</th>
+            <th class="r">Monto (USD M)</th>
+            <th class="r">Cupón</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 
   <footer class="footer">
@@ -3431,12 +3470,48 @@ function setCresudMatView(mode, btn) {
   _applyCresudMatData(cresudMatData[mode]);
 }
 
+function _renderCalledOnsTable(sectionId, tableId, rows) {
+  const section = document.getElementById(sectionId);
+  const tbody = document.getElementById(tableId).querySelector('tbody');
+  tbody.innerHTML = '';
+  if (!rows.length) { section.style.display = 'none'; return; }
+  rows
+    .slice()
+    .sort((a, b) => _parseDMY(a['Fecha Ejecucion']) - _parseDMY(b['Fecha Ejecucion']))
+    .forEach(r => {
+      const monto = (parseFloat(r['Monto']) / 1e6).toFixed(1);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>ON ${r['ON']}</td>
+        <td>${r['Fecha Ejecucion']}</td>
+        <td class="num">${r['Precio']}</td>
+        <td class="num">${monto}</td>
+        <td class="num">${r['Tasa']}</td>`;
+      tbody.appendChild(tr);
+    });
+  section.style.display = '';
+}
+
+async function _loadCalledOns() {
+  try {
+    const [irsaText, cresudText] = await Promise.all([
+      _csvFetch('IRSA/irsa_calls_ejecutados.csv'),
+      _csvFetch('Cresud/cresud_calls_ejecutados.csv'),
+    ]);
+    _renderCalledOnsTable('irsa-called-section', 'irsa-called-table', _parseIrsaCsv(irsaText));
+    _renderCalledOnsTable('cresud-called-section', 'cresud-called-table', _parseIrsaCsv(cresudText));
+  } catch (e) {
+    console.error('ONs calleadas: error cargando CSV', e);
+  }
+}
+
 (async function () {
   await _loadCallData();
   initIrsaMatChart();
   initIrsaTimeline();
   initCresudMatChart();
   initCresudTimeline();
+  _loadCalledOns();
 })();
 initSgrSection();
 initDealsSection();

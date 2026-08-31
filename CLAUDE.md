@@ -25,12 +25,14 @@ IRSA/
   irsa_deuda_total.csv                  # Schedule completo IRSA: capital + intereses por período
   irsa_call_data.csv                    # Call option simple por ON IRSA: ON,CallDate,Price
   irsa_call_schedule.csv                # Call option escalonado por ON IRSA (ON XIV, XXIV): ON,From,Price — una fila por tramo
+  irsa_calls_ejecutados.csv             # Histórico de ONs IRSA canceladas por ejercicio de call — ver sección "ONs Calleadas"
 
 Cresud/
   cresud_deuda.csv                      # Vencimientos de capital de Cresud (fuente principal de KPIs Cresud)
   cresud_call_data.csv                  # Call option simple por ON Cresud: ON,CallDate,Price
   cresud_call_schedule.csv              # Call option escalonado por ON Cresud: ON,From,Price — vacío actualmente, ningún ON de Cresud tiene call escalonado
   cresud_completo.csv                   # Schedule completo Cresud: capital + intereses por período
+  cresud_calls_ejecutados.csv           # Histórico de ONs Cresud canceladas por ejercicio de call — ver sección "ONs Calleadas"
 
 SGR/
   garantia_sgr.csv                      # Stock de garantías históricas por SGR (Garantías, FDR, Apalancamiento)
@@ -278,6 +280,24 @@ Columna interactiva añadida en ambas tablas (`#irsa-mat-table`, `#cresud-mat-ta
 **CSS**: `.call-btn`, `.call-btn.callable` (`#16a34a`), `.call-btn.not-callable` (`#dc2626`), `.call-popover` (fijo, fondo `#111`), `.call-sched-table`
 
 **Integración con extra-rows**: `_updateIrsaTable` y `_updateCresudTable` incluyen un `<td></td>` vacío en la posición de Call Option al generar filas de descubiertos, para mantener la alineación de columnas.
+
+### ONs Calleadas
+
+Card debajo de la tabla de detalle de instrumentos (IRSA y Cresud), que lista las ONs canceladas anticipadamente por ejercicio de call. Se oculta automáticamente (`display:none`) si el CSV de la empresa no tiene filas.
+
+**Fuente de datos**: `IRSA/irsa_calls_ejecutados.csv` y `Cresud/cresud_calls_ejecutados.csv` — columnas `ON,Fecha Ejecucion,Precio,Monto,Tasa,Moneda`. `Fecha Ejecucion` formato `DD/MM/YYYY`; `Monto` es el nominal callado en USD (número plano, sin separadores); `Precio` string tal cual se muestra (e.g. `"100%"`).
+
+**Funciones** (`index.html`):
+- `_loadCalledOns()` — fetchea ambos CSVs en paralelo (`_csvFetch`), parsea con `_parseIrsaCsv`, y llama `_renderCalledOnsTable()` para cada empresa; se dispara al final de la IIFE de init junto con `initIrsaMatChart()`/`initCresudMatChart()`/etc.
+- `_renderCalledOnsTable(sectionId, tableId, rows)` — ordena las filas por `Fecha Ejecucion` ascendente, genera las filas de `<tbody>`, y muestra/oculta el contenedor (`#irsa-called-section` / `#cresud-called-section`) según si hay datos
+
+**Cómo agregar una ON calleada**: cuando se ejecuta/confirma un call, hay dos pasos:
+1. Appendear una fila al CSV correspondiente (`irsa_calls_ejecutados.csv` / `cresud_calls_ejecutados.csv`) con los datos del call ejecutado.
+2. **Cortar el schedule activo del instrumento** en `*_deuda.csv` y `*_deuda_total.csv`/`*_completo.csv` — cambiar la `Fecha Fin` de la fila de capital a la fecha de ejecución del call (en vez del vencimiento original), y reemplazar el último cupón de intereses pendiente por un stub `Intereses + Capital` que corre desde la fecha del cupón anterior hasta la fecha de ejecución (interés prorrateado por los días reales, misma convención Actual/365 que el resto del schedule), eliminando las filas de cupones posteriores que ya no van a ocurrir. Sin este paso, el instrumento seguiría apareciendo en maturity wall/timeline/tabla hasta su vencimiento original en vez de desaparecer en la fecha del call (el filtro automático de vencidos usa `Fecha Fin <= hoy`).
+
+No hace falta tocar `*_call_data.csv`/`*_call_schedule.csv` — una vez que pasa la fecha de ejecución, la fila de capital se auto-excluye por vencida y el botón de Call Option deja de mostrarse solo.
+
+**CSS**: `.called-ons-table` — reutiliza `.mat-table` pero sobreescribe los anchos de columna (`nth-child`) a 20% parejo, porque `.mat-table` trae anchos fijos pensados para su tabla de 8 columnas.
 
 ### Agregar Descubierto (modal en sesión)
 Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria durante la sesión, sin editar CSVs manualmente. Los datos **no persisten** al refrescar; el flujo previsto es: agregar → descargar CSV actualizado → reemplazar el archivo y hacer commit.
@@ -785,6 +805,7 @@ El dashboard antes tenía un login puramente cosmético: un overlay de JS que so
 | Tabla detalle IRSA | `irsa_deuda.csv` — **completamente dinámico** via `_renderIrsaTableBase()`; agregar ON al CSV actualiza la tabla automáticamente |
 | Tabla detalle Cresud | `cresud_deuda.csv` — **completamente dinámico** via `_renderCresudTableBase()`; agregar ON al CSV actualiza la tabla automáticamente |
 | Columna Call Option (ambas tablas) | `IRSA/irsa_call_data.csv` + `IRSA/irsa_call_schedule.csv` (IRSA); `Cresud/cresud_call_data.csv` + `Cresud/cresud_call_schedule.csv` (Cresud) — dinámico via `_loadCallData()` |
+| Card "ONs Calleadas" (debajo de tabla de detalle) | `IRSA/irsa_calls_ejecutados.csv` + `Cresud/cresud_calls_ejecutados.csv` — dinámico via `_loadCalledOns()`; oculto si no hay filas |
 | SGR — Stock de Garantías chart | `garantia_sgr.csv` — dinámico |
 | SGR — Mora/Garantías chart (individual) | `mora_sobre_garantias.csv` — dinámico |
 | SGR — Mora por Antigüedad donut | `mora_antiguedad.csv` — dinámico |
