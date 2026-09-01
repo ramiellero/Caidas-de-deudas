@@ -100,7 +100,10 @@ def fecha_para_web(fecha):
     except:
         return fecha
 
-DIA = r"(?:lun|mar|mi(?:é|Ã©)|jue|vie),\s+\d{1,2}\s+\w{3}\."
+DIA = (
+    r"(?:lun|mar|mi(?:é|Ã©)|jue|vie),\s+\d{1,2}\s+"
+    r"(?:ene|feb|mar|abr|may|jun|jul|ago|sept?|oct|nov|dic)\.?"
+)
 
 def numero_para_web(x):
     try:
@@ -286,11 +289,19 @@ def elegir_link_stonex(links):
 
 def texto_tiene_resultados_parseables(texto):
     t = limpiar_texto_celda(texto).lower()
-    return (
+    tiene_resultados = (
         "tasa / precio de corte" in t
         and "moneda" in t
         and "maturity" in t
     )
+    tiene_agenda_vertical = (
+        "operaciones de terceros" in t
+        and "fecha de licitación" in t
+        and "fecha de liquidación" in t
+        and "moneda" in t
+        and "maturity" in t
+    )
+    return tiene_resultados or tiene_agenda_vertical
 
 
 def _extraer_texto_pagina(page):
@@ -454,7 +465,7 @@ def abrir_y_extraer_texto(url):
     if not texto_tiene_resultados_parseables(texto_total):
         TXT_OUTPUT.write_text(texto_total, encoding="utf-8")
         raise RuntimeError(
-            "La extraccion de StoneX no contiene una tabla de Resultados parseable; "
+            "La extraccion de StoneX no contiene una tabla parseable; "
             "abortando para no actualizar CSVs con un informe incompleto."
         )
 
@@ -506,6 +517,13 @@ def fecha_licitacion_a_fecha(txt):
         return pd.NaT
 
     return pd.Timestamp(year=_año_para_mes(mes_num), month=mes_num, day=dia)
+
+
+def normalizar_fecha_difusion(txt):
+    fecha = limpiar_texto_celda(txt)
+    if fecha.lower() == "a informar":
+        return "A informar"
+    return fecha.rstrip(".") + "."
 
 def limpiar_vn(txt):
     nums = re.findall(r"\d[\d\.]*", str(txt))
@@ -1045,6 +1063,16 @@ def extraer_bloque_difusion(texto):
         "Operaciones en DifusiÃ³n",
     ])
 
+    # The embedded viewer can expose the PDF as one field per line. In that
+    # layout Page 2 contains "Licita hoy", but its title is emitted afterwards.
+    page_2_pos = _find_first_marker(texto, ["Page 2"])
+    if (
+        page_2_pos is not None
+        and (pos is None or page_2_pos < pos)
+        and "Fecha de \nLicitación" in texto[page_2_pos:]
+    ):
+        return texto[page_2_pos:]
+
     if pos is not None:
         return texto[pos:]
 
@@ -1359,20 +1387,35 @@ def _difusion_emisor(reg, extras_emisor=None, serie_contexto=""):
         s
     )
 
+    s_antes_limpieza_montos = s
+
     s = re.sub(r"\bmonto (?:máximo )?disponible\b.*$", " ", s, flags=re.I)
     s = re.sub(r"Monto Máximo del Programa", " ", s, flags=re.I)
     s = re.sub(r"del Programa\)", " ", s, flags=re.I)
 
-    emisor = re.split(
-        r"\s*-?\s*(?:USD|\$)\s*[\d\.]",
-        s,
-        maxsplit=1
-    )[0]
-    emisor = re.split(
-        r"\s+(?:USD\s+Mep|USD\s+Cable|USD\s+Linked|ARS|UVA)\b",
-        emisor,
-        maxsplit=1
-    )[0]
+    monto_antes_de_clase = re.match(
+        r"^(?P<nombre>ON\s+.*?)\s*-?USD\s*[\d\.]+.*?\)\s*"
+        r"(?P<clase>Única|[IVXLCDM]+|\d+)\s+"
+        r"(?:USD\s+Mep|USD\s+Cable|USD\s+Linked)\b",
+        s_antes_limpieza_montos,
+        flags=re.I
+    )
+    if monto_antes_de_clase:
+        emisor = limpiar_texto_celda(
+            f"{monto_antes_de_clase.group('nombre')} - "
+            f"{monto_antes_de_clase.group('clase')}"
+        )
+    else:
+        emisor = re.split(
+            r"\s*-?\s*(?:USD|\$)\s*[\d\.]",
+            s,
+            maxsplit=1
+        )[0]
+        emisor = re.split(
+            r"\s+(?:USD\s+Mep|USD\s+Cable|USD\s+Linked|ARS|UVA)\b",
+            emisor,
+            maxsplit=1
+        )[0]
 
     emisor = re.sub(r"\s+(VDFA|VDFB|VDFC|CP)\b.*$", "", emisor)
 
@@ -1973,8 +2016,8 @@ def actualizar_difusion(texto):
         reg = registro["reg"]
         reg_limpio = limpiar_texto_celda(reg)
 
-        fecha_lic = registro["fecha_lic"]
-        fecha_liq = registro["fecha_liq"]
+        fecha_lic = normalizar_fecha_difusion(registro["fecha_lic"])
+        fecha_liq = normalizar_fecha_difusion(registro["fecha_liq"])
 
         # -------------------------
         # MONEDA
@@ -2087,6 +2130,14 @@ def actualizar_difusion(texto):
 
     df_existente = df_existente.fillna("")
     df_nuevo = df_nuevo.fillna("")
+
+    for columna_fecha in ["FECHA LICITACIÓN", "FECHA LIQUIDACIÓN"]:
+        df_existente[columna_fecha] = df_existente[columna_fecha].apply(
+            normalizar_fecha_difusion
+        )
+        df_nuevo[columna_fecha] = df_nuevo[columna_fecha].apply(
+            normalizar_fecha_difusion
+        )
 
     if len(df_nuevo):
         fechas_nuevas = set(
