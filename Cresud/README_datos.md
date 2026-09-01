@@ -29,7 +29,7 @@ Este archivo describe el contenido de esta carpeta para el agente de Copilot "Me
 12. Un ON sin entrada en ningún archivo de call → no tiene call option.
 13. "Callable" es un estado a la fecha de hoy (hoy ≥ `CallDate`), no una propiedad fija ni un vencimiento garantizado — es una opción del emisor.
 14. El precio de call puede no ser 100% — aplicarlo tal cual sobre el nominal/outstanding.
-15. **Calls ya ejercidos** (`historial_calls.csv`): si una ON aparece acá, ya fue cancelada anticipadamente en `Fecha Call Ejercido` — no proyectarla en su `Fecha Maturity Original`. Ejemplo: ON XLIV fue llamada el 17/07/2026 a 101% (vencimiento original 17/01/2027, USD 39.765.830 nominales, tasa 6,00%).
+15. **Calls ya ejercidos** (`historial_calls.csv`): si una ON aparece acá, ya fue cancelada anticipadamente en `Fecha Call Ejercido` — no proyectarla en su `Fecha Maturity Original`. Ejemplos: ON XLIV fue llamada el 17/07/2026 a 101% (vencimiento original 17/01/2027, USD 39.765.830 nominales, tasa 6,00%); ON XLIX fue llamada el 04/09/2026 a 100% (vencimiento original 02/09/2027, USD 31.306.845 nominales, tasa 7,25%). El dashboard web (`index.html`) muestra este mismo historial en la card "ONs Calleadas" de Debt Profile, leyendo `cresud_calls_ejecutados.csv` (mismo contenido, columnas distintas: `ON,Fecha Ejecucion,Precio,Monto,Tasa,Moneda`) — mantener ambos archivos en sync al registrar un call nuevo.
 
 ## Fórmulas
 

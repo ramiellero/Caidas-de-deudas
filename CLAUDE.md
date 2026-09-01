@@ -297,6 +297,8 @@ Card debajo de la tabla de detalle de instrumentos (IRSA y Cresud), que lista la
 
 No hace falta tocar `*_call_data.csv`/`*_call_schedule.csv` — una vez que pasa la fecha de ejecución, la fila de capital se auto-excluye por vencida y el botón de Call Option deja de mostrarse solo.
 
+**Nota Cresud**: `Cresud/historial_calls.csv` es un archivo aparte (schema `ON,Fecha Call Ejercido,Fecha Maturity Original,Precio Call,Motivo,Monto Nominal USD,Tasa`), documentado en `Cresud/README_datos.md` y consumido por un agente Copilot externo ("Mercado de Capitales") — no lo lee el dashboard. Al registrar un call nuevo de Cresud, appendear también una fila ahí para que ambas fuentes queden en sync.
+
 **CSS**: `.called-ons-table` — reutiliza `.mat-table` pero sobreescribe los anchos de columna (`nth-child`) a 20% parejo, porque `.mat-table` trae anchos fijos pensados para su tabla de 8 columnas.
 
 ### Agregar Descubierto (modal en sesión)
