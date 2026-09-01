@@ -823,8 +823,9 @@ def _rearmar_on_partida(prefix, data_line, suffix=""):
 
 
 _RATING_GRADE_RESULTADOS = (
-    r"(?:AAA|AA[+-]?|A\+?1|A1\+?|A-1|A-2|A2|A[+-]?|"
+    r"(?:(?:ra)?(?:AAA|AA[+-]?|A\+?1|A1\+?|A-1|A-2|A2|A[+-]?|"
     r"BBB[+-]?|BB[+-]?|B[+-]?|B\d|CCC[+-]?|Caa\d|Ca|C|SC)"
+    r")"
 )
 
 
@@ -839,7 +840,11 @@ def _linea_rating_resultado(linea):
 
 def _linea_rating_continuacion(linea):
     l = limpiar_texto_celda(linea)
-    return bool(re.match(r"^(?:\d+\s+\([^)]+\)|\([^)]+\))$", l, flags=re.I))
+    return bool(re.match(
+        r"^(?:\d+\s+\([^)]+\)|\([^)]+\)|(?:National|Global)\s+Ratings\))$",
+        l,
+        flags=re.I
+    ))
 
 
 def _unir_rating_partida(rating, continuacion):
@@ -1502,7 +1507,7 @@ def parsear_resultados_generico(resultados, modo_monto="principal"):
 
         for detalle in matches:
 
-            prefix = detalle.group("prefix")
+            prefix = detalle.group("prefix").strip(" -–—")
 
             if " ON " in prefix and not re.search(r"\bcon\s+ON\b", prefix, flags=re.I):
                 prefix = "ON " + prefix.split(" ON ")[-1]
