@@ -4678,12 +4678,20 @@ function _sgrRenderMoraChart(meta) {
   const colMap = { potenciar: 'potenciar', potenciar26: 'potenciar26', garantizar: 'garantizar', garantizar26: 'garantizar26', integra: 'integra', bind: 'bind', acindar: 'acindar' };
   const col = colMap[_sgrActiveSgr];
 
-  const labels = _sgrMoraEvolucion.map(r => r.fecha);
+  // Acindar Pymes se incorporó como vehículo IRSA en mayo-26; Total_sgr.csv trae mora
+  // de esa entidad de mercado desde antes (feb-26), que no nos corresponde mostrar.
+  const acindarStart = _sgrParseDMY('1/5/2026');
+  const startIdx = col === 'acindar'
+    ? Math.max(0, _sgrMoraEvolucion.findIndex(r => _sgrParseDMY(r.fecha) >= acindarStart))
+    : Math.max(0, _sgrMoraEvolucion.findIndex(r => r[col] != null));
+  const evol = _sgrMoraEvolucion.slice(startIdx);
+
+  const labels = evol.map(r => r.fecha);
 
   const datasets = [
     {
       label: meta.label,
-      data: _sgrMoraEvolucion.map(r => r[col]),
+      data: evol.map(r => r[col]),
       borderColor: meta.color,
       backgroundColor: 'transparent',
       pointRadius: 3,
@@ -4693,7 +4701,7 @@ function _sgrRenderMoraChart(meta) {
     },
     {
       label: 'Promedio Mercado',
-      data: _sgrMoraEvolucion.map(r => r.promedio),
+      data: evol.map(r => r.promedio),
       borderColor: '#E8960C',
       backgroundColor: 'transparent',
       borderDash: [5, 3],
