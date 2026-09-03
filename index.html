@@ -4958,7 +4958,7 @@ function _sgrRenderMktRanking() {
   }
 
   const ourSGRs = new Set([...Object.values(SGR_META).map(m => m.totalLabel), 'ACINDAR PYMES S.G.R.']);
-  const sorted  = _sgrTotalSgr.filter(r => ourSGRs.has(r.sgr)).sort((a, b) => b.mora - a.mora);
+  const sorted  = _sgrTotalSgr.slice().sort((a, b) => b.mora - a.mora);
 
   const labels = sorted.map(r =>
     r.sgr.replace(/ S\.G\.R\.$/, '').replace(' PYMES', '').replace('GARANTIAS ', '').trim()
