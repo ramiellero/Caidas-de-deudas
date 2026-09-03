@@ -1,4 +1,4 @@
-2 de septiembre de 2026
+3 de septiembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,36 +8,11 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-8,50% - 8,77% - - mar, 1 sept ON Crown Point Energía Garantizada - X USD Mep USD 8.264.901 8,50% 23,46 1096 03/09/2029 A (Fix SCR) Tasa jue, 3 sept
-ON Crown Point Energía (integra en efectivo y/o
-9,50% - 9,84% - - mar, 1 sept - XI USD Linked USD 46.774.854 9,50% 16,73 914 05/03/2029 BBB+ (Fix SCR) Tasa jue, 3 sept
-en especie)
-Px 100,00 - 8,83% - - mar, 1 sept. FF Crucianelli I VDFA USD Mep USD 5.650.000 8,50% 13,19 644 08/06/2028 AA (Fix SCR) Precio jue, 3 sept.
-Px 98,69 - 10,47% - - mar, 1 sept. FF Crucianelli I VDFB USD Mep USD 400.000 10,00% 21,77 676 10/07/2028 A (Fix SCR) Precio jue, 3 sept.
-6,25% - 6,35% - - mar, 1 sept. ON Cohen S.A. I - USD Mep USD 2.496.950 6,25% 33,41 1096 03/09/2029 SC Tasa jue, 3 sept.
-FF de Infraestructura Pública Eléctrica [Bono A (Evaluadora
-Px 96,39 24,6250% 35,97% 6,50% 31,12% mar, 1 sept. XIV VRD ARS $5.000.000.000 (20%; T+100; 50%) 8,39 530 15/02/2028 Precio jue, 3 sept.
-SVS] Latinoamericana)
-TAMAR-1,01% 24,6250% 25,79% -1,46% 23,16% mar, 1 sept ON Pyme Garantizada Pimento S.R.L. I I ARS $1.500.000.000 TAMAR-1,01% 17,73 731 03/09/2028 SC Margen jue, 3 sept
-Desierta - - - - mar, 1 sept ON Pyme Garantizada Pimento S.R.L. I II UVA Desierta Desierta Desierta 731 03/09/2028 SC Tasa jue, 3 sept
-4,90% - 4,99% - - mar, 1 sept ON CT Barragán - 10 USD Mep USD 41.635.000 4,90% 15,60 487 03/01/2028 AAA (Fix SCR) Tasa jue, 3 sept
+8,00% - 8,16% - - mié, 2 sept. ON CGC (integra en efectivo y/o en especie) - 41 USD Mep USD 83.573.632 8,00% 32,74 1096 07/09/2029 AA- (Fix SCR) Tasa lun, 7 sept.
+34,50% 24,6250% 34,50% 5,38% 30,01% mié, 2 sept. FF AMES XXIX VRDA ARS $1.500.000.000 (30%; T+100; 45%) 5,80 413 21/10/2027 AAA (Moody´s) TIR jue, 3 sept.
+Px 100,00 24,6250% 29,71% 1,67% 26,29% mié, 2 sept. FF AMES XXIX VRDB ARS $100.000.000 30,00% 14,19 444 21/11/2027 AA+ (Moody´s) Precio jue, 3 sept.
 Presentation Heading |
 Licita hoy
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-USD 3.000.000 (amp. h/ USD 3.000.000 (amp. h/
-mié, 2 sept ON Centro Interacción Multimedia - Única USD Mep A licitar 25,12 1096 07/09/2029 SC Tasa lun, 7 sept
-USD 4.500.000) USD 4.500.000)
-ON CGC (integra en efectivo y/o en USD 40.000.000 (amp. h/ USD 40.000.000 (amp. h/
-mié, 2 sept. - 41 USD Mep A licitar 32,00 1096 07/09/2029 AA- (Fix SCR) Tasa lun, 7 sept.
-especie) monto máximo disponible) monto máximo disponible)
-mié, 2 sept. FF AMES XXIX VRDA ARS $1.500.000.000 (30%; T+100; 45%) 6,00 413 21/10/2027 AAA (Moody´s) TIR jue, 3 sept.
-$3.041.391.599
-mié, 2 sept. FF AMES XXIX VRDB ARS $100.000.000 30,00% 14,39 444 21/11/2027 AA+ (Moody´s) Precio jue, 3 sept.
-Presentation Heading |
-Operaciones en Difusión
 STONEX
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -46,7 +21,7 @@ jue, 3 sept. FF Megabono Crédito 352 VDFA ARS $13.007.072.203 (23%; T+Mg; 42%) 
 $15.614.732.537
 jue, 3 sept. FF Megabono Crédito 352 VDFB ARS $2.607.660.334 (25%; T+Mg; 42%) 10,80 357 27/08/2027 AA- (Fix SCR) Margen vie, 4 sept.
 ON Pyme Garantizada Sion (integra
-jue, 3 sept. V $3.800.000.000 - ARS $3.800.000.000 Caución+1500 7,85 398 10/10/2027 SC Por Adhesión lun, 7 sept.
+jue, 3 sept. V $3.800.000.000 - ARS $3.800.000.000 Caución+1500 7,80 398 10/10/2027 SC Por Adhesión lun, 7 sept.
 en efectivo y/o en especie)
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
@@ -59,6 +34,18 @@ jue, 3 sept FF PedidosYa Créditos 1 $10.548.000.000 VDF ARS $10.548.000.000 (20
 $2.000.000.000 (amp. h/ $2.000.000.000 (amp. h/
 jue, 3 sept ON Pyme Garantizada Pedrolga II - ARS TAMAR+Mg 17,66 731 07/09/2028 SC Margen lun, 7 sept
 $4.500.000.000) $4.500.000.000)
+[PRORROGADA] ON Centro USD 3.000.000 (amp. h/ USD 3.000.000 (amp. h/
+jue, 3 sept - Única USD Mep A licitar 25,12 1096 07/09/2029 SC Tasa lun, 7 sept
+Interacción Multimedia USD 4.500.000) USD 4.500.000)
+Presentation Heading |
+Operaciones en Difusión
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+ON Pyme Garantizada Ruta 3
+vie, 4 sept I $2.400.000.000 - ARS $2.400.000.000 TAMAR+Mg 13,15 731 08/09/2028 SC Margen mar, 8 sept
+Automotores
 USD 3.000.000 (amp. h/ USD 3.000.000 (amp. h/
 mié, 9 sept ON Promedon Avalada II - USD Mep A licitar 25,02 1096 14/09/2029 BBB+ (Moody´s) Tasa lun, 14 sept
 USD 4.500.000) USD 4.500.000)
