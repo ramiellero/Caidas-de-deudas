@@ -1,4 +1,4 @@
-3 de septiembre de 2026
+4 de septiembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,37 +8,17 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-8,00% - 8,16% - - mié, 2 sept. ON CGC (integra en efectivo y/o en especie) - 41 USD Mep USD 83.573.632 8,00% 32,74 1096 07/09/2029 AA- (Fix SCR) Tasa lun, 7 sept.
-34,50% 24,6250% 34,50% 5,38% 30,01% mié, 2 sept. FF AMES XXIX VRDA ARS $1.500.000.000 (30%; T+100; 45%) 5,80 413 21/10/2027 AAA (Moody´s) TIR jue, 3 sept.
-Px 100,00 24,6250% 29,71% 1,67% 26,29% mié, 2 sept. FF AMES XXIX VRDB ARS $100.000.000 30,00% 14,19 444 21/11/2027 AA+ (Moody´s) Precio jue, 3 sept.
+TAMAR+4,90% 23,8125% 32,70% 4,81% 28,63% jue, 3 sept. FF Megabono Crédito 352 VDFA ARS $13.007.072.203 (23%; T+490; 42%) 5,14 297 28/06/2027 AAA (Fix SCR) Margen vie, 4 sept.
+TAMAR+6,00% 23,8125% 32,47% 4,64% 28,45% jue, 3 sept. FF Megabono Crédito 352 VDFB ARS $2.607.660.334 (25%; T+600; 42%) 11,22 357 27/08/2027 AA- (Fix SCR) Margen vie, 4 sept.
+ON Pyme Garantizada Sion (integra en efectivo
+Caución+1500 23,8125% 41,84% 11,65% 35,47% jue, 3 sept. V - ARS $3.800.000.000 Caución+1500 7,81 398 10/10/2027 SC Por Adhesión lun, 7 sept.
+y/o en especie)
+5,80% - 5,93% - - jue, 3 sept. ON Scania Credit Argentina - 4 USD Mep USD 40.894.186 5,80% 20,06 1096 08/09/2029 AAA (Fix SCR) Tasa mar, 8 sept.
+26,43% 23,8125% 33,04% 5,08% 28,89% jue, 3 sept FF PedidosYa Créditos 1 VDF ARS $10.548.000.000 (20%; TAMAR+100; 50%) 5,73 351 25/08/2027 AAA (Moody’s) TIR mar, 8 sept
+TAMAR-1,61% 23,8125% 24,12% -2,01% 21,80% jue, 3 sept ON Pyme Garantizada Pedrolga II - ARS $4.500.000.000 TAMAR-1,61% 17,95 731 07/09/2028 SC Margen lun, 7 sept
+8,75% - 8,94% - - jue, 3 sept ON Centro Interacción Multimedia - Única USD Mep USD 4.500.000 8,75% 24,96 1096 07/09/2029 SC Tasa lun, 7 sept
 Presentation Heading |
 Licita hoy
-STONEX
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-jue, 3 sept. FF Megabono Crédito 352 VDFA ARS $13.007.072.203 (23%; T+Mg; 42%) 5,07 297 28/06/2027 AAA (Fix SCR) Margen vie, 4 sept.
-$15.614.732.537
-jue, 3 sept. FF Megabono Crédito 352 VDFB ARS $2.607.660.334 (25%; T+Mg; 42%) 10,80 357 27/08/2027 AA- (Fix SCR) Margen vie, 4 sept.
-ON Pyme Garantizada Sion (integra
-jue, 3 sept. V $3.800.000.000 - ARS $3.800.000.000 Caución+1500 7,80 398 10/10/2027 SC Por Adhesión lun, 7 sept.
-en efectivo y/o en especie)
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-USD 40.000.000 (amp. h/ USD 40.000.000 (amp. h/
-jue, 3 sept. ON Scania Credit Argentina - 4 USD Mep A licitar 19,84 1096 08/09/2029 AAA (Fix SCR) Tasa mar, 8 sept.
-USD 60.000.000) USD 60.000.000)
-jue, 3 sept FF PedidosYa Créditos 1 $10.548.000.000 VDF ARS $10.548.000.000 (20%; TAMAR+100; 50%) 5,66 351 25/08/2027 AAA (Moody’s) TIR mar, 8 sept
-$2.000.000.000 (amp. h/ $2.000.000.000 (amp. h/
-jue, 3 sept ON Pyme Garantizada Pedrolga II - ARS TAMAR+Mg 17,66 731 07/09/2028 SC Margen lun, 7 sept
-$4.500.000.000) $4.500.000.000)
-[PRORROGADA] ON Centro USD 3.000.000 (amp. h/ USD 3.000.000 (amp. h/
-jue, 3 sept - Única USD Mep A licitar 25,12 1096 07/09/2029 SC Tasa lun, 7 sept
-Interacción Multimedia USD 4.500.000) USD 4.500.000)
-Presentation Heading |
-Operaciones en Difusión
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -46,6 +26,25 @@ Licitación (meses) Pago Licitación Liquidación
 ON Pyme Garantizada Ruta 3
 vie, 4 sept I $2.400.000.000 - ARS $2.400.000.000 TAMAR+Mg 13,15 731 08/09/2028 SC Margen mar, 8 sept
 Automotores
+Presentation Heading |
+Operaciones en Difusión
+STONEX
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+mar, 8 sept FF Consubond 202 VDFA ARS $18.592.854.748 (20%; T+100; 40%) 3,52 258 26/05/2027 AAA (Fix SCR) TIR jue, 10 sept
+$18.782.577.756
+mar, 8 sept FF Consubond 202 VDFB ARS $189.723.008 (21%; T+100; 41%) 9,37 288 25/06/2027 AAA (Fix SCR) TIR jue, 10 sept
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+Clase 10
+mar, 8 sept ON Tecpetrol [Ley NY] - $300.000.000 USD Cable USD 300.000.000 7,63% A informar A informar 22/01/2033 A Informar Precio A informar
+Adicionales
+Letras del Tesoro de la Municipalidad $20.000.000.000 (h/ ML A-1 (Moody´s
+mar, 8 sept LIII - ARS $50.000.000.000 TAMAR+Mg 10,70 358 03/09/2027 Margen jue, 10 sept
+de Córdoba Garantizadas $50.000.000.000) Local)
 USD 3.000.000 (amp. h/ USD 3.000.000 (amp. h/
 mié, 9 sept ON Promedon Avalada II - USD Mep A licitar 25,02 1096 14/09/2029 BBB+ (Moody´s) Tasa lun, 14 sept
 USD 4.500.000) USD 4.500.000)
