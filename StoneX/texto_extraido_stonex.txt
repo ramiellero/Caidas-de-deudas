@@ -1,72 +1,364 @@
-7 de septiembre de 2026
+
+
+--- BODY ---
+
+​
+​
+​
+Soporte
+Español
+Lista de seguimiento
+Iniciar sesión
+Licitaciones Primarias 08-09-2026
+Por:
+Mercado de Capitales Stonex
+Hoy 11:23 AM
+View Full
+REGRESAR
+
+Este material debe interpretarse como comentario de mercado y representa las opiniones y puntos de vista del autor, y no constituye asesoramiento personalizado asociado con ninguna cuenta específica.
+
+Las opiniones expresadas son válidas únicamente hasta la fecha indicada y están sujetas a cambios en cualquier momento en función de las condiciones del mercado u otros factores, y StoneX Group Inc. (“SGI”) renuncia a cualquier responsabilidad de actualizar dichas opiniones. Los resultados, el desempeño o los logros reales pueden diferir sustancialmente de los expresados o implícitos. La información se basa en datos obtenidos de fuentes que consideramos confiables. El desempeño pasado no garantiza resultados futuros.
+
+El grupo de compañías de StoneX Group Inc. ofrece servicios financieros a nivel mundial a través de sus subsidiarias, incluyendo productos de commodities físicos, valores, derivados negociados en bolsa y extrabursátiles, gestión de riesgos, pagos globales y productos de cambio de divisas, de conformidad con la legislación aplicable en las jurisdicciones donde se prestan los servicios.
+
+Las referencias a ciertos productos OTC o swaps se realizan en nombre de StoneX Markets, LLC (SXM), miembro de la National Futures Association (NFA) y registrado provisionalmente en la U.S. Commodity Futures Trading Commission (CFTC) como swap dealer. Los productos de SXM están diseñados únicamente para personas o empresas que califiquen conforme a las normas de la CFTC como “Participantes Elegibles del Contrato” y que hayan sido aceptados como clientes de SXM.
+
+StoneX Financial Inc. (SFI) es miembro de FINRA/NFA/SIPC y está registrado ante la MSRB. SFI está registrada ante la U.S. Securities and Exchange Commission (SEC) como Broker-Dealer y ante la CFTC como Futures Commission Merchant y Commodity Trading Advisor. StoneX Financial (Canada) Inc. (SFCI) está registrada en Canadá y es miembro de CIRO y CIPF. Las referencias a determinadas operaciones con valores se realizan en nombre de la División BD de SFI y están destinadas únicamente a una audiencia de clientes institucionales según lo definido por la Regla 4512(c) de FINRA. Las referencias a determinados futuros y opciones negociados en bolsa se realizan en nombre de la División FCM de SFI. Los servicios de Gestión Patrimonial se ofrecen a través de SA Stone Wealth Management Inc., miembro de FINRA/SIPC, y SA Stone Investment Advisors Inc., asesor de inversiones registrado ante la SEC, ambas subsidiarias de propiedad total de SGI.
+
+R.J. O’Brien & Associates, LLC (RJO) está registrada ante la CFTC como Futures Commission Merchant y es miembro de la NFA.
+
+StoneX Financial Ltd (SFL) está registrada en Inglaterra y Gales, número de sociedad 5616586. SFL está autorizada y regulada por la Financial Conduct Authority (FCA) (número de registro FRN: 446717) para prestar servicios a clientes profesionales y elegibles, incluyendo la intermediación, ejecución y, cuando sea necesario, compensación de transacciones de derivados en futuros y opciones negociados en bolsa. SFL también está autorizada para intermediar y ejecutar transacciones en determinados productos OTC, ciertas operaciones con valores, comercio de metales preciosos y servicios de pago para clientes elegibles. Asimismo, está autorizada y regulada por la FCA conforme a las Payment Services Regulations 2017 para la prestación de servicios de pago. SFL es miembro categoría 1 de negociación con entrega física de la London Metal Exchange. Adicionalmente, SFL participa en otros negocios de commodities con entrega física y otras actividades comerciales generales que no están reguladas ni requieren autorización de la FCA.
+
+Esta comunicación se emite en el Espacio Económico Europeo por StoneX Financial Europe GmbH (SFEG). StoneX es el nombre comercial utilizado por STONEX GROUP INC. y todas sus entidades y filiales asociadas. StoneX Financial Europe GmbH (“SFEG”) es una empresa de negociación de valores registrada en Alemania con el número de sociedad HRB 80844.
+
+StoneX Financial Pte Ltd (N.º de registro 201130598R) (“SFP”) está regulada por la Monetary Authority of Singapore y posee una Licencia de Servicios de Mercados de Capitales (para negociar productos del mercado de capitales), es Asesor Financiero Exento (para asesorar sobre productos de inversión y emitir o difundir análisis/informes sobre productos de inversión) y una Institución de Pago Mayor (para servicios de transferencias nacionales e internacionales).
+
+SFP puede distribuir análisis o informes elaborados por sus afiliadas extranjeras dentro del grupo de compañías StoneX conforme a un acuerdo bajo la Regulación 32C de las Financial Advisers Regulations. Los destinatarios deben comunicarse con SFP al (65) 6309 1000 para cualquier asunto relacionado con este seminario web.
+
+StoneX APAC Pte. Ltd. (“SAP”) (N.º de registro 200616676W) está regulada como Dealer (PS20190001002) conforme a la Precious Stones and Precious Metals (Prevention of Money Laundering and Terrorism Financing) Act 2019 para fines de prevención de lavado de dinero y financiamiento del terrorismo.
+
+StoneX Financial (HK) Limited (N.º CE: BCQ152) (“SHK”) está regulada por la Hong Kong Securities and Futures Commission para la negociación de valores y contratos de futuros.
+
+StoneX Financial Pty Ltd (ACN 141 774 727) posee una Australian Financial Services Licence (AFSL: 345646) para la negociación de valores, contratos de derivados negociados en bolsa, contratos de derivados OTC y contratos de divisas, y está regulada por la Australian Securities and Investments Commission.
+
+StoneX Securities Co., Ltd. (“SSJ”) (N.º de registro 010401047199) está regulada por la Japanese Financial Services Agency como Operador de Instrumentos Financieros Tipo I (Kanto Local Finance Bureau (FIBO) N.º 291), es miembro de la Financial Futures Association of Japan para la negociación e intermediación de transacciones de FX y opciones de FX, y es miembro de la Japan Securities Dealers Association para la negociación e intermediación de índices bursátiles y opciones.
+
+La negociación de swaps y derivados extrabursátiles, derivados y opciones negociados en bolsa y valores implica riesgos sustanciales y no es adecuada para todos los inversores. El desempeño pasado de cualquier futuro u opción no es indicativo de resultados futuros. Los indicadores no constituyen un sistema de negociación ni se publican como una recomendación específica de operación. La información aquí contenida no constituye una recomendación para operar ni investigación de inversión, ni una oferta de compra o venta de ningún derivado o valor. No tiene en cuenta sus objetivos de inversión particulares, situación financiera o necesidades, ni crea una obligación vinculante para ninguna de las compañías del grupo StoneX de celebrar una transacción con usted. Se le recomienda realizar una investigación independiente de cualquier transacción para determinar si resulta adecuada para usted. Ninguna parte de este material puede copiarse, fotocopiarse o duplicarse de ninguna forma ni redistribuirse sin el consentimiento previo por escrito de StoneX Group Inc.
+
+El informe/análisis aquí contenido no está dirigido ni destinado a su distribución o uso por parte de ninguna persona o entidad que sea ciudadano, residente o se encuentre en una localidad, estado, país u otra jurisdicción donde dicha distribución, publicación, disponibilidad o uso sea contrario a la ley o regulación aplicable.
+
+© 2026 StoneX Group Inc. Todos los derechos reservados.
+
+© 2026 StoneX Group Inc. All Rights Reserved.
+|Política Privada|Aviso Legal|StoneX.com
+
+--- FRAME 1 ---
+
+
+
+--- FRAME 2 ---
+
+Page 1
+
+8 de septiembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
-informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
-Presentation Heading | 1
-opinión o estimación contenida eneste reporte representael juicio actualde StoneX yestá sujetoa cambios sin previo aviso. StoneX Securities S.A. o sus vinculadas podrían proveerconsejo respecto a adquirir, mantener o
-venderlosinstrumentosnombradosenesteinforme.
-Resultados de la semana
-Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
-Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
-Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-8,50% - 8,77% - - mar, 1 sept ON Crown Point Energía Garantizada - X USD Mep USD 8.264.901 8,50% 23,46 1096 03/09/2029 A (Fix SCR) Tasa jue, 3 sept
-ON Crown Point Energía (integra en efectivo y/o
-9,50% - 9,84% - - mar, 1 sept - XI USD Linked USD 46.774.854 9,50% 16,73 914 05/03/2029 BBB+ (Fix SCR) Tasa jue, 3 sept
-en especie)
-Px 100,00 - 8,83% - - mar, 1 sept. FF Crucianelli I VDFA USD Mep USD 5.650.000 8,50% 13,19 644 08/06/2028 AA (Fix SCR) Precio jue, 3 sept.
-Px 98,69 - 10,47% - - mar, 1 sept. FF Crucianelli I VDFB USD Mep USD 400.000 10,00% 21,77 676 10/07/2028 A (Fix SCR) Precio jue, 3 sept.
-6,25% - 6,35% - - mar, 1 sept. ON Cohen S.A. I - USD Mep USD 2.496.950 6,25% 33,41 1096 03/09/2029 SC Tasa jue, 3 sept.
-FF de Infraestructura Pública Eléctrica [Bono A (Evaluadora
-Px 96,39 24,6250% 35,97% 6,50% 31,12% mar, 1 sept. XIV VRD ARS $5.000.000.000 (20%; T+100; 50%) 8,39 530 15/02/2028 Precio jue, 3 sept.
-SVS] Latinoamericana)
-TAMAR-1,01% 24,6250% 25,79% -1,46% 23,16% mar, 1 sept ON Pyme Garantizada Pimento S.R.L. I I ARS $1.500.000.000 TAMAR-1,01% 17,73 731 03/09/2028 SC Margen jue, 3 sept
-Desierta - - - - mar, 1 sept ON Pyme Garantizada Pimento S.R.L. I II UVA Desierta Desierta Desierta 731 03/09/2028 SC Tasa jue, 3 sept
-4,90% - 4,99% - - mar, 1 sept ON CT Barragán - 10 USD Mep USD 41.635.000 4,90% 15,60 487 03/01/2028 AAA (Fix SCR) Tasa jue, 3 sept
-Presentation Heading |
-Resultados de la semana
-Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
-Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
-Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-8,00% - 8,16% - - mié, 2 sept. ON CGC (integra en efectivo y/o en especie) - 41 USD Mep USD 83.573.632 8,00% 32,74 1096 07/09/2029 AA- (Fix SCR) Tasa lun, 7 sept.
-34,50% 24,6250% 34,50% 5,38% 30,01% mié, 2 sept. FF AMES XXIX VRDA ARS $1.500.000.000 (30%; T+100; 45%) 5,80 413 21/10/2027 AAA (Moody´s) TIR jue, 3 sept.
-Px 100,00 24,6250% 29,71% 1,67% 26,29% mié, 2 sept. FF AMES XXIX VRDB ARS $100.000.000 30,00% 14,19 444 21/11/2027 AA+ (Moody´s) Precio jue, 3 sept.
-TAMAR+4,90% 23,8125% 32,70% 4,81% 28,63% jue, 3 sept. FF Megabono Crédito 352 VDFA ARS $13.007.072.203 (23%; T+490; 42%) 5,14 297 28/06/2027 AAA (Fix SCR) Margen vie, 4 sept.
-TAMAR+6,00% 23,8125% 32,47% 4,64% 28,45% jue, 3 sept. FF Megabono Crédito 352 VDFB ARS $2.607.660.334 (25%; T+600; 42%) 11,22 357 27/08/2027 AA- (Fix SCR) Margen vie, 4 sept.
-ON Pyme Garantizada Sion (integra en efectivo
-Caución+15,00% 23,8125% 41,84% 11,65% 35,47% jue, 3 sept. V - ARS $3.800.000.000 Caución+15,00% 7,81 398 10/10/2027 SC Tasa lun, 7 sept.
-y/o en especie)
-5,80% - 5,93% - - jue, 3 sept. ON Scania Credit Argentina - 4 USD Mep USD 40.894.186 5,80% 20,06 1096 08/09/2029 AAA (Fix SCR) Tasa mar, 8 sept.
-26,43% 23,8125% 33,04% 5,08% 28,89% jue, 3 sept FF PedidosYa Créditos 1 VDF ARS $10.548.000.000 (20%; TAMAR+100; 50%) 5,73 351 25/08/2027 AAA (Moody’s) TIR mar, 8 sept
-TAMAR-1,61% 23,8125% 24,12% -2,01% 21,80% jue, 3 sept ON Pyme Garantizada Pedrolga II - ARS $4.500.000.000 TAMAR-1,61% 17,95 731 07/09/2028 SC Margen lun, 7 sept
-8,75% - 8,94% - - jue, 3 sept ON Centro Interacción Multimedia - Única USD Mep USD 4.500.000 8,75% 24,96 1096 07/09/2029 SC Tasa lun, 7 sept
-TAMAR-1,20% 24,5000% 25,42% -1,64% 22,86% vie, 4 sept ON Pyme Garantizada Ruta 3 Automotores I - ARS $2.400.000.000 TAMAR-1,20% 13,18 731 08/09/2028 SC Margen mar, 8 sept
-Presentation Heading |
-Operaciones en Difusión
+ informe
+sideseanmásinformación.LainformaciónenestereporteseobtuvodefuentesqueStoneXSecuritiesS.A.creequesonconfiables,peroStoneXnogarantizaquelainformaciónseacorrectaocompleta.Cualquier
+ opinión
+oestimacióncontenidaenestereporterepresentael
+ juicio
+actualdeStoneXyestásujetoacambiossinprevioaviso.StoneXSecuritiesS.A.osusvinculadaspodríanproveerconsejorespectoaadquirir,mantenero
+ vender
+losinstrumentosnombradosenesteinforme.
+Presentation Heading  |
+1
+
+Page 2
+
 STONEX
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-mar, 8 sept FF Consubond 202 VDFA ARS $18.592.854.748 (20%; T+100; 40%) 3,52 258 26/05/2027 AAA (Fix SCR) TIR jue, 10 sept
-$18.782.577.756
-mar, 8 sept FF Consubond 202 VDFB ARS $189.723.008 (21%; T+100; 41%) 9,37 288 25/06/2027 AAA (Fix SCR) TIR jue, 10 sept
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-BB- (Fitch Ratings) /
-10
-mar, 8 sept ON Tecpetrol [Ley NY] - $300.000.000 USD Cable USD 300.000.000 7,625% A informar A informar 22/01/2033 Ba3 (Moody´s Precio A informar
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity (días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ mar, 8 sept
+ FF Consubond
+ 202
+ VDFA
+ ARS
+ $18.592.854.748
+ (20%; T+100; 40%)
+ 3,52
+ 258
+ 26/05/2027
+ AAA (Fix SCR)
+ TIR
+ jue, 10 sept
+ mar, 8 sept
+ FF Consubond
+ 202
+ VDFB
+ ARS
+ $189.723.008
+ (21%; T+100; 41%)
+ 9,37
+ 288
+ 25/06/2027
+ AAA (Fix SCR)
+ TIR
+ jue, 10 sept
+ OPERACIONES DE TERCEROS
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity (días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ mar, 8 sept
+ ON Tecpetrol [Ley NY]
+USD 300.000.000 
+(ampliable hasta monto 
+máximo disponible)
+ 10 
 Adicionales
+ USD Cable
+ USD 300.000.000 
+(ampliable hasta monto 
+máximo disponible)
+ 7,625%
+ A informar
+ A informar
+ 22/01/2033
+ BB- (Fitch Ratings) / 
+Ba3 (Moody´s 
 Ratings)
-Letras del Tesoro de la Municipalidad $20.000.000.000 (h/ ML A-1 (Moody´s
-mar, 8 sept LIII - ARS $50.000.000.000 TAMAR+Mg 10,70 358 03/09/2027 Margen jue, 10 sept
-de Córdoba Garantizadas $50.000.000.000) Local)
-VI
-mar, 8 sept ON Mirgor - USD 17.617.030 USD Mep USD 17.617.030 8,00% 19,38 625 28/05/2028 A informar Precio vie, 11 sept
+ Precio
+ A informar
+ mar, 8 sept
+ Letras del Tesoro de la Municipalidad 
+de Córdoba Garantizadas
+ LIII
+ $20.000.000.000 (h/ 
+$50.000.000.000)-ARS
+ $50.000.000.000
+ TAMAR+Mg
+ 10,70
+ 358
+ 03/09/2027
+ ML A-1 (Moody´s 
+Local)
+ Margen
+ jue, 10 sept
+ mar, 8 sept
+ ON Mirgor.
+-USD 17.617.030
+ VI 
 Adicionales
-USD 5.000.000 (amp. h/ USD 5.000.000 (amp. h/
-mar, 8 sept ON Mirgor - VII ARS TAMAR+Mg 10,83 365 11/09/2027 A informar Margen vie, 11 sept
-USD 15.000.000) USD 15.000.000)
-mar, 8 sept ON Pyme CNV Garantizada Gimetal I $1.000.000.000 - ARS $1.000.000.000 TAMAR+Mg 18,57 912 10/03/2029 SC Margen jue, 10 sept
-USD 3.000.000 (amp. h/ USD 3.000.000 (amp. h/
-mié, 9 sept ON Promedon Avalada II - USD Mep A licitar 25,02 1096 14/09/2029 BBB+ (Moody´s) Tasa lun, 14 sept
-USD 4.500.000) USD 4.500.000)
+ USD Mep
+ USD 17.617.030
+ 8,00%
+ 19,38
+ 625
+ 28/05/2028
+ A+ (Moody´s)
+ Precio
+ vie, 11 sept
+ mar, 8 sept
+ ON Mirgor
+-USD 5.000.000 (amp. h/ 
+USD 15.000.000)
+ VII
+ ARS
+ USD 5.000.000 (amp. h/ 
+USD 15.000.000)
+ TAMAR+Mg
+ 10,83
+ 365
+ 11/09/2027
+ ML A-1 (Moody´s)
+ Margen
+ vie, 11 sept
+ mar, 8 sept
+ ON Pyme CNV Garantizada Gimetal
+ I
+ $1.000.000.000
+-ARS
+ $1.000.000.000
+ TAMAR+Mg
+ 18,57
+ 912
+ 10/03/2029
+ SC
+ Margen
+ jue, 10 sept
+ $18.782.577.756
+Presentation Heading  |
+Licita hoy
+
+Page 3
+
+Operaciones en Difusión
+
+STONEX
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity (días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ jue, 10 sept
+ FF GOcréditos (Pyme)
+ 1
+ VDFA
+ ARS
+ $3.633.394.960
+ (25%; T+Mg; 45%)
+ 4,33
+ 290
+ 28/06/2027
+ A1+ (Fix SCR)
+ Margen
+ vie, 11 sept
+ jue, 10 sept
+ FF GOcréditos (Pyme)
+ 1
+ VDFB
+ ARS
+ $283.191.078
+ (30%; T+Mg; 50%)
+ 9,53
+ 290
+ 28/06/2027
+ A (Fix SCR)
+ Margen
+ vie, 11 sept
+ OPERACIONES DE TERCEROS
+Fecha de 
+Licitación
+ Emisión
+ Serie
+ VN Emisión
+ Clase
+ Moneda
+ VN
+ Cupón
+ Duration 
+(meses)
+ Maturity (días)
+ Última Fecha de 
+Pago
+ Rating
+ Tipo de 
+Licitación
+ Fecha de 
+Liquidación
+ mié, 9 sept
+ ON Promedon Avalada
+ II
+ USD 3.000.000 (amp. h/ 
+USD 4.500.000)-USD Mep
+ USD 3.000.000 (amp. h/ 
+USD 4.500.000)
+ A licitar
+ 25,02
+ 1096
+ 14/09/2029
+ BBB+ (Moody´s)
+ Tasa
+ lun, 14 sept
+ mié, 9 sept
+ ON YPF [Ley NY]
+USD 500.000.000 
+(ampliable hasta monto 
+máximo disponible)
+ XLIV
+ USD Cable
+ USD 500.000.000 
+(ampliable hasta monto 
+máximo disponible)
+ A informar
+ A informar
+ A informar
+ Dentro del 
+noveno 
+aniversario 
+desde la fecha 
+de emisión
+ B (S&P Global) / B1 
+(Moody´s Ratings)
+ Book building
+ A informar
+ mié, 9 sept
+ ON Pyme CNV Garantizada Rafaela 
+Alimentos
+ I
+ I
+ ARS
+ TAMAR+Mg
+ 14,15
+ 547
+ 11/03/2028
+ SC
+ Margen
+ vie, 11 sept
+ mié, 9 sept
+ ON Pyme CNV Garantizada Rafaela 
+Alimentos
+ I
+ II
+ USD linked
+ A licitar
+ 15,52
+ 547
+ 11/03/2028
+ SC
+ Tasa
+ vie, 11 sept
+ $5.343.227.882
+ USD 2.000.000 (amp. h/ 
+USD 5.500.000)
+ USD 2.000.000 (amp. h/ 
+USD 5.500.000)
+
+Carga del documento completada. Está en la página 1.
