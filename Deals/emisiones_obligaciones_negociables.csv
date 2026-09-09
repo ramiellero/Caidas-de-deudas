@@ -1,4 +1,7 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
+14-sep-26,Tecpetrol (Ley NY),USD Int,Fija,"7,62%",76,"450,00",/ Ba3 (Moody´s
+11-sep-26,Mirgor,USD Mep,Fija,"8,00%",21,"17,60",A+ (Moody´s)
+11-sep-26,Mirgor – VII,ARS,TAMAR,"6,00%",12,"10972,70",ML A-1 (Moody´s)
 8-sep-26,Scania Credit Argentina – 4,USD Mep,Fija,"5,80%",36,"40,90",AAA (Fix SCR)
 7-sep-26,CGC – 41,USD Mep,Fija,"8,00%",36,"83,60",AA- (Fix SCR)
 3-sep-26,CT Barragán – 10,USD Mep,Fija,"4,90%",16,"41,60",AAA (Fix SCR)
@@ -43,7 +46,7 @@
 24-jul-26,Banco BBVA – 48,USD Cable,Fija,"3,75%",18,"42,10",AAA (Fix SCR)
 24-jul-26,Banco BBVA – 49,USD Mep,Fija,"3,25%",12,"34,30",A1+ (Fix SCR)
 24-jul-26,Banco BBVA – 50,USD Mep,Fija,"5,00%",24,"58,70",AAA (Fix SCR)
-24-jul-26,Garantizada Jemersoft S.A.S. – I,USD Mep,Fija,"8,00%",18,"0,25",SC
+24-jul-26,Garantizada Jemersoft S.A.S. – I,USD Mep,Fija,"8,00%",18,"250000,00",SC
 17-jul-26,BONAR 2029 (AO29),USD Mep,Fija,"6,00%",39,"499,00",SC
 17-jul-26,BONAR 2029 (AO29),USD Mep,Fija,"6,00%",39,"150,00",SC
 17-jul-26,Rombo Cía. Financiera 67,ARS,TAMAR,"4,50%",15,"17063,70",AA (Fix SCR)
