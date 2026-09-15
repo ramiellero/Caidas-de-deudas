@@ -1,80 +1,28 @@
-14 de septiembre de 2026
+15 de septiembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
 opinión o estimación contenida eneste reporte representael juicio actualde StoneX yestá sujetoa cambios sin previo aviso. StoneX Securities S.A. o sus vinculadas podrían proveerconsejo respecto a adquirir, mantener o
 venderlosinstrumentosnombradosenesteinforme.
-Resultados de la semana
+Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-24,25% 24,0625% 31,28% 3,46% 27,53% mar, 8 sept FF Consubond 202 VDFA ARS $18.592.854.748 (20%; T+100; 40%) 3,45 258 26/05/2027 AAA (Fix SCR) TIR jue, 10 sept
-21,00% 24,0625% 25,11% -1,45% 22,61% mar, 8 sept FF Consubond 202 VDFB ARS $189.723.008 (21%; T+100; 41%) 9,47 288 25/06/2027 AAA (Fix SCR) TIR jue, 10 sept
-BB- (Fitch Ratings)
-10
-Px 101,623 - 7,47% - - mar, 8 sept ON Tecpetrol [Ley NY] - USD Cable USD 450.000.000 7,625% 53,75 2322 22/01/2033 / Ba3 (Moody´s Precio lun, 14 sept
-Adicionales
-Ratings)
-Letras del Tesoro de la Municipalidad de ML A-1 (Moody´s
-TAMAR+6,90% 24,0625% 34,78% 6,16% 30,22% mar, 8 sept LIII - ARS $50.000.000.000 TAMAR+6,90% 10,58 358 03/09/2027 Margen jue, 10 sept
-Córdoba Garantizadas Local)
-VI
-Px 100,30 - 8,25% - - mar, 8 sept ON Mirgor. - USD Mep USD 17.617.030 8,00% 19,35 625 28/05/2028 A+ (Moody´s) Precio vie, 11 sept
-Adicionales
-TAMAR+6,00% 24,0625% 33,63% 5,28% 29,34% mar, 8 sept ON Mirgor - VII ARS $10.972.714.399 TAMAR+6,00% 10,80 365 11/09/2027 ML A-1 (Moody´s) Margen vie, 11 sept
-TAMAR+2,00% 24,0625% 26,98% 0,06% 24,13% mar, 8 sept ON Pyme CNV Garantizada Gimetal I - ARS $1.000.000.000 TAMAR+2,00% 18,44 912 10/03/2029 SC Margen jue, 10 sept
-7,90% - 8,06% - - mié, 9 sept ON Promedon Avalada II - USD Mep USD 4.500.000 7,90% 25,05 1096 14/09/2029 BBB+ (Moody´s) Tasa lun, 14 sept
-B (S&P Global) /
-Px 98,08 - 8,07% - - mié, 9 sept ON YPF [Ley NY] - XLIV USD Cable USD 1.200.000.000 7,55% 78,20 3195 18/06/2035 B1 (Moody´s Book building vie, 18 sept
-Ratings)
-TAMAR+0,00% 24,1875% 26,47% -0,47% 23,72% mié, 9 sept ON Pyme CNV Garantizada Rafaela Alimentos I I ARS $5.487.500.000 TAMAR+0,00% 14,14 547 11/03/2028 SC Margen vie, 11 sept
-5,98% - 6,12% - - mié, 9 sept ON Pyme CNV Garantizada Rafaela Alimentos I II USD linked USD 1.864.797 5,98% 15,52 547 11/03/2028 SC Tasa vie, 11 sept
-Presentation Heading |
-Resultados de la semana
-Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
-Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
-Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-TAMAR+5,50% 24,0000% 33,87% 5,52% 29,52% jue, 10 sept FF GOcréditos (Pyme) 1 VDFA ARS $3.633.394.960 (25%; T+550; 45%) 4,29 290 28/06/2027 A1+ (Fix SCR) Margen vie, 11 sept
-TAMAR+15,00% 24,0000% 40,46% 10,46% 34,46% jue, 10 sept FF GOcréditos (Pyme) 1 VDFB ARS $283.191.078 (30%; T+1500; 50%) 9,53 290 28/06/2027 A (Fix SCR) Margen vie, 11 sept
-22,07% 24,0000% 33,51% 5,25% 29,25% jue, 10 sept FF Mercado Crédito LIV VDF ARS $124.499.999.998 (15%; T+100; 45%) 8,48 365 15/09/2027 AAA (Fix SCR) TIR mar, 15 sept
-Letra del Tesoro Nacional Capitalizable en
-Px 105,39 23,5625% 27,88% 1,28% 24,85% vie, 11 sept S13N6 - ARS $3.858.364.000.000 TEM 2,10% 1,94 59 13/11/2026 SC Precio mar, 15 sept
-Pesos [Reapertura]
-Letra del Tesoro Nacional en Pesos con Ajuste
-Px 100,06 - 5,50% - - vie, 11 sept X29E7 - CER $688.547.000.000 0,00% 4,47 136 29/01/2027 SC Precio mar, 15 sept
-por CER a Descuento [Reapertura]
-Bono del Tesoro Nacional en Pesos a Tasa
-Px 122,10 23,5625% 30,55% 3,39% 26,96% vie, 11 sept TMF27 - ARS $1.137.878.000.000 TAMAR TEM + 6,50% 5,39 164 26/02/2027 SC Precio mar, 15 sept
-TAMAR [Reapertura]
-Bono del Tesoro Nacional en Pesos a Tasa
-Px 107,50 23,5625% 31,66% 4,26% 27,82% vie, 11 sept TML27 - ARS $1.192.852.000.000 TAMAR TEM + 5,40% 10,45 318 30/07/2027 SC Precio mar, 15 sept
-TAMAR [Reapertura]
-Letra del Tesoro Nacional Cero Cupón
-Px 98,95 - 8,78% - - vie, 11 sept D30O6 - USD Linked USD 314.000.000 0,00% 1,48 45 30/10/2026 SC Precio mar, 15 sept
-Vinculada al Dólar [Reapertura]
-Letra del Tesoro Nacional Cero Cupón
-Px 98,52 - 7,42% - - vie, 11 sept D30N6 - USD Linked USD 63.000.000 0,00% 2,50 76 30/11/2026 SC Precio mar, 15 sept
-Vinculada al Dólar [Nueva]
-Letra del Tesoro Nacional Cero Cupón
-Px 96,10 - 7,58% - - vie, 11 sept D31M7 - USD Linked USD 154.000.000 0,00% 6,48 197 31/03/2027 SC Precio mar, 15 sept
-Vinculada al Dólar [Reapertura]
-Bono del Tesoro Nacional Cero Cupón
-Px 96,04 - 5,24% - - vie, 11 sept TZV27 - USD Linked USD 134.000.000 0,00% 9,47 288 30/06/2027 SC Precio mar, 15 sept
-Vinculado al Dólar [Reapertura]
+Títulos de Deuda Banco de la Provincia de
+TAMAR+4,25% 23,8125% 31,16% 3,62% 27,43% lun, 14 sept - VII ARS $60.797.817.351 TAMAR+4,25% 10,87 365 16/09/2027 A1+ (Fix SCR) Margen mié, 16 sept
+Buenos Aires
+Títulos de Deuda Banco de la Provincia de
+5,75% - 5,83% - - lun, 14 sept Buenos Aires (integra en efectivo y/o en - VIII USD Mep USD 33.593.271 5,75% 23,04 731 16/09/2028 AA (Fix SCR) Tasa mié, 16 sept
+especie)
 Presentation Heading |
 Licita hoy
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
 Licitación (meses) Pago Licitación Liquidación
-Títulos de Deuda Banco de la
-lun, 14 sept - VII ARS TAMAR+Mg 10,77 365 16/09/2027 A1+ (Fix SCR) Margen mié, 16 sept
-Provincia de Buenos Aires USD 20.000.000 (ampliable USD 20.000.000 (ampliable
-hasta monto disponible del hasta monto disponible del
-Títulos de Deuda Banco de la
-Programa) Programa)
-lun, 14 sept Provincia de Buenos Aires (integra en - VIII USD Mep A licitar 22,68 731 16/09/2028 AA (Fix SCR) Tasa mié, 16 sept
-efectivo y/o en especie)
+$40.000.000.000 (ampliable $40.000.000.000 (ampliable
+mar, 15 sept ON Payway - 1 ARS TAMAR+Mg 10,89 365 17/09/2027 A1+ (Fix SCR) Margen jue, 17 sept
+hasta $80.000.000.000) hasta $80.000.000.000)
 Presentation Heading |
 Operaciones en Difusión
 STONEX
@@ -88,9 +36,6 @@ OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
 Licitación (meses) Pago Licitación Liquidación
-$40.000.000.000 (ampliable $40.000.000.000 (ampliable
-mar, 15 sept ON Payway - 1 ARS TAMAR+Mg 10,89 365 17/09/2027 A1+ (Fix SCR) Margen jue, 17 sept
-hasta $80.000.000.000) hasta $80.000.000.000)
 mié, 16 sept FF Grancoop Créditos V VDFA ARS $3.150.000.000 (20%; TAMAR+100; 45%) 5,92 367 20/09/2027 AAA (Moody´s) TIR vie, 18 sept
 $3.550.000.000
 mié, 16 sept FF Grancoop Créditos V VDFB ARS $400.000.000 (21%; TAMAR+100; 46%) 12,59 397 20/10/2027 A (Moody´s) TIR vie, 18 sept
@@ -109,3 +54,16 @@ del Chaco
 Letras de Tesorería de la Provincia
 jue, 17 sept - 17 ARS TAMAR+Mg 11,74 357 10/09/2027 B (Fix SCR) Margen vie, 18 sept
 del Chaco
+ON Pyme Ecofactory Garantizada
+jue, 17 sept I I ARS Hasta $2.300.000.000 TAMAR+Mg 15,56 731 21/09/2028 BV 2 (UNTREF) Margen lun, 21 sept
+[Bono SVS] $3.000.000.000 máximo
+ON Pyme Ecofactory Garantizada conjunto Hasta $3.000.000.000
+jue, 17 sept I II ARS TAMAR+Mg 21,53 1096 21/09/2029 BV 2 (UNTREF) Margen lun, 21 sept
+[Bono SVS] sujeto al máximo conjunto
+Letras del Tesoro de la Provincia del ML B (Moody’s
+vie, 18 sept CXXII 1 ARS $10.000.000.000 TAMAR+Mg 2,30 70 30/11/2026 Margen lun, 21 sept
+Chubut Local)
+$20.000.000.000
+Letras del Tesoro de la Provincia del ML B (Moody’s
+vie, 18 sept CXXII 2 ARS $10.000.000.000 TAMAR+Mg 6,21 189 29/03/2027 Margen lun, 21 sept
+Chubut Local)
