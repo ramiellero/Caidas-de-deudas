@@ -1,4 +1,5 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
+23-sep-26,Pyme Garantizada Pamisa – I,ARS,TAMAR,"-0,10%",24,"1000,00",SC A-1 (Moody´s)
 14-sep-26,Promedon Avalada – II,USD Mep,Fija,"7,90%",36,"4,50",BBB+ (Moody´s)
 11-sep-26,Pyme CNV Garantizada Rafaela Alimentos I I,ARS,TAMAR,"0,00%",18,"5487,50",SC
 11-sep-26,Pyme CNV Garantizada Rafaela Alimentos I II,USD Linked,Fija,"5,98%",18,"1,90",SC
@@ -16,8 +17,3 @@
 25-ago-26,Garantizada Lodiser S.A. (Apto Pyme) – I,ARS,TAMAR,"-1,50%",24,"4000,00",SC
 24-ago-26,Garantizada RDA Renting (Apto Pyme) III I,ARS,TAMAR,"-1,50%",24,"3130,00",SC
 24-ago-26,Garantizada RDA Renting (Apto Pyme) III II,ARS,TAMAR,"0,00%",36,"470,00",SC
-21-ago-26,Asociación Civil Sumatoria para una Nueva Economía [Bono SVS] (Apto PyME) – IX,ARS,TAMAR,"-3,00%",24,"1130,50",SC
-21-ago-26,Chamical Solar II S.A.U. (Apto Pyme) – I,USD Cable,Fija,"12,00%",36,"4,00",SC
-20-ago-26,Chamical Solar I S.A.U. (Apto Pyme) – I,USD Cable,Fija,"12,00%",36,"4,60",SC
-20-ago-26,Chamical Solar I S.A.U. – I,USD Cable,Fija,"12,00%",36,"4,60",SC
-20-ago-26,PyME CNV Alto Real Viñedos S.A. – II,USD Linked,Fija,"10,00%",60,"10,00",SC
