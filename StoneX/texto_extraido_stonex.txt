@@ -1,95 +1,35 @@
-22 de septiembre de 2026
+24 de septiembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
 opinión o estimación contenida eneste reporte representael juicio actualde StoneX yestá sujetoa cambios sin previo aviso. StoneX Securities S.A. o sus vinculadas podrían proveerconsejo respecto a adquirir, mantener o
 venderlosinstrumentosnombradosenesteinforme.
 Resultados
-Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
-Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
-Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-XXX A+ (Fix SCR) / A
-Px 100,63 - 5,70% - - lun, 21 sept ON Banco de Servicios y Transacciones - UVA UVA 1.125.479 6,00% 18,04 661 15/07/2028 Precio mié, 23 sept
-Adicionales (Moody´s)
-A1 (Fix SCR) / ML
-6,00% - 6,14% - - lun, 21 sept ON Banco de Servicios y Transacciones - XXXI USD USD 9.064.596 6,00% 11,86 369 27/09/2027 Tasa mié, 23 sept
-A-1 (Moody´s)
-TAMAR-0,10% 23,5625% 25,61% -0,54% 23,02% lun, 21 sept ON Pyme Garantizada Pamisa I - ARS $1.000.000.000 TAMAR-0,10% 13,09 731 23/09/2028 SC Margen mié, 23 sept
+Spread TNA30d - Fecha de Maturity Última Fecha de Fecha de
+Tasa / Precio de Corte Tasa Tamar TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Duration (Meses) Calificación Tipo de Licitación
+Tamar Licitación (días) Pago Liquidación
+VCP Cooperativa de Crédito y Vivienda Unicred
+TAMAR+7,50% 23,5000% 34,80% 6,74% 30,24% mié, 23 sept V - ARS $8.000.000.000 TAMAR+7,50% 8,31 365 24/09/2027 A3 (Fix SCR) Margen jue, 24 sept
+Limitada
+6,00% - 6,09% - - mié, 23 sept ON John Deere Credit Compañía Financiera - XXI USD Mep USD 35.903.000 6,00% 28,29 912 28/03/2029 AAA (Fix SCR) Tasa lun, 28 sept
+ON Banco Patagonia (integra en efectivo y/o en
+3,25% - 3,28% - - mié, 23 sept - V USD Mep USD 39.338.295 3,25% 11,90 365 25/09/2027 A-1+ (S&P) Tasa vie, 25 sept
+especie)
+ON Banco Patagonia (integra en efectivo y/o en
+5,25% - 5,32% - - mié, 23 sept - VI USD Mep USD 16.434.376 5,25% 23,13 731 25/09/2028 AAA (S&P) Tasa vie, 25 sept
+especie)
+TAMAR+4,50% 23,5000% 31,08% 3,87% 27,37% mié, 23 sept ON Rombo Compañía Financiera 69 - ARS $30.009.162.500 TAMAR+4,50% 10,87 365 25/09/2027 A1+ (Fix SCR) Margen vie, 25 sept
+Desierta 23,5000% Desierta Desierta Desierta mié, 23 sept ON Rombo Compañía Financiera 70 - ARS Desierta Desierta 9,00 273 25/06/2027 A1+ (Fix SCR) TEM vie, 25 sept
+TAMAR+0,00% 23,5000% 25,65% -0,45% 23,05% mié, 23 sept ON Pyme DeRentas Garantizadas II - ARS $9.357.142.856 TAMAR+0,00% 13,08 731 25/09/2028 SC Margen vie, 25 sept
 Presentation Heading |
 Licita hoy
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
 Licitación (meses) Pago Licitación Liquidación
-ON Otamerica Ebytem (integra en USD 50.000.000 (ampliable USD 50.000.000 (ampliable
-mar, 22 sept VII - USD A licitar 22,80 1461 25/09/2030 AAA (Moody´s) Tasa vie, 25 sept
-efectivo y/o en especie) hasta USD 80.000.000) hasta USD 80.000.000)
-Letras del Tesoro de la Provincia de
-mar, 22 sept Buenos Aires a Descuento LB2O6 - ARS $4.000.000.000 (ampliable) 0,00% 0,92 28 22/10/2026 ML B (Moody´s) Precio jue, 24 sept
-[Reapertura]
-Letras del Tesoro de la Provincia de
-mar, 22 sept - - ARS $2.000.000.000 (ampliable) 0,00% 1,84 56 19/11/2026 ML B (Moody´s) Precio jue, 24 sept
-Buenos Aires a Descuento [Nueva]
-Letras del Tesoro de la Provincia de $60.000.000.000
-mar, 22 sept - - ARS $2.000.000.000 (ampliable) TEM a licitar 2,76 84 17/12/2026 ML B (Moody´s) TEM jue, 24 sept
-Buenos Aires a Descuento [Nueva] (ampliable)
-Letras del Tesoro de la Provincia de
-mar, 22 sept Buenos Aires a Descuento Ajustable - - CER $2.000.000.000 (ampliable) 0,00% 4,83 147 18/02/2027 ML B (Moody´s) Precio jue, 24 sept
-por CER [Nueva]
-Títulos de Deuda Pública de la
-$50.000.000.000
-mar, 22 sept Provincia de Buenos Aires PBM28 - ARS TAMAR+7,00% 14,00 553 30/03/2028 A informar Precio jue, 24 sept
-(ampliable)
-[Reapertura]
-$ 30.000.000.000 $ 30.000.000.000
-Letras del Tesoro de la Provincia de
-mar, 22 sept I (ampliable h/ monto - ARS (ampliable h/ monto TAMAR+Mg 10,78 365 24/09/2027 ML B (Moody´s) Margen jue, 24 sept
-Río Negro
-máximo del Programa) máximo del Programa)
-[OFERTA DE CONVERSIÓN] D30S6 x
-mar, 22 sept Bono del Tesoro Nacional Vinculada D30O6 - USD Linked 0,00% 1,15 35 30/10/2026 SC Precio vie, 25 sept
-al Dólar [Reapertura]
-[OFERTA DE CONVERSIÓN] D30S6 x
-Monto máximo autorizado Monto máximo autorizado
-mar, 22 sept Bono del Tesoro Nacional Vinculada D30N6 - USD Linked 0,00% 2,17 66 30/11/2026 SC Precio vie, 25 sept
-por la normativa vigente por la normativa vigente
-al Dólar [Reapertura]
-[OFERTA DE CONVERSIÓN] D30S6 x
-mar, 22 sept Bono del Tesoro Nacional Vinculada TZV28 - USD Linked 0,00% 21,17 644 30/06/2028 SC Precio vie, 25 sept
-al Dólar [Reapertura]
-$1.000.000.000 (ampliable $1.000.000.000 (ampliable
-mar, 22 sept ON Pyme Garantizada Famiq I - ARS TAMAR+Mg 17,79 731 24/09/2028 SC Margen jue, 24 sept
-hasta $4.000.000.000) hasta $4.000.000.000)
-USD 300.000.000 USD 300.000.000
-XXXI
-mar, 22 sept ON Vista Energy [Ley NY] - (ampliable hasta USD USD Cable (ampliable hasta USD 7,88% A informar A informar 08/04/2038 BB- (Fitch Ratings) Book building A informar
-Adicionales
-400.000.000) 400.000.000)
-Presentation Heading |
-Operaciones en Difusión
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-VCP Cooperativa de Crédito y $5.000.000.000 (amp h/ $5.000.000.000 (amp h/
-mié, 23 sept V - ARS TAMAR+Mg 8,34 365 24/09/2027 A3 (Fix SCR) Margen jue, 24 sept
-Vivienda Unicred Limitada $8.000.000.000) $8.000.000.000)
-ON John Deere Credit Compañía USD 40.000.000 (ampliable USD 40.000.000 (ampliable
-mié, 23 sept - XXI USD Mep A licitar 28,16 912 28/03/2029 AAA (Fix SCR) Tasa lun, 28 sept
-Financiera h/ USD 80.000.000) h/ USD 80.000.000)
-ON Banco Patagonia (integra en
-mié, 23 sept - V USD Mep A licitar 11,81 365 25/09/2027 A-1+ (S&P) Tasa vie, 25 sept
-efectivo y/o en especie) USD 20.000.000 en USD 20.000.000 en
-conjunto (ampliable h/ USD conjunto (ampliable h/ USD
-ON Banco Patagonia (integra en 60.000.000) 60.000.000)
-mié, 23 sept - VI USD Mep A licitar 22,64 731 25/09/2028 AAA (S&P) Tasa vie, 25 sept
-efectivo y/o en especie)
-mié, 23 sept ON Rombo Compañía Financiera 69 $10.000.000.000 en - ARS $10.000.000.000 en TAMAR+Mg 10,85 365 25/09/2027 A1+ (Fix SCR) Margen vie, 25 sept
-conjunto (ampliable hasta conjunto (ampliable hasta
-mié, 23 sept ON Rombo Compañía Financiera 70 $35.000.000.000) - ARS $35.000.000.000) TEM a licitar 9,00 273 25/06/2027 A1+ (Fix SCR) TEM vie, 25 sept
 USD 10.000.000 (ampliable USD 10.000.000 (ampliable
 ON Credicuotas Consumo (integra en
-jue, 24 sept XXIV h/ monto máximo - USD Mep h/ monto máximo A licitar 11,77 365 28/09/2027 A informar Tasa lun, 28 sept
+jue, 24 sept XXIV h/ monto máximo - USD Mep h/ monto máximo A licitar 11,77 365 28/09/2027 A1 (Fix SCR) Tasa lun, 28 sept
 efectivo y/o en especie)
 disponible) disponible)
 9 años desde la B3 (Moody´s
@@ -97,11 +37,48 @@ Títulos de Deuda de la Provincia de
 jue, 24 sept - USD 600.000.000 - USD Cable USD 600.000.000 A licitar A informar A informar fecha de emisión Ratings) / B- (Fitch Book building A informar
 San Juan [Ley NY]
 y liquidación Ratings)
-$4.000.000.000 (ampliable $4.000.000.000 (ampliable
-mié, 23 sept ON Pyme DeRentas Garantizadas II - ARS TAMAR+Mg 13,08 731 25/09/2028 SC Margen vie, 25 sept
-hasta $10.000.000.000) hasta $10.000.000.000)
 USD 20.000.000 (ampliable USD 20.000.000 (ampliable
 ON Banco Supervielle (integra en
 jue, 24 sept W Adicionales hasta monto máximo - USD Mep hasta monto máximo 5,50% 21,37 679 07/08/2028 AA+ (Moody´s) Precio lun, 28 sept
 efectivo y/o en especie)
 disponible) disponible)
+USD 20.000.000 (ampliable USD 20.000.000 (ampliable
+jue, 24 sept ON Central Dock Sud - I USD Mep A licitar 22,92 731 28/09/2028 AAA (Moody´s) Tasa lun, 28 sept
+hasta USD 30.000.000) hasta USD 30.000.000)
+ON Chamical Solar II S.A.U. (Apto
+jue, 24 sept I Adicionales USD 3.000.000 - USD Cable USD 3.000.000 12,00% 27,26 1058 21/08/2029 SC Por Adhesión lun, 28 sept
+Pyme)
+AAA (Fix SCR) / AAA
+jue, 24 sept FF Provincia Leasing VII VDFA ARS $5.810.403.477 (20%; T+Mg; 50%) 6,90 446 15/12/2027 Margen vie, 25 sept
+(UNTREF)
+$6.440.447.227
+AA (Fix SCR) / A+
+jue, 24 sept FF Provincia Leasing VII VDFB ARS $630.043.750 (21%; T+Mg; 51%) 15,60 508 15/02/2028 Margen vie, 25 sept
+(UNTREF)
+[SUSPENDIDA] Títulos de Deuda USD 75.000.000 (amp. h/ USD 75.000.000 (amp. h/
+jue, 24 sept - 24 CER A licitar 27,64 912 29/03/2029 A informar Tasa mar, 29 sept
+Pública de la Ciudad de Buenos Aires USD 150.000.000) USD 150.000.000)
+Presentation Heading |
+Operaciones en Difusión
+STONEX
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+vie, 25 sept FF Megabono 359 VDFA ARS $9.631.249.831 (23%; T+Mg; 42%) 5,49 329 24/08/2027 AAA (Fix SCR) Margen mar, 29 sept
+vie, 25 sept FF Megabono 359 $11.465.773.609 VDFB ARS $1.170.016.799 (25%; T+Mg; 42%) 11,16 360 24/09/2027 AA (Fix SCR) Margen mar, 29 sept
+vie, 25 sept FF Megabono 359 VDFC ARS $664.506.979 (26%; T+Mg; 43%) 12,53 391 25/10/2027 A+ (Fix SCR) Margen mar, 29 sept
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+vie, 25 sept FF Cuotas Cencosud LXI VDFA ARS $17.489.679.888 (20%; T+300; 40%) 2,94 173 20/03/2027 AAA (Fix SCR) Precio lun, 28 sept
+$20.493.483.646
+vie, 25 sept FF Cuotas Cencosud LXI VDFB ARS $3.003.803.758 (20%; T+300; 40%) 7,57 295 20/07/2027 BB- (Fix SCR) Precio lun, 28 sept
+vie, 25 sept ON Dietrich Garantizada (Pyme) I $1.500.000.000 - ARS $1.500.000.000 TAMAR+Mg 17,78 731 29/09/2028 SC Margen mar, 29 sept
+ON Pyme CNV Garantizada Datastar $3.000.000.000 (ampliable h/ $3.000.000.000 (ampliable h/
+vie, 25 sept I - ARS TAMAR+Mg 15,55 731 29/09/2028 SC Margen mar, 29 sept
+Argentina $5.000.000.000) $5.000.000.000)
+vie, 25 sept FF Coppel 2 VDFA ARS $5.000.002.122 (20%; T+100; 45%) 5,13 301 26/07/2027 ML A-1 (Moody´s) TIR lun, 28 sept
+$5.571.484.818
+vie, 25 sept FF Coppel 2 VDFB ARS $571.482.696 (21%; T+200; 46%) 12,15 423 25/11/2027 BB+ (Moody´s) TIR lun, 28 sept
+lun, 28 sept FF Individual Inmobiliario RUS FUTURO - USD 8.877.516 CP USD Mep $8.877.516 - - 3653 30/09/2036 SC Precio mié, 30 sept

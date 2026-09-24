@@ -1,4 +1,5 @@
 ﻿FECHA,EMISOR,MONEDA,TASA,TASA/MARGEN,PLAZO (en meses),VN,CALIFICACIÓN
+25-sep-26,Pyme DeRentas Garantizadas – II,ARS,TAMAR,"0,00%",24,"9357,10",SC
 23-sep-26,Pyme Garantizada Pamisa – I,ARS,TAMAR,"-0,10%",24,"1000,00",SC A-1 (Moody´s)
 14-sep-26,Promedon Avalada – II,USD Mep,Fija,"7,90%",36,"4,50",BBB+ (Moody´s)
 11-sep-26,Pyme CNV Garantizada Rafaela Alimentos I I,ARS,TAMAR,"0,00%",18,"5487,50",SC
@@ -15,5 +16,3 @@
 27-ago-26,Demagro Garantizada I I,ARS,TAMAR,"-0,50%",24,"727,20",SC
 27-ago-26,Demagro Garantizada I II,USD Linked,Fija,"9,50%",24,"0,20",SC
 25-ago-26,Garantizada Lodiser S.A. (Apto Pyme) – I,ARS,TAMAR,"-1,50%",24,"4000,00",SC
-24-ago-26,Garantizada RDA Renting (Apto Pyme) III I,ARS,TAMAR,"-1,50%",24,"3130,00",SC
-24-ago-26,Garantizada RDA Renting (Apto Pyme) III II,ARS,TAMAR,"0,00%",36,"470,00",SC
