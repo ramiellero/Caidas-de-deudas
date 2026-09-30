@@ -1,4 +1,4 @@
-29 de septiembre de 2026
+30 de septiembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,33 +8,9 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-TAMAR+0,95% 23,7500% 27,08% 0,46% 24,21% lun, 28 sept ON Pyme Garantizada Armoraut II - ARS $1.000.000.000 TAMAR+0,95% 17,66 731 30/09/2028 SC Margen mié, 30 sept
-Bono del Tesoro Nacional Capitalizable en
-Px 149,45 23,7500% 29,19% 2,14% 25,89% lun, 28 sept T15E7 - ARS $1.905.831.000.000 TEM 2,05% 3,52 107 15/01/2027 SC Precio mié, 30 sept
-Pesos [Reapertura]
-Bono del Tesoro Nacional Cero Cupón con
-Px 122,60 - 5,98% - - lun, 28 sept TZXY7 - CER $834.572.000.000 0,00% 7,99 243 31/05/2027 SC Precio mié, 30 sept
-Ajuste por CER [Reapertura]
-Bono del Tesoro Nacional en Pesos a Tasa
-Px 108,90 23,7500% 30,97% 3,54% 27,29% lun, 28 sept TML27 - ARS $2.681.893.000.000 TAMAR TEM + 5,40% 9,96 303 30/07/2027 SC Precio mié, 30 sept
-TAMAR [Reapertura]
-Letra del Tesoro Nacional Cero Cupón
-Px 99,28 - 9,19% - - lun, 28 sept D30O6 - USD Linked $774.000.000 0,00% 0,99 30 30/10/2026 SC Precio mié, 30 sept
-vinculada al Dólar [Reapertura]
-Letra del Tesoro Nacional Cero Cupón
-Px 98,82 - 7,36% - - lun, 28 sept D30N6 - USD Linked $437.000.000 0,00% 2,01 61 30/11/2026 SC Precio mié, 30 sept
-vinculada al Dólar [Reapertura]
+Px 100,00 - - - - mar, 29 sept FF Individual Inmobiliario RUS FUTURO - CP USD Mep USD 8.877.516 - - 3653 30/09/2036 BBB+ (Fix SCR) Precio mié, 30 sept
 Presentation Heading |
 Licita hoy
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-FF Individual Inmobiliario RUS
-mar, 29 sept - USD 8.877.516 CP USD Mep USD 8.877.516 - - 3653 30/09/2036 BBB+ (Fix SCR) Precio mié, 30 sept
-FUTURO
-Presentation Heading |
-Operaciones en Difusión
 STONEX
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -42,3 +18,17 @@ Licitación (meses) Pago Licitación Liquidación
 mié, 30 sept FF Tarjeta Fértil XXVII VDFA ARS $2.800.000.000 (20%; T+100; 45%) 6,51 361 27/09/2027 AAA (Moody´s) TIR jue, 1 oct
 mié, 30 sept FF Tarjeta Fértil XXVII $3.900.000.000 VDFB ARS $425.000.000 (22%; T+200; 47%) 13,21 420 25/11/2027 A+ (Moody´s) TIR jue, 1 oct
 mié, 30 sept FF Tarjeta Fértil XXVII VDFC ARS $675.000.000 30,00% 17,66 694 25/08/2028 B- (Moody´s) TIR jue, 1 oct
+Presentation Heading |
+Operaciones en Difusión
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+ON Arcor (integra en efectivo y/o en
+jue, 1 oct - 7 USD Mep A licitar 33,51 1096 05/10/2029 AAA (Moody´s) Tasa lun, 5 oct
+especie) USD 40.000.000 ampliable USD 40.000.000 ampliable
+hasta USD 80.000.000 hasta USD 80.000.000
+jue, 1 oct ON Arcor - 8 ARS TAMAR+Mg 15,34 548 05/04/2028 AAA (Moody´s) Margen lun, 5 oct
+jue, 1 oct FF Creditech VIII VDFA ARS $10.100.000.000 (20%; T+100; 45%) 6,07 343 10/09/2027 AAA (Moody´s) TIR vie, 2 oct
+jue, 1 oct FF Creditech VIII $13.270.000.000 VDFB ARS $770.000.000 (22%; T+200; 47%) 11,68 373 10/10/2027 A- (Moody´s) TIR vie, 2 oct
+jue, 1 oct FF Creditech VIII VDFC ARS $2.400.000.000 30,00% 14,54 525 10/03/2028 B (Moody´s) TIR vie, 2 oct
