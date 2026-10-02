@@ -1,4 +1,4 @@
-1 de octubre de 2026
+2 de octubre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,21 +8,9 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-27,19% 23,4375% 32,20% 4,80% 28,24% mié, 30 sept FF Tarjeta Fértil XXVII VDFA ARS $2.800.000.000 (20%; T+100; 45%) 6,40 361 27/09/2027 AAA (Moody´s) TIR jue, 1 oct
-32,84% 23,4375% 36,39% 8,00% 31,44% mié, 30 sept FF Tarjeta Fértil XXVII VDFB ARS $425.000.000 (22%; T+200; 47%) 13,19 420 25/11/2027 A+ (Moody´s) TIR jue, 1 oct
-39,07% 23,4375% 39,07% 10,00% 33,44% mié, 30 sept FF Tarjeta Fértil XXVII VDFC ARS $675.000.000 30,00% 17,61 694 25/08/2028 B- (Moody´s) TIR jue, 1 oct
-Presentation Heading |
-Licita hoy
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-ON Arcor (integra en efectivo y/o en
-jue, 1 oct - 7 USD Mep A licitar 33,51 1096 05/10/2029 AAA (Moody´s) Tasa lun, 5 oct
-especie) USD 40.000.000 ampliable USD 40.000.000 ampliable
-hasta USD 80.000.000 hasta USD 80.000.000
-jue, 1 oct ON Arcor - 8 ARS TAMAR+Mg 15,34 548 05/04/2028 AAA (Moody´s) Margen lun, 5 oct
-jue, 1 oct FF Creditech VIII VDFA ARS $10.100.000.000 (20%; T+100; 45%) 6,07 343 10/09/2027 AAA (Moody´s) TIR vie, 2 oct
-jue, 1 oct FF Creditech VIII $13.270.000.000 VDFB ARS $770.000.000 (22%; T+200; 47%) 11,68 373 10/10/2027 A- (Moody´s) TIR vie, 2 oct
-jue, 1 oct FF Creditech VIII VDFC ARS $2.400.000.000 30,00% 14,54 525 10/03/2028 B (Moody´s) TIR vie, 2 oct
+5,69% - 5,77% - - jue, 1 oct ON Arcor (integra en efectivo y/o en especie) - 7 USD Mep USD 43.370.436 5,69% 33,63 1096 05/10/2029 AAA (Moody´s) Tasa lun, 5 oct
+TAMAR+4,95% 24,3125% 32,63% 4,26% 28,58% jue, 1 oct ON Arcor - 8 ARS $55.408.498.875 TAMAR+4,95% 15,21 548 05/04/2028 AAA (Moody´s) Margen lun, 5 oct
+28,19% 24,3125% 33,48% 4,91% 29,23% jue, 1 oct FF Creditech VIII VDFA ARS $10.100.000.000 (20%; T+100; 45%) 6,06 343 10/09/2027 AAA (Moody´s) TIR vie, 2 oct
+33,41% 24,3125% 37,55% 8,00% 32,31% jue, 1 oct FF Creditech VIII VDFB ARS $770.000.000 (22%; T+200; 47%) 11,80 373 10/10/2027 A- (Moody´s) TIR vie, 2 oct
+40,74% 24,3125% 40,26% 10,00% 34,31% jue, 1 oct FF Creditech VIII VDFC ARS $2.400.000.000 30,00% 14,84 525 10/03/2028 B (Moody´s) TIR vie, 2 oct
 Presentation Heading |
