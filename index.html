@@ -703,10 +703,11 @@
     /* ── Responsive: mobile (≤ 600px) ── */
     @media (max-width: 600px) {
       /* Navigation */
-      .nav-top { padding: 0 8px; }
+      .nav-top { padding: 0 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; }   /* 6 ítems: scroll horizontal si no entran */
+      .nav-top > * { flex-shrink: 0; white-space: nowrap; }
       .nav-sub  { padding: 0 8px 0 10px; }
-      .nav-parent { padding: 12px 10px; font-size: 11.5px; }
-      .nav-tab { padding: 12px 10px; font-size: 11.5px; }
+      .nav-parent { padding: 12px 8px; font-size: 11px; }
+      .nav-tab { padding: 12px 8px; font-size: 11px; }
 
       /* Slide header */
       .slide-header { padding: 8px 12px; }
@@ -1140,6 +1141,8 @@
     /* ── Deals Section ── */
     .nav-tab.active[data-co="deals"] { color: #0F4C75; border-bottom-color: #0F4C75; }
     .nav-tab.active[data-co="padron"] { color: #334155; border-bottom-color: #334155; }
+    .nav-tab.active[data-co="mercado"] { color: #0E7490; border-bottom-color: #0E7490; }
+    #page-mercado .deals-view-tab.active { color: #0E7490; border-bottom-color: #0E7490; }
 
     .deals-filters {
       display: flex;
@@ -1395,6 +1398,22 @@
     .curvas-table thead th.sort-asc::after  { content: ' ▲'; font-size: 9px; }
     .curvas-table thead th.sort-desc::after { content: ' ▼'; font-size: 9px; }
     .curvas-table thead th.no-sort { cursor: default; }
+    /* Tooltip explicativo de encabezados de columna (hover en PC, tap en ⓘ en celular) */
+    .th-info {
+      display: inline-block; margin-left: 4px; font-size: 11px; line-height: 1;
+      color: #94A3B8; cursor: help; text-transform: none; letter-spacing: 0;
+      padding: 4px 2px; /* área táctil más grande en celular */
+    }
+    th[data-tip]:hover .th-info, .th-info.active { color: #1D4B6E; }
+    #th-tip {
+      position: fixed; z-index: 10000; display: none; pointer-events: none;
+      max-width: min(280px, calc(100vw - 20px)); padding: 9px 12px;
+      background: #1E293B; color: #F1F5F9; border-radius: 6px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      font-size: 12px; line-height: 1.45; font-weight: 400;
+      text-transform: none; letter-spacing: 0; text-align: left; white-space: normal;
+    }
+    #th-tip b { color: #fff; font-weight: 600; }
     .curvas-table tbody tr { border-bottom: 1px solid #F1F5F9; }
     .curvas-table tbody tr:last-child { border-bottom: none; }
     .curvas-table tbody tr:hover { background: #F8FAFC; }
@@ -1563,6 +1582,7 @@
       Debt Profile <span class="nav-chevron">▾</span>
     </div>
     <div class="nav-tab" data-co="deals"  onclick="switchTab('deals')">Deals</div>
+    <div class="nav-tab" data-co="mercado" onclick="switchTab('mercado')">Mercado</div>
     <div class="nav-tab" data-co="sgr"    onclick="switchTab('sgr')">SGR</div>
     <div class="nav-tab" data-co="padron" onclick="switchTab('padron')">Padrón</div>
     <button class="nav-logout" onclick="_logout()" title="Cerrar sesión">Salir</button>
@@ -2224,8 +2244,6 @@
       <button class="deals-view-tab"        id="deals-tab-volumen" onclick="setDealsView('volumen', this)">Volumen de emisiones</button>
       <button class="deals-view-tab"        id="deals-tab-bajo"    onclick="setDealsView('bajo',    this)">ON &lt; 10MM</button>
       <button class="deals-view-tab"        id="deals-tab-difusion" onclick="setDealsView('difusion', this)">Difusión</button>
-      <button class="deals-view-tab"        id="deals-tab-curvas"  onclick="setDealsView('curvas',  this)">Curvas ONs</button>
-      <button class="deals-view-tab"        id="deals-tab-propias" onclick="setDealsView('propias', this)">Propias</button>
     </div>
 
     <!-- View: Tabla -->
@@ -2305,12 +2323,36 @@
     </div><!-- /deals-view-difusion -->
 
 
+
+  </div><!-- /content -->
+</div><!-- /page-deals -->
+
+<!-- ══════════════════════════════════════════════════════
+     MERCADO Section (Curvas ONs + Propias) — fuente: BYMA Educa
+══════════════════════════════════════════════════════ -->
+<div id="page-mercado" class="page">
+
+  <!-- Slide header -->
+  <div class="slide-header" style="background: linear-gradient(135deg, #0E7490 0%, #0A5568 100%);">
+    <div class="logo-box">IRSA</div>
+    <span class="header-title">Mercado · Curvas de ONs</span>
+    <div class="header-date">Al <span class="header-today"></span></div>
+  </div>
+
+  <div class="content">
+
+    <!-- Sub-view tabs -->
+    <div class="deals-view-tabs" style="margin-top:20px;">
+      <button class="deals-view-tab active" id="mercado-tab-curvas"  onclick="setMercadoView('curvas',  this)">Curvas ONs</button>
+      <button class="deals-view-tab"        id="mercado-tab-propias" onclick="setMercadoView('propias', this)">Propias</button>
+    </div>
+
     <!-- View: Curvas ONs -->
-    <div id="deals-view-curvas" style="display:none;">
+    <div id="deals-view-curvas">
 
       <!-- Header: fecha del informe -->
       <div class="curvas-header-bar">
-        <span>Deuda Corporativa USD — IAMC</span>
+        <span>Deuda Corporativa USD — BYMA</span>
         <strong id="curvas-fecha-label">—</strong>
         <span id="curvas-count-label" style="margin-left:auto;color:#94A3B8;"></span>
       </div>
@@ -2340,10 +2382,13 @@
           <select class="deals-filter-input" id="curvas-f-moneda" onchange="_curvasApplyFilters()">
             <option value="">Todas</option>
             <option value="USD Mep">USD Mep</option>
+            <option value="USD Int">USD Int</option>
             <option value="USD Cable">USD Cable</option>
-            <option value="USD Linked">USD Linked</option>
-            <option value="ARS">ARS</option>
           </select>
+        </div>
+        <div class="deals-filter-group">
+          <span class="deals-filter-label">ADTV mín. (US$ k)</span>
+          <input type="number" min="0" step="10" class="deals-filter-input" id="curvas-f-adtv" placeholder="0" style="width:90px" oninput="_curvasApplyFilters()">
         </div>
         <button class="deals-clear-btn" onclick="_curvasClearFilters()">Limpiar</button>
       </div>
@@ -2373,14 +2418,17 @@
               <th class="no-sort">Ley</th>
               <th onclick="_curvasSortBy('Moneda')">Moneda</th>
               <th onclick="_curvasSortBy('Precio_Clean')" style="text-align:right">Precio<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(%)</span></th>
+              <th onclick="_curvasSortBy('Var_Px_Pct')" style="text-align:right">Var. px<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(1d)</span></th>
               <th onclick="_curvasSortBy('YTM')" style="text-align:right">YTM</th>
+              <th onclick="_curvasSortBy('Var_YTM_bps')" style="text-align:right">Var. YTM<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(bps)</span></th>
               <th onclick="_curvasSortBy('CY')" style="text-align:right">CY</th>
               <th onclick="_curvasSortBy('DM')" style="text-align:right">DM</th>
               <th onclick="_curvasSortBy('Monto_Emitido')" style="text-align:right">Monto<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(US$ M)</span></th>
+              <th onclick="_curvasSortBy('ADTV_USD')" style="text-align:right">ADTV<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(US$ k)</span></th>
             </tr>
           </thead>
           <tbody id="curvas-tbody">
-            <tr><td colspan="12" class="deals-empty">Cargando…</td></tr>
+            <tr><td colspan="15" class="deals-empty">Cargando…</td></tr>
           </tbody>
         </table>
       </div>
@@ -2411,12 +2459,36 @@
           <div class="curvas-chart-title">YTM</div>
           <div class="curvas-chart-wrap"><canvas id="propias-chart-ytm"></canvas></div>
         </div>
+        <div class="curvas-chart-card">
+          <div class="curvas-chart-title">Volumen promedio diario — ADTV (US$ miles)</div>
+          <div class="curvas-chart-wrap"><canvas id="propias-chart-adtv"></canvas></div>
+        </div>
+        <div class="curvas-chart-card">
+          <div class="curvas-chart-title">Canje MEP / CCL del bono (%)</div>
+          <div class="curvas-chart-wrap"><canvas id="propias-chart-canje"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Snapshot de la rueda más reciente (fuente: curvas_on.csv / BYMA) -->
+      <div class="curvas-chart-card" style="margin-top:16px;">
+        <div class="curvas-chart-title">Última rueda — <span id="propias-snap-fecha">—</span></div>
+        <div class="curvas-table-wrap">
+          <table class="curvas-table" id="propias-snap-table">
+            <thead><tr>
+              <th class="no-sort">Ticker</th><th class="no-sort">Emisor</th><th class="no-sort">Vto.</th><th class="no-sort">Precio limpio</th><th class="no-sort">Var. px</th>
+              <th class="no-sort">YTM</th><th class="no-sort">Var. YTM (bps)</th><th class="no-sort">vs. curva (bps)</th><th class="no-sort">DM</th><th class="no-sort">Monto (US$ M)</th>
+              <th class="no-sort">ADTV (US$)</th><th class="no-sort">Canje MEP/CCL</th>
+            </tr></thead>
+            <tbody id="propias-snap-body"></tbody>
+          </table>
+        </div>
       </div>
 
     </div><!-- /deals-view-propias -->
 
   </div><!-- /content -->
-</div><!-- /page-deals -->
+</div><!-- /page-mercado -->
+
 
 
 <!-- ══════════════════════════════════════════════════════
@@ -2907,6 +2979,8 @@ function switchTab(co) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelector(`.nav-tab[data-co="${co}"]`).classList.add('active');
   document.getElementById(`page-${co}`).classList.add('active');
+
+  if (co === 'mercado') setMercadoView(_mercadoView);
 
   const dpParent = document.getElementById('nav-dp-parent');
   const dpSub    = document.getElementById('nav-sub-dp');
@@ -5789,23 +5863,30 @@ function setDealsView(mode, btn) {
   const tblView     = document.getElementById('deals-view-tabla');
   const bajoView    = document.getElementById('deals-view-bajo');
   const difView     = document.getElementById('deals-view-difusion');
-  const curvasView  = document.getElementById('deals-view-curvas');
-  const propiasView = document.getElementById('deals-view-propias');
   tblView.style.display     = mode === 'tabla'    ? '' : 'none';
   volView.style.display     = mode === 'volumen'  ? '' : 'none';
   bajoView.style.display    = mode === 'bajo'     ? '' : 'none';
   difView.style.display     = mode === 'difusion' ? '' : 'none';
-  curvasView.style.display  = mode === 'curvas'   ? '' : 'none';
-  propiasView.style.display = mode === 'propias'  ? '' : 'none';
 
-  const filtersBar = document.getElementById('deals-filters-bar');
-  if (filtersBar) filtersBar.style.display = (mode === 'curvas' || mode === 'propias') ? 'none' : '';
-
-  document.querySelectorAll('.deals-view-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#page-deals .deals-view-tab').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
 
   if (mode === 'volumen') _dealsRenderVolumeChart();
-  if (mode === 'curvas' && _curvasAllRows.length) _curvasRenderCharts();
+}
+
+// Tab "Mercado": sub-vistas Curvas ONs / Propias
+let _mercadoView = 'curvas';
+function setMercadoView(mode, btn) {
+  _mercadoView = mode;
+  document.getElementById('deals-view-curvas').style.display  = mode === 'curvas'  ? '' : 'none';
+  document.getElementById('deals-view-propias').style.display = mode === 'propias' ? '' : 'none';
+
+  document.querySelectorAll('#page-mercado .deals-view-tab').forEach(b => b.classList.remove('active'));
+  const target = btn || document.getElementById(`mercado-tab-${mode}`);
+  if (target) target.classList.add('active');
+
+  // Los charts no se pueden dibujar con el contenedor oculto: se (re)renderizan al mostrar la vista
+  if (mode === 'curvas'  && _curvasAllRows.length)  _curvasRenderCharts();
   if (mode === 'propias' && _propiasAllRows.length) _propiasRenderCharts();
 }
 
@@ -5825,7 +5906,7 @@ function _curvasNormIndustria(s) {
 
 const _CURVAS_MON_EN = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
 function _curvasParseFecha(s) {
-  // "DD-Mon-YYYY" (ej: "17-Jan-2034") — formato del scraper IAMC
+  // "DD-Mon-YYYY" (ej: "17-Jan-2034") — formato del scraper (BYMA)
   if (!s) return null;
   const p = s.split('-');
   if (p.length !== 3) return null;
@@ -5864,14 +5945,18 @@ async function initCurvasSection() {
       r._cupon     = parseFloat(r['Cupon'])  || null;
       r._monto     = parseFloat(r['Monto_Emitido']) || null;
       r._precio    = parseFloat(r['Precio_Clean'])  || null;
+      r._varpx     = parseFloat(r['Var_Px_Pct']);
+      r._varytm    = parseFloat(r['Var_YTM_bps']);
+      r._adtv      = parseFloat(r['ADTV_USD']);   // US$
       rows.push(r);
     }
     _curvasAllRows = rows;
+    _propiasRenderSnapshot(rows);
 
     // Fecha del informe
     const fecha = rows[0] && rows[0]['Fecha'] ? rows[0]['Fecha'] : '—';
     const lbl = document.getElementById('curvas-fecha-label');
-    if (lbl) lbl.textContent = `Informe ${fecha}`;
+    if (lbl) lbl.textContent = `Rueda ${fecha}`;
 
     // Poblar dropdown de industrias
     const industrias = [...new Set(rows.map(r => r._industria).filter(Boolean))].sort();
@@ -5896,12 +5981,14 @@ function _curvasApplyFilters() {
   const industria= (document.getElementById('curvas-f-industria') ?.value || '');
   const ley      = (document.getElementById('curvas-f-ley')      ?.value || '');
   const moneda   = (document.getElementById('curvas-f-moneda')   ?.value || '');
+  const adtvMin  = parseFloat(document.getElementById('curvas-f-adtv')?.value) || 0;   // US$ k
 
   _curvasFiltered = _curvasAllRows.filter(r => {
     if (emisor    && !r['Emisor'].toLowerCase().includes(emisor)) return false;
     if (industria && r._industria !== industria)                  return false;
     if (ley       && r['Ley'] !== ley)                            return false;
     if (moneda    && r['Moneda'] !== moneda)                      return false;
+    if (adtvMin   && !((r._adtv || 0) / 1000 >= adtvMin))         return false;
     return true;
   });
 
@@ -5937,6 +6024,9 @@ function _curvasSortRows() {
     else if (col === 'Cupon')        { va = a._cupon ?? Infinity; vb = b._cupon ?? Infinity; }
     else if (col === 'Monto_Emitido'){ va = a._monto ?? Infinity; vb = b._monto ?? Infinity; }
     else if (col === 'Precio_Clean') { va = a._precio ?? Infinity; vb = b._precio ?? Infinity; }
+    else if (col === 'Var_Px_Pct')   { va = isNaN(a._varpx)  ? -Infinity : a._varpx;  vb = isNaN(b._varpx)  ? -Infinity : b._varpx; }
+    else if (col === 'Var_YTM_bps')  { va = isNaN(a._varytm) ? -Infinity : a._varytm; vb = isNaN(b._varytm) ? -Infinity : b._varytm; }
+    else if (col === 'ADTV_USD')     { va = isNaN(a._adtv)   ? -Infinity : a._adtv;   vb = isNaN(b._adtv)   ? -Infinity : b._adtv; }
     else { va = (a[col] || '').toLowerCase(); vb = (b[col] || '').toLowerCase(); }
     if (va < vb) return asc ? -1 : 1;
     if (va > vb) return asc ?  1 : -1;
@@ -5949,7 +6039,7 @@ function _curvasUpdateSortHeaders() {
     th.classList.remove('sort-asc', 'sort-desc');
   });
   const ths = document.querySelectorAll('#curvas-table thead th');
-  const colMap = ['Ticker','Emisor','Industria','Cupon','Vencimiento',null,'Moneda','Precio_Clean','YTM','CY','DM','Monto_Emitido'];
+  const colMap = ['Ticker','Emisor','Industria','Cupon','Vencimiento',null,'Moneda','Precio_Clean','Var_Px_Pct','YTM','Var_YTM_bps','CY','DM','Monto_Emitido','ADTV_USD'];
   colMap.forEach((c, i) => {
     if (c === _curvasSortCol && ths[i]) {
       ths[i].classList.add(_curvasSortAscending ? 'sort-asc' : 'sort-desc');
@@ -5968,6 +6058,13 @@ function _curvasFmtPct(v) {
   if (v === '' || v === null || v === undefined || isNaN(+v)) return '—';
   return (+v).toFixed(1) + '%';
 }
+// Variación con signo, verde si sube / rojo si baja (colorea por signo, sin juicio de valor).
+function _curvasFmtDelta(v, decimals, suffix = '') {
+  if (v === '' || v === null || v === undefined || isNaN(+v)) return '—';
+  const x = +v;
+  const c = x > 0 ? '#16a34a' : (x < 0 ? '#dc2626' : '#64748B');
+  return `<span style="color:${c};font-weight:600;">${x > 0 ? '+' : ''}${x.toFixed(decimals)}${suffix}</span>`;
+}
 function _curvasFmtNum(v, decimals = 1) {
   if (v === '' || v === null || v === undefined || isNaN(+v)) return '—';
   return (+v).toFixed(decimals);
@@ -5977,7 +6074,7 @@ function _curvasRenderTable() {
   const tbody = document.getElementById('curvas-tbody');
   if (!tbody) return;
   if (!_curvasFiltered.length) {
-    tbody.innerHTML = '<tr><td colspan="12" class="deals-empty">Sin resultados para los filtros aplicados.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="15" class="deals-empty">Sin resultados para los filtros aplicados.</td></tr>';
     _curvasUpdateSortHeaders();
     return;
   }
@@ -5994,10 +6091,13 @@ function _curvasRenderTable() {
       <td>${_curvasLeyBadge(r['Ley'])}</td>
       <td>${r['Moneda'] ? `<span class="deals-badge ${_dealsMonedaBadge(r['Moneda'])[0]}">${_escHtml(r['Moneda'])}</span>` : '—'}</td>
       <td class="num">${precio}</td>
+      <td class="num">${_curvasFmtDelta(r._varpx, 2, '%')}</td>
       <td class="num">${_curvasFmtPct(r._ytm)}</td>
+      <td class="num">${_curvasFmtDelta(r._varytm, 0)}</td>
       <td class="num">${_curvasFmtPct(r._cy)}</td>
       <td class="num">${_curvasFmtNum(r._dm, 1)}</td>
       <td class="num">${r._monto ? r._monto.toFixed(0) : '—'}</td>
+      <td class="num">${isNaN(r._adtv) ? '—' : Math.round(r._adtv / 1000).toLocaleString('es-AR')}</td>
     </tr>`;
   }).join('');
   tbody.innerHTML = html;
@@ -6005,7 +6105,7 @@ function _curvasRenderTable() {
 }
 
 function _curvasClearFilters() {
-  ['curvas-f-emisor','curvas-f-industria','curvas-f-ley','curvas-f-moneda'].forEach(id => {
+  ['curvas-f-emisor','curvas-f-industria','curvas-f-ley','curvas-f-moneda','curvas-f-adtv'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -6032,9 +6132,9 @@ function _curvasSectorColor(s) {
 
 // Regresión polinómica grado 2 (y = a + b·x + c·x²) por mínimos cuadrados.
 // Devuelve array de {x,y} listo para usar como dataset de línea de tendencia.
-function _curvasTrendPoints(points) {
+function _curvasFitCoefs(points) {
   const n = points.length;
-  if (n < 4) return [];
+  if (n < 4) return null;
   let s0=n, s1=0, s2=0, s3=0, s4=0, t0=0, t1=0, t2=0;
   for (const {x, y} of points) {
     s1+=x; s2+=x*x; s3+=x*x*x; s4+=x*x*x*x;
@@ -6046,7 +6146,7 @@ function _curvasTrendPoints(points) {
     let mx=col;
     for (let row=col+1; row<3; row++) if (Math.abs(M[row][col])>Math.abs(M[mx][col])) mx=row;
     [M[col],M[mx]]=[M[mx],M[col]];
-    if (Math.abs(M[col][col])<1e-10) return [];
+    if (Math.abs(M[col][col])<1e-10) return null;
     for (let row=col+1; row<3; row++) {
       const f=M[row][col]/M[col][col];
       for (let k=col; k<=3; k++) M[row][k]-=f*M[col][k];
@@ -6058,6 +6158,12 @@ function _curvasTrendPoints(points) {
     for (let k=i+1; k<3; k++) c[i]-=M[i][k]*c[k];
     c[i]/=M[i][i];
   }
+  return c;
+}
+
+function _curvasTrendPoints(points) {
+  const c = _curvasFitCoefs(points);
+  if (!c) return [];
   const xs = points.map(p=>p.x);
   const minX = Math.max(0, Math.min(...xs));
   const maxX = Math.max(...xs);
@@ -6100,6 +6206,9 @@ function _curvasBuildScatter(type, rows) {
       emisor:      r['Emisor'],
       cupon:       r['Cupon'],
       vencimiento: r['Vencimiento'],
+      precio:      r._precio,
+      adtv:        r._adtv,
+      varytm:      r._varytm,
       sector,
     });
   });
@@ -6172,8 +6281,10 @@ function _curvasBuildScatter(type, rows) {
                 `Sector: ${d.sector}`,
                 `Cupón: ${d.cupon}`,
                 `Vencimiento: ${d.vencimiento}`,
-                `YTM: ${d.y.toFixed(1)}%`,
+                `Precio: ${d.precio != null ? d.precio.toFixed(2) : '—'}`,
+                `YTM: ${d.y.toFixed(2)}%${isNaN(d.varytm) ? '' : `  (${d.varytm > 0 ? '+' : ''}${d.varytm.toFixed(0)} bps 1d)`}`,
                 `DM: ${d.x.toFixed(2)}`,
+                `ADTV: ${isNaN(d.adtv) ? '—' : 'US$ ' + Math.round(d.adtv / 1000).toLocaleString('es-AR') + ' k'}`,
               ];
             },
           },
@@ -6225,6 +6336,8 @@ function _curvasBuildScatter(type, rows) {
 let _propiasAllRows = [];   // [{fecha:Date, fechaStr, ticker, emisor, vencimiento, precio, ytm}]
 let _propiasChartPrecio = null;
 let _propiasChartYtm    = null;
+let _propiasChartAdtv   = null;
+let _propiasChartCanje  = null;
 
 const _PROPIAS_MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 function _propiasParseFecha(s) {
@@ -6235,6 +6348,49 @@ function _propiasParseFecha(s) {
 }
 function _propiasFmtFecha(d) {
   return `${d.getDate()} ${_PROPIAS_MES[d.getMonth()]}`;
+}
+
+function _propiasRenderSnapshot(curvasRows) {
+  const body = document.getElementById('propias-snap-body');
+  if (!body) return;
+  const own = curvasRows.filter(r => r['Ticker'].startsWith('IRC') || /^CS\d/.test(r['Ticker']))
+    .sort((a, b) => (a['Ticker'].startsWith('IRC') ? 0 : 1) - (b['Ticker'].startsWith('IRC') ? 0 : 1) || a._venc - b._venc);
+  const fecha = document.getElementById('propias-snap-fecha');
+  if (fecha && own[0]) fecha.textContent = own[0]['Fecha'];
+  const fits = {};
+  ['Arg', 'NY'].forEach(ley => {
+    fits[ley] = _curvasFitCoefs(curvasRows.filter(r => r['Ley'] === ley && r._ytm != null && r._dm != null).map(r => ({ x: r._dm, y: r._ytm })));
+  });
+  const vsCurva = r => {
+    const c = fits[r['Ley']];
+    if (!c || r._ytm == null || r._dm == null) return NaN;
+    return (r._ytm - (c[0] + c[1] * r._dm + c[2] * r._dm * r._dm)) * 100;
+  };
+  const num = (v, d, suf = '') => (v === '' || v == null || isNaN(parseFloat(v))) ? '—' : parseFloat(v).toFixed(d) + suf;
+  const signed = (v, d, suf = '') => {
+    const x = parseFloat(v);
+    if (isNaN(x)) return '—';
+    const c = x > 0 ? '#16a34a' : (x < 0 ? '#dc2626' : '#64748B');
+    return `<span style="color:${c};font-weight:600;">${x > 0 ? '+' : ''}${x.toFixed(d)}${suf}</span>`;
+  };
+  body.innerHTML = own.map(r => {
+    const adtv = parseFloat(r['ADTV_USD']);
+    const bg = r['Ticker'].startsWith('IRC') ? '#EBF2F8' : '#EBF4EE';
+    return `<tr style="background:${bg};">
+      <td><strong>${r['Ticker']}</strong></td>
+      <td>${r['Ticker'].startsWith('IRC') ? 'IRSA' : 'Cresud'}</td>
+      <td>${r['Vencimiento']}</td>
+      <td class="num">${num(r['Precio_Clean'], 2)}</td>
+      <td class="num">${signed(r['Var_Px_Pct'], 2, '%')}</td>
+      <td class="num">${num(r['YTM'], 2, '%')}</td>
+      <td class="num">${signed(r['Var_YTM_bps'], 0)}</td>
+      <td class="num">${signed(vsCurva(r), 0)}</td>
+      <td class="num">${num(r['DM'], 2)}</td>
+      <td class="num">${num(r['Monto_Emitido'], 1)}</td>
+      <td class="num">${isNaN(adtv) ? '—' : adtv.toLocaleString('es-AR')}</td>
+      <td class="num">${num(r['Canje_Pct'], 2, '%')}</td>
+    </tr>`;
+  }).join('');
 }
 
 async function initPropiasSection() {
@@ -6262,6 +6418,8 @@ async function initPropiasSection() {
         vencimiento: r['Vencimiento'],
         precio: parseFloat(r['Precio_Clean']),
         ytm: parseFloat(r['YTM']),
+        adtv: parseFloat(r['ADTV_USD']),
+        canje: parseFloat(r['Canje_Pct']),
       });
     }
     rows.sort((a, b) => a.fecha - b.fecha);
@@ -6320,6 +6478,15 @@ function _propiasRenderCharts() {
     decimals: 2,
     yLabel: 'YTM',
   });
+  // ADTV y canje solo existen desde que el scraper lee BYMA (2026-10-06): se grafican solo las ruedas con dato.
+  const withAdtv = rows.filter(r => !isNaN(r.adtv));
+  _propiasChartAdtv = _propiasBuildLineChart('propias-chart-adtv', _propiasChartAdtv,
+    withAdtv.map(r => _propiasFmtFecha(r.fecha)), withAdtv.map(r => r.adtv / 1000), color,
+    { suffix: ' k', decimals: 0, bar: true });
+  const withCanje = rows.filter(r => !isNaN(r.canje));
+  _propiasChartCanje = _propiasBuildLineChart('propias-chart-canje', _propiasChartCanje,
+    withCanje.map(r => _propiasFmtFecha(r.fecha)), withCanje.map(r => r.canje), color,
+    { suffix: '%', decimals: 2, bar: true });
 }
 
 function _propiasBuildLineChart(canvasId, existingInst, labels, values, color, opts) {
@@ -6330,13 +6497,13 @@ function _propiasBuildLineChart(canvasId, existingInst, labels, values, color, o
   if (existing) existing.destroy();
 
   return new Chart(canvas, {
-    type: 'line',
+    type: opts.bar ? 'bar' : 'line',
     data: {
       labels,
       datasets: [{
         data: values,
         borderColor: color,
-        backgroundColor: color + '22',
+        backgroundColor: color + (opts.bar ? 'CC' : '22'),
         borderWidth: 2,
         pointRadius: 0,
         pointHoverRadius: 5,
@@ -7334,6 +7501,108 @@ initPadronSection();
   const year  = now.getFullYear();
   const formatted = `${day}/${month}/${year}`;
   document.querySelectorAll('.header-today').forEach(el => el.textContent = formatted);
+})();
+
+// ── Tooltips de encabezados de columna ────────────────────────────────────────
+// Textos por posición de columna. PC: hover sobre el título. Celular: tap en el ícono ⓘ
+// (el tap en el título sigue ordenando la tabla, por eso el ícono frena la propagación).
+const _TH_TIPS = {
+  'curvas-table': [
+    ['Ticker', 'Código de negociación de la ON en BYMA (ej. IRCPO = IRSA Clase XXIV).'],
+    ['Emisor', 'Sociedad que emitió la ON.'],
+    ['Industria', 'Sector asignado por nosotros según el ticker; define el color en los gráficos.'],
+    ['Cupón', 'Tasa de interés nominal anual que paga el bono.'],
+    ['Vencimiento', 'Fecha de vencimiento final (el bono puede amortizar antes en cuotas).'],
+    ['Ley', 'Ley que rige el bono: <b>Arg</b> (Argentina) o <b>NY</b> (Nueva York). No son comparables directamente entre sí.'],
+    ['Moneda', 'Cómo se liquida en dólares: <b>USD Mep</b> (dólar MEP, local), <b>USD Int</b> (cable en el exterior, ley NY) o <b>USD Cable</b> (cable con ley argentina).'],
+    ['Precio (%)', 'Precio <b>limpio</b> (sin interés corrido) cada 100 de valor residual. Se calcula como (precio sucio − interés corrido) / valor residual.'],
+    ['Var. px (1d)', 'Variación del precio en la última rueda respecto de la anterior, en %.'],
+    ['YTM', 'Yield to maturity: tasa de retorno anual si se compra al precio actual y se mantiene hasta el vencimiento.'],
+    ['Var. YTM (bps)', 'Variación de la YTM en la última rueda, en puntos básicos (100 bps = 1%). Si la YTM sube, el precio baja.'],
+    ['CY', 'Current yield: cupón anual sobre el precio actual. No incluye ganancia o pérdida de capital.'],
+    ['DM', 'Duración modificada: cuánto cambia el precio aproximadamente (%) ante un cambio de 1 punto en la YTM. Mide sensibilidad a la tasa.'],
+    ['Monto (US$ M)', 'Monto en circulación (outstanding) en millones de US$.'],
+    ['ADTV (US$ k)', 'Volumen diario promedio de las últimas 20 ruedas, en miles de US$. Suma lo operado en los tres tickers del bono (pesos, MEP y cable). Mide liquidez.'],
+  ],
+  'propias-snap-table': [
+    ['Ticker', 'Código de negociación de la ON en BYMA.'],
+    ['Emisor', 'IRSA o Cresud.'],
+    ['Vto.', 'Fecha de vencimiento final.'],
+    ['Precio limpio', 'Precio sin interés corrido, cada 100 de valor residual.'],
+    ['Var. px', 'Variación del precio en la última rueda, en %.'],
+    ['YTM', 'Tasa de retorno anual al vencimiento comprando al precio actual.'],
+    ['Var. YTM (bps)', 'Variación diaria de la YTM en puntos básicos (100 bps = 1%).'],
+    ['vs. curva (bps)', 'YTM del bono menos la curva de mercado de su misma ley a igual duración (regresión de todos los bonos hard-dollar). <b>Positivo</b> = rinde más que la curva (más barato); <b>negativo</b> = más caro. Es una referencia estadística, no un spread de emisor.'],
+    ['DM', 'Duración modificada: sensibilidad aproximada del precio (%) ante 1 punto de cambio en la YTM.'],
+    ['Monto (US$ M)', 'Monto en circulación en millones de US$.'],
+    ['ADTV (US$)', 'Volumen diario promedio de las últimas 20 ruedas en US$ (pesos + MEP + cable). Mide liquidez.'],
+    ['Canje MEP/CCL', 'Diferencia % entre el precio del bono operado en dólar MEP y en dólar cable (CCL): el canje implícito entre ambos dólares.'],
+  ],
+};
+
+(function _initThTips() {
+  const tip = document.createElement('div');
+  tip.id = 'th-tip';
+  tip.setAttribute('role', 'tooltip');
+  document.body.appendChild(tip);
+  let activeTh = null;
+
+  // Asigna data-tip a cada <th> por posición y agrega el ícono ⓘ
+  Object.keys(_TH_TIPS).forEach(tableId => {
+    const ths = document.querySelectorAll(`#${tableId} thead th`);
+    _TH_TIPS[tableId].forEach(([label, text], i) => {
+      const th = ths[i];
+      if (!th) return;
+      th.dataset.tip = `<b>${label}</b><br>${text}`;
+      const ic = document.createElement('span');
+      ic.className = 'th-info';
+      ic.textContent = 'ⓘ';
+      ic.setAttribute('aria-label', 'Qué significa ' + label);
+      th.appendChild(ic);
+    });
+  });
+
+  function hide() {
+    tip.style.display = 'none';
+    if (activeTh) activeTh.querySelector('.th-info')?.classList.remove('active');
+    activeTh = null;
+  }
+  function show(th) {
+    hide();
+    activeTh = th;
+    th.querySelector('.th-info')?.classList.add('active');
+    tip.innerHTML = th.dataset.tip;
+    tip.style.display = 'block';
+    tip.style.left = '0px'; tip.style.top = '0px';
+    const r = th.getBoundingClientRect();
+    const tw = tip.offsetWidth, tipH = tip.offsetHeight, m = 8;
+    let left = r.left + r.width / 2 - tw / 2;
+    left = Math.max(m, Math.min(left, window.innerWidth - tw - m));
+    let top = r.bottom + 6;
+    if (top + tipH > window.innerHeight - m) top = Math.max(m, r.top - tipH - 6);   // no entra abajo → arriba
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+
+  const canHover = window.matchMedia('(hover: hover)');
+  document.addEventListener('mouseover', e => {
+    if (!canHover.matches) return;           // en táctil el mouseover emulado lo maneja el tap en ⓘ
+    const th = e.target.closest ? e.target.closest('th[data-tip]') : null;
+    if (th) { if (th !== activeTh) show(th); } else if (activeTh) hide();
+  });
+  document.addEventListener('click', e => {
+    const ic = e.target.closest ? e.target.closest('.th-info') : null;
+    if (ic) {
+      e.stopPropagation(); e.preventDefault();   // no dispara el sort del <th>
+      const th = ic.closest('th');
+      if (th === activeTh) hide(); else show(th);
+      return;
+    }
+    if (activeTh) hide();
+  }, true);
+  window.addEventListener('scroll', hide, true);
+  window.addEventListener('resize', hide);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
 })();
 </script>
 

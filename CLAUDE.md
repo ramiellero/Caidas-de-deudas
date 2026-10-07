@@ -50,15 +50,14 @@ SGR/
 Deals/
   emisiones_obligaciones_negociables.csv # Registro semanal de emisiones de ONs del mercado argentino — el script del compañero (StoneX/actualizar_deals.py) escribe acá directo
   emisiones_on_bajo_impacto.csv         # Mismo formato que el anterior, para emisiones de bajo impacto (montos chicos) — también escrito por StoneX/actualizar_deals.py
-  curvas_on.csv                         # Tabla de bonos corporativos USD del informe diario IAMC — generado por scraper_curvas.py; se sobreescribe con el informe más reciente
+  curvas_on.csv                         # Tabla de ONs hard-dollar del tablero BYMA Educa — generado por scraper_curvas.py; se sobreescribe con la rueda más reciente
   curvas_propias_historico.csv          # Histórico diario (se appendea) de Precio_Clean/YTM solo para ONs propias (IRSA: IRC*, Cresud: CS<dígito>*) — fuente de la tab "Propias" dentro de Curvas ONs
   curvas_last_id.txt                    # Legado PPI (ya no se usa; conservado para historial)
   curvas_moneda_lookup.csv              # Lookup persistente Ticker → Moneda usado por enrich_curvas_moneda.py
-  scraper_curvas.py                     # Scraper diario: descarga PDF del informe IAMC, extrae páginas 1-2 (Ley NY) y 5-13 (Ley Arg), guarda curvas_on.csv y appendea curvas_propias_historico.csv
+  scraper_curvas.py                     # Scraper diario: lee el payload JSON embebido en tablero.bymaeduca.com.ar, guarda curvas_on.csv y appendea curvas_propias_historico.csv
   scraper_curvas.log                    # Log de ejecuciones del scraper
   run_scraper_curvas.bat                # Wrapper para la tarea programada de Windows
   enrich_curvas_moneda.py               # Script one-time de enriquecimiento (ya corrido; conservado para referencia)
-  historico_propias.py                  # Script one-off usado para hacer el backfill inicial de curvas_propias_historico.csv (recorre los últimos N informes IAMC disponibles); no corre en el flujo normal — el appendeo diario ya lo hace scraper_curvas.py
 
 StoneX/                                 # Scripts del compañero que carga emisiones semanalmente — no tocar rutas (ver StoneX/CLAUDE.md)
 
@@ -71,7 +70,7 @@ Padron/
 El archivo está organizado en tres bloques principales dentro de un único `.html`:
 
 1. **`<style>`** — CSS completo embebido (Inter font, grid layouts, tablas, charts, timeline, responsive)
-2. **`<body>`** — HTML con cuatro secciones (`#page-irsa`, `#page-cresud`, `#page-sgr`, `#page-deals`) más la navegación
+2. **`<body>`** — HTML con las secciones `#page-irsa`, `#page-cresud`, `#page-sgr`, `#page-deals`, `#page-mercado` y `#page-padron`, más la navegación
 3. **`<script>`** — Lógica JS: tab switching, Chart.js charts, renderizado de timelines
 
 ### Dependencias externas (CDN)
@@ -174,7 +173,7 @@ Registro de emisiones de ONs del mercado argentino. Columnas: `FECHA,EMISOR,MONE
 ### Nav — estructura y comportamiento
 
 El nav es de dos filas:
-- **`.nav-top`**: fila principal con `Debt Profile ▾` (padre colapsable), `Deals`, `SGR`, `Salir`
+- **`.nav-top`**: fila principal con `Debt Profile ▾` (padre colapsable), `Deals`, `Mercado`, `SGR`, `Padrón`, `Salir` (en ≤600px la fila hace scroll horizontal si no entra)
 - **`.nav-sub`**: sub-fila que muestra `IRSA` y `Cresud`; colapsa/expande con `max-height` CSS transition
 
 **Clases CSS de nav**:
@@ -416,24 +415,28 @@ Los dos strips (IRSA y Cresud) están sincronizados: cambiar uno actualiza el ot
 - **Actualizar timeline Cresud**: editar `cresud_deuda.csv` (capital, banking) o `cresud_completo.csv` (capital+intereses de ONs) y hacer commit
 - **No hay build step** — editar archivos y hacer commit directamente
 
-### Curvas ONs (sub-tab dentro de Deals)
-Vista de curva de rendimientos de bonos corporativos USD del mercado argentino. Fuente: informe diario IAMC "Informe Diario Deuda Corporativa".
+### Curvas ONs (sub-tab dentro de la pestaña **Mercado**)
+> Desde 2026-10-07 Curvas ONs y Propias viven en su propia pestaña de nav **Mercado** (`#page-mercado`, `data-co="mercado"`, ubicada después de Deals; color `#0E7490`), ya no dentro de Deals. Sub-vistas con `setMercadoView(mode, btn)` (`'curvas'` por defecto / `'propias'`); `switchTab('mercado')` re-renderiza los charts de la sub-vista activa porque no se pueden dibujar con el contenedor oculto. Los ids (`deals-view-curvas`, `deals-view-propias`, `curvas-*`, `propias-*`) se mantuvieron.
+Vista de curva de rendimientos de bonos corporativos USD del mercado argentino. Fuente: **tablero BYMA Educa** (`https://tablero.bymaeduca.com.ar/`, reemplazó al informe IAMC en 2026-10-06 — mismos números: la YTM coincide con la del IAMC a ±0,005 pp, pero con más decimales, más bonos y datos extra).
 
 **Scraper** (`scraper_curvas.py`):
-- Scrapea `https://www.iamc.com.ar/curvarendimientoobligacionesnegociables/` para obtener el link del informe más reciente
-- Extrae la URL del PDF (patrón `iamcweb.prod.ingecloud.com/TempFiles/{uuid}.pdf`) de la página del informe
-- Parsea con `pdfplumber`: páginas 1-2 (Ley NY, índices 0-1) y páginas 5-13 (Ley Arg, índices 4-12)
-- Guarda `curvas_on.csv` (sobreescribe); `curvas_last_id.txt` ya no se usa
-- Uso: `python scraper_curvas.py` (informe más reciente) o `--fecha DD-MM-YYYY` para forzar
-- Requiere: `pip install pdfplumber requests beautifulsoup4`
-- Sector asignado por prefijo de ticker via `_SECTOR_RULES` en el scraper; emisor: EMISOR_MAP con fallback al texto raw del PDF
+- El tablero es un único HTML (~2,4 MB) con todo embebido en `<script id="payload" type="application/json">`; no hay API — un GET + `json.loads`. Usamos `payload['on']` (ONs): `rows` (una por ticker, ~52 campos), `histi` (~21 ruedas de TIR/CY/precio sucio por ticker), `fecha`/`fecha_liq`.
+- Solo segmento `hd` (hard dollar, 207 ONs): `dlf`/`dlz`/`ars` se descartan. Los 3 tickers que el IAMC traía y BYMA no (MGCN, RC2CO, YFCNO) eran outliers que el frontend ya filtraba.
+- Guarda `curvas_on.csv` (sobreescribe con la rueda del payload, `Fecha` = fecha de la rueda de BYMA, no la de hoy) y appendea `curvas_propias_historico.csv`.
+- **`Precio_Clean` se calcula**: BYMA publica `px` como precio *sucio* sobre 100 de VN **original**. Clean por 100 de valor residual = `(px − ai) / vr × 100` (`ai` = interés corrido, `vr` = valor residual; `vt = vr + ai`). Importa en amortizantes (IRCFO: `px` 49,9 vs clean 102,5 con `vr` 47,5). Validado contra el IAMC: error mediano 0,035 pts (el IAMC redondea a 0,1).
+- Moneda (`Moneda`): `mp = MEP` → `USD Mep`; `CCL` + Ley NY → `USD Int`; `CCL` + Ley Arg → `USD Cable`. Reemplaza a `curvas_moneda_lookup.csv` (ya no se usa). Difiere del lookup viejo en 11 tickers; BYMA es la fuente de verdad.
+- Sector: `_SECTOR_RULES` por prefijo de ticker (más `_INDUSTRIA_FALLBACK` desde el `sec` de BYMA). Si hay tickers en `Otros` el scraper los lista en el log — agregar el prefijo a `_SECTOR_RULES`. Emisor: `EMISOR_MAP` con fallback al nombre de BYMA.
+- Uso: `python scraper_curvas.py` · `--backfill` (completa ruedas faltantes de propias desde `histi`) · `--commit` · `--from-file tablero.html` (pruebas con HTML ya descargado)
+- **Backfill**: para ruedas pasadas el interés corrido se reconstruye desde el `ai` de hoy restando el devengo 30/360 (liquidación T+1 hábil, sin feriados); si da negativo (hubo cupón en el medio) o el bono amortizó entre esa rueda y hoy, la fila se omite. Las filas backfilleadas no tienen `DM`, `Var_*`, `ADTV_USD`, `Canje_Pct` (no vienen en `histi`).
+- Requiere: `pip install requests`
 - **IRSA** (`IRC*`) y **Cresud** (`CS*`) clasificados ambos como `Real Estate` (no Agroindustria)
-- **SSL corporativo**: la red IRSACORP hace inspección SSL; el helper `_get(url)` del scraper intenta primero con verificación SSL y, si falla por `SSLError`, reintenta con `verify=False`. Esto solo ocurre en la red corporativa — en GitHub Actions funciona con verificación normal.
-- **GitHub Actions** (`.github/workflows/scraper-curvas.yml`): requiere `pip install pdfplumber requests beautifulsoup4` — las tres dependencias. Si falta `beautifulsoup4` el job falla con `ModuleNotFoundError` al importar.
+- **SSL corporativo**: la red IRSACORP hace inspección SSL; el helper `_get(url)` intenta primero con verificación SSL y, si falla por `SSLError`, reintenta con `verify=False`. En GitHub Actions funciona con verificación normal.
+- **GitHub Actions** (`.github/workflows/scraper-curvas.yml`): solo requiere `pip install requests` (ya no pdfplumber/beautifulsoup4).
 - **Permisos del workflow**: el workflow declara `permissions: contents: write`. Sin esto, el `GITHUB_TOKEN` tiene solo permisos de lectura por defecto (desde 2023) y el `git push` del bot falla silenciosamente.
-- **Integración con Vercel**: el push del bot al repo dispara automáticamente un redeploy en Vercel vía webhook de GitHub. No se requiere configuración adicional — cada commit nuevo al branch `main` actualiza el sitio.
+- **Integración con Vercel**: el push del bot al repo dispara automáticamente un redeploy en Vercel vía webhook de GitHub.
+- **Riesgo**: el tablero es un producto nuevo de BYMA sin contrato público; si cambian el formato del payload el scraper falla con `[ERROR]`/`[!]` y no pisa los CSV.
 
-**`curvas_on.csv`** — columnas: `Fecha, Ticker, Emisor, Industria, Ley, Cupon, Vencimiento, Prox_Cupon, Precio_Clean, YTM, CY, DM, CX, WAL, Monto_Emitido, ADTV_ARS, Cierre_ARS, Accr_Int, VT, VR, Estructura, Frec_Cupon, Cuotas_Capital, Frec_Capital, Prox_Capital`
+**`curvas_on.csv`** — columnas: `Fecha, Ticker, Emisor, Industria, Ley, Cupon, Vencimiento, Prox_Cupon, Precio_Clean, YTM, CY, DM, CX, WAL, Monto_Emitido, ADTV_ARS, Cierre_ARS, Accr_Int, VT, VR, Estructura, Frec_Cupon, Cuotas_Capital, Frec_Capital, Prox_Capital, Precio_Dirty, Paridad, Var_Px_Pct, Var_YTM_bps, ADTV_USD, Canje_Pct, MEP_Implicito, CCL_Implicito` (más `Moneda` tras `Ley`). Campos nuevos de BYMA: `Precio_Dirty` (px sobre VN original), `Paridad`, `Var_Px_Pct` (variación diaria %), `Var_YTM_bps`, `ADTV_USD` (volumen diario promedio en USD), `Canje_Pct` (spread MEP vs CCL del bono), `MEP_Implicito`/`CCL_Implicito` (TC implícitos).
 - `Ley`: `Arg` (ley argentina) o `NY` (ley Nueva York)
 - `YTM` / `CY`: número decimal sin `%` (e.g. `6.5` = 6.5%)
 - `DM`: duración modificada decimal
@@ -454,29 +457,32 @@ Vista de curva de rendimientos de bonos corporativos USD del mercado argentino. 
 - Eje X: `DM` (Duración Modificada), mínimo fijo en 0
 - Eje Y: `YTM` (%)
 - Color por sector (`_CURVAS_SECTOR_COLORS`): Real Estate `#1D4B6E`, Finanzas `#7C3AED`, Petróleo & Gas `#B45309`, Telecomunicaciones `#0891B2`, Electricidad `#D97706`, Agroindustria `#16A34A`, Construcción `#DC2626`, Alimentos y Bebidas `#DB2777`, Materiales Básicos `#64748B`, Aerolíneas `#0369A1`
-- Tooltip al hover: Ticker, Emisor, Sector, Cupón, Vencimiento, YTM, DM
-- No hay toggle MEP/CCL (fuente IAMC no distingue moneda de liquidación)
+- Tooltip al hover: Ticker, Emisor, Sector, Cupón, Vencimiento, Precio, YTM (con variación 1d en bps), DM, ADTV (US$ k)
+- No hay toggle MEP/CCL en los charts; la moneda de liquidación (`Moneda`: USD Mep / USD Int / USD Cable) viene de BYMA y se filtra con el dropdown Moneda
 - IDs canvas: `curvas-chart-arg`, `curvas-chart-ny`
 - **Línea de tendencia**: regresión polinómica grado 2 via `_curvasTrendPoints(points)`
 
-**Tabla** (11 columnas, sortable): Ticker · Emisor · Industria · Cupón · Vencimiento · Ley · Precio (%) · YTM · CY · DM · Monto (US$ M)
+**Tabla** (15 columnas, sortable): Ticker · Emisor · Industria · Cupón · Vencimiento · Ley · Moneda · Precio (%) · Var. px (1d) · YTM · Var. YTM (bps) · CY · DM · Monto (US$ M) · ADTV (US$ k). Las variaciones se colorean por signo (`_curvasFmtDelta`); ADTV = volumen diario promedio de las últimas 20 ruedas en US$ (suma de los 3 tickers del bono: pesos, MEP y cable), mostrado en miles.
 - Filas IRSA: detectadas con `_curvasIsIrsa(ticker)` → `ticker.startsWith('IRC')` → fondo `#EBF2F8`
 - Filas Cresud: detectadas con `_curvasIsCresud(ticker)` → `/^CS\d/.test(ticker)` → fondo `#EBF4EE`
 
-**Filtros de UI**: Emisor (texto libre) · Industria (dropdown dinámico) · Ley (Arg/NY) · Limpiar
+**Tooltips de encabezados** (tabla de Curvas ONs y snapshot de Propias): al pasar el mouse por el título de una columna aparece un cuadro con su definición; en celular se muestra al tocar el ícono ⓘ junto al título (el tap en el título sigue ordenando). Los textos viven en `_TH_TIPS` (al final del `<script>`), indexados por posición de columna por id de tabla (`curvas-table`, `propias-snap-table`) — **al agregar/quitar/reordenar una columna hay que actualizar el array correspondiente**. Un único `<div id="th-tip">` flotante (`position: fixed`, se ajusta al viewport y se cierra con scroll, resize, Esc o tap afuera). El snapshot de Propias usa `.curvas-table` (no `.deals-table`, que en ≤600px se convierte en cards sin encabezados).
+
+**Filtros de UI**: Emisor (texto libre) · Industria (dropdown dinámico) · Ley (Arg/NY) · Moneda (USD Mep / USD Int / USD Cable) · ADTV mín. en US$ k (`#curvas-f-adtv`, útil para ocultar bonos ilíquidos de la curva) · Limpiar
 
 **Globals de estado**:
 - `_curvasAllRows` — todas las filas válidas del CSV (post-filtros de parseo)
 - `_curvasFiltered` — subconjunto tras filtros de UI
 - `_curvasSortCol` / `_curvasSortAscending` — estado de sort de la tabla
 
-**Flujo de actualización**: correr `python scraper_curvas.py` en días hábiles (a las 10 hs toma el informe del día anterior) → commit de `curvas_on.csv` → el frontend toma los datos nuevos automáticamente al refrescar.
+**Flujo de actualización**: correr `python scraper_curvas.py` en días hábiles (toma la última rueda publicada por BYMA) → commit de `curvas_on.csv` → el frontend toma los datos nuevos automáticamente al refrescar.
 
-### Propias (sub-tab dentro de Deals, a la derecha de "Curvas ONs")
+### Propias (sub-tab dentro de **Mercado**, a la derecha de "Curvas ONs")
 
 Vista de evolución histórica de precio y YTM, acotada a las ONs propias (IRSA: tickers `IRC*`; Cresud: tickers `CS<dígito>*`). Dos gráficos de línea (Chart.js) — Precio limpio y YTM — con un desplegable para elegir el instrumento; siempre un instrumento a la vez, sin overlay de series.
 
-**Fuente**: `curvas_propias_historico.csv` (columnas: `Fecha, Ticker, Emisor, Vencimiento, Precio_Clean, YTM, CY, DM`) — a diferencia de `curvas_on.csv` (que se sobreescribe con el informe más reciente), este CSV **se appendea** cada corrida del scraper: `scraper_curvas.py` filtra las filas `IRC*`/`CS<dígito>*` del informe del día (`append_propias_historico()`) y las agrega al final, deduplicando por `Fecha` para que correr el scraper dos veces el mismo día no duplique filas. El backfill inicial (últimos 30 informes IAMC disponibles al 2026-08-18) se hizo una sola vez con `historico_propias.py`; ese script no forma parte del flujo normal.
+**Fuente**: `curvas_propias_historico.csv` (columnas: `Fecha, Ticker, Emisor, Vencimiento, Precio_Clean, YTM, CY, DM, Var_Px_Pct, Var_YTM_bps, ADTV_USD, Canje_Pct, Paridad`) — a diferencia de `curvas_on.csv` (que se sobreescribe con la rueda más reciente), este CSV **se appendea** cada corrida del scraper: `scraper_curvas.py` filtra las filas `IRC*`/`CS<dígito>*` de la rueda del día (`append_propias_historico()`) y las agrega al final, deduplicando por `Fecha` para que correr el scraper dos veces el mismo día no duplique filas. El histórico hasta 2026-09-30 viene del IAMC (backfill inicial, `historico_propias.py`, ya eliminado); desde 2026-10-01 viene de BYMA (algunas ruedas con `--backfill`, sin las columnas nuevas). Además de los gráficos de precio limpio y YTM, la tab tiene dos gráficos de barras — **ADTV (US$ miles)** y **Canje MEP/CCL (%)** — que solo muestran ruedas con dato (desde 2026-10-06; se van llenando día a día), y un snapshot de la última rueda (tabla `#propias-snap-table`, armada en `_propiasRenderSnapshot()` desde `curvas_on.csv`) con precio, variación diaria, YTM, Δ YTM en bps, **vs. curva (bps)**, DM, monto, ADTV en USD y canje.
+- **vs. curva (bps)**: YTM del bono menos el valor de la curva de mercado de su misma ley (regresión polinómica grado 2 sobre todos los bonos `hd` post-filtros, `_curvasFitCoefs`) a igual DM. Positivo = rinde más que la curva (más barato); negativo = más caro. Es una referencia estadística, no un spread de emisor.
 
 **Frontend** (`index.html`):
 - `initPropiasSection()` — carga y parsea `curvas_propias_historico.csv`, ordena por fecha ascendente, puebla el `<select>` de instrumento agrupado en `<optgroup>` IRSA / Cresud (ordenados alfabéticamente dentro de cada grupo), y llama `_propiasRenderCharts()`
@@ -484,7 +490,7 @@ Vista de evolución histórica de precio y YTM, acotada a las ONs propias (IRSA:
 - `_propiasBuildLineChart(canvasId, existingInst, labels, values, color, opts)` — helper genérico de line chart (área rellena, sin puntos salvo hover, tooltip oscuro); reutilizado para Precio y YTM con distinto `decimals`/`suffix`
 - `_propiasColorFor(emisor)` — `'#1D4B6E'` (IRSA) / `'#1A3D2A'` (Cresud), mismos colores de marca que el resto del dashboard
 - Globals: `_propiasAllRows`, `_propiasChartPrecio`, `_propiasChartYtm`
-- `setDealsView('propias', btn)` — igual que `'curvas'`, oculta la barra de filtros de Deals (`#deals-filters-bar`) y llama `_propiasRenderCharts()` si ya hay datos cargados
+- `setMercadoView('propias', btn)` — muestra la vista y llama `_propiasRenderCharts()` si ya hay datos cargados
 
 **Reutiliza CSS de Curvas ONs** sin agregar clases nuevas: `.curvas-header-bar`, `.curvas-filters`, `.curvas-charts-grid`, `.curvas-chart-card`, `.curvas-chart-title`, `.curvas-chart-wrap`, `.deals-filter-group`/`.deals-filter-input.wide`.
 
@@ -817,7 +823,7 @@ El dashboard antes tenía un login puramente cosmético: un overlay de JS que so
 | SGR — Mercado: ranking SGRs | `Total_sgr.csv` — dinámico |
 | SGR — KPI foto (Aporte, Posición, Weight, P&L, Mora) | `foto_sgr.csv` — dinámico; histórico multi-período; siempre muestra el mes más reciente por SGR |
 | Deals — tabla de emisiones (filas, filtros, subtotales) | `emisiones_obligaciones_negociables.csv` — dinámico |
-| Deals — Curvas ONs: scatter Ley Arg + scatter Ley NY + tabla | `curvas_on.csv` — dinámico; generado por `scraper_curvas.py` (fuente IAMC) |
+| Deals — Curvas ONs: scatter Ley Arg + scatter Ley NY + tabla | `curvas_on.csv` — dinámico; generado por `scraper_curvas.py` (fuente BYMA Educa) |
 | Deals — Propias: evolución Precio + YTM por instrumento | `curvas_propias_historico.csv` — dinámico; appendeado diario por `scraper_curvas.py` |
 | Padrón — tabla de tenedores | API de Custodia BYMA vía `api/padron.js` — dinámico, consulta on-demand (no carga sola al iniciar la página) |
 | Padrón — columna Clasificación (propia) | `Padron/mapeo_clasificacion.csv` (match exacto) + `PADRON_CLASIF_RULES` (heurística de fallback) — dinámico |
@@ -852,7 +858,7 @@ El dashboard **debe verse bien tanto en desktop como en mobile** (celulares y ta
 ## Workflow de scrapers — dos operadores
 
 El repo tiene dos scrapers con operadores distintos:
-- **`scraper_curvas.py`** (curvas ONs IAMC): corre vía GitHub Actions automáticamente (lun-vie 10am ART), y también puede correrse manualmente con `python scraper_curvas.py`.
+- **`scraper_curvas.py`** (curvas ONs, BYMA Educa): corre vía GitHub Actions automáticamente (lun-vie 10am ART), y también puede correrse manualmente con `python scraper_curvas.py`.
 - **`StoneX/actualizar_deals.py`** (emisiones de ONs): lo corre un compañero de trabajo desde su propio directorio local (Windows + Outlook). No tiene GitHub Actions — es manual, semanal.
 
 **Git pull antes de push en `actualizar_deals.py`**: el script hace `git pull --rebase origin main` antes de `git push`. Esto es necesario porque cuando el compañero corre el script, el repo local puede estar detrás de `origin/main` (e.g., commits del scraper de curvas o commits manuales pusheados en el ínterin). Sin el pull, el push falla con "non-fast-forward" silenciosamente.

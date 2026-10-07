@@ -1,15 +1,15 @@
-# Skill: Actualizar Curvas ONs (Scraper PPI)
+# Skill: Actualizar Curvas ONs (scraper BYMA Educa)
 
-Descarga el informe de cierre diario de Portfolio Personal Inversiones (PPI),
-extrae la tabla de Bonos Corporativos USD (páginas 12-13) y actualiza
-`curvas_on.csv` en el repo.
+Descarga el tablero de BYMA Educa (`https://tablero.bymaeduca.com.ar/`), extrae las ONs
+hard-dollar y actualiza `Deals/curvas_on.csv` (snapshot) y `Deals/curvas_propias_historico.csv`
+(histórico de ONs IRSA/Cresud). Reemplazó al scraper del informe IAMC (PDF) el 2026-10-06.
 
 ## Cuándo usar
 
-- Verificar si el scraper automático corrió y tiene datos frescos
-- Correr manualmente porque la PC estaba apagada a las 9am
-- Forzar un ID específico para recuperar un informe pasado
-- Diagnosticar por qué no se extrajeron bonos
+- Verificar si el Action automático corrió y tiene datos frescos
+- Correr manualmente (el Action corre lun-vie 10:00 ART en GitHub; no depende de la PC)
+- Completar ruedas faltantes de las ONs propias (`--backfill`)
+- Diagnosticar por qué falló o por qué faltan bonos
 
 ---
 
@@ -17,163 +17,66 @@ extrae la tabla de Bonos Corporativos USD (páginas 12-13) y actualiza
 
 ```powershell
 cd "c:\Users\rellero\OneDrive - IRSACORP\Downloads\Dashboard Caídas de Deudas"
-python Deals\scraper_curvas.py --commit
+python Deals\scraper_curvas.py             # última rueda publicada
+python Deals\scraper_curvas.py --backfill  # además completa ruedas faltantes de IRC*/CS* (hasta ~21 ruedas)
+python Deals\scraper_curvas.py --commit    # git commit + push al terminar
+python Deals\scraper_curvas.py --from-file tablero.html   # pruebas con un HTML ya guardado
 ```
 
-El flag `--commit` hace el `git push` automáticamente al terminar.
-Sin `--commit`, solo actualiza los archivos localmente.
+Requiere solo `pip install requests`. En la red IRSACORP (inspección SSL) el helper `_get()`
+reintenta con `verify=False` automáticamente.
 
-### Forzar un ID específico
+## Cómo funciona
 
-```powershell
-python Deals\scraper_curvas.py --id 24525 --commit
-```
+El tablero es un HTML de ~2,4 MB con todo embebido en `<script id="payload" type="application/json">`
+(no hay API). Del payload se usa `on`:
 
-### Ver qué está haciendo (debug)
+| Campo | Uso |
+|---|---|
+| `on.fecha` / `on.fecha_liq` | fecha de la rueda / liquidación T+1 |
+| `on.rows[]` | una fila por ticker, ~52 campos (`px`, `ai`, `vr`, `vt`, `ytm`, `cy`, `dm`, `adtv`, `adtvu`, `pxd`, `dytm`, `fxi`…) |
+| `on.histi` | ~21 ruedas de TIR / CY / precio sucio por ticker (para el backfill) |
 
-```powershell
-python Deals\scraper_curvas.py --id 24525 --debug
-```
-
-Imprime el texto raw de las páginas 12-13. Útil para diagnosticar filas no parseadas.
-
----
+- Solo segmento `hd` (hard dollar). `dlf` / `dlz` / `ars` se descartan.
+- **Precio_Clean = (px − ai) / vr × 100**: `px` es precio sucio por 100 de VN original; `ai` y `vr`
+  vienen en las mismas unidades (`vt = vr + ai`). Importa para amortizantes (IRCFO: px 49,9 → clean 102,5).
+- `Fecha` del CSV = fecha de la rueda de BYMA (no la de ejecución). Si se corre dos veces la misma
+  rueda no se duplican filas en el histórico de propias.
+- `Moneda`: `MEP` → `USD Mep`; `CCL` + Ley NY → `USD Int`; `CCL` + Ley Arg → `USD Cable`.
+- Industria: `_SECTOR_RULES` (prefijo de ticker) con fallback al sector de BYMA. Tickers que caen en
+  `Otros` se listan en el log: `[!] N tickers sin industria` → agregar su prefijo a `_SECTOR_RULES`.
 
 ## Verificar que el automático corrió
 
-### Ver el log
-
 ```powershell
 Get-Content "Deals\scraper_curvas.log" -Tail 30
+git log -5 --format="%h %ad %s" --date=short -- Deals/curvas_on.csv
 ```
 
-Cada ejecución empieza con `[YYYY-MM-DD] === Iniciando scraper ===`.
-Una ejecución exitosa termina con `[OK] Listo. Próximo ID a probar: XXXXX`.
+Una corrida OK termina con `[OK] Listo.` y el commit dice `update curvas ONs — BYMA DD/MM/YYYY`.
+Si no hay rueda nueva, el Action dice "Sin cambios".
 
-### Ver cuándo corrió la tarea programada
+## Errores típicos
 
-```powershell
-Get-ScheduledTaskInfo -TaskName "Scraper Curvas ONs PPI" | Select-Object LastRunTime, LastTaskResult, NextRunTime
-```
-
-`LastTaskResult = 0` → OK. Cualquier otro valor → revisar el log.
-
-### Ver el ID descargado
-
-```powershell
-Get-Content Deals\curvas_last_id.txt
-```
-
----
-
-## Cómo funciona la búsqueda de informes
-
-PPI publica dos tipos de informe con IDs secuenciales:
-- **Informe de cierre** — contiene tabla de bonos en páginas 12-13 → se procesa
-- **Informe diario de mercados** — no tiene esa tabla → se saltea y continúa
-
-El scraper itera desde `last_id + 1` sin límite fijo de intentos:
-
-1. Si el ID no existe (HTTP 404) → incrementa contador de 404s consecutivas
-2. Si el PDF es el informe diario → lo saltea y pasa al siguiente ID
-3. Si el PDF es el informe de cierre → lo parsea, guarda y termina
-
-**Condición de salida sin éxito**: 3 IDs consecutivos sin respuesta
-(`MAX_CONSECUTIVE_404 = 3`). Eso indica que el informe no fue publicado aún.
-
-```
-[--] 3 IDs consecutivos sin respuesta (ID 24526–24528). Informe no publicado aún.
-```
-Esto es normal en fines de semana y feriados.
-
-**Ejemplo típico de un día normal**:
-```
-[BUSCA] desde ID 24526  (last_id=24525)
-  [OK] https://...24526.pdf  (842 KB)
-  [SKIP] ID 24526 → informe diario (sin tabla de Bonos Corporativos en p.12-13)
-  [OK] https://...24527.pdf  (1.2 MB)
-
-[PARSE] ID 24527
-  -> 47 bonos extraidos
-  [ID] Guardado last_id = 24527
-  [GIT] commit y push OK (ID 24527)
-[OK] Listo. Próximo ID a probar: 24528
-```
-
----
+| Log | Causa / acción |
+|---|---|
+| `[ERROR] No se pudo obtener el tablero BYMA` | Red o BYMA caído. Reintentar; los CSV quedan intactos |
+| `No se encontró <script id="payload">` | BYMA cambió el formato del tablero. Revisar el HTML y ajustar `_PAYLOAD_RE` / `build_rows` |
+| `Sin filas` | Cambió el campo `seg` o la estructura de `on.rows` |
 
 ## Filtros que aplica el frontend (no el scraper)
 
-Una vez que `curvas_on.csv` se actualiza, el dashboard aplica estos filtros
-al cargar la sección Curvas ONs:
-
-| Criterio | Motivo |
-|---|---|
-| Sin `Precio_Clean_MEP` | Sin precio de mercado, no graficable |
-| Emisor contiene "san miguel" | Reestructurado (SNSBO) |
-| MEP con TIR > 10% | Candidato a reestructuración |
-| CCL con TIR > 13% o < -5% | Outlier de precio |
-
-Estos filtros están en `initCurvasSection()` en `index.html` y no requieren
-tocar el scraper.
-
----
-
-## Recuperar un informe pasado
-
-Los IDs son secuenciales. Si se sabe que el informe del lunes fue el 24520:
-
-```powershell
-python Deals\scraper_curvas.py --id 24520
-```
-
-Esto sobreescribe `curvas_on.csv` y actualiza `curvas_last_id.txt`.
-Luego `--commit` para pushear, o hacerlo a mano con `git add` + `git commit`.
-
-Para encontrar el ID correcto cuando no se sabe cuál es:
-1. Revisar `scraper_curvas.log` — los IDs probados quedan registrados
-2. Probar con `--debug` a partir del último ID conocido (`curvas_last_id.txt`)
-
----
-
-## Tarea programada (Windows Task Scheduler)
-
-| Parámetro | Valor |
-|---|---|
-| Nombre | `Scraper Curvas ONs PPI` |
-| Horario | Diariamente a las 09:00 |
-| Comando | `cmd.exe /c Deals\run_scraper_curvas.bat` |
-| StartWhenAvailable | Sí — corre si la PC estaba apagada |
-| RunOnlyIfNetworkAvailable | Sí |
-
-### Ver / editar desde GUI
-
-`Win + R` → `taskschd.msc` → Biblioteca del Programador de tareas → `Scraper Curvas ONs PPI`
-
-### Forzar ejecución ahora desde PowerShell
-
-```powershell
-Start-ScheduledTask -TaskName "Scraper Curvas ONs PPI"
-Start-Sleep 5
-Get-ScheduledTaskInfo -TaskName "Scraper Curvas ONs PPI" | Select LastRunTime, LastTaskResult
-```
-
-### Deshabilitar temporalmente
-
-```powershell
-Disable-ScheduledTask -TaskName "Scraper Curvas ONs PPI"
-# Para rehabilitar:
-Enable-ScheduledTask  -TaskName "Scraper Curvas ONs PPI"
-```
-
----
+`initCurvasSection()` en `index.html` descarta: filas sin `Precio_Clean`, emisor "San Miguel",
+YTM < 0% y YTM > 20%. No hace falta tocar el scraper para cambiarlos.
 
 ## Archivos relevantes
 
 | Archivo | Descripción |
 |---|---|
-| `scraper_curvas.py` | Scraper principal |
-| `run_scraper_curvas.bat` | Wrapper para la tarea programada |
-| `curvas_on.csv` | Datos más recientes (sobreescrito en cada ejecución exitosa) |
-| `curvas_last_id.txt` | Último ID procesado exitosamente |
-| `scraper_curvas.log` | Log de todas las ejecuciones (append) |
+| `Deals/scraper_curvas.py` | Scraper principal |
+| `.github/workflows/scraper-curvas.yml` | Action diario (lun-vie 10:00 ART) |
+| `Deals/run_scraper_curvas.bat` | Wrapper para correrlo local con `--commit` |
+| `Deals/curvas_on.csv` | Snapshot de la última rueda (se sobreescribe) |
+| `Deals/curvas_propias_historico.csv` | Histórico IRC*/CS* (se appendea) |
+| `Deals/scraper_curvas.log` | Log de ejecuciones |
+| `Deals/curvas_moneda_lookup.csv`, `curvas_last_id.txt`, `enrich_curvas_moneda.py` | Legado (IAMC/PPI), ya no se usan |

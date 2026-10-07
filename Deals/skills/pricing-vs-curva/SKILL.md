@@ -16,7 +16,8 @@ description: Evalúa si una emisión de ON salió "tight" o "wide" comparando su
 4. Comparar la tasa de salida de la emisión contra el `YTM` de esos comparables:
    - Tasa de salida **menor** al YTM de mercado comparable → priceó "tight" (más caro para el inversor, mejor para el emisor).
    - Tasa de salida **mayor** → priceó "wide" (concesión de tasa para colocar).
-5. Si no hay comparables razonables (sector muy distinto, sin bonos de esa Ley con duración similar), decirlo explícitamente en vez de forzar una comparación floja.
+5. Chequear liquidez de los comparables con `ADTV_USD` de `curvas_on.csv` (US$ de volumen diario promedio): si el comparable más cercano en DM tiene ADTV muy bajo (orden de < US$ 25 mil), su YTM es poco representativo — preferir otro comparable más líquido y decirlo.
+6. Si no hay comparables razonables (sector muy distinto, sin bonos de esa Ley con duración similar), decirlo explícitamente en vez de forzar una comparación floja.
 
 ## Output esperado
 Conclusión corta (tight/wide/en línea) + los bonos comparables usados y su YTM, para que sea auditable. Nunca dar la conclusión sin mostrar contra qué se comparó.

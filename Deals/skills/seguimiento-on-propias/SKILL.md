@@ -13,7 +13,8 @@ description: Trackea la evolución de precio y YTM en el mercado secundario de l
 2. Ordenar por `Fecha` ascendente.
 3. Calcular la variación entre la primera y última observación del rango pedido (o últimos 30 días si no se especifica): `ΔYTM` en puntos básicos, `ΔPrecio_Clean` en % del par.
 4. Marcar como movimiento **relevante** si `|ΔYTM| ≥ 50bps` en la ventana evaluada — es un umbral orientativo, aclarar que es una heurística propia del agente, no un dato del CSV.
-5. No confundir esta serie con `curvas_on.csv` (snapshot de un solo día) — si el usuario pide "hoy", puede responderse con la última fecha disponible en `curvas_propias_historico.csv`, aclarando qué fecha es.
+5. Si el usuario pregunta por liquidez, flujo o canje: `ADTV_USD` (volumen diario promedio en US$), `Var_Px_Pct`/`Var_YTM_bps` (variación diaria) y `Canje_Pct` están en el mismo CSV pero **solo desde 2026-10-06** (antes vacíos) — no inventar valores previos ni promediar celdas vacías como cero. Las ruedas 01, 02 y 05/10 fueron completadas retroactivamente y no tienen `DM` ni estas columnas.
+6. No confundir esta serie con `curvas_on.csv` (snapshot de un solo día) — si el usuario pide "hoy", puede responderse con la última fecha disponible en `curvas_propias_historico.csv`, aclarando qué fecha es.
 
 ## Fuera de alcance de este agente
 Este agente **no tiene acceso** a `IRSA/irsa_call_data.csv` ni `Cresud/cresud_call_data.csv` (eso es del agente "Mercado de Capitales"). Si el usuario pregunta si el movimiento de precio se explica por una call próxima, aclarar que no tenés esa información acá y sugerir consultar al otro agente.

@@ -1,4 +1,4 @@
-# Sincroniza los CSV de Curvas ONs (informe diario IAMC) desde el repo de git
+# Sincroniza los CSV de Curvas ONs (tablero BYMA Educa) desde el repo de git
 # hacia una carpeta local dentro de este mismo proyecto (Deals\CurvasSync\).
 #
 # Como esta carpeta del proyecto ya vive dentro de OneDrive - IRSACORP, todo lo que
@@ -8,7 +8,7 @@
 # solo todos los dias habiles a las 10am ART via GitHub Actions y comitea curvas_on.csv /
 # curvas_propias_historico.csv al repo. Este script simplemente toma esos archivos ya
 # generados desde el commit mas reciente de origin/main - no duplica la logica de scraping
-# de IAMC ni requiere Python/dependencias instaladas en esta PC.
+# de BYMA ni requiere Python/dependencias instaladas en esta PC.
 #
 # Por que git fetch + git show y no raw.githubusercontent.com: el repo es PRIVADO, asi que
 # una descarga HTTP anonima a raw.githubusercontent.com devuelve 404 (necesitaria un token

@@ -16,7 +16,7 @@ description: Arma el resumen semanal del mercado de ONs argentinas combinando em
 2. Filtrar `emisiones_obligaciones_negociables.csv` a esa ventana. Agrupar por `MONEDA` (normalizada) y sumar `VN`. Contar cantidad de emisiones.
 3. Mencionar `emisiones_on_bajo_impacto.csv` de la misma ventana **por separado**, aclarando que son montos chicos — no sumarlas al total principal sin decirlo.
 4. Listar próximas licitaciones de `difusion.csv` con `FECHA LICITACIÓN` futura (agenda de la semana entrante).
-5. Cerrar con una línea de contexto de curva secundaria: YTM promedio actual por Ley (Arg/NY) desde `curvas_on.csv`, fecha del informe incluida.
+5. Cerrar con una línea de contexto de curva secundaria: YTM promedio actual por Ley (Arg/NY) desde `curvas_on.csv`, fecha de la rueda incluida (columna `Fecha`). Opcional: mencionar los bonos más líquidos del día por `ADTV_USD`.
 
 ## Output esperado
 Formato breve tipo "parte semanal": cantidad de emisiones + VN total por moneda, agenda próxima, contexto de curva. No es necesario listar cada emisión fila por fila salvo que el usuario pida el detalle.
