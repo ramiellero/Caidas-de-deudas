@@ -457,12 +457,12 @@ Vista de curva de rendimientos de bonos corporativos USD del mercado argentino. 
 - Eje X: `DM` (Duración Modificada), mínimo fijo en 0
 - Eje Y: `YTM` (%)
 - Color por sector (`_CURVAS_SECTOR_COLORS`): Real Estate `#1D4B6E`, Finanzas `#7C3AED`, Petróleo & Gas `#B45309`, Telecomunicaciones `#0891B2`, Electricidad `#D97706`, Agroindustria `#16A34A`, Construcción `#DC2626`, Alimentos y Bebidas `#DB2777`, Materiales Básicos `#64748B`, Aerolíneas `#0369A1`
-- Tooltip al hover: Ticker, Emisor, Sector, Cupón, Vencimiento, Precio, YTM (con variación 1d en bps), DM, ADTV (US$ k)
+- Tooltip al hover: Ticker, Emisor, Sector, Cupón, Vencimiento, Precio, YTM (con variación 1d en bps), DM, ADTV (US$, formato K/M vía `_fmtKM`)
 - No hay toggle MEP/CCL en los charts; la moneda de liquidación (`Moneda`: USD Mep / USD Int / USD Cable) viene de BYMA y se filtra con el dropdown Moneda
 - IDs canvas: `curvas-chart-arg`, `curvas-chart-ny`
 - **Línea de tendencia**: regresión polinómica grado 2 via `_curvasTrendPoints(points)`
 
-**Tabla** (15 columnas, sortable): Ticker · Emisor · Industria · Cupón · Vencimiento · Ley · Moneda · Precio (%) · Var. px (1d) · YTM · Var. YTM (bps) · CY · DM · Monto (US$ M) · ADTV (US$ k). Las variaciones se colorean por signo (`_curvasFmtDelta`); ADTV = volumen diario promedio de las últimas 20 ruedas en US$ (suma de los 3 tickers del bono: pesos, MEP y cable), mostrado en miles.
+**Tabla** (15 columnas, sortable): Ticker · Emisor · Industria · Cupón · Vencimiento · Ley · Moneda · Precio (%) · Var. px (1d) · YTM · Var. YTM (bps) · CY · DM · Monto (US$ M) · ADTV (US$, formato K/M vía `_fmtKM`). Las variaciones se colorean por signo (`_curvasFmtDelta`); ADTV = volumen diario promedio de las últimas 20 ruedas en US$ (suma de los 3 tickers del bono: pesos, MEP y cable), mostrado en miles.
 - Filas IRSA: detectadas con `_curvasIsIrsa(ticker)` → `ticker.startsWith('IRC')` → fondo `#EBF2F8`
 - Filas Cresud: detectadas con `_curvasIsCresud(ticker)` → `/^CS\d/.test(ticker)` → fondo `#EBF4EE`
 

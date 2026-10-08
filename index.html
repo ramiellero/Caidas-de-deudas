@@ -2424,7 +2424,7 @@
               <th onclick="_curvasSortBy('CY')" style="text-align:right">CY</th>
               <th onclick="_curvasSortBy('DM')" style="text-align:right">DM</th>
               <th onclick="_curvasSortBy('Monto_Emitido')" style="text-align:right">Monto<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(US$ M)</span></th>
-              <th onclick="_curvasSortBy('ADTV_USD')" style="text-align:right">ADTV<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(US$ k)</span></th>
+              <th onclick="_curvasSortBy('ADTV_USD')" style="text-align:right">ADTV<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(US$)</span></th>
             </tr>
           </thead>
           <tbody id="curvas-tbody">
@@ -2460,7 +2460,7 @@
           <div class="curvas-chart-wrap"><canvas id="propias-chart-ytm"></canvas></div>
         </div>
         <div class="curvas-chart-card">
-          <div class="curvas-chart-title">Volumen promedio diario — ADTV (US$ miles)</div>
+          <div class="curvas-chart-title">Volumen promedio diario — ADTV (US$)</div>
           <div class="curvas-chart-wrap"><canvas id="propias-chart-adtv"></canvas></div>
         </div>
         <div class="curvas-chart-card">
@@ -6097,7 +6097,7 @@ function _curvasRenderTable() {
       <td class="num">${_curvasFmtPct(r._cy)}</td>
       <td class="num">${_curvasFmtNum(r._dm, 1)}</td>
       <td class="num">${r._monto ? r._monto.toFixed(0) : '—'}</td>
-      <td class="num">${isNaN(r._adtv) ? '—' : Math.round(r._adtv / 1000).toLocaleString('es-AR')}</td>
+      <td class="num">${_fmtKM(r._adtv)}</td>
     </tr>`;
   }).join('');
   tbody.innerHTML = html;
@@ -6284,7 +6284,7 @@ function _curvasBuildScatter(type, rows) {
                 `Precio: ${d.precio != null ? d.precio.toFixed(2) : '—'}`,
                 `YTM: ${d.y.toFixed(2)}%${isNaN(d.varytm) ? '' : `  (${d.varytm > 0 ? '+' : ''}${d.varytm.toFixed(0)} bps 1d)`}`,
                 `DM: ${d.x.toFixed(2)}`,
-                `ADTV: ${isNaN(d.adtv) ? '—' : 'US$ ' + Math.round(d.adtv / 1000).toLocaleString('es-AR') + ' k'}`,
+                `ADTV: ${isNaN(d.adtv) ? '—' : 'US$ ' + _fmtKM(d.adtv)}`,
               ];
             },
           },
@@ -6334,6 +6334,15 @@ function _curvasBuildScatter(type, rows) {
 /* ── Propias — evolución histórica precio & YTM (IRSA / Cresud) ──────────── */
 
 let _propiasAllRows = [];   // [{fecha:Date, fechaStr, ticker, emisor, vencimiento, precio, ytm}]
+// Monto en US$ → "129 K" / "1,1 M" (K = miles, M = millones)
+function _fmtKM(n) {
+  if (n == null || isNaN(n)) return '—';
+  const a = Math.abs(n);
+  if (a >= 1e6) return (n / 1e6).toLocaleString('es-AR', { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + ' M';
+  if (a >= 1e3) return Math.round(n / 1e3).toLocaleString('es-AR') + ' K';
+  return Math.round(n).toLocaleString('es-AR');
+}
+
 let _propiasChartPrecio = null;
 let _propiasChartYtm    = null;
 let _propiasChartAdtv   = null;
@@ -6387,7 +6396,7 @@ function _propiasRenderSnapshot(curvasRows) {
       <td class="num">${signed(vsCurva(r), 0)}</td>
       <td class="num">${num(r['DM'], 2)}</td>
       <td class="num">${num(r['Monto_Emitido'], 1)}</td>
-      <td class="num">${isNaN(adtv) ? '—' : adtv.toLocaleString('es-AR')}</td>
+      <td class="num">${_fmtKM(adtv)}</td>
       <td class="num">${num(r['Canje_Pct'], 2, '%')}</td>
     </tr>`;
   }).join('');
@@ -6481,8 +6490,8 @@ function _propiasRenderCharts() {
   // ADTV y canje solo existen desde que el scraper lee BYMA (2026-10-06): se grafican solo las ruedas con dato.
   const withAdtv = rows.filter(r => !isNaN(r.adtv));
   _propiasChartAdtv = _propiasBuildLineChart('propias-chart-adtv', _propiasChartAdtv,
-    withAdtv.map(r => _propiasFmtFecha(r.fecha)), withAdtv.map(r => r.adtv / 1000), color,
-    { suffix: ' k', decimals: 0, bar: true });
+    withAdtv.map(r => _propiasFmtFecha(r.fecha)), withAdtv.map(r => r.adtv), color,
+    { suffix: '', decimals: 0, bar: true, fmt: _fmtKM });
   const withCanje = rows.filter(r => !isNaN(r.canje));
   _propiasChartCanje = _propiasBuildLineChart('propias-chart-canje', _propiasChartCanje,
     withCanje.map(r => _propiasFmtFecha(r.fecha)), withCanje.map(r => r.canje), color,
@@ -6521,7 +6530,7 @@ function _propiasBuildLineChart(canvasId, existingInst, labels, values, color, o
         legend: { display: false },
         tooltip: {
           callbacks: {
-            label: item => `${item.parsed.y.toFixed(opts.decimals)}${opts.suffix}`,
+            label: item => opts.fmt ? opts.fmt(item.parsed.y) : `${item.parsed.y.toFixed(opts.decimals)}${opts.suffix}`,
           },
           backgroundColor: '#1E293B',
           titleColor: '#F8FAFC',
@@ -6542,7 +6551,7 @@ function _propiasBuildLineChart(canvasId, existingInst, labels, values, color, o
           ticks: {
             font: { size: 10 },
             color: '#64748B',
-            callback: v => `${v.toFixed(opts.decimals)}${opts.suffix}`,
+            callback: v => opts.fmt ? opts.fmt(v) : `${v.toFixed(opts.decimals)}${opts.suffix}`,
           },
         },
       },
@@ -7522,7 +7531,7 @@ const _TH_TIPS = {
     ['CY', 'Current yield: cupón anual sobre el precio actual. No incluye ganancia o pérdida de capital.'],
     ['DM', 'Duración modificada: cuánto cambia el precio aproximadamente (%) ante un cambio de 1 punto en la YTM. Mide sensibilidad a la tasa.'],
     ['Monto (US$ M)', 'Monto en circulación (outstanding) en millones de US$.'],
-    ['ADTV (US$ k)', 'Volumen diario promedio de las últimas 20 ruedas, en miles de US$. Suma lo operado en los tres tickers del bono (pesos, MEP y cable). Mide liquidez.'],
+    ['ADTV (US$)', 'Volumen diario promedio de las últimas 20 ruedas, en US$ (K = miles, M = millones). Suma lo operado en los tres tickers del bono (pesos, MEP y cable). Mide liquidez.'],
   ],
   'propias-snap-table': [
     ['Ticker', 'Código de negociación de la ON en BYMA.'],
