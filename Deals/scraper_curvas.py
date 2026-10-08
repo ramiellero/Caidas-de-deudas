@@ -42,6 +42,7 @@ PROPIAS_CSV   = BASE_DIR / "curvas_propias_historico.csv"
 PROPIAS_FIELDNAMES = [
     "Fecha", "Ticker", "Emisor", "Vencimiento", "Precio_Clean", "YTM", "CY", "DM",
     "Var_Px_Pct", "Var_YTM_bps", "ADTV_USD", "Canje_Pct", "Paridad",
+    "Vol_Dia_ARS", "VN_Dia",
 ]
 
 BYMA_URL = "https://tablero.bymaeduca.com.ar/"
@@ -65,7 +66,7 @@ FIELDNAMES = [
     "Estructura", "Frec_Cupon", "Cuotas_Capital", "Frec_Capital", "Prox_Capital",
     # campos nuevos (BYMA)
     "Precio_Dirty", "Paridad", "Var_Px_Pct", "Var_YTM_bps", "ADTV_USD",
-    "Canje_Pct", "MEP_Implicito", "CCL_Implicito",
+    "Canje_Pct", "MEP_Implicito", "CCL_Implicito", "Vol_Dia_ARS", "VN_Dia",
 ]
 
 # ── Logging ───────────────────────────────────────────────────────────────────
@@ -377,6 +378,7 @@ def build_rows(payload):
             'Var_Px_Pct': _n(r.get('pxd'), 3), 'Var_YTM_bps': _n(r.get('dytm'), 1),
             'ADTV_USD': _n(r.get('adtvu'), 0), 'Canje_Pct': _n(fxi.get('canje'), 3),
             'MEP_Implicito': _n(fxi.get('mep'), 2), 'CCL_Implicito': _n(fxi.get('ccl'), 2),
+            'Vol_Dia_ARS': _n(r.get('vol'), 0), 'VN_Dia': _n(r.get('vn'), 0),
         })
     otros = [x['Ticker'] for x in out if x['Industria'] == 'Otros']
     if otros:
@@ -423,6 +425,7 @@ def _propias_row(r):
         'Var_Px_Pct': r.get('Var_Px_Pct', ''), 'Var_YTM_bps': r.get('Var_YTM_bps', ''),
         'ADTV_USD': r.get('ADTV_USD', ''), 'Canje_Pct': r.get('Canje_Pct', ''),
         'Paridad': r.get('Paridad', ''),
+        'Vol_Dia_ARS': r.get('Vol_Dia_ARS', ''), 'VN_Dia': r.get('VN_Dia', ''),
     }
 
 
@@ -433,6 +436,13 @@ def append_propias_historico(rows, report_date_str):
     existing = _load_propias()
     if report_date_str in {r['Fecha'] for r in existing}:
         log(f"  [PROPIAS] {report_date_str} ya está en {PROPIAS_CSV.name}, no se appendea de nuevo")
+        nuevas = {r['Ticker']: _propias_row(r) for r in propias}
+        for e in existing:   # completa columnas nuevas (volumen diario) de una rueda ya cargada
+            n = nuevas.get(e['Ticker'])
+            if e['Fecha'] == report_date_str and n:
+                for k in ('Vol_Dia_ARS', 'VN_Dia'):
+                    if not e.get(k):
+                        e[k] = n[k]
         _write_propias(existing)   # igual migra el esquema si hacía falta
         return
     existing.extend(_propias_row(r) for r in propias)
@@ -495,6 +505,7 @@ def backfill_propias(payload):
                 'Vencimiento': _fdate(r['fv']), 'Precio_Clean': _n(cl), 'YTM': _n(h['v'][tk][i]),
                 'CY': _n(h['cy'][tk][i]) if tk in h['cy'] else '', 'DM': '',
                 'Var_Px_Pct': '', 'Var_YTM_bps': '', 'ADTV_USD': '', 'Canje_Pct': '', 'Paridad': '',
+                'Vol_Dia_ARS': '', 'VN_Dia': '',
             })
             added += 1
     if added:
