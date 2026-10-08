@@ -131,6 +131,7 @@ _SECTOR_RULES = [
     ('LMS',   'Materiales Básicos'),   # Aluminio Argentino
     # Aerolíneas
     ('AER',   'Aerolíneas'),           # Aeropuertos Argentina 2000
+    ('ARC',   'Aerolíneas'),           # Aeropuertos Argentina 2000 (ticker BYMA)
     # Construcción / Inmobiliario
     ('VES',   'Construcción'),         # Ricardo Venturino
     ('ZPC',   'Construcción'),         # Plaza Logística

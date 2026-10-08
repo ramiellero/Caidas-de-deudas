@@ -1061,3 +1061,19 @@
   [PROPIAS] 18-08-2026 ya está en curvas_propias_historico.csv, no se appendea de nuevo
 
 [OK] Listo.
+
+[2026-10-08] === Iniciando scraper BYMA Educa ===
+  [!] 5 tickers sin industria (agregar a _SECTOR_RULES): ARC1O, LR7BO, MIC3O, MIC4O, MIC6O
+[TOTAL] 207 ONs hard-dollar — rueda 07-10-2026
+  [CSV] curvas_on.csv  (207 bonos, fecha 07-10-2026)
+  [PROPIAS] curvas_propias_historico.csv  (+11 filas, fecha 07-10-2026)
+
+[OK] Listo.
+
+[2026-10-08] === Iniciando scraper BYMA Educa ===
+  [!] 4 tickers sin industria (agregar a _SECTOR_RULES): LR7BO, MIC3O, MIC4O, MIC6O
+[TOTAL] 207 ONs hard-dollar — rueda 07-10-2026
+  [CSV] curvas_on.csv  (207 bonos, fecha 07-10-2026)
+  [PROPIAS] 07-10-2026 ya está en curvas_propias_historico.csv, no se appendea de nuevo
+
+[OK] Listo.
