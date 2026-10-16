@@ -290,9 +290,10 @@ def elegir_link_stonex(links):
 def texto_tiene_resultados_parseables(texto):
     t = limpiar_texto_celda(texto).lower()
     tiene_resultados = (
-        "tasa / precio de corte" in t
+        ("tasa / precio de corte" in t or re.search(r"\bresultados\b", t))
         and "moneda" in t
         and "maturity" in t
+        and "cupón" in t
     )
     tiene_agenda_vertical = (
         "operaciones de terceros" in t
@@ -2249,7 +2250,7 @@ def main():
     CARPETA.mkdir(parents=True, exist_ok=True)
 
     if not git_sync_or_abort():
-        return
+        raise RuntimeError("No se pudo sincronizar el repositorio; actualizacion incompleta.")
 
     mail = buscar_mail_stonex()
 
