@@ -1,57 +1,20 @@
-19 de octubre de 2026
+20 de octubre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
 opinión o estimación contenida eneste reporte representael juicio actualde StoneX yestá sujetoa cambios sin previo aviso. StoneX Securities S.A. o sus vinculadas podrían proveerconsejo respecto a adquirir, mantener o
 venderlosinstrumentosnombradosenesteinforme.
-Resultados de la semana
+Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-22,42% 24,1250% 33,99% 5,49% 29,62% mar, 13 oct FF Mercado Crédito LV VDF ARS $132.799.999.998 (15%; T+100; 50%) 8,25 335 15/09/2027 AAA (Fix SCR) TIR jue, 15 oct
-TAMAR+4,25% 24,0625% 32,23% 4,20% 28,27% mié, 14 oct FF Megabono Crédito 354 VDFA ARS $11.922.601.820 (23%; T+425; 42%) 4,29 256 28/06/2027 AAA (Fix SCR) Margen jue, 15 oct
-TAMAR+12,00% 24,0625% 40,20% 10,21% 34,27% mié, 14 oct FF Megabono Crédito 354 VDFB ARS $2.451.648.844 (25%; T+1200; 50%) 9,92 316 27/08/2027 AA- (Fix SCR) Margen jue, 15 oct
-TAMAR+8,00% 24,0625% 32,29% 4,25% 28,32% mié, 14 oct FF Megabono Crédito 354 VDFC ARS $218.897.218 (26%; T+800; 50%) 11,41 347 27/09/2027 A- (Fix SCR) Margen jue, 15 oct
-TAMAR-0,03% 24,0625% 26,29% -0,50% 23,57% mié, 14 oct ON Pyme Garantizada Prigioni Agro II - ARS $1.000.000.000 TAMAR-0,03% 17,74 731 16/10/2028 SC Margen vie, 16 oct
-Letra del Tesoro Nacional Capitalizable en
-Px 104,19 24,0625% 27,47% 0,46% 24,52% mié, 14 oct S29E7 - ARS $2.597.093.000.000 TEM 2,25% 3,45 105 29/01/2027 SC Precio vie, 16 oct
-Pesos [Reapertura]
-Bono del Tesoro Nacional en Pesos a Tasa
-Px 109,60 24,0625% 38,91% 9,26% 33,32% mié, 14 oct TMG28 - ARS $1.055.629.000.000 TAMAR TEM + 6,90% 22,52 685 31/08/2028 SC Precio vie, 16 oct
-TAMAR [Reapertura]
-Bono del Tesoro Nacional en Pesos Dual CER /
-Px 87,80 - 6,99% - - mié, 14 oct TXMD9 - CER / ARS $1.941.291.000.000 0,00% / TAMAR TEM + 3,00% 37,97 1155 14/12/2029 SC Precio vie, 16 oct
-TAMAR [Reapertura]
-Bono del Tesoro Nacional en Pesos Dual USD Linked /
-Px 94,65 - 4,35% - - mié, 14 oct TMVE8 - USD 727.000.000 0,00% / TAMAR TEM + 0,00% 15,42 469 28/01/2028 SC Precio vie, 16 oct
-Vinculado al Dólar / TAMAR [Reapertura] ARS
-TAMAR+3,50% 23,8125% 30,82% 3,35% 27,17% jue, 15 oct FF Confibono LXXXVIII VDFA ARS $3.578.440.935 (23%; T+350; 42%) 5,29 308 20/08/2027 AAA (Fix SCR) Margen vie, 16 oct
-TAMAR+15,00% 23,8125% 43,39% 12,78% 36,59% jue, 15 oct FF Confibono LXXXVIII VDFB ARS $917.838.538 (25%; T+1500; 47%) 12,93 430 20/12/2027 A (Fix SCR) Margen vie, 16 oct
-Letras de Tesorería de la Provincia del Chaco
-Px 105,01 23,8125% 29,36% 2,21% 26,02% jue, 15 oct - 12 ARS $48.828.558.222 28,50% TNA 0,92 28 13/11/2026 B (Fix SCR) Precio vie, 16 oct
-[Reapertura]
-Letras de Tesorería de la Provincia del Chaco
-Px 102,10 23,8125% 29,35% 2,20% 26,01% jue, 15 oct - 15 ARS $10.319.980.416 27,00% TNA 1,84 56 11/12/2026 B (Fix SCR) Precio vie, 16 oct
-[Reapertura]
-27,00% 23,8125% 29,86% 2,60% 26,42% jue, 15 oct Letras de Tesorería de la Provincia del Chaco - 18 ARS $2.215.298.746 27,00% 2,99 91 15/01/2027 B (Fix SCR) Tasa vie, 16 oct
-TAMAR+6,00% 23,8125% 32,04% 4,31% 28,12% jue, 15 oct Letras de Tesorería de la Provincia del Chaco - 19 ARS $1.372.468.535 TAMAR+6,00% 5,98 182 16/04/2027 B (Fix SCR) Margen vie, 16 oct
-Desierta 23,8125% Desierta Desierta Desierta jue, 15 oct Letras de Tesorería de la Provincia del Chaco - 20 ARS Desierta Desierta 11,97 364 15/10/2027 B (Fix SCR) Margen vie, 16 oct
-7,00% - 7,16% - - jue, 15 oct ON Plaza Logística - 6 USD Mep USD 15.000.000 7,00% 42,49 1461 19/10/2030 AA (Moody´s) Tasa lun, 19 oct
-TAMAR+1,00% 23,8125% 27,22% 0,51% 24,32% jue, 15 oct ON Pyme Garantizada Taraborelli Patagonia I - ARS $3.087.272.725 TAMAR+1,00% 17,65 731 19/10/2028 SC Margen lun, 19 oct
+ON Loma Negra (Integra en efectivo y/o en
+6,25% - 6,35% - - lun, 19 oct - 7 USD Mep USD 150.000.000 6,25% 33,41 mié, 31 dic 22/10/2029 AAA (Fix SCR) Tasa jue, 22 oct
+especie)
+TAMAR+4,80% 24,5000% 33,73% 4,92% 29,42% lun, 19 oct FF Moni Mobile XIX VDFA ARS $7.023.599.000 (20%; T+480; 45%) 4,94 330 15/09/2027 A1+ (Fix SCR) Margen mar, 20 oct
+TAMAR+0,00% 24,5000% 24,77% -2,17% 22,33% lun, 19 oct FF Moni Mobile XIX VDFB ARS $491.308.000 (21%; T; 46%) 12,69 421 15/12/2027 BBB (Fix SCR) Margen mar, 20 oct
 Presentation Heading |
 Licita hoy
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-ON Loma Negra (Integra en efectivo
-lun, 19 oct - USD 70.000.000 7 USD Mep USD 70.000.000 A licitar 23,00 1096 22/10/2029 AAA (Fix SCR) Tasa jue, 22 oct
-y/o en especie)
-lun, 19 oct FF Moni Mobile XIX VDFA ARS $7.023.599.000 (20%; T+Mg; 45%) 4,92 330 15/09/2027 A1+ (Fix SCR) Margen mar, 20 oct
-$7.514.907.000
-lun, 19 oct FF Moni Mobile XIX VDFB ARS $491.308.000 (21%; T+Mg; 46%) 12,67 421 15/12/2027 BBB (Fix SCR) Margen mar, 20 oct
-Presentation Heading |
-Operaciones en Difusión
 STONEX
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -63,12 +26,6 @@ OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
 Licitación (meses) Pago Licitación Liquidación
-ON Loma Negra (Integra en efectivo
-lun, 19 oct - USD 70.000.000 7 USD Mep USD 70.000.000 A licitar 23,00 1096 22/10/2029 AAA (Fix SCR) Tasa jue, 22 oct
-y/o en especie)
-lun, 19 oct FF Moni Mobile XIX VDFA ARS $7.023.599.000 (20%; T+Mg; 45%) 4,92 330 15/09/2027 A1+ (Fix SCR) Margen mar, 20 oct
-$7.514.907.000
-lun, 19 oct FF Moni Mobile XIX VDFB ARS $491.308.000 (21%; T+Mg; 46%) 12,67 421 15/12/2027 BBB (Fix SCR) Margen mar, 20 oct
 mar, 20 oct ON Pyme Garantizada Endanik I USD 1.000.000 - USD Mep USD 1.000.000 A licitar 18,46 731 23/10/2028 SC Tasa vie, 23 oct
 [OFERTA DE CONVERSIÓN] D30O6 x
 mar, 20 oct Letra del Tesoro Nacional Cero Cupón D30N6 - USD Linked 0,00% 1,25 38 30/11/2026 SC Precio vie, 23 oct
@@ -97,16 +54,32 @@ Buenos Aires [Nueva]
 Letras del Tesoro de la Provincia de
 mar, 20 oct - - ARS TAMAR+Mg 5,79 182 22/04/2027 ML B (Moody´s) Margen jue, 22 oct
 Buenos Aires [Nueva]
-Títulos de Deuda Pública de la $50.000.000.000 $50.000.000.000
-mar, 20 oct - - ARS TAMAR+Mg 16,52 610 23/06/2028 A informar Margen jue, 22 oct
-Provincia de Buenos Aires [Nueva] (ampliable) (ampliable)
+Títulos de Deuda Pública de la $50.000.000.000 $50.000.000.000 BB+ (S&P National
+mar, 20 oct - - ARS TAMAR+Mg 16,52 610 23/06/2028 Margen jue, 22 oct
+Provincia de Buenos Aires [Nueva] (ampliable) (ampliable) Ratings)
+Presentation Heading |
 Operaciones en Difusión
+STONEX
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+ON YPF (Integra en efectivo y/o en USD 85.000.000 (amp h/ XLIII USD 85.000.000 (amp h/
+mié, 21 oct - USD Mep 5,50% 37,32 1265 14/04/2030 A informar Precio mar, 27 oct
+especie) monto máximo disponible) Adicionales monto máximo disponible)
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
 Licitación (meses) Pago Licitación Liquidación
-jue, 29 oct FF Individual Inmobiliario INVITA - CPA USD Mep USD 2.000.000 - - 6575 03/11/2044 SC Precio mar, 3 nov
-jue, 29 oct FF Individual Inmobiliario INVITA - CPB USD Mep USD 10.000.000 - - 6575 03/11/2044 SC Precio mar, 3 nov
+ON Aeropuertos Argentina 2000 [Ley USD 400.000.000 (amp. h/ USD 400.000.000 (amp. h/ 10 años desde la
+jue, 22 oct - 12 USD Cable A licitar A informar 10 años A informar Book building A informar
+NY] USD 600.000.000) USD 600.000.000) fecha de emisión
+24 meses desde
+la Fecha de
+mar, 27 oct ON Pyme CNV Garantizada Colgas I $3.000.000.000 - ARS $3.000.000.000 TAMAR+Mg A informar 24 meses SC Margen A informar
+Emisión y
+Liquidación
+jue, 29 oct FF Individual Inmobiliario INVITA - CPA USD Mep USD 2.000.000 - - 6575 03/11/2044 FI3 (Fix SCR) Precio mar, 3 nov
+jue, 29 oct FF Individual Inmobiliario INVITA - CPB USD Mep USD 10.000.000 - - 6575 03/11/2044 FI3 (Fix SCR) Precio mar, 3 nov
 USD 140.000.000
-jue, 29 oct FF Individual Inmobiliario INVITA - CPC USD Mep USD 128.000.000 - - 6575 03/11/2044 SC Precio mar, 3 nov
-jue, 29 oct FF Individual Inmobiliario INVITA - CPD USD Mep USD 128.000.000 - - 6575 03/11/2044 SC Precio mar, 3 nov
+jue, 29 oct FF Individual Inmobiliario INVITA - CPC USD Mep USD 128.000.000 - - 6575 03/11/2044 FI3 (Fix SCR) Precio mar, 3 nov
+jue, 29 oct FF Individual Inmobiliario INVITA - CPD USD Mep USD 128.000.000 - - 6575 03/11/2044 FI3 (Fix SCR) Precio mar, 3 nov
