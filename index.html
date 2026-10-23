@@ -4522,9 +4522,18 @@ async function initSgrSection() {
         tirConBenef: parseFloat(r['TIR c/benef']),
       };
     });
-    _sgrAvailableMonths = Array.from(_fotoPeriosSet).sort((a, b) => b.localeCompare(a));
+    // El selector de mes debe cubrir cualquier CSV con histórico por período, no solo
+    // foto_sgr.csv — si mora_antiguedad.csv tiene un mes nuevo sin fila de foto todavía,
+    // el mes igual tiene que aparecer (foto simplemente queda en "—" para ese período)
+    const _antiguedadMonthsSet = new Set();
+    Object.values(_sgrAntiguedadAllData).forEach(periods => {
+      Object.keys(periods).forEach(m => _antiguedadMonthsSet.add(m));
+    });
+    _sgrAvailableMonths = Array.from(new Set([..._fotoPeriosSet, ..._antiguedadMonthsSet]))
+      .sort((a, b) => b.localeCompare(a));
     _sgrSelectedMonth   = _sgrAvailableMonths[0] || '';
     _sgrFotoData = _sgrBuildFotoSnapshot(_sgrSelectedMonth);
+    _sgrAntiguedadData = _sgrBuildAntiguedadSnapshot(_sgrSelectedMonth);
 
     // composicion_carteras.csv — guarda todos los períodos
     _sgrParseCsv(composicionTxt).forEach(r => {
