@@ -1,44 +1,96 @@
-23 de octubre de 2026
+26 de octubre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
 opinión o estimación contenida eneste reporte representael juicio actualde StoneX yestá sujetoa cambios sin previo aviso. StoneX Securities S.A. o sus vinculadas podrían proveerconsejo respecto a adquirir, mantener o
 venderlosinstrumentosnombradosenesteinforme.
-Resultados
+Resultados de la semana
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
+ON Loma Negra (Integra en efectivo y/o en
+6,25% - 6,35% - - lun, 19 oct - 7 USD Mep USD 150.000.000 6,25% 33,41 ###### 22/10/2029 AAA (Fix SCR) Tasa jue, 22 oct
+especie)
+TAMAR+4,80% 24,5000% 33,73% 4,92% 29,42% lun, 19 oct FF Moni Mobile XIX VDFA ARS $7.023.599.000 (20%; T+480; 45%) 4,94 330 15/09/2027 A1+ (Fix SCR) Margen mar, 20 oct
+TAMAR+0,00% 24,5000% 24,77% -2,17% 22,33% lun, 19 oct FF Moni Mobile XIX VDFB ARS $491.308.000 (21%; T; 46%) 12,69 421 15/12/2027 BBB (Fix SCR) Margen mar, 20 oct
+24,80% 24,6250% 31,34% 2,95% 27,57% mar, 20 oct FF Consubond 203 VDFA ARS $20.773.573.153 (20%; T+100; 40%) 3,83 277 26/07/2027 AAA (Fix SCR) TIR jue, 22 oct
+21,00% 24,6250% 25,29% -1,86% 22,76% mar, 20 oct FF Consubond 203 VDFB ARS $1.354.798.249 (21%; T+100; 41%) 10,07 307 25/08/2027 A+ (Fix SCR) TIR jue, 22 oct
+9,25% - 9,58% - - mar, 20 oct ON Pyme Garantizada Endanik I - USD Mep USD 1.000.000 9,25% 18,31 731 23/10/2028 SC Tasa vie, 23 oct
+[OFERTA DE CONVERSIÓN] D30O6 x Letra del
+Px 99,21 - 7,95% - - mar, 20 oct Tesoro Nacional Cero Cupón vinculada al Dólar D30N6 - USD Linked USD 2.681.000.000 0,00% 1,25 38 30/11/2026 SC Precio vie, 23 oct
+[Reapertura]
+[OFERTA DE CONVERSIÓN] D30O6 x Letra del
+Px 99,00 - 4,46% - - mar, 20 oct Tesoro Nacional Cero Cupón vinculada al Dólar D15E7 - USD Linked USD 1.043.000.000 0,00% 2,76 84 15/01/2027 SC Precio vie, 23 oct
+[Reapertura]
+[OFERTA DE CONVERSIÓN] D30O6 x Bono del
+Px 97,20 - 4,23% - - mar, 20 oct Tesoro Nacional Cero Cupón vinculado al Dólar TZV27 - USD Linked USD 206.000.000 0,00% 8,22 250 30/06/2027 SC Precio vie, 23 oct
+[Reapertura]
+TAMAR+3,99% 24,6250% 31,83% 3,33% 27,96% mar, 20 oct ON BACS (Integra en efectivo y/o en especie) - XX ARS $29.708.890.000 TAMAR+3,99% 10,85 365 23/10/2027 A1+ (Fix SCR) Margen vie, 23 oct
+Letras del Tesoro de la Provincia de Buenos
+Px 98,16 24,6250% 27,47% -0,11% 24,52% mar, 20 oct LBN26 - ARS $431.776.717.935 0,00% 0,92 28 19/11/2026 ML B (Moody´s) Precio jue, 22 oct
+Aires [Reapertura]
+Letras del Tesoro de la Provincia de Buenos
+Px 96,24 24,6250% 28,42% 0,65% 25,28% mar, 20 oct - - ARS $143.300.642.222 0,00% 1,84 56 17/12/2026 ML B (Moody´s) Precio jue, 22 oct
+Aires [Nueva]
+Letras del Tesoro de la Provincia de Buenos
+TEM 2,15% 24,6250% 29,54% 1,54% 26,16% mar, 20 oct - - ARS $1.778.858.000 TEM 2,15% 2,99 91 21/01/2027 ML B (Moody´s) TEM jue, 22 oct
+Aires [Nueva]
+Letras del Tesoro de la Provincia de Buenos
+4,75% - 4,85% - - mar, 20 oct - - CER $7.426.955.780 4,75% 4,83 147 18/03/2027 ML B (Moody´s) Tasa jue, 22 oct
+Aires [Nueva]
+Letras del Tesoro de la Provincia de Buenos
+TAMAR+4,75% 24,6250% 32,78% 4,06% 28,69% mar, 20 oct - - ARS $53.278.268.612 TAMAR+4,75% 5,78 182 22/04/2027 ML B (Moody´s) Margen jue, 22 oct
+Aires [Nueva]
+Títulos de Deuda Pública de la Provincia de BB+ (S&P National
+TAMAR+9,75% 24,6250% 39,11% 8,85% 33,47% mar, 20 oct - - ARS $211.505.165.000 TAMAR+9,75% 16,05 610 23/06/2028 Margen jue, 22 oct
+Buenos Aires [Nueva] Ratings)
+Presentation Heading |
+Resultados de la semana
+Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
+Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
+Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
+XLIII
+Px 101.39 - 6,09% - - mié, 21 oct ON YPF (Integra en efectivo y/o en especie) - USD Mep USD 72,371,072 5,50% 37,28 1265 14/04/2030 AAA (Moody´s) Precio mar, 27 oct
+Adicionales
 ON Aeropuertos Argentina 2000 [Ley NY] B1 (Moody´s) / B+
 Px 98,35 - 8,55% - - jue, 22 oct - 12 USD Cable USD 400.000.000 8,00% 68,70 3653 05/11/2036 Book building jue, 5 nov
 Garantizadas (Fitch Ratings)
 8,50% - 8,68% - - jue, 22 oct ON Pyme Garantizada Jefesa I - USD Mep USD 2.200.000 8,50% 22,60 731 23/10/2028 SC Tasa vie, 23 oct
+Px 100,35 - 7,76% - - vie, 23 oct FF Pyme ALZ Agrocap V VDFA USD Mep USD 3.440.000 8,00% 9,96 317 10/09/2027 A1 (Fix SCR) Precio mié, 28 oct
+Px 99,36 - 10,37% - - vie, 23 oct FF Pyme ALZ Agrocap V VDFB USD Mep USD 475.000 9,50% 10,57 317 10/09/2027 B (Fix SCR) Precio mié, 28 oct
 Presentation Heading |
 Licita hoy
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
 Licitación (meses) Pago Licitación Liquidación
-vie, 23 oct FF Pyme ALZ Agrocap V VDFA USD Mep USD 3.440.000 8,00% 9,82 317 10/09/2027 A1 (Fix SCR) Precio mié, 28 oct
-USD 4.757.870
-vie, 23 oct FF Pyme ALZ Agrocap V VDFB USD Mep USD 475.000 9,50% 10,42 317 10/09/2027 B (Fix SCR) Precio mié, 28 oct
-Presentation Heading |
-Operaciones en Difusión
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-24 meses desde
-la Fecha de
-mar, 27 oct ON Pyme CNV Garantizada Colgas I $3.000.000.000 - ARS $3.000.000.000 TAMAR+Mg A informar 24 meses SC Margen A informar
-Emisión y
-Liquidación
+mar, 27 oct ON Pyme CNV Garantizada Colgas I $3.000.000.000 - ARS $3.000.000.000 TAMAR+Mg 11,84 731 29/10/2028 SC Margen jue, 29 oct
 ON Tarjeta Naranja (Integra en
 mar, 27 oct I LXVIII ARS TAMAR+Mg 15,20 548 29/04/2028 AA (Fix SCR) Margen jue, 29 oct
 efectivo y/o en especie)
 USD 50.000.000 (amp. h/ USD 50.000.000 (amp. h/
 USD 200.000.000) USD 200.000.000)
 mar, 27 oct ON Tarjeta Naranja II LXVIII USD Mep A licitar 17,16 548 29/04/2028 AA (Fix SCR) Tasa jue, 29 oct
+mar, 27 oct FF Cuotas Cencosud LXII VDFA ARS $18.681.045.726 (20%; T+300; 40%) 3,13 204 20/05/2027 AAA (Fix SCR) Precio mié, 28 oct
+$21.889.463.244
+mar, 27 oct FF Cuotas Cencosud LXII VDFB ARS $3.208.417.518 (20%; T+300; 40%) 7,40 265 20/07/2027 BB- (Fix SCR) Precio mié, 28 oct
+ON Pyme Garantizada Victor Masson $2.000.000.000 (amp. h/ $2.000.000.000 (amp. h/
+mar, 27 oct I - ARS TAMAR+Mg 17,69 731 29/10/2028 SC Margen jue, 29 oct
+Transportes Cruz del Sur $5.000.000.000) $5.000.000.000)
+Presentation Heading |
+Operaciones en Difusión
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
 mié, 28 oct FF Aspro I USD 6.000.000 VDF USD Mep USD 6.000.000 9,50% 14,70 923 10/05/2029 SC Precio vie, 30 oct
+ON Grupo ST (Integra en efectivo y/o
+mié, 28 oct - 17 USD Mep A licitar 11,82 369 03/11/2027 A informar Tasa vie, 30 oct
+en especie) USD 5.000.000 (amp. h/ USD 5.000.000 (amp. h/
+monto máximo disponible monto máximo disponible
+ON Grupo ST (Integra en efectivo y/o bajo el Programa) bajo el Programa)
+mié, 28 oct - 18 ARS TAMAR+Mg 10,82 365 30/10/2027 A informar Margen vie, 30 oct
+en especie)
 jue, 29 oct FF Individual Inmobiliario INVITA - CPA USD Mep USD 2.000.000 - - 6575 03/11/2044 FI3 (Fix SCR) Precio mar, 3 nov
 jue, 29 oct FF Individual Inmobiliario INVITA - CPB USD Mep USD 10.000.000 - - 6575 03/11/2044 FI3 (Fix SCR) Precio mar, 3 nov
 USD 140.000.000
