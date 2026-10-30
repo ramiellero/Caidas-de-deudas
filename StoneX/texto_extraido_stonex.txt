@@ -1,4 +1,4 @@
-28 de octubre de 2026
+30 de octubre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,63 +8,49 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-TAMAR+3,95% 24,3750% 31,48% 3,31% 27,68% mar, 27 oct ON Pyme CNV Garantizada Colgas I - ARS $3.000.000.000 TAMAR+3,95% 11,62 731 29/10/2028 SC Margen jue, 29 oct
-ON Tarjeta Naranja (Integra en efectivo y/o en
-TAMAR+5,50% 24,3750% 33,39% 4,78% 29,16% mar, 27 oct I LXVIII ARS $135.917.743.471 TAMAR+5,50% 15,16 548 29/04/2028 AA (Fix SCR) Margen jue, 29 oct
-especie)
-5,75% - 5,88% - - mar, 27 oct ON Tarjeta Naranja II LXVIII USD Mep USD 68.760.964 5,75% 17,39 548 29/04/2028 AA (Fix SCR) Tasa jue, 29 oct
-Px 98,70 24,3750% 29,20% 1,51% 25,89% mar, 27 oct FF Cuotas Cencosud LXII VDFA ARS $18.681.045.726 (20%; T+300; 40%) 3,13 204 20/05/2027 AAA (Fix SCR) Precio mié, 28 oct
-Px 98,59 24,3750% 29,19% 1,51% 25,89% mar, 27 oct FF Cuotas Cencosud LXII VDFB ARS $3.208.417.518 (20%; T+300; 40%) 7,40 265 20/07/2027 BB- (Fix SCR) Precio mié, 28 oct
-ON Pyme Garantizada Victor Masson
-TAMAR+0,00% 24,3750% 26,69% -0,48% 23,90% mar, 27 oct I - ARS $5.000.000.000 TAMAR+0,00% 17,70 731 29/10/2028 SC Margen jue, 29 oct
-Transportes Cruz del Sur
+ON CNH Industrial Capital Argentina (Integra en
+6,75% - 6,86% - - jue, 29 oct - 12 USD Mep USD 56.817.670 6,75% 33,21 1096 03/11/2029 AAA (Fix SCR) Tasa mar, 3 nov
+efectivo y/o en especie)
 Presentation Heading |
 Licita hoy
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
 Licitación (meses) Pago Licitación Liquidación
-mié, 28 oct FF Aspro I USD 6.000.000 VDF USD Mep USD 6.000.000 9,50% 14,70 923 10/05/2029 SC Precio vie, 30 oct
-ON Grupo ST (Integra en efectivo y/o ML A-1 (Moody´s) /
-mié, 28 oct - 17 USD Mep A licitar 11,82 369 03/11/2027 Tasa vie, 30 oct
-en especie) USD 5.000.000 (amp. h/ USD 5.000.000 (amp. h/ A1 (Fix SCR)
-monto máximo disponible monto máximo disponible
-ON Grupo ST (Integra en efectivo y/o bajo el Programa) bajo el Programa) ML A-1 (Moody´s) /
-mié, 28 oct - 18 ARS TAMAR+Mg 10,82 365 30/10/2027 Margen vie, 30 oct
-en especie) A1 (Fix SCR)
-USD 200.000.000 (amp. h/ USD 200.000.000 (amp. h/
-mié, 28 oct ON Pampa Energía - 29 USD Mep A licitar 43,23 1461 02/11/2030 AAA (Fix SCR) Tasa lun, 2 nov
-USD 300.000.000) USD 300.000.000)
-Letra del Tesoro Nacional
-mié, 28 oct S29E7 - ARS TEM a licitar 3,91 119 26/02/2027 SC TEM vie, 30 oct
-Capitalizable en Pesos [Nueva]
-Bono del Tesoro Nacional Cero
-mié, 28 oct Cupón con Ajuste por CER TZXM7 - CER 0,00% 5,00 152 31/03/2027 SC Precio vie, 30 oct
-[Reapertura]
-Bono del Tesoro Nacional Cero
-mié, 28 oct Cupón con Ajuste por CER TZXO7 - CER 0,00% 11,97 364 29/10/2027 SC Precio vie, 30 oct
-[Reapertura] Hasta el monto máximo Hasta el monto máximo
-autorizado por la normativa autorizado por la normativa
-Bono del Tesoro Nacional a Tasa vigente vigente
-mié, 28 oct TMG27 - ARS TAMAR+6,00% 10,03 305 31/08/2027 SC Precio vie, 30 oct
-TAMAR [Reapertura]
-Bono del Tesoro Nacional en Pesos
-mié, 28 oct TXMD8 - CER / ARS 0,00% / TAMAR+3,00% 25,55 777 15/12/2028 SC Precio vie, 30 oct
-Dual CER / TAMAR [Reapertura]
-Letra del Tesoro Nacional Cero Cupón
-mié, 28 oct D15E7 - USD Linked 0,00% 2,53 77 15/01/2027 SC Precio vie, 30 oct
-Vinculada al Dólar [Reapertura]
-Presentation Heading |
-Operaciones en Difusión
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-ON CNH Industrial Capital Argentina USD 30.000.000 (amp. h/ USD 30.000.000 (amp. h/
-jue, 29 oct - 12 USD Mep A licitar 33,31 1096 04/11/2029 AAA (Fix SCR) Tasa mié, 4 nov
-(Integra en efectivo y/o en especie) USD 60.000.000) USD 60.000.000)
 vie, 30 oct FF Individual Inmobiliario INVITA - CPA USD Mep USD 2.000.000 - - 6574 03/11/2044 FI3 (Fix SCR) Precio mié, 4 nov
 vie, 30 oct FF Individual Inmobiliario INVITA - CPB USD Mep USD 10.000.000 - - 6574 03/11/2044 FI3 (Fix SCR) Precio mié, 4 nov
 USD 140.000.000
 vie, 30 oct FF Individual Inmobiliario INVITA - CPC USD Mep USD 128.000.000 - - 6574 03/11/2044 FI3 (Fix SCR) Precio mié, 4 nov
 vie, 30 oct FF Individual Inmobiliario INVITA - CPD USD Mep USD 128.000.000 - - 6574 03/11/2044 FI3 (Fix SCR) Precio mié, 4 nov
+vie, 30 oct ON Pyme CNV Garantizada For Drink I $2.000.000.000 - ARS $2.000.000.000 TAMAR+Mg 17,67 731 03/11/2028 SC Margen mar, 3 nov
+Presentation Heading |
+Operaciones en Difusión
+STONEX
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+mar, 3 nov FF Megabono 361 VDFA ARS $9.435.229.131 (23%; T+Mg; 42%) 5,36 323 24/09/2027 AAA (Fix SCR) Margen jue, 5 nov
+$14.046.077.944
+mar, 3 nov FF Megabono 361 VDFB ARS $1.123.225.014 (25%; T+Mg; 42%) 11,20 384 24/11/2027 AA (Fix SCR) Margen jue, 5 nov
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+ON Banco Hipotecario (Integra en
+lun, 2 nov - 16 USD Mep A licitar 11,85 365 04/11/2027 A1+ (Fix SCR) Tasa mié, 4 nov
+efectivo y/o en especie) USD 20.000.000 (amp. h/ USD 20.000.000 (amp. h/
+ON Banco Hipotecario (Integra en USD 60.000.000) USD 60.000.000)
+lun, 2 nov - 17 USD Mep A licitar 23,00 731 04/11/2028 AA- (Fix SCR) Tasa mié, 4 nov
+efectivo y/o en especie)
+$3.000.000.000 (amp. h/ $3.000.000.000 (amp. h/
+lun, 2 nov ON Pyme CNV Garantizada Eskabe I - ARS TAMAR+Mg 17,79 731 04/11/2028 SC Margen mié, 4 nov
+$6.000.000.000) $6.000.000.000)
+ON Pyme CNV Garantizada Sola y
+mar, 3 nov I $2.000.000.000 - ARS $2.000.000.000 TAMAR+Mg 13,42 731 05/11/2028 SC Margen jue, 5 nov
+Brusa
+USD 30.000.000 (amp. h/ USD 30.000.000 (amp. h/
+mar, 3 nov ON Genneia [Bono SVS] - L USD Mep A licitar 33,12 1096 05/11/2029 AA+ (Moody´s) Tasa jue, 5 nov
+monto máximo disponible) monto máximo disponible)
+Títulos de Deuda del Banco de la USD 70.000.000 (amp. h/ USD 70.000.000 (amp. h/
+mar, 3 nov - 7 USD Mep A licitar 22,96 731 05/11/2028 AAA (Fix SCR) Tasa jue, 5 nov
+Nación Argentina monto máximo disponible) monto máximo disponible)
