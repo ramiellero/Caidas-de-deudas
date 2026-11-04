@@ -1,4 +1,4 @@
-3 de noviembre de 2026
+4 de noviembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,40 +8,16 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-ON Banco Hipotecario (Integra en efectivo y/o
-3,75% - 3,79% - - lun, 2 nov - 16 USD Mep USD 34.777.505 3,75% 11,89 365 04/11/2027 A1+ (Fix SCR) Tasa mié, 4 nov
-en especie)
-ON Banco Hipotecario (Integra en efectivo y/o
-5,50% - 5,58% - - lun, 2 nov - 17 USD Mep USD 7.216.614 5,50% 23,14 733 06/11/2028 AA- (Fix SCR) Tasa mié, 4 nov
-en especie)
-TAMAR+0,00% 24,1250% 26,40% -0,47% 23,66% lun, 2 nov ON Pyme CNV Garantizada Eskabe I - ARS $5.861.111.111 TAMAR+0,00% 17,72 731 04/11/2028 SC Margen mié, 4 nov
+TAMAR+2,98% 24,0625% 30,57% 2,91% 26,97% mar, 3 nov FF Megabono 361 VDFA ARS $9.435.229.131 (23%; T+298; 42%) 5,44 323 24/09/2027 AAA (Fix SCR) Margen jue, 5 nov
+TAMAR+8,00% 24,0625% 35,02% 6,34% 30,40% mar, 3 nov FF Megabono 361 VDFB ARS $1.123.225.014 (25%; T+800; 42%) 11,57 384 24/11/2027 AA (Fix SCR) Margen jue, 5 nov
+TAMAR+2,49% 24,0625% 28,87% 1,57% 25,63% mar, 3 nov ON Pyme CNV Garantizada Sola y Brusa I - ARS $2.000.000.000 TAMAR+2,49% 13,30 731 05/11/2028 SC Margen jue, 5 nov
+6,25% - 6,35% - - mar, 3 nov ON Genneia [Bono SVS] - L USD Mep USD 70.000.000 6,25% 33,41 1096 05/11/2029 AA+ (Moody´s) Tasa jue, 5 nov
+Títulos de Deuda del Banco de la Nación
+5,50% - 5,58% - - mar, 3 nov - 7 USD Mep USD 56.503.685 5,50% 23,08 731 05/11/2028 AAA (Fix SCR) Tasa jue, 5 nov
+Argentina
+TAMAR+2,00% 24,0625% 28,72% 1,45% 25,52% mar, 3 nov ON Pyme CNV Garantizada AFS Group II - ARS $7.888.888.888 TAMAR+2,00% 17,50 731 05/11/2028 SC Margen jue, 5 nov
 Presentation Heading |
 Licita hoy
-STONEX
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-mar, 3 nov FF Megabono 361 VDFA ARS $9.435.229.131 (23%; T+Mg; 42%) 5,36 323 24/09/2027 AAA (Fix SCR) Margen jue, 5 nov
-$14.046.077.944
-mar, 3 nov FF Megabono 361 VDFB ARS $1.123.225.014 (25%; T+Mg; 42%) 11,20 384 24/11/2027 AA (Fix SCR) Margen jue, 5 nov
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-ON Pyme CNV Garantizada Sola y
-mar, 3 nov I $2.000.000.000 - ARS $2.000.000.000 TAMAR+Mg 13,42 731 05/11/2028 SC Margen jue, 5 nov
-Brusa
-USD 30.000.000 (amp. h/ USD 30.000.000 (amp. h/
-mar, 3 nov ON Genneia [Bono SVS] - L USD Mep A licitar 33,12 1096 05/11/2029 AA+ (Moody´s) Tasa jue, 5 nov
-monto máximo disponible) monto máximo disponible)
-Títulos de Deuda del Banco de la USD 70.000.000 (amp. h/ USD 70.000.000 (amp. h/
-mar, 3 nov - 7 USD Mep A licitar 22,96 731 05/11/2028 AAA (Fix SCR) Tasa jue, 5 nov
-Nación Argentina monto máximo disponible) monto máximo disponible)
-ON Pyme CNV Garantizada AFS $5.000.000.000 (amp. h/ $5.000.000.000 (amp. h/
-mar, 3 nov II - ARS TAMAR+Mg 17,72 731 05/11/2028 SC Margen jue, 5 nov
-Group $8.000.000.000) $8.000.000.000)
-Presentation Heading |
-Operaciones en Difusión
 STONEX
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -49,11 +25,6 @@ Licitación (meses) Pago Licitación Liquidación
 mié, 4 nov FF Pareto 17 VDFA ARS $2.683.009.748 (25%; T+Mg; 40%) 2,33 172 26/04/2027 A-1 (Moody´s) Margen jue, 5 nov
 $2.861.643.556
 mié, 4 nov FF Pareto 17 VDFB ARS $178.633.808 (30%; T+Mg; 45%) 5,65 172 26/04/2027 BBB- (Moody´s) Margen jue, 5 nov
-(i) Max (32%; T+Mg) para el primer
-ON Pyme CNV SION (Integra en $3.000.000.000 (amp. h/ $3.000.000.000 (amp. h/
-jue, 5 nov VI - ARS servicio; 9,20 359 05/11/2027 ML A-2 (Moody´s) Margen mié, 11 nov
-efectivo y/o en especie) $4.350.000.000) $4.350.000.000)
-(ii) T+Mg para los siguientes servicios
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -64,6 +35,29 @@ mié, 4 nov FF Open Sports 1 VDFB ARS $50.000.000 (21%; T+200; 46%) 12,56 382 22
 $2.000.000.000 (amp. h/ $2.000.000.000 (amp. h/
 mié, 4 nov ON Pyme CNV Garantizada Serviaut I - ARS TAMAR+Mg 17,73 731 05/11/2028 SC Margen jue, 5 nov
 $4.000.000.000) $4.000.000.000)
+Presentation Heading |
+Operaciones en Difusión
+STONEX
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+(i) Max (32%; T+Mg) para el primer
+ON Pyme CNV SION (Integra en $3.000.000.000 (amp. h/ $3.000.000.000 (amp. h/
+jue, 5 nov VI - ARS servicio; 9,20 359 05/11/2027 ML A-2 (Moody´s) Margen mié, 11 nov
+efectivo y/o en especie) $4.350.000.000) $4.350.000.000)
+(ii) T+Mg para los siguientes servicios
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
 ON Pyme CNV Garantizada
 jue, 5 nov I $700.000.000 - ARS $700.000.000 TAMAR+Mg 19,75 731 12/11/2028 SC Margen jue, 12 nov
 Agroindustrias La Española
+Letras del Tesoro de la Provincia del $10.000.000.000 $10.000.000.000
+jue, 5 nov CXXIV - ARS TAMAR+Mg 3,36 105 24/02/2027 ML B (Moody´s) Margen mié, 11 nov
+Chubut (ampliable) (ampliable)
+ON Pyme CNV Garantizada Madero
+$2.000.000.000 (amp. h/ $2.000.000.000 (amp. h/
+jue, 12 nov Harbour (Integra en efectivo y/o en II - ARS TAMAR+Mg 17,75 731 16/11/2028 SC Margen lun, 16 nov
+$5.000.000.000) $5.000.000.000)
+especie)
