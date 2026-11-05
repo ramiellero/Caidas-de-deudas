@@ -2585,7 +2585,7 @@
         <div class="modal-title" id="padronClasifModalTitle">Top 20 cuentas</div>
         <div class="deals-table-wrap" style="margin-top:0;">
           <table class="deals-table">
-            <thead><tr><th>Cuenta</th><th>Tenedor</th><th>Instrumento</th><th>Holding</th><th>Holding ajustado (propio)</th></tr></thead>
+            <thead><tr><th>Cuenta</th><th style="text-align:right;">Holding</th><th style="text-align:right;">Valor Residual</th></tr></thead>
             <tbody id="padronClasifModalTbody"></tbody>
           </table>
         </div>
@@ -7191,9 +7191,8 @@ function _padronShowClasifTop20(label, rows) {
   const byAccount = {};
   filtered.forEach(r => {
     const cuenta = (r.accountName || '').trim() || (r.investorName || '').trim();
-    const key = _padronNormName(cuenta) + '|' + _padronNormName(r.investorName);
-    const g = byAccount[key] || (byAccount[key] = { cuenta, tenedor: r.investorName || '', instrumentos: new Set(), holding: 0, adj: 0 });
-    g.instrumentos.add(r.instrumentDescription || '(Sin instrumento)');
+    const key = _padronNormName(cuenta);
+    const g = byAccount[key] || (byAccount[key] = { cuenta, holding: 0, adj: 0 });
     g.holding += parseFloat(r.holding) || 0;
     g.adj += _padronAdjHolding(r);
   });
@@ -7204,18 +7203,13 @@ function _padronShowClasifTop20(label, rows) {
     `Top 20 cuentas — ${label} (${accounts.length} en total)`;
 
   document.getElementById('padronClasifModalTbody').innerHTML = top20.length
-    ? top20.map(g => {
-      const instr = g.instrumentos.size === 1 ? Array.from(g.instrumentos)[0] : `${g.instrumentos.size} instrumentos`;
-      return `
+    ? top20.map(g => `
       <tr>
         <td>${_escHtml(g.cuenta)}</td>
-        <td>${_escHtml(g.tenedor)}</td>
-        <td>${_escHtml(instr)}</td>
         <td style="text-align:right;">${g.holding.toLocaleString('es-AR')}</td>
         <td style="text-align:right;font-weight:600;">${Math.round(g.adj).toLocaleString('es-AR')}</td>
-      </tr>`;
-    }).join('')
-    : '<tr><td colspan="5" class="deals-empty">Sin datos</td></tr>';
+      </tr>`).join('')
+    : '<tr><td colspan="3" class="deals-empty">Sin datos</td></tr>';
 
   document.getElementById('padronClasifModal').classList.add('open');
 }
