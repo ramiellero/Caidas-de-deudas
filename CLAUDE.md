@@ -707,26 +707,32 @@ Sección accesible desde la pestaña **Padrón** en la nav. Muestra el listado d
 **Clasificación propia por tenedor** (`Padron/mapeo_clasificacion.csv`): además de los campos que devuelve BYMA, el dashboard clasifica cada tenedor con una taxonomía propia (Alyc, Aseguradora, Banco, Caja, Corporativo, ETF, FCI, Propio, SGR, TTRFP) para poder ver rápidamente qué tipo de sector concentra la deuda. La fuente es `Mappeo.xlsx` (hoja "Personas Jurídicas", columnas `SOCIEDAD` / `Clasificacion`) provista por el usuario — se deduplicó a `Padron/mapeo_clasificacion.csv` (`Nombre_Cuenta,Clasificacion`, nombres normalizados a mayúsculas sin espacios repetidos). El Excel original traía ~9010 filas con solo 3656 `SOCIEDAD` únicas y 62 con clasificación inconsistente entre filas repetidas; al deduplicar se priorizó la clasificación más específica sobre `Corporativo` (que actúa como default genérico del sistema fuente de BYMA/Caja de Valores, no como una clasificación real).
 - `initPadronMapeo()` — carga `Padron/mapeo_clasificacion.csv` una sola vez al iniciar la página (junto a los demás `initXxx()`) y llena el global `_padronMapeo` (`{ NOMBRE_NORMALIZADO: Clasificacion }`)
 - `_padronNormName(s)` — normaliza un nombre (`NFD` + saca acentos, colapsa espacios, trim, uppercase) para el match; se usa tanto al cargar el mapeo como al enriquecer `_padronRows` y al evaluar las reglas heurísticas de abajo
-- En `_padronFetch()`, después de recibir `data.rows`, cada fila se enriquece con `r.clasificacionPropia = _padronMapeo[_padronNormName(r.investorName)] || _padronHeuristicClasificar(r.investorType, r.investorName) || 'Sin Clasificar'` — primero intenta el match exacto (curado, `Padron/mapeo_clasificacion.csv`); si no matchea, cae al clasificador heurístico; solo si ninguno de los dos resuelve algo queda "Sin Clasificar"
+- En `_padronFetch()`, después de recibir `data.rows`, cada fila se enriquece con `r.clasificacionPropia = _padronMapeo[norm(investorName)] || _padronMapeo[norm(accountName)] || _padronHeuristicClasificar(investorType, investorName, accountName) || 'Sin Clasificar'` — primero intenta el match exacto (curado, `Padron/mapeo_clasificacion.csv`) por tenedor y después por cuenta; si no matchea, cae al clasificador heurístico; solo si ninguno de los dos resuelve algo queda "Sin Clasificar"
 - **Actualizar el mapeo exacto**: para casos puntuales que la heurística clasifique mal, agregar la fila correspondiente a `Padron/mapeo_clasificacion.csv` (`Nombre_Cuenta` en mayúsculas tal cual aparece en `investorName`, `Clasificacion`) y hacer commit — el match exacto siempre gana sobre la heurística, así que sirve como lista de excepciones/overrides — no requiere tocar `index.html`
 
-**Clasificador heurístico** (`PADRON_CLASIF_RULES` + `_padronHeuristicClasificar(investorType, investorName)`): fallback basado en reglas para que casi ningún tenedor quede "Sin Clasificar" cuando no está en el CSV curado. Lógica:
-1. Si `investorType === 'F'` (Persona Física en el campo que devuelve BYMA) → `"Persona Física"`, sin mirar el nombre.
-2. Si no, se evalúa el nombre normalizado contra `PADRON_CLASIF_RULES` en orden — gana el primer patrón que matchea:
-   - `IRSA` / `CRESUD` en el nombre → `"Propio"` (entidades relacionadas a los propios emisores)
-   - `TORONTO TRUST` → `"TTRFP"` (fondo Toronto Trust Renta Fija Plus, alias "TTRFPD")
-   - `ETF` → `"ETF"`
+**Clasificador heurístico** (`PADRON_CLASIF_RULES` + `_padronHeuristicClasificar(investorType, investorName, accountName)`): fallback basado en reglas para que casi ningún tenedor quede "Sin Clasificar" cuando no está en el CSV curado. Cada regla evalúa el `investorName` y el `accountName` (columna de BYMA con el nombre de la cuenta, siempre presente; suele ser más específica que el tenedor). Lógica:
+1. Si `investorType === 'F'` → `"Persona Física"`, sin mirar nombres.
+2. Si no, se evalúa en orden contra `PADRON_CLASIF_RULES` — gana la primera regla que matchea en el tenedor o en la cuenta (`acc: null` = esa regla solo mira el tenedor):
+   - `EUROCLEAR` / `CLEARSTREAM` / `GOLDMAN SACHS CLEARANCE` → `"Euroclear"` (solo tenedor)
+   - `IRSA` / `CRESUD` → `"Propio"` (solo tenedor); `TORONTO TRUST` → `"TTRFP"` (solo tenedor); `ETF` → `"ETF"` (solo tenedor)
    - `SGR` / `S.G.R` → `"SGR"`
-   - `BVSA` / `BCSA` / `FCI` → `"FCI"`
-   - `ASEGURADORA` / `SEGURO(S)` / `CIA. DE SEGUROS` → `"Aseguradora"`
-   - `CAJA` / `MUTUAL(ES)` / `COLEGIO` → `"Caja"`
+   - **FCI**: tenedor con `BVSA` / `BCSA` / `FCI` / `FONDOS COM DE INV` / `SOC DEP`; cuenta además con `SD` / `SDEP` / `SUPERFONDO` / `ACPIC` / `CPIC` (los fondos figuran bajo el banco depositario, p.ej. tenedor "BANCO DE VALORES SA - SOC DEP FCI", cuenta "BVSA SD … FCI")
+   - `ALYC` / `COLLAT` (cuentas de garantía de BYMA: "COLLAT.<alyc> ALYC") / `SOCIEDAD DE BOLSA` / `BURSATIL(ES)` / `SECURITIES` / `A3 MERCADOS` / `MERCADO ARGENTINO DE VALORES` / etc. → `"Alyc"`
+   - `CAJA` (salvo "CAJA DE SEGUROS") / `SINDICATO` / `PREVISION` / `JUBILA` / `OBRA SOCIAL` → `"Caja"` — antes de Aseguradora porque dicen "CAJA DE SEG. SOCIAL"
+   - `ASEGURADORA` / `SEGURO(S)` / `SEG` / `CIA … SEG` / `RETIRO` / `ASSURANCES` / `AFIANZADORA` → `"Aseguradora"`
+   - `MUTUAL` / `COLEGIO` / `FUNDACION` / `COOP(ERATIVA)` / `UNION DE|DEL|CIVIL` / `UNIVERSIDAD` / `CONSEJO` / `CONFEDERACION` / `CENTRO DE EMPLEADOS` / `FONDO FIDUCIARIO` → `"Caja"` (entidades sin fines de lucro / gremiales / educativas)
    - `BANCO` / `BCO` / `BANK` → `"Banco"`
-   - `ALYC` / `SOCIEDAD DE BOLSA` / `AGENTE DE LIQUIDACION` / `AGENTE DE NEGOCIACION` / `BURSATIL` / `CAPITAL MARKETS` / `BROKER` → `"Alyc"`
    - `SA` / `SRL` / `SAIC` / `SCA` / `SOCIEDAD ANONIMA` / `SOCIEDAD DE RESPONSABILIDAD LIMITADA` → `"Corporativo"` (fallback genérico de forma societaria)
-3. Si `investorType === 'J'` (Persona Jurídica) y ningún patrón matcheó → `"Corporativo"` como bucket genérico final.
+3. Si `investorType === 'J'` y ningún patrón matcheó → `"Corporativo"` como bucket genérico final.
 4. Si no matcheó nada y `investorType` no es ni `F` ni `J` → devuelve `null`, y el llamador cae a `"Sin Clasificar"`.
 
-**Por qué el orden importa**: el patrón `Corporativo` (paso 2, al final) es intencionalmente el último — una aseguradora, un banco o una SGR casi siempre también tienen "S.A." en la razón social, así que si el fallback genérico corriera primero, todo terminaría clasificado como Corporativo y las categorías específicas nunca se alcanzarían. Los patrones específicos y de mayor prioridad de negocio van primero.
+**Orden completo de resolución** (en `_padronFetch`): mapeo exacto por `investorName` → mapeo exacto por `accountName` → heurística (`investorName` + `accountName`) → `"Sin Clasificar"`.
+
+**Drilldown del donut de Clasificación (propia)** (`_padronShowClasifTop20`): al clickear una porción o su leyenda se abre un modal con el Top 20 **cuentas** de esa categoría, agrupadas por `accountName` (fallback `investorName`) y sumando todas las ONs de la cuenta; columnas Cuenta · Tenedor · Instrumento (o "N instrumentos") · Holding · Holding ajustado. Se agrupa por cuenta y no por tenedor porque el tenedor suele ser el custodio (BYMA ARGSERVLIQ, bancos depositarios de FCI). El filtro de texto de la tabla también busca por `accountName`.
+
+**Validación** (2026-11-05, padrón Cresud + IRSA del 30/10, ONs, personas no físicas): contra el mapeo curado como verdad, la heurística solo con `investorName` acertaba 91,6% de los pares tenedor/cuenta (55% ponderado por holding); con `accountName` y las reglas nuevas acierta 96,9% (91% por holding). Los errores que quedan son inconsistencias del propio mapeo curado (p.ej. fondos bajo "BANCO PATAGONIA S.A.") y los resuelve el match exacto.
+
+**Por qué el orden importa**: el patrón `Corporativo` (paso 2, al final) es intencionalmente el último — una aseguradora, un banco o una SGR casi siempre también tienen "S.A." en la razón social, así que si el fallback genérico corriera primero, todo terminaría clasificado como Corporativo y las categorías específicas nunca se alcanzarían. FCI va antes que Banco porque los fondos figuran bajo el banco depositario.
 
 - **Cap de filas en tabla** (`PADRON_TABLE_ROW_CAP = 200`): `_padronRenderTable()` solo renderiza las primeras 200 filas de `_padronVisibleRows()` (performance — algunos padrones traen miles de tenedores y romper todo el DOM los vuelve pesado); si hay más, se muestra una nota debajo de la tabla (`#padron-truncate-note`) indicando cuántas hay en total y sugiriendo usar los botones de descarga. **La exportación (CSV/Excel) no tiene este cap** — exporta siempre el listado completo filtrado/ordenado, no solo las 200 visibles.
 - Tabla con `min-width: 2400px` (hay ~27 columnas) dentro de `.deals-table-wrap` (`overflow-x: auto`) — scroll horizontal esperado.

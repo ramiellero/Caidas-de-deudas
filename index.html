@@ -2533,8 +2533,7 @@
       </div>
 
       <button class="deals-clear-btn" id="padron-consultar-btn" onclick="consultarPadron()" style="background:#334155;color:#fff;border-color:#334155;">Consultar</button>
-      <button class="deals-clear-btn" onclick="_padronDownloadCsv()">Descargar CSV</button>
-      <button class="deals-clear-btn" onclick="_padronDownloadExcel()">Descargar Excel</button>
+      <button class="deals-clear-btn" onclick="_padronDownloadExcel()">Descargar Excel (.xls)</button>
 
     </div><!-- /padron-filters -->
 
@@ -2583,10 +2582,10 @@
     <!-- Drilldown Top 20 tenedores por categoría (click en porción del donut o leyenda) -->
     <div class="modal-overlay" id="padronClasifModal" onclick="if(event.target===this)_padronCloseClasifModal()">
       <div class="modal-box modal-box-wide">
-        <div class="modal-title" id="padronClasifModalTitle">Top 20 tenedores</div>
+        <div class="modal-title" id="padronClasifModalTitle">Top 20 cuentas</div>
         <div class="deals-table-wrap" style="margin-top:0;">
           <table class="deals-table">
-            <thead><tr><th>Tenedor</th><th>Instrumento</th><th>Holding</th><th>Holding ajustado (propio)</th></tr></thead>
+            <thead><tr><th>Cuenta</th><th>Tenedor</th><th>Instrumento</th><th>Holding</th><th>Holding ajustado (propio)</th></tr></thead>
             <tbody id="padronClasifModalTbody"></tbody>
           </table>
         </div>
@@ -6807,31 +6806,45 @@ async function initPadronMapeo() {
 }
 
 /* Reglas heurísticas de clasificación propia — fallback para tenedores que no
-   matchean ningún nombre exacto en Padron/mapeo_clasificacion.csv. Corren en
-   orden sobre el nombre normalizado (sin acentos, mayúsculas); gana la primera
-   que matchea. Los patrones específicos van antes que "Corporativo" a propósito:
-   una aseguradora, un banco o una SGR casi siempre también tienen "S.A." en el
-   nombre, así que si el fallback genérico corriera primero los clasificaría mal. */
+   matchean ningún nombre exacto en Padron/mapeo_clasificacion.csv (ni por
+   investorName ni por accountName). Corren en orden; gana la primera que matchea.
+   Cada regla mira el nombre del tenedor (investorName) y el nombre de la cuenta
+   (accountName) normalizados (sin acentos, mayúsculas): `inv` aplica al primero,
+   `acc` al segundo (por defecto la misma regex; null = no mirar la cuenta). La
+   cuenta suele ser más específica que el tenedor: p.ej. el tenedor "BANCO DE
+   VALORES SA - SOC DEP FCI" tiene cuentas "BVSA SD <fondo> FCI", y "BOLSAS Y
+   MERCADOS ARGSERVLIQ" tiene cuentas "COLLAT.<alyc> ALYC". Los patrones
+   específicos van antes que "Corporativo" a propósito: una aseguradora, un banco
+   o una SGR casi siempre también tienen "S.A." en el nombre, así que si el
+   fallback genérico corriera primero los clasificaría mal. FCI va antes que
+   Banco porque los fondos figuran bajo el banco depositario. */
 const PADRON_CLASIF_RULES = [
-  { label: 'Propio',      test: n => /\bIRSA\b|\bCRESUD\b/.test(n) },
-  { label: 'TTRFP',       test: n => /TORONTO TRUST/.test(n) },
-  { label: 'ETF',         test: n => /\bETF\b/.test(n) },
-  { label: 'SGR',         test: n => /S\.?G\.?R\.?\b/.test(n) },
-  { label: 'FCI',         test: n => /\bBVSA\b|\bBCSA\b|F\.?C\.?I\.?\b/.test(n) },
-  { label: 'Aseguradora', test: n => /ASEGURADORA|\bSEGUROS?\b|CIA\.? DE SEGUROS|COMPANIA DE SEGUROS/.test(n) },
-  { label: 'Caja',        test: n => /\bCAJA\b|\bMUTUAL(ES)?\b|\bCOLEGIO\b/.test(n) },
-  { label: 'Banco',       test: n => /\bBANCO\b|\bBCO\.?\b|\bBANK\b/.test(n) },
-  { label: 'Alyc',        test: n => /\bALYC\b|SOCIEDAD DE BOLSA|AGENTE DE (LIQUIDACION|NEGOCIACION)|\bBURSATIL\b|CAPITAL MARKETS|\bBROKER\b/.test(n) },
+  { label: 'Euroclear',   inv: /EUROCLEAR|CLEARSTREAM|GOLDMAN SACHS CLEARANCE/, acc: null },
+  { label: 'Propio',      inv: /\bIRSA\b|\bCRESUD\b/, acc: null },
+  { label: 'TTRFP',       inv: /TORONTO TRUST/, acc: null },
+  { label: 'ETF',         inv: /\bETF\b/, acc: null },
+  { label: 'SGR',         inv: /S\.?G\.?R\.?\b/ },
+  { label: 'FCI',         inv: /\bBVSA\b|\bBCSA\b|F\.?C\.?I\.?\b|\bFCIC\b|FONDOS? COM(UNES?)? DE INV|SOC(IEDAD)?\.? DEP|\bSOC\.? DE$/,
+                          acc: /\bBVSA\b|\bBCSA\b|F\.?C\.?I\.?\b|\bFCIC\b|\bSD\b|\bSDEP\b|SUPERFONDO|\bAC ?PIC\b|\bCPIC\b|SOC(IEDAD)?\.? DEP/ },
+  { label: 'Alyc',        inv: /\bALYC\b|\bCOLLAT\b|SOCIEDAD DE BOLSA|AGENTE DE (LIQUIDACION|NEGOCIACION)|\bBURSATIL(ES)?\b|CAPITAL MARKETS|\bBROKER\b|\bSECURITIES\b|\bA3 MERCADOS\b|\bMERCADO ARGENTINO DE VALORES\b/ },
+  // Cajas de previsión/seguridad social y sindicatos: antes de Aseguradora porque dicen "CAJA DE SEG. SOCIAL" / "SINDICATO DEL SEGURO"
+  { label: 'Caja',        inv: /\bCAJA\b(?! DE SEGUROS)|\bSINDICATO\b|\bPREVISION\b|\bJUBILA|\bOBRA SOCIAL\b/ },
+  { label: 'Aseguradora', inv: /ASEGURADORA|REASEGUR|\bSEGUROS?\b|\bCIA\b.*\bSEG|\bSEG\b|ASSURANCES|\bLIFE\b|\bRETIRO\b|AFIANZADORA/ },
+  // Entidades sin fines de lucro / gremiales / educativas (en la taxonomía propia caen en "Caja")
+  { label: 'Caja',        inv: /\bMUTUAL(ES)?\b|\bCOLEGIO\b|\bFUNDACION\b|\bCOOP(ERATIVA)?\b|\bUNION (DE|DEL|CIVIL)\b|\bUNIVERSIDAD\b|\bCONSEJO\b|\bCONFEDERACION\b|\bCENTRO DE EMPLEADOS\b|\bFONDO FIDUCIARIO\b/ },
+  { label: 'Banco',       inv: /\bBANCO\b|\bBCO\.?\b|\bBANK\b/ },
   // Fallback genérico para personas jurídicas: cualquier forma societaria que no matcheó nada más específico arriba
-  { label: 'Corporativo', test: n => /\bS\.?A\.?\b|\bS\.?R\.?L\.?\b|\bS\.?A\.?I\.?C\.?\b|\bS\.?C\.?A\.?\b|SOCIEDAD ANONIMA|SOCIEDAD DE RESPONSABILIDAD LIMITADA/.test(n) },
+  { label: 'Corporativo', inv: /\bS\.?A\.?\b|\bS\.?R\.?L\.?\b|\bS\.?A\.?I\.?C\.?\b|\bS\.?C\.?A\.?\b|SOCIEDAD ANONIMA|SOCIEDAD DE RESPONSABILIDAD LIMITADA/ },
 ];
 
-function _padronHeuristicClasificar(investorType, investorName) {
-  const n = _padronNormName(investorName);
+function _padronHeuristicClasificar(investorType, investorName, accountName) {
   const t = (investorType || '').trim().toUpperCase();
   if (t === 'F') return 'Persona Física';
+  const ni = _padronNormName(investorName);
+  const na = _padronNormName(accountName);
   for (const rule of PADRON_CLASIF_RULES) {
-    if (rule.test(n)) return rule.label;
+    const accRe = rule.acc === undefined ? rule.inv : rule.acc;
+    if (rule.inv.test(ni) || (accRe && accRe.test(na))) return rule.label;
   }
   if (t === 'J') return 'Corporativo'; // persona jurídica sin keyword específico → cae en el bucket genérico
   return null;
@@ -6923,7 +6936,8 @@ async function _padronFetch(fecha, issuerCode, uuid, attempt) {
   _padronRows = _padronParseCsv(data.csv || '').rows;
   _padronRows.forEach(r => {
     r.clasificacionPropia = _padronMapeo[_padronNormName(r.investorName)]
-      || _padronHeuristicClasificar(r.investorType, r.investorName)
+      || _padronMapeo[_padronNormName(r.accountName)]
+      || _padronHeuristicClasificar(r.investorType, r.investorName, r.accountName)
       || 'Sin Clasificar';
     r.holdingAjustadoPropio = _padronAdjHolding(r);
   });
@@ -7166,24 +7180,42 @@ function _padronGroupByClasif(rows) {
     .sort((a, b) => b[1] - a[1]);
 }
 
-/* Drilldown: click en una porción del donut de Clasificación (propia) → modal con Top 20 tenedores de esa
-   categoría, ordenados por Holding ajustado (propio) descendente. */
+/* Drilldown: click en una porción del donut de Clasificación (propia) → modal con Top 20 cuentas de esa
+   categoría, ordenadas por Holding ajustado (propio) descendente. Se agrupa por accountName (nombre de la
+   cuenta) en vez de por investorName: el tenedor suele ser el custodio ("BOLSAS Y MERCADOS ARGSERVLIQ",
+   "BANCO DE VALORES SA - SOC DEP FCI") y la cuenta dice quién/qué fondo es realmente. Una misma cuenta con
+   varias ONs se suma en una sola fila. */
 function _padronShowClasifTop20(label, rows) {
   const filtered = (rows || []).filter(r => (r.clasificacionPropia || 'Sin Clasificar') === label);
-  const top20 = filtered.slice().sort((a, b) => _padronAdjHolding(b) - _padronAdjHolding(a)).slice(0, 20);
+
+  const byAccount = {};
+  filtered.forEach(r => {
+    const cuenta = (r.accountName || '').trim() || (r.investorName || '').trim();
+    const key = _padronNormName(cuenta) + '|' + _padronNormName(r.investorName);
+    const g = byAccount[key] || (byAccount[key] = { cuenta, tenedor: r.investorName || '', instrumentos: new Set(), holding: 0, adj: 0 });
+    g.instrumentos.add(r.instrumentDescription || '(Sin instrumento)');
+    g.holding += parseFloat(r.holding) || 0;
+    g.adj += _padronAdjHolding(r);
+  });
+  const accounts = Object.values(byAccount);
+  const top20 = accounts.sort((a, b) => b.adj - a.adj).slice(0, 20);
 
   document.getElementById('padronClasifModalTitle').textContent =
-    `Top 20 tenedores — ${label} (${filtered.length} en total)`;
+    `Top 20 cuentas — ${label} (${accounts.length} en total)`;
 
   document.getElementById('padronClasifModalTbody').innerHTML = top20.length
-    ? top20.map(r => `
+    ? top20.map(g => {
+      const instr = g.instrumentos.size === 1 ? Array.from(g.instrumentos)[0] : `${g.instrumentos.size} instrumentos`;
+      return `
       <tr>
-        <td>${_escHtml(r.investorName || '')}</td>
-        <td>${_escHtml(r.instrumentDescription || '')}</td>
-        <td style="text-align:right;">${(parseFloat(r.holding) || 0).toLocaleString('es-AR')}</td>
-        <td style="text-align:right;font-weight:600;">${Math.round(_padronAdjHolding(r)).toLocaleString('es-AR')}</td>
-      </tr>`).join('')
-    : '<tr><td colspan="4" class="deals-empty">Sin datos</td></tr>';
+        <td>${_escHtml(g.cuenta)}</td>
+        <td>${_escHtml(g.tenedor)}</td>
+        <td>${_escHtml(instr)}</td>
+        <td style="text-align:right;">${g.holding.toLocaleString('es-AR')}</td>
+        <td style="text-align:right;font-weight:600;">${Math.round(g.adj).toLocaleString('es-AR')}</td>
+      </tr>`;
+    }).join('')
+    : '<tr><td colspan="5" class="deals-empty">Sin datos</td></tr>';
 
   document.getElementById('padronClasifModal').classList.add('open');
 }
@@ -7350,6 +7382,7 @@ function _padronVisibleRows() {
   if (_padronFilterText) {
     rows = rows.filter(r =>
       (r.investorName || '').toLowerCase().includes(_padronFilterText) ||
+      (r.accountName || '').toLowerCase().includes(_padronFilterText) ||
       (r.investorTaxpayerIdentifier || '').toLowerCase().includes(_padronFilterText)
     );
   }
@@ -7449,13 +7482,21 @@ function _padronDownloadExcel() {
   const rows = _padronVisibleRows();
   if (rows.length === 0) { alert('No hay datos de padrón para descargar. Hacé una consulta primero.'); return; }
 
-  const headHtml = '<tr>' + PADRON_COLS.map(c => `<th>${_escHtml(c.label)}</th>`).join('') + '</tr>';
+  // Lo más liviano posible: sin estilos, colores, bordes ni formatos por celda.
+  // Encabezado en <td> (no <th>) para que no salga en negrita/centrado.
+  const headHtml = '<tr>' + PADRON_COLS.map(c => `<td>${_escHtml(c.label)}</td>`).join('') + '</tr>';
   const bodyHtml = rows.map(r =>
-    '<tr>' + PADRON_COLS.map(c => `<td>${_escHtml(r[c.key])}</td>`).join('') + '</tr>'
+    '<tr>' + PADRON_COLS.map(c => {
+      const v = r[c.key];
+      // x:num / x:str fijan el tipo sin estilos: sin x:num, Excel en locale es-AR lee "1234.5" como texto;
+      // sin x:str, los documentos largos pasan a notación científica.
+      if (c.numeric && v !== '' && v != null && isFinite(parseFloat(v))) return `<td x:num="${parseFloat(v)}">${parseFloat(v)}</td>`;
+      if (c.key === 'investorTaxpayerIdentifier' || c.key === 'registrationNumber') return `<td x:str="${_escHtml(v)}">${_escHtml(v)}</td>`;
+      return `<td>${_escHtml(v)}</td>`;
+    }).join('') + '</tr>'
   ).join('');
 
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>` +
-    `<body><table border="1">${headHtml}${bodyHtml}</table></bod` + `y></html>`;
+  const html = `<html xmlns:x="urn:schemas-microsoft-com:office:excel"><meta charset="UTF-8"><table>${headHtml}${bodyHtml}</table></html>`;
 
   const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
@@ -7496,7 +7537,7 @@ function _padronRenderTable() {
 
   if (totalCount > PADRON_TABLE_ROW_CAP) {
     note.style.display = 'block';
-    note.textContent = `Mostrando ${PADRON_TABLE_ROW_CAP.toLocaleString('es-AR')} de ${totalCount.toLocaleString('es-AR')} resultados. Usá "Descargar CSV" o "Descargar Excel" para ver el listado completo.`;
+    note.textContent = `Mostrando ${PADRON_TABLE_ROW_CAP.toLocaleString('es-AR')} de ${totalCount.toLocaleString('es-AR')} resultados. Usá "Descargar Excel (.xls)" para ver el listado completo.`;
   } else {
     note.style.display = 'none';
   }
