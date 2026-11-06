@@ -1,4 +1,4 @@
-5 de noviembre de 2026
+6 de noviembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,40 +8,59 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-TAMAR+3,23% 23,9375% 30,85% 3,26% 27,19% mié, 4 nov FF Pareto 17 VDFA ARS $2.683.009.748 (25%; T+323; 40%) 2,34 172 26/04/2027 A-1 (Moody´s) Margen jue, 5 nov
-TAMAR+12,00% 23,9375% 39,41% 9,75% 33,69% mié, 4 nov FF Pareto 17 VDFB ARS $178.633.808 (30%; T+1200; 45%) 5,71 172 26/04/2027 BBB- (Moody´s) Margen jue, 5 nov
-Px 99,16 23,9375% 33,09% 4,99% 28,93% mié, 4 nov FF Open Sports 1 VDFA ARS $3.000.000.000 (20%; T+100; 45%) 5,53 350 21/10/2027 AAA (Fix SCR) Precio jue, 5 nov
-Px 93,05 23,9375% 35,72% 7,00% 30,94% mié, 4 nov FF Open Sports 1 VDFB ARS $50.000.000 (21%; T+200; 46%) 12,56 382 22/11/2027 AAA (Fix SCR) Precio jue, 5 nov
-TAMAR+0,00% 23,9375% 26,17% -0,46% 23,48% mié, 4 nov ON Pyme CNV Garantizada Serviaut I - ARS $3.968.750.000 TAMAR+0,00% 17,75 731 05/11/2028 SC Margen jue, 5 nov
-Presentation Heading |
-Licita hoy
-STONEX
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-(i) Max (32%; T+Mg) para el primer
-ON Pyme CNV SION (Integra en $3.000.000.000 (amp. h/ $3.000.000.000 (amp. h/
-jue, 5 nov VI - ARS servicio; 9,20 359 05/11/2027 ML A-2 (Moody´s) Margen mié, 11 nov
-efectivo y/o en especie) $4.350.000.000) $4.350.000.000)
-(ii) T+Mg para los siguientes servicios
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-ON Pyme CNV Garantizada
-jue, 5 nov I $700.000.000 - ARS $700.000.000 TAMAR+Mg 19,75 731 12/11/2028 SC Margen jue, 12 nov
-Agroindustrias La Española
-Letras del Tesoro de la Provincia del $10.000.000.000 $10.000.000.000
-jue, 5 nov CXXIV - ARS TAMAR+Mg 3,36 105 24/02/2027 ML B (Moody´s) Margen mié, 11 nov
-Chubut (ampliable) (ampliable)
+(i) Max (32%; T+700) para el primer
+ON Sion (Pyme) (Integra en efectivo y/o en
+TAMAR+7,00% 24,0000% 35,35% 6,65% 30,65% jue, 5 nov VI - ARS $3.482.797.125 servicio; 9,19 359 05/11/2027 ML A-2 (Moody´s) Margen mié, 11 nov
+especie)
+(ii) T+700 para los siguientes servicios
+TAMAR+5,00% 24,0000% 33,11% 4,94% 28,94% jue, 5 nov Letras del Tesoro de la Provincia del Chubut CXXIV - ARS $54.012.000.000 TAMAR+5,00% 3,36 105 24/02/2027 ML B (Moody´s) Margen mié, 11 nov
+ON Pyme CNV Garantizada Agroindustrias La
+TAMAR+2,00% 24,0000% 28,65% 1,46% 25,46% jue, 5 nov I - ARS $700.000.000 TAMAR+2,00% 19,47 731 12/11/2028 SC Margen jue, 12 nov
+Española
 Presentation Heading |
 Operaciones en Difusión
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
 Licitación (meses) Pago Licitación Liquidación
+Letra del Tesoro Nacional
+mié, 11 nov S29E7 - ARS TEM 2,25% 2,53 77 29/01/2027 SC Precio vie, 13 nov
+Capitalizable en Pesos [Reapertura]
+Bono del Tesoro Nacional
+mié, 11 nov T30J7 - ARS TEM 2,58% 7,53 229 30/06/2027 SC Precio vie, 13 nov
+Capitalizable en Pesos [Reapertura] Hasta el monto máximo Hasta el monto máximo
+autorizado por la normativa autorizado por la normativa
+Letra del Tesoro Nacional en Pesos a vigente vigente
+mié, 11 nov TMA27 - ARS TAMAR+Mg 5,52 168 30/04/2027 SC Margen vie, 13 nov
+Tasa TAMAR [Nueva]
+Letra del Tesoro Nacional Cero Cupón
+mié, 11 nov D15E7 - USD Linked 0,00% 2,07 63 15/01/2027 SC Precio vie, 13 nov
+Vinculada al Dólar [Reapertura]
+Bono del Tesoro Nacional Cero
+Hasta un monto de VE Hasta un monto de VE
+mié, 11 nov Cupón con Ajuste por CER TZX28 - CER 0,00% 19,56 595 30/06/2028 SC Precio vie, 13 nov
+máximo de $ 5 billones máximo de $ 5 billones
+[Reapertura]
 ON Pyme CNV Garantizada Madero
 $2.000.000.000 (amp. h/ $2.000.000.000 (amp. h/
 jue, 12 nov Harbour (Integra en efectivo y/o en II - ARS TAMAR+Mg 17,75 731 16/11/2028 SC Margen lun, 16 nov
 $5.000.000.000) $5.000.000.000)
 especie)
+Letras de Tesorería de la Provincia
+jue, 12 nov - 15 ARS 27,00% TNA 0,92 28 11/12/2026 B (Fix SCR) Precio vie, 13 nov
+del Chaco [Reapertura]
+Letras de Tesorería de la Provincia
+jue, 12 nov - 18 ARS 27,00% TNA 2,07 63 15/01/2027 B (Fix SCR) Precio vie, 13 nov
+del Chaco [Reapertura]
+Letras de Tesorería de la Provincia
+jue, 12 nov - $140.000.000.000 21 ARS $140.000.000.000 TNA a licitar 2,99 91 12/02/2027 B (Fix SCR) Tasa vie, 13 nov
+del Chaco
+Letras de Tesorería de la Provincia
+jue, 12 nov - 22 ARS TAMAR+Mg 5,98 182 14/05/2027 B (Fix SCR) Margen vie, 13 nov
+del Chaco
+Letras de Tesorería de la Provincia
+jue, 12 nov - 23 ARS TAMAR+Mg 11,97 364 12/11/2027 B (Fix SCR) Margen vie, 13 nov
+del Chaco
+ON Pyme Garantizada Ingacot $2.000.000.000 (amp. h/ $2.000.000.000 (amp. h/
+vie, 13 nov I - ARS TAMAR+Mg 17,79 731 17/11/2028 SC Margen mar, 17 nov
+Comercial $4.000.000.000) $4.000.000.000)
