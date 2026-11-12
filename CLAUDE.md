@@ -319,8 +319,8 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - `_irsaCapCsvText` / `_cresudCapCsvText` — texto original del CSV (base para descarga)
 - `_irsaPieChart` / `_cresudPieChart` — referencias a los Chart.js de pie
 - `_irsaPieTotal` / `_cresudPieTotal` — totales dinámicos usados en el callback de tooltip del pie
-- `_brechaMEP` — brecha MEP / Dólar Oficial (default `1.0`); editable por sesión vía strip UI
-- `_brechaCC` — brecha CCL/Cable / Dólar Oficial (default `1.0`); editable por sesión vía strip UI
+- `_brechaMEP` — brecha MEP / Dólar Oficial (default `1.0`); fijo, sin UI
+- `_brechaCC` — brecha CCL/Cable / Dólar Oficial (default `1.0`); fijo, sin UI
 
 **Funciones principales**:
 - `_buildIrsaExtraRow(nombre, fi, ff, monto, tasa, moneda)` — construye objeto compatible con `irsa_deuda.csv`; usa `MONEDA: isUsd ? 'HD' : 'ARS'`, `Monto USD='0'` para ARS (reemplazó el campo `TC`)
@@ -341,7 +341,7 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 - `removeDescubierto(empresa, idx)` — splice del array y rebuild
 - `downloadDescCsv()` — serializa extra rows al formato CSV de cada empresa y descarga el archivo actualizado
 
-### Brecha S/MULC (session-editable)
+### Brecha S/MULC (fija en 1.0)
 
 Permite ajustar el tipo de cambio implícito de los instrumentos sin acceso al MULC para reflejar el costo económico real en términos de dólares a tipo oficial.
 
@@ -350,13 +350,9 @@ Permite ajustar el tipo de cambio implícito de los instrumentos sin acceso al M
 **Fórmula**: `Monto USD efectivo = Monto Webcast × brecha`  
 (para instrumentos S/MULC — los demás usan `Monto USD` del CSV directamente)
 
-**UI**: strip compacto `.brecha-strip` debajo del header de cada sección (IRSA y Cresud), antes del toggle de vista del maturity chart. Dos inputs:
-- `MEP / Oficial` (`.inp-brecha-mep`) — para instrumentos `MEP S/MULC`
-- `CCL / Oficial` (`.inp-brecha-cc`) — para instrumentos `CABLE S/MULC`
+**UI**: removida el 2026-11-12 — los inputs `MEP / Oficial` y `CCL / Oficial` (`.brecha-strip`) y su handler `_applyBrechaInputs` se sacaron de las secciones IRSA y Cresud. `_brechaMEP` / `_brechaCC` quedan fijos en `1.0` (instrumentos S/MULC se valúan a su nominal). Para reintroducir un ajuste, cambiar esos valores en el JS o restaurar el strip desde el historial de git.
 
-Los dos strips (IRSA y Cresud) están sincronizados: cambiar uno actualiza el otro y recalcula ambas secciones.
-
-**Alcance del recálculo** al cambiar la brecha:
+**Alcance del recálculo** de la brecha (si se cambian los valores en el JS):
 - Maturity wall (barras y tooltips) — vía `_buildIrsaMatData` / `_buildCresudMatData`
 - Tabla de detalle (columna Capital y Outstanding) — vía `_renderIrsaTableBase` / `_renderCresudTableBase`
 - Pie chart de moneda — vía `_computePieDataFromRows`
@@ -367,9 +363,6 @@ Los dos strips (IRSA y Cresud) están sincronizados: cambiar uno actualiza el ot
 
 **Funciones**:
 - `_rowUsdAmt(r)` — helper centralizado; detecta `r['MONEDA'].includes('S/MULC')` y aplica `_brechaCC` o `_brechaMEP` según si incluye `'CABLE'`. Para el resto: `parseFloat(r['Monto USD'])`.
-- `_applyBrechaInputs(src)` — `onchange` de los inputs; detecta qué campo cambió por clase CSS, actualiza el global correspondiente, sincroniza todos los inputs del mismo tipo en la página, y llama `_rebuildIrsa()` + `_rebuildCresud()`.
-
-**Persistencia**: solo de sesión — los valores se resetean a `1.0` al refrescar. El CSV no se ve afectado ni se descarga con la brecha aplicada.
 
 **Maturity wall IRSA — dataset 3**: se agregó un tercer dataset "Deuda Bancaria" (color `#4A7A9B`, índice 0) delante de "ONs" (otras, índice 1) y "ONs" (xxiv, índice 2). El plugin de anotación `irsaMatPlugin` usa `m0/m1/m2` y elige la barra más alta para el label de total.
 
