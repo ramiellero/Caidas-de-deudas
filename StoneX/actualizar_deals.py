@@ -402,7 +402,7 @@ def abrir_y_extraer_texto(url):
 
             page.wait_for_timeout(2000)
 
-        page.screenshot(path=str(SCREENSHOT), full_page=True)
+        screenshot_bytes = page.screenshot(full_page=True)
 
         page.mouse.wheel(0, 2000)
         time.sleep(3)
@@ -464,13 +464,13 @@ def abrir_y_extraer_texto(url):
             print(f"No pude descargar/parsear PDF ({e}); usando texto de frames")
 
     if not texto_tiene_resultados_parseables(texto_total):
-        TXT_OUTPUT.write_text(texto_total, encoding="utf-8")
         raise RuntimeError(
             "La extraccion de StoneX no contiene una tabla parseable; "
             "abortando para no actualizar CSVs con un informe incompleto."
         )
 
     TXT_OUTPUT.write_text(texto_total, encoding="utf-8")
+    SCREENSHOT.write_bytes(screenshot_bytes)
     print(f"\nTexto extraído guardado en: {TXT_OUTPUT}")
 
     return texto_total
