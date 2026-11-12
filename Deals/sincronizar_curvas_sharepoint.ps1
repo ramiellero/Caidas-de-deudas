@@ -25,7 +25,10 @@
 # Uso manual: powershell -File sincronizar_curvas_sharepoint.ps1
 
 param(
-    [string]$FechaOverride   # yyyy-MM-dd, solo para pruebas / backfill puntual
+    [string]$FechaOverride,  # yyyy-MM-dd, solo para pruebas / backfill puntual
+    [string]$Destino         # carpeta destino; default Deals\CurvasSync\ (sirve solo si el repo vive dentro de OneDrive).
+                             # Si el repo NO esta dentro de OneDrive, pasar una carpeta de OneDrive, p.ej.
+                             # -Destino "$env:OneDriveCommercial\Curvas ONs"
 )
 
 # --- Configuracion ------------------------------------------------------------
@@ -33,7 +36,7 @@ param(
 $RepoRoot = Split-Path -Parent $PSScriptRoot   # Deals\.. -> raiz del repo
 $Rama = 'origin/main'
 
-$DestinoBase = Join-Path $PSScriptRoot 'CurvasSync'
+$DestinoBase = if ($Destino) { $Destino } else { Join-Path $PSScriptRoot 'CurvasSync' }
 
 # Archivos a sincronizar: ruta dentro del repo -> si se guarda con fecha en el nombre o se pisa
 $Archivos = @(
