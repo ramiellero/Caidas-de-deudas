@@ -1,0 +1,8 @@
+/*.csv
+  Cache-Control: public, max-age=0, must-revalidate
+/*/*.csv
+  Cache-Control: public, max-age=0, must-revalidate
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+/login.html
+  Cache-Control: public, max-age=0, must-revalidate

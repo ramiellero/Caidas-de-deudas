@@ -24,7 +24,7 @@ param(
 
 # --- Configuracion ------------------------------------------------------------
 
-$BaseUrl = 'https://caidas-de-deudas.vercel.app'
+$BaseUrl = if ($env:PADRON_BASE_URL) { $env:PADRON_BASE_URL } else { 'https://caidas-de-deudas.pages.dev' }
 
 $DestinoBase = 'T:\Finanzas\TODOS\Mercado de Capitales\04 - Reportes MC\Tenedores ONs\BASE CAJA\Padron'
 

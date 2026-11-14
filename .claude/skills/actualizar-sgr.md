@@ -140,4 +140,4 @@ preguntando campo por campo.
 2. `git status` / `git diff --stat` de los CSVs de `SGR/` para que el usuario confirme visualmente.
 3. `git add SGR/<archivos tocados>` + commit con mensaje descriptivo (e.g. `SGR: carga datos jun-26`).
 4. **Preguntar explícitamente antes de `git push`** — no pushear automáticamente sin confirmación, aunque el resto del flujo haya sido aprobado.
-5. Recordar al usuario que Vercel redespliega solo tras el push (no hace falta ningún otro paso).
+5. Recordar al usuario que Cloudflare Pages redespliega solo tras el push (no hace falta ningún otro paso).

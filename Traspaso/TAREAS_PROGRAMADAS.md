@@ -7,13 +7,13 @@ Adaptado el **2026-11-12** a partir del relevamiento de la PC de Ramiro (`reller
 - **Cómo se registran**: con [registrar_tareas.ps1](registrar_tareas.ps1), que arma las tareas con las rutas de este clon y el usuario que lo corre. Ya no hace falta editar ni importar XML.
 - Los XML de [tareas_xml/](tareas_xml/) quedan **solo como referencia** de cómo estaban en la PC de Ramiro (tienen su ruta y su SID). No importarlos.
 
-> Este documento **no contiene credenciales**. Los secretos viven en Vercel (env vars) y en `Padron\padron_auth.local.ps1` (archivo local, gitignoreado, **no está en el repo**).
+> Este documento **no contiene credenciales**. Los secretos viven en Cloudflare Pages y Vercel (env vars) y en `Padron\padron_auth.local.ps1` (archivo local, gitignoreado, **no está en el repo**).
 
 ---
 
 ## Sobre "los scrapers"
 
-- **Scraper de curvas ONs** (`Deals\scraper_curvas.py`): **no corre en la PC**. Lo corre **GitHub Actions** lun-vie 10:00 ART y commitea los CSV; el push redeploya Vercel. Lo único que hace la PC es *bajar* esos CSV (tareas 5 y 6). La tarea vieja "Scraper Curvas ONs PPI" está obsoleta y **no se registra**.
+- **Scraper de curvas ONs** (`Deals\scraper_curvas.py`): **no corre en la PC**. Lo corre **GitHub Actions** lun-vie 10:00 ART y commitea los CSV; el push redeploya Cloudflare Pages. Lo único que hace la PC es *bajar* esos CSV (tareas 5 y 6). La tarea vieja "Scraper Curvas ONs PPI" está obsoleta y **no se registra**.
 - **Carga de emisiones** (`StoneX\actualizar_deals.py`): la corre a mano un compañero desde su PC. No es una tarea programada.
 - **Padrón** (tareas 1–4): es lo único que *tiene* que correr en una PC de la red, porque guarda en `T:\`.
 
@@ -58,7 +58,7 @@ Estado verificado el 2026-11-12 en esta PC: `T:\` montada y con las carpetas `Pa
    O desde la UI: Programador de tareas → clic derecho en la tarea → Ejecutar.
 4. **Que Ramiro desactive sus tareas** en su PC (las 7) cuando las tuyas estén andando, para no tener dos PCs bajando y pisando el mismo padrón.
 5. **Si el repo cambia de dueño** (transferencia de GitHub o repo nuevo): actualizar el remote de este clon (`git remote set-url origin <url nueva>`). Hoy apunta a `github.com/ramiellero/Caidas-de-deudas`. El compañero de StoneX tiene que hacer lo mismo en su clon.
-6. Pasar el control de Vercel (proyecto, env vars) y que Ramiro haga `gh auth logout` en su PC.
+6. Pasar el control de Cloudflare y Vercel (proyecto, env vars) y que Ramiro haga `gh auth logout` en su PC.
 
 ---
 
@@ -77,11 +77,11 @@ Estado verificado el 2026-11-12 en esta PC: `T:\` montada y con las carpetas `Pa
 ### 1 y 2. Descarga Padron IRSA / Descarga Padron Cresud (semanal)
 - **Script**: `Padron\descargar_padron_semanal.ps1 -IssuerCode IRSA` (o `CRES`).
 - **Disparador**: semanal, lunes 11:00.
-- **Qué hace**: hace login contra `/api/login` del dashboard en Vercel, llama a `/api/padron` (que consulta la API de Custodia de BYMA), espera hasta que el reporte esté listo (polling cada 15 s, hasta 24 intentos) y guarda el CSV crudo.
+- **Qué hace**: hace login contra `/api/login` del dashboard en Cloudflare Pages, llama a `/api/padron` (que consulta la API de Custodia de BYMA), espera hasta que el reporte esté listo (polling cada 15 s, hasta 24 intentos) y guarda el CSV crudo.
 - **Fecha de balance**: hoy − 3 días (si corre un lunes, pide el viernes previo).
 - **Salida**: `T:\Finanzas\TODOS\Mercado de Capitales\04 - Reportes MC\Tenedores ONs\BASE CAJA\Padron\{IRSA|Cresud}\Padron_{IRSA|Cresud}_{fecha}.csv`
 - **Log**: `Padron\descargar_padron_semanal_IRSA.log` / `_CRES.log`.
-- **Necesita**: red corporativa con `T:\` montada, `Padron\padron_auth.local.ps1` (o env vars `PADRON_AUTH_USER` / `PADRON_AUTH_PASSWORD`) y el sitio de Vercel activo.
+- **Necesita**: red corporativa con `T:\` montada, `Padron\padron_auth.local.ps1` (o env vars `PADRON_AUTH_USER` / `PADRON_AUTH_PASSWORD`) y el sitio de Cloudflare Pages activo (y el backend del padrón en Vercel).
 - **Fallos conocidos**: si `T:\` no está montada, el padrón se baja pero no se guarda (pasó en la PC de Ramiro el 2026-08-17 y el 2026-11-09). También hay fallos esporádicos del lado de BYMA ("se agotaron los 24 intentos", "fetch failed"). En ambos casos, correr a mano.
 - **Pendiente heredado**: el padrón del 2026-11-06 (viernes) quedó sin guardar en la PC de Ramiro. Se recupera con `powershell -File Padron\descargar_padron_semanal.ps1 -BalanceDateOverride "2026-11-06"` (corre ambos emisores).
 
@@ -111,7 +111,8 @@ Estado verificado el 2026-11-12 en esta PC: `T:\` montada y con las carpetas `Pa
 ## Lo que NO corre en esta PC pero también es parte de la operación
 
 - **GitHub Actions** — `.github/workflows/scraper-curvas.yml`: scraper de curvas (BYMA Educa), lun-vie 10:00 ART. Se puede lanzar a mano desde la pestaña Actions ("Run workflow"). Sigue funcionando si se transfiere el repo.
-- **Vercel**: hosting del dashboard, `/api/login`, `/api/padron`. Env vars (no están en el repo): `AUTH_USER`, `AUTH_PASSWORD_HASH`, `SESSION_SECRET`, `BYMA_OKTA_TOKEN_URL`, `BYMA_SCOPE`, `BYMA_API_BASE`, `BYMA_CLIENT_ID`, `BYMA_CLIENT_SECRET` (y opcionalmente las variantes `_IRSA` / `_CRES`).
+- **Cloudflare Pages**: hosting del dashboard y `/api/login`; `/api/padron` es un proxy a Vercel. Env vars en Cloudflare: `AUTH_USER`, `AUTH_PASSWORD_HASH` (PBKDF2 10.000 iteraciones + pepper), `AUTH_PEPPER`, `SESSION_SECRET` (igual que en Vercel), `PADRON_UPSTREAM`.
+- **Vercel**: solo backend del padrón (`api/padron.js`, que consulta BYMA). Env vars: `SESSION_SECRET` y `AUTH_USER` (iguales a los de Cloudflare), `BYMA_OKTA_TOKEN_URL`, `BYMA_SCOPE`, `BYMA_API_BASE`, `BYMA_CLIENT_ID`, `BYMA_CLIENT_SECRET` (y opcionalmente las variantes `_IRSA` / `_CRES`).
 - **Carga semanal de emisiones** (`Deals\emisiones_*.csv`): un compañero, a mano, con `StoneX\actualizar_deals.py` desde su PC (ver `StoneX\CLAUDE.md`).
 
 ---
