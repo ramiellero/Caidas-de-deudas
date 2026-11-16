@@ -38,7 +38,9 @@ $Tareas = @(
     @{ Nombre = 'Descarga Padron Mensual IRSA';      Args = "-File `"$scriptPadron`" -IssuerCode IRSA -Mensual"; Semanal = $false }
     @{ Nombre = 'Descarga Padron Mensual Cresud';    Args = "-File `"$scriptPadron`" -IssuerCode CRES -Mensual"; Semanal = $false }
     @{ Nombre = 'Pull Diario Dashboard';             Args = "-File `"$scriptPull`"";                             Semanal = $false }
-    @{ Nombre = 'Sincronizar Curvas ONs SharePoint'; Args = $argsCurvas;                                         Semanal = $false }
+    # 11:15 y no 11:00: si corre a la vez que "Pull Diario", los dos "git fetch" chocan
+    # ("fetching ref refs/remotes/origin/main failed: incorrect old value provided").
+    @{ Nombre = 'Sincronizar Curvas ONs SharePoint'; Args = $argsCurvas;                                         Semanal = $false; DemoraMin = 15 }
 )
 
 if ($Desregistrar) {
@@ -67,10 +69,11 @@ $settings  = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGo
                 -StartWhenAvailable -MultipleInstances IgnoreNew -ExecutionTimeLimit (New-TimeSpan -Hours 2)
 
 foreach ($t in $Tareas) {
+    $hora = $inicio.AddMinutes([int]$t.DemoraMin)
     $trigger = if ($t.Semanal) {
-        New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At $inicio
+        New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At $hora
     } else {
-        New-ScheduledTaskTrigger -Daily -At $inicio
+        New-ScheduledTaskTrigger -Daily -At $hora
     }
     $action = New-ScheduledTaskAction -Execute 'powershell.exe' `
                 -Argument "-NoProfile -ExecutionPolicy Bypass $($t.Args)" -WorkingDirectory $RepoRoot

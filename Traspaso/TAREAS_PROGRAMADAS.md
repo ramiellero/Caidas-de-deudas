@@ -28,7 +28,7 @@ Adaptado el **2026-11-12** a partir del relevamiento de la PC de Ramiro (`reller
 | 3 | Descarga Padron Mensual IRSA | Todos los días 11:00 | Cierre de mes: actúa solo 3 días hábiles después del último hábil del mes |
 | 4 | Descarga Padron Mensual Cresud | Todos los días 11:00 | Ídem para Cresud |
 | 5 | Pull Diario Dashboard | Todos los días 11:00 | `git pull` del repo en la PC |
-| 6 | Sincronizar Curvas ONs SharePoint | Todos los días 11:00 | Copia los CSV de curvas desde git a `C:\Users\Jgrandi\OneDrive - IRSACORP\Curvas ONs\` (OneDrive lo sube solo) |
+| 6 | Sincronizar Curvas ONs SharePoint | Todos los días 11:15 (después del pull, para que los `git fetch` no choquen) | Copia los CSV de curvas desde git a `C:\Users\Jgrandi\OneDrive - IRSACORP\Curvas ONs\` (OneDrive lo sube solo) |
 
 Todas corren como `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "<ruta>"`, con `WorkingDirectory` = raíz del repo y un límite de 2 horas por corrida.
 
@@ -101,7 +101,7 @@ Estado verificado el 2026-11-12 en esta PC: `T:\` montada y con las carpetas `Pa
 
 ### 6. Sincronizar Curvas ONs SharePoint
 - **Script**: `Deals\sincronizar_curvas_sharepoint.ps1 -Destino "C:\Users\Jgrandi\OneDrive - IRSACORP\Curvas ONs"`.
-- **Disparador**: diario 11:00 (una hora después de GitHub Actions, para que el commit ya esté pusheado).
+- **Disparador**: diario 11:15 (después de GitHub Actions, para que el commit ya esté pusheado, y 15 min después de "Pull Diario": si corren juntas, los dos `git fetch` chocan y la sincronización falla).
 - **Qué hace**: `git fetch` y copia desde `origin/main` `curvas_on.csv` (uno por fecha, `curvas_on_YYYY-MM-DD.csv`) y `curvas_propias_historico.csv` (se pisa) a la carpeta destino, que OneDrive sube sola.
 - **Log**: `Deals\sincronizar_curvas_sharepoint.log`.
 - Probado el 2026-11-12 contra una carpeta temporal: copia bien los dos archivos.
