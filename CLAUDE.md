@@ -308,7 +308,7 @@ Permite añadir descubiertos bancarios de corto plazo (1–14 días) en memoria 
 **Campos del formulario**: Empresa · Nombre/Banco · Moneda (USD / ARS) · Fecha Inicio · Fecha Vencimiento (máx. 14 días) · Monto · Tasa %.
 
 **Comportamiento por moneda**:
-- **USD**: el descubierto se refleja en el maturity wall (barra "Deuda Bancaria" `#4A7A9B`), en la timeline de capital (badge "Desc."), en el pie chart (bucket HD) y en la tabla de detalle.
+- **USD**: el descubierto se refleja en el maturity wall (barra "Deuda Bancaria" `#355F7E`), en la timeline de capital (badge "Desc."), en el pie chart (bucket HD) y en la tabla de detalle.
 - **ARS**: solo aparece en la tabla de detalle (columna Tipo = "Desc. ARS", monto en naranja). No afecta charts ni pie.
 
 **Globals de estado**:
@@ -364,7 +364,7 @@ Permite ajustar el tipo de cambio implícito de los instrumentos sin acceso al M
 **Funciones**:
 - `_rowUsdAmt(r)` — helper centralizado; detecta `r['MONEDA'].includes('S/MULC')` y aplica `_brechaCC` o `_brechaMEP` según si incluye `'CABLE'`. Para el resto: `parseFloat(r['Monto USD'])`.
 
-**Maturity wall IRSA — dataset 3**: se agregó un tercer dataset "Deuda Bancaria" (color `#4A7A9B`, índice 0) delante de "ONs" (otras, índice 1) y "ONs" (xxiv, índice 2). El plugin de anotación `irsaMatPlugin` usa `m0/m1/m2` y elige la barra más alta para el label de total.
+**Maturity wall IRSA — dataset 3**: se agregó un tercer dataset "Deuda Bancaria" (color `#355F7E`, índice 0) delante de "ONs" (color `#41729C`; otras, índice 1) y "ONs" (xxiv, índice 2). El plugin de anotación `irsaMatPlugin` usa `m0/m1/m2` y elige la barra más alta para el label de total.
 
 **Formato CSV de descarga**:
 - IRSA: `AÑO,FY,MONEDA,Periodo,Compañía,Sociedad,Concepto,Concepto 2,Fecha Inicio,Fecha Fin,Tasa,Moneda,Monto Webcast,Monto USD,Outstanding` — tasa con punto decimal; sin `TC`; columna `Outstanding` al final
