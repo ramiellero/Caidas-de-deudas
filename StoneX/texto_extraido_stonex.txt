@@ -1,4 +1,4 @@
-17 de noviembre de 2026
+18 de noviembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,42 +8,32 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-TAMAR+3,00% 24,3125% 30,24% 2,40% 26,71% lun, 16 nov ON Pyme Garantizada Alma I - ARS $1.500.000.000 TAMAR+3,00% 10,72 547 18/05/2028 SC Margen mié, 18 nov
-8,00% - 8,16% - - lun, 16 nov ON Capex - XIII USD Mep USD 105.950.798 8,00% 42,00 1461 18/11/2030 AA (Fix SCR) Tasa mié, 18 nov
+[OFERTA DE CONVERSIÓN] D30N6 x Letra del
+Px 99,23 - 4,10% - - mar, 17 nov Tesoro Nacional Cero Cupón Vinculada al Dólar D29E7 - USD Linked USD 2.875.000.000 0,00% 2,30 70 29/01/2027 SC Precio vie, 20 nov
+[Nueva]
+22,22% 24,1250% 34,00% 5,50% 29,62% mar, 17 nov FF Mercado Crédito LVI VDF ARS $141.099.999.996 (15%; T+100; 50%) 8,16 330 15/10/2027 AAA (Fix SCR) TIR jue, 19 nov
+TAMAR+2,00% 24,1250% 28,80% 1,45% 25,58% mar, 17 nov ON Pyme Garantizada Ingacot Comercial I - ARS $3.000.000.000 TAMAR+2,00% 17,52 731 19/11/2028 SC Margen jue, 19 nov
+7,00% - 7,18% - - mar, 17 nov ON Pyme Garantizada Elcor I - USD Mep USD 2.000.000 7,00% 19,80 912 19/05/2029 SC Tasa jue, 19 nov
+Letras del Tesoro de la Provincia de Buenos
+Px 98,14 24,1250% 27,79% 0,65% 24,77% mar, 17 nov LBD26 - ARS $586.191.940.429 0,00% 0,92 28 17/12/2026 ML B (Moody´s) Precio jue, 19 nov
+Aires [Reapertura]
+Letras del Tesoro de la Provincia de Buenos
+Px 95,78 24,1250% 28,34% 1,09% 25,22% mar, 17 nov - - ARS $55.329.396.135 0,00% 2,07 63 21/01/2027 ML B (Moody´s) Precio jue, 19 nov
+Aires [Nueva]
+Letras del Tesoro de la Provincia de Buenos
+Px 102,65 - 2,59% - - mar, 17 nov XBM27 - CER $26.991.649.756 4,75% 3,91 119 18/03/2027 ML B (Moody´s) Precio jue, 19 nov
+Aires [Reapertura]
+Letras del Tesoro de la Provincia de Buenos
+Px 102,31 24,1250% 31,82% 3,82% 27,95% mar, 17 nov BBA27 - ARS $2.848.793.451 TAMAR+4,75% 4,92 154 22/04/2027 ML B (Moody´s) Precio jue, 19 nov
+Aires [Reapertura]
+Títulos de Deuda Pública de la Provincia de B (S&P Global
+TAMAR+5,25% 24,1250% 32,74% 4,54% 28,66% mar, 17 nov - - ARS $93.051.990.000 TAMAR+5,25% 8,58 280 26/08/2027 Margen jue, 19 nov
+Buenos Aires [Nueva] Ratings)
+Títulos de Deuda Pública de la Provincia de BB+ (S&P Global
+TAMAR+7,25% 24,1250% 35,26% 6,46% 30,59% mar, 17 nov - - ARS $68.261.159.177 TAMAR+7,25% 10,73 364 18/11/2027 Margen jue, 19 nov
+Buenos Aires [Nueva] Ratings)
 Presentation Heading |
 Licita hoy
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-ON Pyme Garantizada Ingacot $2.000.000.000 (amp. h/ $2.000.000.000 (amp. h/
-mar, 17 nov I - ARS TAMAR+Mg 17,79 731 19/11/2028 SC Margen jue, 19 nov
-Comercial $4.000.000.000) $4.000.000.000)
-mar, 17 nov FF Telluria I USD 9.548.071 VDF USD Mep USD 7.200.000 5,00% 6,60 242 20/07/2027 A1+ (Fix SCR) Precio vie, 20 nov
-mar, 17 nov FF Mercado Crédito LVI $169.999.999.996 VDF ARS $141.099.999.996 (15%; T+100; 50%) 8,16 330 15/10/2027 AAA (Fix SCR) TIR jue, 19 nov
-mar, 17 nov ON Pyme Garantizada Elcor I USD 2.000.000 - USD Mep USD 2.000.000 A licitar 19,60 912 19/05/2029 SC Tasa jue, 19 nov
-Letras del Tesoro de la Provincia de
-mar, 17 nov - - ARS 0,00% 2,07 63 21/01/2027 ML B (Moody´s) Precio jue, 19 nov
-Buenos Aires [Nueva]
-Letras del Tesoro de la Provincia de
-mar, 17 nov XBM27 - CER 4,75% 3,91 119 18/03/2027 ML B (Moody´s) Precio jue, 19 nov
-Buenos Aires [Reapertura] $2.500.000.000 (ampliable) $2.500.000.000 (ampliable)
-Letras del Tesoro de la Provincia de
-mar, 17 nov BBA27 - ARS TAMAR+4,75% 4,92 154 22/04/2027 ML B (Moody´s) Precio jue, 19 nov
-Buenos Aires [Reapertura]
-Títulos de Deuda Pública de la
-mar, 17 nov - - ARS TAMAR+Mg 8,58 280 26/08/2027 A informar Margen jue, 19 nov
-Provincia de Buenos Aires [Nueva]
-$25.000.000.000 $25.000.000.000
-(ampliable) (ampliable)
-Títulos de Deuda Pública de la
-mar, 17 nov - - ARS TAMAR+Mg 10,80 364 18/11/2027 A informar Margen jue, 19 nov
-Provincia de Buenos Aires [Nueva]
-[OFERTA DE CONVERSIÓN] D30N6 x Hasta el monto máximo Hasta el monto máximo
-mar, 17 nov Letra del Tesoro Nacional Cero Cupón D29E7 autorizado por la normativa - USD Linked autorizado por la normativa 0,00% 2,30 70 29/01/2027 SC Precio vie, 20 nov
-Vinculada al Dólar [Nueva] vigente vigente
-Presentation Heading |
-Operaciones en Difusión
 STONEX
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -51,9 +41,6 @@ Licitación (meses) Pago Licitación Liquidación
 mié, 18 nov FF Fiducar XXXVI VDFA ARS $6.085.260.970 (20%; T+100; 42%) 7,01 403 27/12/2027 AAA (Moody´s) TIR jue, 19 nov
 $10.155.959.206
 mié, 18 nov FF Fiducar XXXVI VDFB ARS $414.904.158 (21%; T+200; 43%) 13,69 432 25/01/2028 A (Moody´s) TIR jue, 19 nov
-jue, 19 nov FF Megabono Crédito 356 VDFA ARS $8.702.445.317 (23%; T+Mg; 42%) 4,37 249 27/07/2027 AAA (Fix SCR) Margen vie, 20 nov
-$10.459.669.852
-jue, 19 nov FF Megabono Crédito 356 VDFB ARS $1.757.224.535 (25%; T+Mg; 50%) 9,91 341 27/10/2027 AA- (Fix SCR) Margen vie, 20 nov
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -67,7 +54,24 @@ Provincia de Tierra del Fuego monto máximo disponible) monto máximo disponible
 A los 18 meses
 mié, 18 nov ON Pyme CNV Norvex - $1.000.000.000 I ARS $1.000.000.000 (25%; T+Mg; 45%) 12,72 A informar de la fecha de SC Margen A informar
 emisión
+Presentation Heading |
+Operaciones en Difusión
+STONEX
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+jue, 19 nov FF Megabono Crédito 356 VDFA ARS $8.702.445.317 (23%; T+Mg; 42%) 4,37 249 27/07/2027 AAA (Fix SCR) Margen vie, 20 nov
+$10.459.669.852
+jue, 19 nov FF Megabono Crédito 356 VDFB ARS $1.757.224.535 (25%; T+Mg; 50%) 9,91 341 27/10/2027 AA- (Fix SCR) Margen vie, 20 nov
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+jue, 19 nov FF Telluria I USD 9.548.071 VDF USD Mep USD 7.200.000 5,00% 6,60 242 20/07/2027 A1+ (Fix SCR) Precio vie, 20 nov
 jue, 19 nov ON Pyme Garantizada Formaco I USD 300.000 - USD Mep USD 300.000 A licitar 17,43 731 24/11/2028 SC Tasa mar, 24 nov
 USD 15.000.000 (amp. h/ USD 15.000.000 (amp. h/
 jue, 19 nov ON INVAP - VII USD Mep A licitar 22,47 1096 24/11/2029 A+ (Fix SCR) Tasa mar, 24 nov
 USD 20.000.000) USD 20.000.000)
+Letras de la Municipalidad de Godoy
+jue, 19 nov IV $800.000.000 - ARS $800.000.000 TAMAR+Mg 1,12 34 29/12/2026 ML A-2 (Moody´s) Margen mié, 25 nov
+Cruz Garantizadas [Bono SVS]
