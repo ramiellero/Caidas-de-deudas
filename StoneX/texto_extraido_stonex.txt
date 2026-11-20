@@ -1,4 +1,4 @@
-19 de noviembre de 2026
+20 de noviembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,34 +8,27 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-29.30% 24.1250% 34.70% 6.03% 30.16% mié, 18 nov FF Fiducar XXXVI VDFA ARS $6,085,260,970 (20%; T+100; 42%) 7.06 403 27/12/2027 AAA (Moody´s) TIR jue, 19 nov
-32.45% 24.1250% 37.30% 8.00% 32.12% mié, 18 nov FF Fiducar XXXVI VDFB ARS $414,904,158 (21%; T+200; 43%) 14.05 432 25/01/2028 A (Moody´s) TIR jue, 19 nov
-Títulos de Deuda de la Municipalidad de
-TAMAR+10,00% 24.1250% 38.75% 9.07% 33.20% mié, 18 nov I - ARS $10,000,000,000 TAMAR+10,00% 12.73 547 20/05/2028 BBB- (Moody´s) Margen vie, 20 nov
-Guaymallén [Bono SVS]
-Títulos de Deuda del Banco de la Provincia de
-TAMAR+7,25% 24.1250% 35.27% 6.47% 30.59% mié, 18 nov - I ARS $18,363,059,548 TAMAR+7,25% 8.40 273 20/08/2027 A2 (Fix SCR) Margen vie, 20 nov
-Tierra del Fuego
-TAMAR+7,50% 24.1250% 35.58% 6.70% 30.83% mié, 18 nov ON Pyme CNV Norvex - I ARS $1,000,000,000 (25%; T+750; 45%) 11.76 547 20/05/2028 SC Margen vie, 20 nov
+TAMAR+4,24% 24.0000% 32.17% 4.22% 28.22% jue, 19 nov FF Megabono Crédito 356 VDFA ARS $8,702,445,317 (23%; T+424; 42%) 4.44 249 27/07/2027 AAA (Fix SCR) Margen vie, 20 nov
+TAMAR+6,00% 24.0000% 32.79% 4.70% 28.70% jue, 19 nov FF Megabono Crédito 356 VDFB ARS $1,757,224,535 (25%; T+600; 50%) 9.68 341 27/10/2027 AA- (Fix SCR) Margen vie, 20 nov
+Px 100.01 - 5.07% - - jue, 19 nov FF Telluria I VDF USD Mep USD 7,200,000 5.00% 6.65 242 20/07/2027 A1+ (Fix SCR) Precio vie, 20 nov
+6.75% - 6.80% - - jue, 19 nov ON Pyme Garantizada Formaco I - USD Mep USD 300,000 6.75% 17.54 731 24/11/2028 SC Tasa mar, 24 nov
+8.00% - 8.24% - - jue, 19 nov ON INVAP - VII USD Mep USD 20,000,000 8.00% 22.17 1096 24/11/2029 A+ (Fix SCR) Tasa mar, 24 nov
+Letras de la Municipalidad de Godoy Cruz
+TAMAR+3,50% 24.0000% 31.20% 3.46% 27.46% jue, 19 nov IV - ARS $800,000,000 TAMAR+3,50% 1.12 34 29/12/2026 ML A-2 (Moody´s) Margen mié, 25 nov
+Garantizadas [Bono SVS]
 Presentation Heading |
-Licita hoy
-STONEX
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-jue, 19 nov FF Megabono Crédito 356 VDFA ARS $8,702,445,317 (23%; T+Mg; 42%) 4.37 249 27/07/2027 AAA (Fix SCR) Margen vie, 20 nov
-$10,459,669,852
-jue, 19 nov FF Megabono Crédito 356 VDFB ARS $1,757,224,535 (25%; T+Mg; 50%) 9.91 341 27/10/2027 AA- (Fix SCR) Margen vie, 20 nov
+Operaciones en Difusión
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
 Licitación (meses) Pago Licitación Liquidación
-jue, 19 nov FF Telluria I USD 9,548,071 VDF USD Mep USD 7,200,000 5.00% 6.60 242 20/07/2027 A1+ (Fix SCR) Precio vie, 20 nov
-jue, 19 nov ON Pyme Garantizada Formaco I USD 300,000 - USD Mep USD 300,000 A licitar 17.43 731 24/11/2028 SC Tasa mar, 24 nov
-USD 15.000.000 (amp. h/ USD 15.000.000 (amp. h/
-jue, 19 nov ON INVAP - VII USD Mep A licitar 22.47 1096 24/11/2029 A+ (Fix SCR) Tasa mar, 24 nov
-USD 20.000.000) USD 20.000.000)
-Letras de la Municipalidad de Godoy
-jue, 19 nov IV $800,000,000 - ARS $800,000,000 TAMAR+Mg 1.12 34 29/12/2026 ML A-2 (Moody´s) Margen mié, 25 nov
-Cruz Garantizadas [Bono SVS]
-Presentation Heading |
+ON Banco BBVA Argentina (Integra en USD 20.000.000 (amp. h/ USD 20.000.000 (amp. h/
+mar, 24 nov - 51 USD Mep A licitar 14.78 457 26/02/2028 A informar Tasa jue, 26 nov
+efectivo y/o en especie) USD 80.000.000) USD 80.000.000)
+ON Pyme Garantizada Demoliciones
+mar, 24 nov I $1,000,000,000 - ARS $1,000,000,000 TAMAR+Mg 17.55 731 26/11/2028 SC Margen jue, 26 nov
+Mitre [Bono SVS]
+mié, 25 nov ON Pyme Garantizada Gastaldi I I USD Mep A licitar 22.54 912 27/05/2029 SC Tasa vie, 27 nov
+USD 3.000.000 (amp. h/ USD 3.000.000 (amp. h/
+USD 5.500.000) USD 5.500.000)
+mié, 25 nov ON Pyme Garantizada Gastaldi I II USD Linked A licitar 14.59 457 27/02/2028 SC Tasa vie, 27 nov
