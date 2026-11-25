@@ -1921,12 +1921,10 @@ def actualizar_bajo_impacto(texto):
         sep=";"
     )
 
-    ultimos_30 = ordenar_deals_por_fecha(
-        filtrar_ultimos_dias(final, dias=30)
-    )
-
+    # La web recibe la base completa; el rango de fechas lo aplican los filtros del dashboard
+    # (antes se publicaban solo los últimos 30 días y la tabla/Excel mostraban menos ONs).
     guardar_csv_web_deals(
-        ultimos_30,
+        final,
         CSV_WEB_BAJO_IMPACTO
     )
 
@@ -1936,9 +1934,9 @@ def actualizar_bajo_impacto(texto):
     print("\nNuevas ON < 10MM agregadas:")
     print(len(df_agregar))
 
-    print("\nTabla web ultimos 30 dias:")
+    print("\nTabla web (base completa):")
     print(CSV_WEB_BAJO_IMPACTO)
-    print("Filas:", len(ultimos_30))
+    print("Filas:", len(final))
 
 def actualizar_difusion(texto):
 
