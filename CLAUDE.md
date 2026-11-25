@@ -532,6 +532,7 @@ Sección de emisiones de ONs del mercado argentino. Fuente: `emisiones_obligacio
 - `_dealsMonedaBadge(m)` — retorna `[cssClass, textoDisplay]` por tipo de moneda
 - `_escHtml(s)` — escapa `&`, `<`, `>` (XSS safety en `innerHTML`)
 - `_dealsUpdateSortHeaders()` — agrega clase `sort-asc` / `sort-desc` al `<th>` activo
+- **Botón "Descargar Excel"** (barra de filtros) → `_dealsDownloadXlsx()`: descarga `Deals_AAAA-MM-DD.xlsx` con dos hojas, `Tabla` (`_dealsFiltered`, con el sort activo) y `ON<10MM` (`_dealsLowFiltered`) — es decir, exactamente lo que muestran ambas tablas con los filtros aplicados. Mismas 8 columnas; la moneda usa la misma etiqueta que cada tabla (`_dealsMonedaBadge` / `_dealsLowMonedaBadge`). Fecha = fecha Excel `dd/mm/yyyy`, Tasa/Margen = número `0.00%` (textos no numéricos como `"TEM 2,65%"` quedan como texto), Plazo = entero, VN = `#,##0.00`; Plazo/VN en 0 quedan vacíos (la web muestra "—"). Con autofiltro, primera fila inmovilizada y anchos ajustados. El .xlsx se arma a mano sin librerías (`_dealsXlsxRows` → `_xlsxBuild` → `_zipStore`, ZIP sin compresión). Si se agrega/quita una columna en las tablas de Deals, actualizar `_dealsXlsxRows`.
 
 **CSS Deals**:
 - `.deals-filters` — flexbox; en mobile: grid 2 columnas; 5° grupo (Emisor) y botón a ancho completo
