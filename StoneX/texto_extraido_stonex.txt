@@ -1,75 +1,21 @@
-24 de noviembre de 2026
+25 de noviembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
 opinión o estimación contenida eneste reporte representael juicio actualde StoneX yestá sujetoa cambios sin previo aviso. StoneX Securities S.A. o sus vinculadas podrían proveerconsejo respecto a adquirir, mantener o
 venderlosinstrumentosnombradosenesteinforme.
-Resultados de la semana
+Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-TAMAR+3,00% 24,3125% 30,24% 2,40% 26,71% lun, 16 nov ON Pyme Garantizada Alma I - ARS $1.500.000.000 TAMAR+3,00% 10,72 547 18/05/2028 SC Margen mié, 18 nov
-8,00% - 8,16% - - lun, 16 nov ON Capex - XIII USD Mep USD 105.950.798 8,00% 42,00 1461 18/11/2030 AA (Fix SCR) Tasa mié, 18 nov
-[OFERTA DE CONVERSIÓN] D30N6 x Letra del
-Px 99,23 - 4,10% - - mar, 17 nov Tesoro Nacional Cero Cupón Vinculada al Dólar D29E7 - USD Linked USD 2.875.000.000 0,00% 2,30 70 29/01/2027 SC Precio vie, 20 nov
-[Nueva]
-22,22% 24,1250% 34,00% 5,50% 29,62% mar, 17 nov FF Mercado Crédito LVI VDF ARS $141.099.999.996 (15%; T+100; 50%) 8,16 330 15/10/2027 AAA (Fix SCR) TIR jue, 19 nov
-TAMAR+2,00% 24,1250% 28,80% 1,45% 25,58% mar, 17 nov ON Pyme Garantizada Ingacot Comercial I - ARS $3.000.000.000 TAMAR+2,00% 17,52 731 19/11/2028 SC Margen jue, 19 nov
-7,00% - 7,18% - - mar, 17 nov ON Pyme Garantizada Elcor I - USD Mep USD 2.000.000 7,00% 19,80 912 19/05/2029 SC Tasa jue, 19 nov
-Letras del Tesoro de la Provincia de Buenos
-Px 98,14 24,1250% 27,79% 0,65% 24,77% mar, 17 nov LBD26 - ARS $586.191.940.429 0,00% 0,92 28 17/12/2026 ML B (Moody´s) Precio jue, 19 nov
-Aires [Reapertura]
-Letras del Tesoro de la Provincia de Buenos
-Px 95,78 24,1250% 28,34% 1,09% 25,22% mar, 17 nov - - ARS $55.329.396.135 0,00% 2,07 63 21/01/2027 ML B (Moody´s) Precio jue, 19 nov
-Aires [Nueva]
-Letras del Tesoro de la Provincia de Buenos
-Px 102,65 - 2,59% - - mar, 17 nov XBM27 - CER $26.991.649.756 4,75% 3,91 119 18/03/2027 ML B (Moody´s) Precio jue, 19 nov
-Aires [Reapertura]
-Letras del Tesoro de la Provincia de Buenos
-Px 102,31 24,1250% 31,82% 3,82% 27,95% mar, 17 nov BBA27 - ARS $2.848.793.451 TAMAR+4,75% 4,92 154 22/04/2027 ML B (Moody´s) Precio jue, 19 nov
-Aires [Reapertura]
-Títulos de Deuda Pública de la Provincia de B (S&P Global
-TAMAR+5,25% 24,1250% 32,74% 4,54% 28,66% mar, 17 nov - - ARS $93.051.990.000 TAMAR+5,25% 8,58 280 26/08/2027 Margen jue, 19 nov
-Buenos Aires [Nueva] Ratings)
-Títulos de Deuda Pública de la Provincia de BB+ (S&P Global
-TAMAR+7,25% 24,1250% 35,26% 6,46% 30,59% mar, 17 nov - - ARS $68.261.159.177 TAMAR+7,25% 10,73 364 18/11/2027 Margen jue, 19 nov
-Buenos Aires [Nueva] Ratings)
-Presentation Heading |
-Resultados de la semana
-Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
-Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
-Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-29,30% 24,1250% 34,70% 6,03% 30,16% mié, 18 nov FF Fiducar XXXVI VDFA ARS $6.085.260.970 (20%; T+100; 42%) 7,06 403 27/12/2027 AAA (Moody´s) TIR jue, 19 nov
-32,45% 24,1250% 37,30% 8,00% 32,12% mié, 18 nov FF Fiducar XXXVI VDFB ARS $414.904.158 (21%; T+200; 43%) 14,05 432 25/01/2028 A (Moody´s) TIR jue, 19 nov
-Títulos de Deuda de la Municipalidad de
-TAMAR+10,00% 24,1250% 38,75% 9,07% 33,20% mié, 18 nov I - ARS $10.000.000.000 TAMAR+10,00% 12,73 547 20/05/2028 BBB- (Moody´s) Margen vie, 20 nov
-Guaymallén [Bono SVS]
-Títulos de Deuda del Banco de la Provincia de
-TAMAR+7,25% 24,1250% 35,27% 6,47% 30,59% mié, 18 nov - I ARS $18.363.059.548 TAMAR+7,25% 8,40 273 20/08/2027 A2 (Fix SCR) Margen vie, 20 nov
-Tierra del Fuego
-TAMAR+7,50% 24,1250% 35,58% 6,70% 30,83% mié, 18 nov ON Pyme CNV Norvex - I ARS $1.000.000.000 (25%; T+750; 45%) 11,76 547 20/05/2028 SC Margen vie, 20 nov
-TAMAR+4,24% 24,0000% 32,17% 4,22% 28,22% jue, 19 nov FF Megabono Crédito 356 VDFA ARS $8.702.445.317 (23%; T+424; 42%) 4,44 249 27/07/2027 AAA (Fix SCR) Margen vie, 20 nov
-TAMAR+6,00% 24,0000% 32,79% 4,70% 28,70% jue, 19 nov FF Megabono Crédito 356 VDFB ARS $1.757.224.535 (25%; T+600; 50%) 9,68 341 27/10/2027 AA- (Fix SCR) Margen vie, 20 nov
-Px 100,01 - 5,07% - - jue, 19 nov FF Telluria I VDF USD Mep USD 7.200.000 5,00% 6,65 242 20/07/2027 A1+ (Fix SCR) Precio vie, 20 nov
-6,75% - 6,80% - - jue, 19 nov ON Pyme Garantizada Formaco I - USD Mep USD 300.000 6,75% 17,54 731 24/11/2028 SC Tasa mar, 24 nov
-8,00% - 8,24% - - jue, 19 nov ON INVAP - VII USD Mep USD 20.000.000 8,00% 22,17 1096 24/11/2029 A+ (Fix SCR) Tasa mar, 24 nov
-Letras de la Municipalidad de Godoy Cruz
-TAMAR+3,50% 24,0000% 31,20% 3,46% 27,46% jue, 19 nov IV - ARS $800.000.000 TAMAR+3,50% 1,12 34 29/12/2026 ML A-2 (Moody´s) Margen mié, 25 nov
-Garantizadas [Bono SVS]
+ON Banco BBVA Argentina (Integra en efectivo AAA (S&P
+4,75% - 4,81% - - mar, 24 nov - 51 USD Mep USD 50.497.286 4,75% 14,81 459 28/02/2028 Tasa jue, 26 nov
+y/o en especie) National Ratings)
+ON Pyme Garantizada Demoliciones Mitre
+TAMAR+1,95% 23,6875% 28,21% 1,42% 25,11% mar, 24 nov I - ARS $1.000.000.000 TAMAR+1,95% 17,55 732 27/11/2028 SC Margen jue, 26 nov
+[Bono SVS]
 Presentation Heading |
 Licita hoy
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-ON Banco BBVA Argentina (Integra en USD 20.000.000 (amp. h/ USD 20.000.000 (amp. h/ AAA (S&P National
-mar, 24 nov - 51 USD Mep A licitar 14,78 457 26/02/2028 Tasa jue, 26 nov
-efectivo y/o en especie) USD 80.000.000) USD 80.000.000) Ratings)
-ON Pyme Garantizada Demoliciones
-mar, 24 nov I $1.000.000.000 - ARS $1.000.000.000 TAMAR+Mg 17,55 731 26/11/2028 SC Margen jue, 26 nov
-Mitre [Bono SVS]
-Presentation Heading |
-Operaciones en Difusión
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -94,6 +40,7 @@ mié, 25 nov FF Cuotas Cencosud LXIII VDFA ARS $21.791.714.738 (20%; T+300; 40%)
 $24.134.909.807
 mié, 25 nov FF Cuotas Cencosud LXIII VDFB ARS $2.343.195.069 (20%; T+300; 40%) 8,32 267 20/08/2027 BB- (Fix SCR) Precio jue, 26 nov
 mié, 25 nov ON Pyme Garantizada Rosario Bus I $1.900.000.000 - ARS $1.900.000.000 TAMAR+Mg 13,15 731 27/11/2028 SC Margen vie, 27 nov
+Presentation Heading |
 Operaciones en Difusión
 STONEX
 Fecha de Duration Última Fecha de Tipo de Fecha de
@@ -117,3 +64,39 @@ AAA (Fix SCR) /
 jue, 26 nov ON VMOS Garantizada - (monto máximo disponible 1 Adicionales USD Mep USD 66.345.627 6,25% 40,65 1392 22/09/2030 Precio lun, 30 nov
 AAA (Moody´s)
 del Programa)
+Operaciones en Difusión
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+Letra del Tesoro Nacional
+jue, 26 nov S16F7 - ARS TEM a licitar 2,56 78 16/02/2027 SC TEM lun, 30 nov
+Capitalizable en Pesos [Nueva]
+Letra del Tesoro Nacional
+jue, 26 nov S16L7 - ARS TEM a licitar 7,50 228 16/07/2027 SC TEM lun, 30 nov
+Capitalizable en Pesos [Nueva]
+Bono del Tesoro Nacional Cero
+jue, 26 nov Cupón con Ajuste por CER TZXY7 - CER 0,00% 5,98 182 31/05/2027 SC Precio lun, 30 nov
+[Reapertura]
+Bono del Tesoro Nacional Cero
+jue, 26 nov Cupón con Ajuste por CER TZX28 - CER 0,00% 19,00 578 30/06/2028 SC Precio lun, 30 nov
+[Reapertura] Hasta el monto máximo Hasta el monto máximo
+autorizado por la normativa autorizado por la normativa
+vigente vigente
+Letra del Tesoro Nacional en Pesos a
+jue, 26 nov - - ARS TAMAR+Mg 5,29 161 10/05/2027 SC Margen lun, 30 nov
+Tasa TAMAR [Nueva]
+Bono del Tesoro Nacional en Pesos
+USD Linked /
+jue, 26 nov Dual Vinculado al Dólar / TAMAR TMVE8 - 0,00% / TAMAR+0,00% 14,04 427 31/01/2028 SC Precio lun, 30 nov
+ARS
+[Reapertura]
+Letra del Tesoro Nacional Cero Cupón
+jue, 26 nov D12M7 - USD Linked 0,00% 3,35 102 12/03/2027 SC Precio lun, 30 nov
+Vinculada al Dólar [Nueva]
+Letra del Tesoro Nacional Cero Cupón
+jue, 26 nov D10Y7 - USD Linked 0,00% 5,29 161 10/05/2027 SC Precio lun, 30 nov
+Vinculada al Dólar [Reapertura]
+(i) 25,3125% para el 1er servicio;
+jue, 26 nov FF VOII 5 $13.975.000.000 VDF ARS $13.975.000.000 (ii) (20%; T+100; 40%) para los 2,27 171 20/05/2027 AAA (S&P) Precio lun, 30 nov
+siguientes servicios
