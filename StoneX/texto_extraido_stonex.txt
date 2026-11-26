@@ -1,4 +1,4 @@
-25 de noviembre de 2026
+26 de noviembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,40 +8,23 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-ON Banco BBVA Argentina (Integra en efectivo AAA (S&P
-4,75% - 4,81% - - mar, 24 nov - 51 USD Mep USD 50.497.286 4,75% 14,81 459 28/02/2028 Tasa jue, 26 nov
-y/o en especie) National Ratings)
-ON Pyme Garantizada Demoliciones Mitre
-TAMAR+1,95% 23,6875% 28,21% 1,42% 25,11% mar, 24 nov I - ARS $1.000.000.000 TAMAR+1,95% 17,55 732 27/11/2028 SC Margen jue, 26 nov
-[Bono SVS]
+Px 98,55 23,7500% 29,02% 2,00% 25,75% mié, 25 nov FF Cuotas Cencosud LXIII VDFA ARS $21.791.714.738 (20%; T+300; 40%) 3,60 206 20/06/2027 AAA (Fix SCR) Precio jue, 26 nov
+Px 98,07 23,7500% 29,01% 1,99% 25,74% mié, 25 nov FF Cuotas Cencosud LXIII VDFB ARS $2.343.195.069 (20%; T+300; 40%) 8,33 267 20/08/2027 BB- (Fix SCR) Precio jue, 26 nov
+(i) 25,06% para el 1er servicio;
+Px 97,82 23,7500% 35,48% 7,00% 30,75% mié, 25 nov FF Waynimóvil XV VDFA ARS $3.765.908.000 (ii) (20%; T+100; 45%) para los siguientes 4,55 268 22/08/2027 A1 (Fix SCR) Precio vie, 27 nov
+servicios
+(i) 26,06% para el 1er servicio;
+Px 100,00 23,7500% 26,47% -0,04% 23,71% mié, 25 nov FF Waynimóvil XV VDFB ARS $724.823.000 (ii) (21%; T+200; 46%) para los siguientes 10,32 329 22/10/2027 BBB (Fix SCR) Precio vie, 27 nov
+servicios
+(i) 27,06% para el 1er servicio;
+Px 100,00 23,7500% 26,82% 0,24% 23,99% mié, 25 nov FF Waynimóvil XV VDFC ARS $312.579.000 (ii) (22%; T+300; 47%) para los siguientes 11,84 360 22/11/2027 BB (Fix SCR) Precio vie, 27 nov
+servicios
+7,50% - 7,71% - - mié, 25 nov ON Pyme Garantizada Gastaldi I I USD Mep USD 2.238.934 7,50% 22,45 912 27/05/2029 SC Tasa vie, 27 nov
+7,75% - 7,98% - - mié, 25 nov ON Pyme Garantizada Gastaldi I II USD Linked USD 1.705.000 7,75% 14,46 457 27/02/2028 SC Tasa vie, 27 nov
+TAMAR+3,50% 23,7500% 29,68% 2,53% 26,28% mié, 25 nov ON Pyme Garantizada Rosario Bus I - ARS $1.900.000.000 TAMAR+3,50% 13,27 731 27/11/2028 SC Margen vie, 27 nov
+9,00% - 9,31% - - mié, 25 nov ON Avalada Special Grains y Petroagro - IV USD Mep USD 8.060.628 9,00% 27,12 1096 27/11/2029 BBB+ (Moody´s) Tasa vie, 27 nov
 Presentation Heading |
 Licita hoy
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-mié, 25 nov ON Pyme Garantizada Gastaldi I I USD Mep A licitar 22,54 912 27/05/2029 SC Tasa vie, 27 nov
-USD 3.000.000 (amp. h/ USD 3.000.000 (amp. h/
-USD 5.500.000) USD 5.500.000)
-mié, 25 nov ON Pyme Garantizada Gastaldi I II USD Linked A licitar 14,59 457 27/02/2028 SC Tasa vie, 27 nov
-ON Avalada Special Grains y USD 5.000.000 (amp. h/ USD 5.000.000 (amp. h/
-mié, 25 nov - IV USD Mep A licitar 27,57 1096 27/11/2029 A informar Tasa vie, 27 nov
-Petroagro USD 10.000.000) USD 10.000.000)
-(i) 25,06% para el 1er servicio;
-mié, 25 nov FF Waynimóvil XV VDFA ARS $3.765.908.000 (ii) (20%; T+100; 45%) para los 4,60 268 22/08/2027 A1 (Fix SCR) Precio vie, 27 nov
-siguientes servicios
-(i) 26,06% para el 1er servicio;
-mié, 25 nov FF Waynimóvil XV $4.803.310.000 VDFB ARS $724.823.000 (ii) (21%; T+200; 46%) para los 10,30 329 22/10/2027 BBB (Fix SCR) Precio vie, 27 nov
-siguientes servicios
-(i) 27,06% para el 1er servicio;
-mié, 25 nov FF Waynimóvil XV VDFC ARS $312.579.000 (ii) (22%; T+300; 47%) para los 11,80 360 22/11/2027 BB (Fix SCR) Precio vie, 27 nov
-siguientes servicios
-mié, 25 nov FF Cuotas Cencosud LXIII VDFA ARS $21.791.714.738 (20%; T+300; 40%) 3,60 206 20/06/2027 AAA (Fix SCR) Precio jue, 26 nov
-$24.134.909.807
-mié, 25 nov FF Cuotas Cencosud LXIII VDFB ARS $2.343.195.069 (20%; T+300; 40%) 8,32 267 20/08/2027 BB- (Fix SCR) Precio jue, 26 nov
-mié, 25 nov ON Pyme Garantizada Rosario Bus I $1.900.000.000 - ARS $1.900.000.000 TAMAR+Mg 13,15 731 27/11/2028 SC Margen vie, 27 nov
-Presentation Heading |
-Operaciones en Difusión
 STONEX
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -64,7 +47,8 @@ AAA (Fix SCR) /
 jue, 26 nov ON VMOS Garantizada - (monto máximo disponible 1 Adicionales USD Mep USD 66.345.627 6,25% 40,65 1392 22/09/2030 Precio lun, 30 nov
 AAA (Moody´s)
 del Programa)
-Operaciones en Difusión
+Presentation Heading |
+Licita hoy
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -98,5 +82,20 @@ Letra del Tesoro Nacional Cero Cupón
 jue, 26 nov D10Y7 - USD Linked 0,00% 5,29 161 10/05/2027 SC Precio lun, 30 nov
 Vinculada al Dólar [Reapertura]
 (i) 25,3125% para el 1er servicio;
-jue, 26 nov FF VOII 5 $13.975.000.000 VDF ARS $13.975.000.000 (ii) (20%; T+100; 40%) para los 2,27 171 20/05/2027 AAA (S&P) Precio lun, 30 nov
+AAA (S&P National
+jue, 26 nov FF VOII 5 $13.975.000.000 VDF ARS $13.975.000.000 (ii) (20%; T+100; 40%) para los 2,27 171 20/05/2027 Precio lun, 30 nov
+Ratings)
 siguientes servicios
+Presentation Heading |
+Operaciones en Difusión
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+vie, 27 nov ON Pyme Garantizada Scuderia I $1.000.000.000 - ARS $1.000.000.000 TAMAR+Mg 16,50 731 01/12/2028 SC Margen mar, 1 dic
+$2.000.000.000 (amp. h/ $2.000.000.000 (amp. h/
+vie, 27 nov ON Pyme Garantizada C&C Medical's III - ARS TAMAR+Mg 16,49 731 30/11/2028 SC Margen lun, 30 nov
+$4.000.000.000) $4.000.000.000)
+Letras del Tesoro de la Provincia del $10.000.000.000 $10.000.000.000
+vie, 27 nov CXXV - ARS TAMAR+Mg 4,42 140 19/04/2027 ML B (Moody´s) Margen lun, 30 nov
+Chubut (ampliable) (ampliable)
