@@ -1,4 +1,4 @@
-26 de noviembre de 2026
+27 de noviembre de 2026
 Esteinformeseproveesolamenteparasuinformaciónynorepresentaunaofertaparacomprarovenderinstrumentos.Serecomiendaalosinteresadoscontactaralaentidadconlaqueoperan,oalaentidadqueleproveyóeste
 informe si desean más información. La información en este reporte se obtuvo de fuentes que StoneX Securities S.A. cree que sonconfiables, pero StoneX no garantiza que la información sea correcta o completa. Cualquier
 Presentation Heading | 1
@@ -8,86 +8,45 @@ Resultados
 Tasa Spread TNA30d - Fecha de Duration Maturity Última Fecha de Tipo de Fecha de
 Tasa / Precio de Corte TIR Proyectada TNA (30días) Emisión Serie Clase Moneda VN Cupón Calificación
 Tamar Tamar Licitación (Meses) (días) Pago Licitación Liquidación
-Px 98,55 23,7500% 29,02% 2,00% 25,75% mié, 25 nov FF Cuotas Cencosud LXIII VDFA ARS $21.791.714.738 (20%; T+300; 40%) 3,60 206 20/06/2027 AAA (Fix SCR) Precio jue, 26 nov
-Px 98,07 23,7500% 29,01% 1,99% 25,74% mié, 25 nov FF Cuotas Cencosud LXIII VDFB ARS $2.343.195.069 (20%; T+300; 40%) 8,33 267 20/08/2027 BB- (Fix SCR) Precio jue, 26 nov
-(i) 25,06% para el 1er servicio;
-Px 97,82 23,7500% 35,48% 7,00% 30,75% mié, 25 nov FF Waynimóvil XV VDFA ARS $3.765.908.000 (ii) (20%; T+100; 45%) para los siguientes 4,55 268 22/08/2027 A1 (Fix SCR) Precio vie, 27 nov
+TAMAR+7,00% 23,4375% 35,07% 7,00% 30,44% jue, 26 nov FF GOcréditos (PyME) 2 VDFA ARS $4.285.465.992 (23%; T+700; 43%) 4,70 304 27/09/2027 A1+ (Fix SCR) Margen vie, 27 nov
+TAMAR+10,00% 23,4375% 34,31% 6,43% 29,86% jue, 26 nov FF GOcréditos (PyME) 2 VDFB ARS $334.014.261 (30%; T+1000; 50%) 9,99 304 27/09/2027 A (Fix SCR) Margen vie, 27 nov
+Px 98,83 23,4375% 29,90% 3,01% 26,44% jue, 26 nov FF BST Leasing Pymes I VDFA ARS $14.000.000.000 (20%; T+100; 45%) 7,07 449 22/02/2028 AAA (Moody´s) Precio lun, 30 nov
+Px 100,00 23,4375% 24,79% -1,09% 22,35% jue, 26 nov FF BST Leasing Pymes I VDFB ARS $2.000.000.000 (21%; T+200; 46%) 16,86 539 22/05/2028 A (Moody´s) Precio lun, 30 nov
+TAMAR+4,00% 23,4375% 30,40% 3,40% 26,84% jue, 26 nov ON ICBC - X ARS $79.569.625.276 TAMAR+4,00% 10,89 364 26/11/2027 ML A-1 (Moody´s) Margen vie, 27 nov
+1 AAA (Fix SCR) /
+Px 98,66 - 7,19% - - jue, 26 nov ON VMOS Garantizada - USD Mep USD 66.345.627 6,25% 40,56 1392 22/09/2030 Precio lun, 30 nov
+Adicionales AAA (Moody´s)
+(i) 25,3125% para el 1er servicio;
+AAA (S&P
+Px 99,88 23,4375% 28,45% 1,86% 25,30% jue, 26 nov FF VOII 5 VDF ARS $13.975.000.000 (ii) (20%; T+100; 40%) para los siguientes 2,60 171 20/05/2027 Precio lun, 30 nov
+National Ratings)
 servicios
-(i) 26,06% para el 1er servicio;
-Px 100,00 23,7500% 26,47% -0,04% 23,71% mié, 25 nov FF Waynimóvil XV VDFB ARS $724.823.000 (ii) (21%; T+200; 46%) para los siguientes 10,32 329 22/10/2027 BBB (Fix SCR) Precio vie, 27 nov
-servicios
-(i) 27,06% para el 1er servicio;
-Px 100,00 23,7500% 26,82% 0,24% 23,99% mié, 25 nov FF Waynimóvil XV VDFC ARS $312.579.000 (ii) (22%; T+300; 47%) para los siguientes 11,84 360 22/11/2027 BB (Fix SCR) Precio vie, 27 nov
-servicios
-7,50% - 7,71% - - mié, 25 nov ON Pyme Garantizada Gastaldi I I USD Mep USD 2.238.934 7,50% 22,45 912 27/05/2029 SC Tasa vie, 27 nov
-7,75% - 7,98% - - mié, 25 nov ON Pyme Garantizada Gastaldi I II USD Linked USD 1.705.000 7,75% 14,46 457 27/02/2028 SC Tasa vie, 27 nov
-TAMAR+3,50% 23,7500% 29,68% 2,53% 26,28% mié, 25 nov ON Pyme Garantizada Rosario Bus I - ARS $1.900.000.000 TAMAR+3,50% 13,27 731 27/11/2028 SC Margen vie, 27 nov
-9,00% - 9,31% - - mié, 25 nov ON Avalada Special Grains y Petroagro - IV USD Mep USD 8.060.628 9,00% 27,12 1096 27/11/2029 BBB+ (Moody´s) Tasa vie, 27 nov
-Presentation Heading |
-Licita hoy
-STONEX
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-jue, 26 nov FF GOcréditos (PyME) 2 VDFA ARS $4.285.465.992 (23%; T+Mg; 43%) 4,77 304 27/09/2027 A1+ (Fix SCR) Margen vie, 27 nov
-$6.350.098.176
-jue, 26 nov FF GOcréditos (PyME) 2 VDFB ARS $334.014.261 (30%; T+Mg; 50%) 9,99 304 27/09/2027 A (Fix SCR) Margen vie, 27 nov
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-jue, 26 nov FF BST Leasing Pymes I VDFA ARS $14.000.000.000 (20%; T+100; 45%) 6,95 449 22/02/2028 AAA (Moody´s) Precio lun, 30 nov
-$19.980.000.000
-jue, 26 nov FF BST Leasing Pymes I VDFB ARS $2.000.000.000 (21%; T+200; 46%) 16,22 539 22/05/2028 A (Moody´s) Precio lun, 30 nov
-$50.000.000.000 (amp. h/ $50.000.000.000 (amp. h/
-jue, 26 nov ON ICBC - X ARS TAMAR+Mg 10,91 365 27/11/2027 ML A-1 (Moody´s) Margen vie, 27 nov
-monto máximo disponible) monto máximo disponible)
-Hasta USD 66.345.627
-AAA (Fix SCR) /
-jue, 26 nov ON VMOS Garantizada - (monto máximo disponible 1 Adicionales USD Mep USD 66.345.627 6,25% 40,65 1392 22/09/2030 Precio lun, 30 nov
-AAA (Moody´s)
-del Programa)
-Presentation Heading |
-Licita hoy
-OPERACIONES DE TERCEROS
-Fecha de Duration Última Fecha de Tipo de Fecha de
-Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
-Licitación (meses) Pago Licitación Liquidación
-Letra del Tesoro Nacional
-jue, 26 nov S16F7 - ARS TEM a licitar 2,56 78 16/02/2027 SC TEM lun, 30 nov
-Capitalizable en Pesos [Nueva]
-Letra del Tesoro Nacional
-jue, 26 nov S16L7 - ARS TEM a licitar 7,50 228 16/07/2027 SC TEM lun, 30 nov
-Capitalizable en Pesos [Nueva]
-Bono del Tesoro Nacional Cero
-jue, 26 nov Cupón con Ajuste por CER TZXY7 - CER 0,00% 5,98 182 31/05/2027 SC Precio lun, 30 nov
-[Reapertura]
-Bono del Tesoro Nacional Cero
-jue, 26 nov Cupón con Ajuste por CER TZX28 - CER 0,00% 19,00 578 30/06/2028 SC Precio lun, 30 nov
-[Reapertura] Hasta el monto máximo Hasta el monto máximo
-autorizado por la normativa autorizado por la normativa
-vigente vigente
-Letra del Tesoro Nacional en Pesos a
-jue, 26 nov - - ARS TAMAR+Mg 5,29 161 10/05/2027 SC Margen lun, 30 nov
-Tasa TAMAR [Nueva]
-Bono del Tesoro Nacional en Pesos
-USD Linked /
-jue, 26 nov Dual Vinculado al Dólar / TAMAR TMVE8 - 0,00% / TAMAR+0,00% 14,04 427 31/01/2028 SC Precio lun, 30 nov
-ARS
-[Reapertura]
+Letra del Tesoro Nacional Capitalizable en
+TEM 2,20% 23,4375% 29,84% 2,96% 26,40% jue, 26 nov S16F7 - ARS $7.000.000.000.000 TEM 2,20% 2,56 78 16/02/2027 SC TEM lun, 30 nov
+Pesos [Nueva]
+Letra del Tesoro Nacional Capitalizable en
+TEM 2,50% 23,4375% 34,49% 6,56% 30,00% jue, 26 nov S16L7 - ARS $3.795.267.000.000 TEM 2,50% 7,50 228 16/07/2027 SC TEM lun, 30 nov
+Pesos [Nueva]
+Bono del Tesoro Nacional Cero Cupón con
+Px 128,70 - 4,92% - - jue, 26 nov TZXY7 - CER $816.088.000.000 0,00% 5,98 182 31/05/2027 SC Precio lun, 30 nov
+Ajuste por CER [Reapertura]
+Bono del Tesoro Nacional Cero Cupón con
+Px 360,60 - 12,41% - - jue, 26 nov TZX28 - CER $1.585.952.000.000 0,00% 19,00 578 30/06/2028 SC Precio lun, 30 nov
+Ajuste por CER [Reapertura]
+Letra del Tesoro Nacional en Pesos a Tasa
+TAMAR+4,00% 23,4375% 31,43% 4,21% 27,64% jue, 26 nov M10Y7 - ARS $6.100.799.000.000 TAMAR+4,00% 5,29 161 10/05/2027 SC Margen lun, 30 nov
+TAMAR [Nueva]
+Bono del Tesoro Nacional en Pesos Dual USD Linked /
+Px 91,80 - 7,61% - - jue, 26 nov TMVE8 - USD 1.047.000.000 0,00% / TAMAR+0,00% 14,04 427 31/01/2028 SC Precio lun, 30 nov
+Vinculado al Dólar / TAMAR [Reapertura] ARS
 Letra del Tesoro Nacional Cero Cupón
-jue, 26 nov D12M7 - USD Linked 0,00% 3,35 102 12/03/2027 SC Precio lun, 30 nov
+Px 98,52 - 5,42% - - jue, 26 nov D12M7 - USD Linked USD 317.000.000 0,00% 3,35 102 12/03/2027 SC Precio lun, 30 nov
 Vinculada al Dólar [Nueva]
 Letra del Tesoro Nacional Cero Cupón
-jue, 26 nov D10Y7 - USD Linked 0,00% 5,29 161 10/05/2027 SC Precio lun, 30 nov
+Px 97,67 - 5,46% - - jue, 26 nov D10Y7 - USD Linked USD 636.000.000 0,00% 5,29 161 10/05/2027 SC Precio lun, 30 nov
 Vinculada al Dólar [Reapertura]
-(i) 25,3125% para el 1er servicio;
-AAA (S&P National
-jue, 26 nov FF VOII 5 $13.975.000.000 VDF ARS $13.975.000.000 (ii) (20%; T+100; 40%) para los 2,27 171 20/05/2027 Precio lun, 30 nov
-Ratings)
-siguientes servicios
 Presentation Heading |
-Operaciones en Difusión
+Licita hoy
 OPERACIONES DE TERCEROS
 Fecha de Duration Última Fecha de Tipo de Fecha de
 Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
@@ -99,3 +58,25 @@ $4.000.000.000) $4.000.000.000)
 Letras del Tesoro de la Provincia del $10.000.000.000 $10.000.000.000
 vie, 27 nov CXXV - ARS TAMAR+Mg 4,42 140 19/04/2027 ML B (Moody´s) Margen lun, 30 nov
 Chubut (ampliable) (ampliable)
+Presentation Heading |
+Operaciones en Difusión
+OPERACIONES DE TERCEROS
+Fecha de Duration Última Fecha de Tipo de Fecha de
+Emisión Serie VN Emisión Clase Moneda VN Cupón Maturity (días) Rating
+Licitación (meses) Pago Licitación Liquidación
+lun, 30 nov ON Crédito Directo - XXXII ARS TAMAR+Mg 8,93 365 01/12/2027 A informar Margen mar, 1 dic
+$7.000.000.000 (amp. h/ $7.000.000.000 (amp. h/
+monto máximo disponible) monto máximo disponible)
+lun, 30 nov ON Crédito Directo - XXXIII USD Mep A licitar 5,93 182 01/06/2027 A informar Tasa mar, 1 dic
+Hasta USD 8.294.586
+ON Hijos de Salvador Muñoz (Pyme)
+mar, 1 dic I V USD Mep (monto máximo de la Serie A licitar 22,84 731 04/12/2028 A informar Tasa vie, 4 dic
+(Integra únicamente en especie)
+I)
+USD 7.000.000 (amp. h/
+USD 15.000.000)
+USD 7.000.000 (amp. h/
+ON Hijos de Salvador Muñoz (Pyme)
+mar, 1 dic II V USD Mep USD 15.000.000) (en A licitar 22,84 731 04/12/2028 A informar Tasa vie, 4 dic
+(Integra en efectivo y/o en especie)
+conjunto con la Serie I)
